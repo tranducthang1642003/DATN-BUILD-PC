@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Blog\App\Http\Controllers;
+namespace Modules\Trangchinh\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class BlogController extends Controller
+class TrangchinhController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('resources.views.welcome');
+        return view('trangchinh::index');
     }
 
     /**
@@ -22,7 +22,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog::create');
+        return view('trangchinh::create');
     }
 
     /**
@@ -38,7 +38,7 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return view('blog::show');
+        return view('trangchinh::show');
     }
 
     /**
@@ -46,7 +46,7 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        return view('blog::edit');
+        return view('trangchinh::edit');
     }
 
     /**

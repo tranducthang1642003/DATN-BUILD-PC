@@ -1,0 +1,11 @@
+{
+    "name": "Trangchinh",
+    "alias": "trangchinh",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Trangchinh\\App\\Providers\\TrangchinhServiceProvider"
+    ],
+    "files": []
+}
