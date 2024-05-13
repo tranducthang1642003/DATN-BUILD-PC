@@ -1,3 +1,7 @@
 {
-    "Blog": true
+
+    "Blog": true,
+    "Admin": true,
+    "Cart": true
+
 }
