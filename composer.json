@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ayra/laravel-themes": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
+        "hexadog/laravel-themes-manager": "*",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
@@ -65,7 +67,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "hexadog/laravel-theme-installer": true
         }
     },
     "minimum-stability": "stable",
