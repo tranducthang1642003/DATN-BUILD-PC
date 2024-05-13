@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/trangchu",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Trangchu\\": "",
+            "Modules\\Trangchu\\App\\": "app/",
+            "Modules\\Trangchu\\Database\\Factories\\": "database/factories/",
+            "Modules\\Trangchu\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Trangchu\\Tests\\": "tests/"
+        }
+    }
+}
