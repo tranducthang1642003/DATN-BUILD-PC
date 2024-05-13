@@ -1,9 +1,6 @@
 {
     "Blog": true,
-<<<<<<< HEAD
-    "Trangchinh": true
-=======
+    "Trangchinh": true,
     "Admin": true,
     "Abc": true
->>>>>>> beaed71bdb97620e9124b57a26add67a8da02c0b
 }

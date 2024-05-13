@@ -14,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('resources.views.welcome');
+        return view('blog::index');
     }
 
     /**
