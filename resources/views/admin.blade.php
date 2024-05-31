@@ -1,4 +1,4 @@
-@extends('admin::layouts.navbar')
+@extends('resources::layout.admin')
 
 @section('content')
 <h1 class="mt-6 font-bold text-2xl">This month</h1>
