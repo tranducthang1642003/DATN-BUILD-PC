@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Blog\App\Http\Controllers;
+namespace Modules\Home\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class BlogController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog::create');
+        return view('home::create');
     }
 
     /**
@@ -38,7 +38,7 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return view('blog::show');
+        return view('home::show');
     }
 
     /**
@@ -46,7 +46,7 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        return view('blog::edit');
+        return view('home::edit');
     }
 
     /**

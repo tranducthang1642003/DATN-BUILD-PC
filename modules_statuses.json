@@ -2,5 +2,6 @@
     "Blog": true,
     "Admin": true,
     "Cart": true,
-    "Trangchu": true
+    "Posts": true,
+    "Home": true
 }
