@@ -3,20 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  @vite('resources/css/app.css')
 </head>
 <body>
-  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-    <div class="md:flex">
-      <div class="md:shrink-0">
-        <img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/building.jpg" alt="Modern building architecture">
+    <div class="bg-blue-200 p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <img src="/path/to/logo.png" alt="Logo" class="h-6 w-6"/>
+          <span class="text-sm text-gray-700">BỘ PHẬN HỖ TRỢ NGƯỜI DÙNG</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <input type="text" placeholder="Tìm kiếm công việc" class="border p-2 rounded"/>
+          <button class="p-2 rounded bg-blue-500 text-white">Tìm kiếm</button>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button class="p-2 rounded bg-blue-500 text-white">Cài đặt</button>
+          <button class="p-2 rounded bg-blue-500 text-white">Tài khoản</button>
+        </div>
       </div>
-      <div class="p-8">
-        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Company retreats</div>
-        <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Incredible accommodation for your team</a>
-        <p class="mt-2 text-slate-500">Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of places to do just that.</p>
-      </div>
-    </div>
-  </div>
+      
 </body>
 </html>

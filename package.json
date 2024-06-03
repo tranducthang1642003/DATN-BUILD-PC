@@ -13,6 +13,7 @@
     "laravel-vite-plugin": "^1.0.0",
     "node-sass": "^9.0.0",
     "postcss": "^8.4.38",
+    "postcss-nesting": "^12.1.5",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.77.4",
     "sass-loader": "^14.2.1",
