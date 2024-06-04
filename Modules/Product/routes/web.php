@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Admin\App\Http\Controllers\AdminController;
+use Modules\Product\App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +15,5 @@ use Modules\Admin\App\Http\Controllers\AdminController;
 */
 
 Route::group([], function () {
-    Route::resource('admin', AdminController::class)->names('admin');
-    Route::resource('admin/product', AdminController::class)->names('product');
+    Route::resource('product', ProductController::class)->names('product');
 });

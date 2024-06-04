@@ -1,28 +1,28 @@
 <?php
 
-namespace Modules\Admin\App\Http\Controllers;
+namespace Modules\Product\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class AdminController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.dashboard');
+        return view('public.product');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function product()
+    public function create()
     {
-        return view('admin.product');
+        return view('product::create');
     }
 
     /**
@@ -38,7 +38,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        return view('admin.product');
+        return view('product::show');
     }
 
     /**
@@ -46,7 +46,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        return view('product::edit');
     }
 
     /**
