@@ -1,0 +1,23 @@
+.button_sidebar{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 30px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.button_active {
+    background-color: goldenrod;
+    color: white;
+}
+.icon_sidebar {
+    margin-right: 20px;
+    margin-left: 50px;
+    font-size: xx-large;
+}
+.card_dashboard {
+    height: 160px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 4px gray ;
+}
