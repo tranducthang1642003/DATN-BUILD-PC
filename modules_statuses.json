@@ -3,5 +3,6 @@
     "Admin": true,
     "Cart": true,
     "Posts": true,
-    "Home": true
+    "Home": true,
+    "Auth": true
 }
