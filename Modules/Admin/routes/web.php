@@ -16,4 +16,5 @@ use Modules\Admin\App\Http\Controllers\AdminController;
 
 Route::group([], function () {
     Route::resource('admin', AdminController::class)->names('admin');
+    Route::resource('admin/product', AdminController::class)->names('product');
 });
