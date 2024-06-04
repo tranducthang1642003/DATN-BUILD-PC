@@ -14,15 +14,15 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin::index');
+        return view('admin.dashboard');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function product()
     {
-        return view('admin::create');
+        return view('admin.product');
     }
 
     /**
@@ -38,7 +38,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        return view('admin::show');
+        return view('admin.product');
     }
 
     /**
