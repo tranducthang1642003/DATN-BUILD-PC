@@ -4,5 +4,5 @@
     "Cart": true,
     "Posts": true,
     "Home": true,
-    "Auth": true
+    "Product": true
 }
