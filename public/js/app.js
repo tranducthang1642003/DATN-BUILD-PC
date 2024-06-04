@@ -13769,14 +13769,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
 /* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
-=======
-<<<<<<< HEAD
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './bootstrap'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-=======
->>>>>>> 9ff2582e15e3bfcc4271658fd06855fd52ad4ca7
->>>>>>> 56da0a59b7b254cb2ada981fef21be263e1a2d88
 
 $('.one-time').slick({
   dots: true,
