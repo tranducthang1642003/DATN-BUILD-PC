@@ -13769,18 +13769,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './bootstrap'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-=======
->>>>>>> 9ff2582e15e3bfcc4271658fd06855fd52ad4ca7
-=======
 /* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
->>>>>>> 0d8b14791c6292712003a5cbb9e42fd0f26897b5
-=======
-/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
->>>>>>> 468e2e34128a37c2a2b3b362f700545cce6d6ff8
 
 $('.one-time').slick({
   dots: true,

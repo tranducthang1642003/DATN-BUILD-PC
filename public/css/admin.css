@@ -6,14 +6,43 @@
     border-radius: 5px;
 }
 
-.button_active {
-    background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
-    color: white;
+.button_sidebar:hover {
+    background-color: cornflowerblue;
+    color: aliceblue;
 }
 
+.icon_count {
+    background-color: rgb(228, 183, 88);
+    color: aliceblue;
+    font-size: x-small;
+    border-radius: 3px;
+    width: 15px;
+    height: 15px;
+}
+
+.button_selected {
+    display: inline-block;
+    background-color: aliceblue;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid gray;
+    margin: 5px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.button_selected ion-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+
+
 .icon_sidebar {
-    margin-right: 20px;
-    margin-left: 10%;
+    font-size: larger;
+    margin: 0 10px 0 20px;
 }
 
 .card_dashboard {

@@ -14,7 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        return view('admin.dashboard.dashboard');
     }
 
     /**
@@ -22,15 +22,12 @@ class AdminController extends Controller
      */
     public function product()
     {
-        return view('admin.product');
+        return view('admin.product.product');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
+    public function add_product()
     {
-        //
+        return view('admin.product.add');
     }
 
     /**
@@ -38,7 +35,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        return view('admin.product');
+        return view('admin.product.product');
     }
 
     /**
@@ -46,16 +43,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        return view('admin::product.add');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
