@@ -15,6 +15,10 @@ use Modules\Admin\App\Http\Controllers\AdminController;
 */
 
 Route::group([], function () {
-    Route::resource('admin', AdminController::class)->names('admin');
-    Route::resource('admin/product', AdminController::class)->names('product');
+    Route::get('admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('admin/product', [AdminController::class, 'product'])->name('product');
+    Route::get('admin/product/add', [AdminController::class, 'add_product'])->name('add_product');
+    Route::get('admin/product/{id}', [AdminController::class, 'show'])->name('show_product');
+    Route::get('admin/product/{id}/edit', [AdminController::class, 'edit'])->name('edit_product');
+    Route::delete('admin/product/{id}', [AdminController::class, 'destroy'])->name('delete_product');
 });

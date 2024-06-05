@@ -31,9 +31,9 @@
                 <img src="{{ asset('image/logo.svg') }}" alt="">
             </div>
             <div>
-                <button class="button_sidebar button_active"><ion-icon class="icon_sidebar" name="logo-microsoft"></ion-icon><a href="../../admin">Dashboard</a></button>
-                <button class="button_sidebar"><ion-icon class="icon_sidebar" name="bag"></ion-icon><a href="../../admin/product">Products</a></button>
-                <button class="button_sidebar"><ion-icon class="icon_sidebar" name="cube"></ion-icon>Categories</button>
+                <a href="../../admin"><button class="button_sidebar dashboard_active"><ion-icon class="icon_sidebar" name="logo-microsoft"></ion-icon>Dashboard</button></a>
+                <a href="../../admin/product"><button class="button_sidebar products_active"><ion-icon class="icon_sidebar" name="bag"></ion-icon>Products</button></a>
+                <a href="../../admin"><button class="button_sidebar categories_active"><ion-icon class="icon_sidebar" name="cube"></ion-icon>Categories</button></a>
                 <button class="button_sidebar"><ion-icon class="icon_sidebar" name="document-text"></ion-icon>Orders</button>
                 <button class="button_sidebar"><ion-icon class="icon_sidebar" name="person"></ion-icon>Customers</button>
                 <button class="button_sidebar"><ion-icon class="icon_sidebar" name="layers"></ion-icon>Posts</button>
