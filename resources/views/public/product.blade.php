@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body>
@@ -99,13 +99,12 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="box-filter-product">
-                <div class="info-filter-product">
+            <div class="box-filter-product border mt-3 rounded-lg">
+                <div class="info-filter-product p-2">
                     <p class="title">Khoảng giá:</p>
                     <div class="flex list-filter-product">
                         <div class="item">
@@ -138,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="info-filter-product">
+                <div class="info-filter-product p-2">
                     <p class="title">Chọn theo thương hiệu:</p>
                     <div class="flex list-filter-product">
                         <div class="item">
@@ -173,7 +172,7 @@
                 </div>
             </div>
             <div class="box-list-product">
-                <div class="box-sort-product">
+                <div class="box-sort-product p-2">
                     <div>
                         <a href="">
                             <span>Giá tăng dần</span>
@@ -193,63 +192,80 @@
                     </div>
                 </div>
                 <div class="list-product">
-                    <div class="product-item">
-                        <div class="product-img">
-                            <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                        </div>
-                        <div class="product-info">
-                            <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                            <div>
-                                <p class="product-price">7.500.000</p>
-                                <div class="product-percent-price">
-                                    25%
+                    <div class="grid grid-cols-5 gap-5 p-3">
+                        <div class="product-item bg-white shadow-lg">
+                            <div class="product-img">
+                                <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                            </div>
+                            <div class="product-info p-3">
+                                <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
+                                <div>
+                                    <p class="product-price">7.500.000</p>
+                                    <div class="product-percent-price">
+                                        25%
+                                    </div>
+                                    <div>6.000.000đ</div>
                                 </div>
-                                <div>6.000.000đ</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="product-img">
-                            <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                        </div>
-                        <div class="product-info">
-                            <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                            <div>
-                                <p class="product-price">7.500.000</p>
-                                <div class="product-percent-price">
-                                    25%
+                        <div class="product-item bg-white shadow-lg">
+                            <div class="product-img">
+                                <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                            </div>
+                            <div class="product-info p-3">
+                                <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
+                                <div>
+                                    <p class="product-price">7.500.000</p>
+                                    <div class="product-percent-price">
+                                        25%
+                                    </div>
+                                    <div>6.000.000đ</div>
                                 </div>
-                                <div>6.000.000đ</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="product-img">
-                            <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                        </div>
-                        <div class="product-info">
-                            <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                            <div>
-                                <p class="product-price">7.500.000</p>
-                                <div class="product-percent-price">
-                                    25%
+                        <div class="product-item bg-white shadow-lg ">
+                            <div class="product-img">
+                                <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                            </div>
+                            <div class="product-info p-3">
+                                <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
+                                <div>
+                                    <p class="product-price">7.500.000</p>
+                                    <div class="product-percent-price">
+                                        25%
+                                    </div>
+                                    <div>6.000.000đ</div>
                                 </div>
-                                <div>6.000.000đ</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="product-img">
-                            <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                        </div>
-                        <div class="product-info">
-                            <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                            <div>
-                                <p class="product-price">7.500.000</p>
-                                <div class="product-percent-price">
-                                    25%
+                        <div class="product-item bg-white shadow-lg">
+                            <div class="product-img">
+                                <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                            </div>
+                            <div class="product-info p-3">
+                                <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
+                                <div>
+                                    <p class="product-price">7.500.000</p>
+                                    <div class="product-percent-price">
+                                        25%
+                                    </div>
+                                    <div>6.000.000đ</div>
                                 </div>
-                                <div>6.000.000đ</div>
+                            </div>
+                        </div>
+                        <div class="product-item bg-white shadow-lg">
+                            <div class="product-img">
+                                <a href=""> <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                            </div>
+                            <div class="product-info p-3">
+                                <a href=""> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
+                                <div>
+                                    <p class="product-price">7.500.000</p>
+                                    <div class="product-percent-price">
+                                        25%
+                                    </div>
+                                    <div>6.000.000đ</div>
+                                </div>
                             </div>
                         </div>
                     </div>
