@@ -78,8 +78,11 @@
                 <div class="nav__menu  md:flex space-x-6 text-gray-700">
                     <ul class="flex space-x-6">
                         <li class="hover:text-blue-500 border-solid border-2 border-indigo-600 divide-x w-60 h-10x` flex items-center justify-center bg-white">DANH MỤC SẢN PHẨM</a></li>
-                        <li class="hover:text-blue-500"> <img src="{{ asset('image/pc.png') }}"
-                            alt=""> <a href="#">PC</a></li>
+                        <li class="hover:text-blue-500 flex items-center">
+                            <img src="{{ asset('image/pc.png') }}" alt="" class="mr-2">
+                            <a href="#" class="ml-2">PC</a>
+                        </li>
+                        
                         <li class="hover:text-blue-500"><a href="#">PC Al</a></li>
                         <li class="hover:text-blue-500"><a href="#">LINH KIỆN PC</a></li>
                         <li class="hover:text-blue-500"><a href="#">MÀN HÌNH </a></li>
