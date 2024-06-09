@@ -1,3 +1,9 @@
+<style>
+    .dashboard_active {
+        background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
+        color: white;
+    }
+</style>
 @include('admin.layout.header')
 <div class="col-span-10 p-5">
     <h1 class=" font-bold text-xl">This month</h1>

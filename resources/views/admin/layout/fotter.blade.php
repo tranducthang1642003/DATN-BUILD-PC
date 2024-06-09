@@ -1,10 +1,8 @@
 </div>
 
 <script>
-    // Lấy thẻ canvas
     var ctx = document.getElementById('myChart').getContext('2d');
 
-    // Dữ liệu cho biểu đồ
     var data = {
         labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12', '13', '14', '15', '16', '17', '18', '19', '20', '21',
@@ -25,7 +23,6 @@
         }]
     };
 
-    // Cấu hình biểu đồ
     var config = {
         type: 'bar',
         data: data,
@@ -38,7 +35,6 @@
         }
     };
 
-    // Tạo biểu đồ mới
     var myChart = new Chart(ctx, config);
 </script>
 </body>

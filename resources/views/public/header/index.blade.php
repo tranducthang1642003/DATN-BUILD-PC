@@ -20,8 +20,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -31,36 +34,48 @@
             <img src="{{ asset('image/banner.webp') }}" alt="">
         </div>
         <section class="site-nav bg-sky-500 shadow">
-            <div class="nav__container max-w-screen-2xl mx-auto h-20 flex items-center justify-between px-16">
+            <div
+                class="nav__container max-w-screen-2xl mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
                 <div class="nav__logo">
                     <img src="{{ asset('image/logo.png') }}" alt="Logo" class="h-12">
                 </div>
-                <div class="nav__search flex-grow mx-6">
+                <div class="nav__search flex-grow mx-4 md:mx-6 lg:mx-8 xl:mx-10">
                     <div class="search__wrapper relative w-auto">
                         <input type="text"
-                            class="search__input w-full p-3 pl-10 pr-4 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            class="search__input w-full p-2 md:p-3 lg:p-4 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                             placeholder="Search...">
-                        <div class="search__icon absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            {{-- <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 2l2 2m4 0l2 2M8 8l2 2M8 2l2 2M2 8l2 2"></path>
-                      </svg> --}}
+                        <div
+                            class="search__icon absolute inset-y-0 left-0 pl-2 md:pl-3 lg:pl-4 flex items-center pointer-events-none">
+                           
                         </div>
                     </div>
                 </div>
-                <div class="nav__menu hidden md:flex space-x-6 text-gray-700">
-                    <ul class="flex space-x-6">
-                        <li class="menu__item menu__item--white flex items-center flex-col "><img src="{{ asset('image/pc.png') }}"
-                            alt=""><a href="#">Xây dựng cấu hình </a></li>
-                        <li class="menu__item menu__item--white flex items-center flex-col "><img src="{{ asset('image/pc.png') }}"
-                                alt=""><a href="#">Khách hàng liên hệ</a></li>
-                        <li class="menu__item menu__item--white flex items-center flex-col"><img src="{{ asset('image/pc.png') }}"
-                                alt=""><a href="#">Tin tức công nghệ</a></li>
-                        <li class="menu__item menu__item--white flex items-center flex-col"><img src="{{ asset('image/pc.png') }}"
-                                alt=""><a href="#">Theo dõi đơn hàng</a></li>
-                        <li class="menu__item menu__item--white flex items-center flex-col"><img src="{{ asset('image/pc.png') }}"
-                                alt=""><a href="#">Giỏ hàng</a></li>
-                        <li class="menu__item menu__item--white flex items-center flex-col"><img src="{{ asset('image/pc.png') }}"
-                                alt=""><a href="#">Tài khoản</a></li>
+                <div class="nav__menu hidden md:flex space-x-4 lg:space-x-6 text-gray-700">
+                    <ul class="flex space-x-4 lg:space-x-6 text-white	">
+                        <li class="menu__item menu__item--white flex items-center flex-col ">
+                            <i class="fa-solid fa-layer-group text-xl" style="color: #ffffff;"></i>
+                            <a href="#">Xây dựng cấu hình</a>
+                        </li>
+                        <li class="menu__item menu__item--white flex items-center flex-col ">
+                            <i class="fa-solid fa-phone text-xl" style="color: #ffffff;"></i>
+                            <a href="#">Khách hàng liên hệ</a>
+                        </li>
+                        <li class="menu__item menu__item--white flex items-center flex-col">
+                            <i class="fa-solid fa-receipt text-xl" style="color: #ffffff;"></i>
+                            <a href="#">Tin tức công nghệ</a>
+                        </li>
+                        <li class="menu__item menu__item--white flex items-center flex-col">
+                            <i class="fa-solid fa-person-chalkboard text-xl " style="color: #ffffff;"></i>
+                            <a href="#">Theo dõi đơn hàng</a>
+                        </li>
+                        <li class="menu__item menu__item--white flex items-center flex-col">
+                            <i class="fa-solid fa-cart-shopping text-xl" style="color: #ffffff;"></i>
+                            <a href="#">Giỏ hàng</a>
+                        </li>
+                        <li class="menu__item menu__item--white flex items-center flex-col">
+                            <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
+                            <a href="#">Tài khoản</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="md:hidden">
@@ -74,38 +89,62 @@
                 </div>
             </div>
         </section>
-        <section class="bg-sky-600">
+        {{-- menu mobile --}}
+        <section>
+            <div id="mobile-menu" class="hidden md:hidden">
+                <ul class="flex flex-col space-y-2 text-gray-700 px-6">
+                    <li class="hover:text-blue-500"><img src="" alt=""><a href="#">Xây dựng cấu
+                            hình</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Khách hàng liên hệ</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Tin tức công nghệ</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Theo dõi đơn hàng</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Giỏ hàng</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Tài khoản</a></li>
+                </ul>
+            </div>
+        </section>
+        {{-- menu --}}
+        <section class="bg-sky-600" style="overflow-x: auto;white-space: nowrap;width: 100%;">
             <div class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-16">
-                <div class="nav__menu  md:flex space-x-6 text-gray-700">
-                    <ul class="flex space-x-6">
-                        <li class="hover:text-blue-500 border-solid border-2 border-indigo-600 divide-x w-60 h-10x` flex items-center justify-center bg-white">DANH MỤC SẢN PHẨM</a></li>
-                        <li class="hover:text-blue-500"> <img src="{{ asset('image/pc.png') }}"
-                            alt=""> <a href="#">PC</a></li>
-                        <li class="hover:text-blue-500"><a href="#">PC Al</a></li>
-                        <li class="hover:text-blue-500"><a href="#">LINH KIỆN PC</a></li>
-                        <li class="hover:text-blue-500"><a href="#">MÀN HÌNH </a></li>
-                        <li class="hover:text-blue-500"><a href="#">LAPTOP</a></li>
-                        <li class="hover:text-blue-500"><a href="#">THIẾT BỊ VĂN PHÒNG</a></li>
-                        <li class="hover:text-blue-500"><a href="#">PHÍM CHUỘT GHẾ GAMEMING</a></li>
+                <div class="nav__menu  md:flex space-x-6 text-gray-700 ">
+                    <ul class="flex space-x-6 text-white">
+                        <li class=" border-solid  divide-x w-60 h-10 rounded-md	 flex items-center justify-center bg-white text-black	">
+                            <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+                            <a href="" class="mr-2">DANH MỤC SẢN PHẨM</a>
+                        </li>
+                        <li class="hover:text-blue-500 flex items-center">
+                            <i class="fa-solid fa-computer mr-2" style="color: #ffffff;"></i>
+                            <a href="#"class="mr-2 ">PC GAMEMING</a>
+                        </li>
+                        <li class="hover:text-blue-500  flex items-center">
+                            <i class="fa-brands fa-windows mr-2" style="color: #ffffff;"></i>
+                            <a href="#"class="mr-2">PC VĂN PHÒNG</a>
+                        </li>
+                        <li class="hover:text-blue-500  flex items-center">
+                            <i class="fa-solid fa-screwdriver-wrench  mr-2" style="color: #ffffff;"></i>
+                            <a href="#"class="mr-2">LINH KIỆN PC</a>
+                        </li>
+                        <li class="hover:text-blue-500 flex items-center">
+                            <i class="fa-solid fa-desktop  mr-2 " style="color: #ffffff;"></i>
+                            <a href="#" class=" mr-2">MÀN HÌNH </a>
+                        </li>
+                        <li class="hover:text-blue-500 flex items-center">
+                            <i class="fa-solid fa-laptop mr-2" style="color: #ffffff;"></i>
+                            <a href="#" class="mr-2">LAPTOP</a>
+                        </li>
+                        <li class="hover:text-blue-500 flex items-center">
+                            <i class="fa-solid fa-chalkboard  mr-2 " style="color: #ffffff;"></i>
+                            <a href="#" class=" mr-2 ">THIẾT BỊ VĂN PHÒNG</a>
+                        </li>
+                        <li class="hover:text-blue-500 flex items-center">
+                            <i class="fa-brands fa-uncharted mr-2 " style="color: #ffffff;"></i>
+                            <a href="#" class="mr-2 ">PHÍM CHUỘT GHẾ GAMEMING</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
-    </section>
-    <div id="mobile-menu" class="hidden md:hidden">
-        <ul class="flex flex-col space-y-2 text-gray-700 px-6">
-            <li class="hover:text-blue-500"><img src="" alt=""><a href="#">Xây dựng cấu
-                    hình</a></li>
-            <li class="hover:text-blue-500"><a href="#">Khách hàng liên hệ</a></li>
-            <li class="hover:text-blue-500"><a href="#">Tin tức công nghệ</a></li>
-            <li class="hover:text-blue-500"><a href="#">Theo dõi đơn hàng</a></li>
-            <li class="hover:text-blue-500"><a href="#">Giỏ hàng</a></li>
-            <li class="hover:text-blue-500"><a href="#">Tài khoản</a></li>
-        </ul>
-    </div>
-    </section>
 </body>
-
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
