@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Thực hiện các di cư.
      */
     public function up(): void
     {
@@ -15,16 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('url_image');
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreignId('brand_id')->constrained();
-            $table->foreignId('product_id')->constrained();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('images');
