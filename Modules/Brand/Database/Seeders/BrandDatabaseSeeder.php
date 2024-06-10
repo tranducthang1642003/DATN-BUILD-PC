@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\Product\Database\Seeders;
+namespace Modules\Brand\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class ProductDatabaseSeeder extends Seeder
+class BrandDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->call(ProductSeeder::class);
+        $this->call(BrandSeeder::class);
     }
 }
