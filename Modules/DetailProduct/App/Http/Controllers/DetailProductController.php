@@ -1,21 +1,20 @@
 <?php
 
-namespace Modules\Product\App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+namespace Modules\DetailProduct\App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ProductController extends Controller
+class DetailProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $product = DB::table('products')->limit(20)->get();
-        return view('public.product.product', ['product' => $product]);
+        return view('public.product.detail-product');
     }
 
     /**
@@ -23,7 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product::create');
+        return view('detailproduct::create');
     }
 
     /**
@@ -39,7 +38,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('product::show');
+        return view('detailproduct::show');
     }
 
     /**
@@ -47,7 +46,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('product::edit');
+        return view('detailproduct::edit');
     }
 
     /**

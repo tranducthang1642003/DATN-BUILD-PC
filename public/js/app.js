@@ -13771,12 +13771,38 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
 
-$('.one-time').slick({
+$(".one-time").slick({
   dots: true,
   infinite: true,
   speed: 300,
   slidesToShow: 1,
   adaptiveHeight: true
+});
+var quantity = 0;
+document.getElementById("increment").addEventListener("click", function () {
+  quantity++;
+  document.getElementById("quantity").innerText = quantity;
+});
+document.getElementById("decrement").addEventListener("click", function () {
+  if (quantity > 0) {
+    quantity--;
+    document.getElementById("quantity").innerText = quantity;
+  }
+});
+// Script to change star color on click
+document.querySelectorAll('input[name="rating"]').forEach(function (input) {
+  input.addEventListener("change", function () {
+    var rating = input.value;
+    document.querySelectorAll('label[for^="star"]').forEach(function (label, index) {
+      if (index < rating) {
+        label.classList.add("text-yellow-500");
+        label.classList.remove("text-gray-300");
+      } else {
+        label.classList.add("text-gray-300");
+        label.classList.remove("text-yellow-500");
+      }
+    });
+  });
 });
 
 /***/ })
