@@ -355,32 +355,32 @@
         <div class="product__box-filter border mt-3 rounded-lg">
             <div class="info-filter-product p-2">
                 <p class="title mb-2">Khoảng giá:</p>
-                <div class="flex flex-col sm:flex-row flex-wrap -mx-2 list-filter-product">
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                <div class="flex list-filter-product">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">1 triệu - 2 triệu</a>
                         <a href="">(12)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">2 triệu - 5 triệu</a>
                         <a href="">(122)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">5 triệu - 7 triệu</a>
                         <a href="">(48)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">7 triệu - 10 triệu</a>
                         <a href="">(37)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">10 triệu - 15 triệu</a>
                         <a href="">(26)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">15 triệu - 20 triệu</a>
                         <a href="">(9)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">20 triệu - 50 triệu</a>
                         <a href="">(21)</a>
                     </div>
@@ -388,32 +388,32 @@
             </div>
             <div class="product__info-filter p-2">
                 <p class="title mb-2">Chọn theo thương hiệu:</p>
-                <div class="flex flex-col sm:flex-row flex-wrap -mx-2 list-filter-product">
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500 ">
+                <div class="flex list-filter-product">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500 ">
                         <a href="">ASUS</a>
                         <a href="">(12)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">ASUS</a>
                         <a href="">(122)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">ASUS</a>
                         <a href="">(48)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">ASUS</a>
                         <a href="">(37)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">ASUS</a>
                         <a href="">(26)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">ASUS</a>
                         <a href="">(9)</a>
                     </div>
-                    <div class="item sm:w-1/2 lg:w-1/3 px-2 mb-4 border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <div class="item border bg-slate-100 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         <a href="">ASUS</a>
                         <a href="">(21)</a>
                     </div>
