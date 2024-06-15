@@ -1,114 +1,112 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"
-        integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
-        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"
-        integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
-        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-<footer class="bg-white dark:bg-gray-900">
-    <div class="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
-        <div class="md:flex md:justify-between">
-          <div class="mb-6 md:mb-0">
-              <a href="" class="flex items-center">
-                  <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Liên hệ</span>
-              </a>
+<div class="mt-8 bg-cyan-500 pt-9">
+    <div class="mx-auto w-full max-w-[1166px] px-4 xl:px-0">
+      <div class="flex flex-col justify-between sm:px-[18px] md:flex-row md:px-10">
+        <div class="md:w-[316px]">
+          <p class="text-[18px] font-medium text-white">
+          <h1 class="text-white font-extrabold">
+            <span class="text-rose-600">YOUR</span>LOGO
+          </h1>
+          </p>
+          <p class="mt-[18px] text-[15px] font-normal text-white/[80%]">Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Eos, fugit non. Incidunt dolorum adipisci, tempore asperiores nemo odio facere officiis enim animi
+            placeat eaque nesciunt alias beatae id, at dicta.</p>
+          <div class="mt-[18px] flex gap-4">
+            <a class="hover:scale-110" target="_blank"
+              href="#"><img alt="facebook icon" loading="lazy" width="36" height="36" decoding="async" data-nimg="1" style="color:transparent" src="https://www.englishyaari.com/img/facebook.svg" /></a><a
+              class="hover:scale-110" target="_blank"
+              href="/"><img alt="linkdin icon" loading="lazy" width="36" height="36" decoding="async" data-nimg="1" style="color:transparent" src="https://www.englishyaari.com/img/linkdin.svg" /></a><a
+              class="hover:scale-110" target="_blank"
+              href="/"><img alt="instagram icon" loading="lazy" width="36" height="36" decoding="async" data-nimg="1" style="color:transparent" src="https://www.englishyaari.com/img/instagram1.svg" /></a><a
+              class="hover:scale-110" target="_blank"
+              href=""><img alt="twitter icon" loading="lazy" width="36" height="36" decoding="async" data-nimg="1" style="color:transparent" src="https://www.englishyaari.com/img/twitter.svg" /></a><a
+              class="hover:scale-110" target="_blank"
+              href="https://www.youtube.com/"><img alt="youtube icon" loading="lazy" width="36" height="36" decoding="async" data-nimg="1" style="color:transparent" src="https://www.englishyaari.com/img/youtube.svg" /></a>
           </div>
-          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-              <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Chính sách</h2>
-                  <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                      <li class="mb-4">
-                          <a href="https://flowbite.com/" class="hover:underline">Hỗ Trợ</a>
-                      </li>
-                      <li>
-                          <a href="https://tailwindcss.com/" class="hover:underline"></a>
-                      </li>
-                  </ul>
-              </div>
-              <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Hỗ Trợ</h2>
-                  <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                      
-                  </ul>
-              </div>
-              <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">newsletter</h2>
-                  <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                      <li class="mb-4">
-                          <a href="#" class="hover:underline">Privacy Policy</a>
-                      </li>
-                      <li>
-                          <a href="#" class="hover:underline">Terms &amp; Conditions</a>
-                      </li>
-                  </ul>
-              </div>
+        </div>
+        <div class="md:w-[316px]">
+          <div class="mt-[23px] flex">
+            <div class="flex h-[38px] w-[38px] items-center justify-center rounded-[75%]">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20.8472 14.8554L16.4306 12.8764L16.4184 12.8707C16.1892 12.7727 15.939 12.7333 15.6907 12.7562C15.4424 12.7792 15.2037 12.8636 14.9963 13.002C14.9718 13.0181 14.9484 13.0357 14.9259 13.0545L12.6441 14.9998C11.1984 14.2976 9.70595 12.8164 9.00376 11.3895L10.9519 9.07294C10.9706 9.0495 10.9884 9.02606 11.0053 9.00075C11.1407 8.79384 11.2229 8.55667 11.2445 8.31035C11.2661 8.06402 11.2264 7.81618 11.1291 7.58887V7.57762L9.14438 3.15356C9.0157 2.85662 8.79444 2.60926 8.51362 2.44841C8.2328 2.28756 7.9075 2.22184 7.58626 2.26106C6.31592 2.42822 5.14986 3.05209 4.30588 4.01615C3.4619 4.98021 2.99771 6.21852 3.00001 7.49981C3.00001 14.9436 9.05626 20.9998 16.5 20.9998C17.7813 21.0021 19.0196 20.5379 19.9837 19.6939C20.9477 18.85 21.5716 17.6839 21.7388 16.4136C21.7781 16.0924 21.7125 15.7672 21.5518 15.4864C21.3911 15.2056 21.144 14.9843 20.8472 14.8554ZM16.5 19.4998C13.3185 19.4963 10.2682 18.2309 8.01856 15.9813C5.76888 13.7316 4.50348 10.6813 4.50001 7.49981C4.49648 6.58433 4.82631 5.69887 5.42789 5.00879C6.02947 4.3187 6.86167 3.87118 7.76907 3.74981C7.7687 3.75355 7.7687 3.75732 7.76907 3.76106L9.73782 8.16731L7.80001 10.4867C7.78034 10.5093 7.76247 10.5335 7.74657 10.5589C7.60549 10.7754 7.52273 11.0246 7.5063 11.2825C7.48988 11.5404 7.54035 11.7981 7.65282 12.0307C8.5022 13.7679 10.2525 15.5051 12.0084 16.3536C12.2428 16.465 12.502 16.5137 12.7608 16.495C13.0196 16.4762 13.2692 16.3907 13.485 16.2467C13.5091 16.2305 13.5322 16.2129 13.5544 16.1942L15.8334 14.2498L20.2397 16.2232C20.2397 16.2232 20.2472 16.2232 20.25 16.2232C20.1301 17.1319 19.6833 17.9658 18.9931 18.5689C18.3028 19.172 17.4166 19.5029 16.5 19.4998Z"
+                  fill="white"></path>
+              </svg>
+            </div>
+            <div class="ml-[18px]">
+              <a href="tel:+911800123444" class="font-Inter text-[14px] font-medium text-white">+91 1800123444</a>
+              <p class="font-Inter text-[12px] font-medium text-white">Support Number</p>
+            </div>
           </div>
+          <div class="mt-[23px] flex">
+            <div class="flex h-[38px] w-[38px] items-center justify-center rounded-[75%]">
+              <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19 0H1C0.801088 0 0.610322 0.0790178 0.46967 0.21967C0.329018 0.360322 0.25 0.551088 0.25 0.75V13.5C0.25 13.8978 0.408035 14.2794 0.68934 14.5607C0.970644 14.842 1.35218 15 1.75 15H18.25C18.6478 15 19.0294 14.842 19.3107 14.5607C19.592 14.2794 19.75 13.8978 19.75 13.5V0.75C19.75 0.551088 19.671 0.360322 19.5303 0.21967C19.3897 0.0790178 19.1989 0 19 0ZM10 7.98281L2.92844 1.5H17.0716L10 7.98281ZM7.25406 7.5L1.75 12.5447V2.45531L7.25406 7.5ZM8.36406 8.51719L9.48906 9.55312C9.62743 9.68014 9.80842 9.75062 9.99625 9.75062C10.1841 9.75062 10.3651 9.68014 10.5034 9.55312L11.6284 8.51719L17.0659 13.5H2.92844L8.36406 8.51719ZM12.7459 7.5L18.25 2.45438V12.5456L12.7459 7.5Z"
+                  fill="white"></path>
+              </svg>
+            </div>
+            <div class="ml-[18px]">
+              <a href="mailto:help@lorem.com" class="font-Inter text-[14px] font-medium text-[#fff]">help@lorem.com</a>
+              <p class="font-Inter text-[12px] font-medium text-[#fff]">Support Email</p>
+            </div>
+          </div>
+          <div class="mt-[23px] flex">
+            <div class="flex h-[38px] w-[38px] items-center justify-center rounded-[75%]">
+              <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9 4.5C8.25832 4.5 7.5333 4.71993 6.91661 5.13199C6.29993 5.54404 5.81928 6.12971 5.53545 6.81494C5.25162 7.50016 5.17736 8.25416 5.32205 8.98159C5.46675 9.70902 5.8239 10.3772 6.34835 10.9017C6.8728 11.4261 7.54098 11.7833 8.26841 11.9279C8.99584 12.0726 9.74984 11.9984 10.4351 11.7145C11.1203 11.4307 11.706 10.9501 12.118 10.3334C12.5301 9.7167 12.75 8.99168 12.75 8.25C12.75 7.25544 12.3549 6.30161 11.6517 5.59835C10.9484 4.89509 9.99456 4.5 9 4.5ZM9 10.5C8.55499 10.5 8.11998 10.368 7.74997 10.1208C7.37996 9.87357 7.09157 9.52217 6.92127 9.11104C6.75097 8.6999 6.70642 8.2475 6.79323 7.81105C6.88005 7.37459 7.09434 6.97368 7.40901 6.65901C7.72368 6.34434 8.12459 6.13005 8.56105 6.04323C8.9975 5.95642 9.4499 6.00097 9.86104 6.17127C10.2722 6.34157 10.6236 6.62996 10.8708 6.99997C11.118 7.36998 11.25 7.80499 11.25 8.25C11.25 8.84674 11.0129 9.41903 10.591 9.84099C10.169 10.2629 9.59674 10.5 9 10.5ZM9 0C6.81273 0.00248131 4.71575 0.872472 3.16911 2.41911C1.62247 3.96575 0.752481 6.06273 0.75 8.25C0.75 11.1938 2.11031 14.3138 4.6875 17.2734C5.84552 18.6108 7.14886 19.8151 8.57344 20.8641C8.69954 20.9524 8.84978 20.9998 9.00375 20.9998C9.15772 20.9998 9.30796 20.9524 9.43406 20.8641C10.856 19.8147 12.1568 18.6104 13.3125 17.2734C15.8859 14.3138 17.25 11.1938 17.25 8.25C17.2475 6.06273 16.3775 3.96575 14.8309 2.41911C13.2843 0.872472 11.1873 0.00248131 9 0ZM9 19.3125C7.45031 18.0938 2.25 13.6172 2.25 8.25C2.25 6.45979 2.96116 4.7429 4.22703 3.47703C5.4929 2.21116 7.20979 1.5 9 1.5C10.7902 1.5 12.5071 2.21116 13.773 3.47703C15.0388 4.7429 15.75 6.45979 15.75 8.25C15.75 13.6153 10.5497 18.0938 9 19.3125Z"
+                  fill="white"></path>
+              </svg>
+            </div>
+            <div class="ml-[18px]">
+              <a href="mailto:help@lorem.com" class="font-Inter text-[14px] font-medium text-[#fff]">Sub Nerul, Mumbia,
+                India, 123456</a>
+              <p class="font-Inter text-[12px] font-medium text-white">Address</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 flex w-full flex-col justify-between text-white sm:flex-row md:mt-0 md:max-w-[341px]">
+          <div class="">
+            <p class="text-deutziawhite font-inter text-[18px] font-medium leading-normal">Pages</p>
+            <ul>
+              <li class="mt-[15px]"><a
+                  class="text-deutziawhite hover:text-deutziawhite/80 font-inter text-[15px] font-normal hover:font-semibold"
+                  href="/">Home</a></li>
+              <li class="mt-[15px]"><a
+                  class="text-deutziawhite hover:text-deutziawhite/80 font-inter text-[15px] font-normal hover:font-semibold"
+                  href="/our-tutors">News</a></li>
+              <li class="mt-[15px]"><a
+                  class="text-deutziawhite hover:text-deutziawhite/80 font-inter text-[15px] font-normal hover:font-semibold"
+                  href="/become-a-tutor">Contact</a></li>
+              <li class="mt-[15px]"><a
+                  class="text-deutziawhite hover:text-deutziawhite/80 font-inter text-[15px] font-normal hover:font-semibold"
+                  href="/plans-and-pricing">Plans and pricing</a></li>
+              <li class="mt-[15px]"><a
+                  class="text-deutziawhite hover:text-deutziawhite/80 font-inter text-[15px] font-normal hover:font-semibold"
+                  href="/terms-and-conditions">Terms and conditions</a></li>
+              <li class="mt-[15px]"><a
+                  class="text-deutziawhite hover:text-deutziawhite/80 font-inter text-[15px] font-normal hover:font-semibold"
+                  href="/privacy-policy">Privcay policy</a></li>
+            </ul>
+          </div>
+          <div class="mt-6 flex flex-col gap-4 sm:mt-0">
+            <p class="text-deutziawhite font-inter text-[18px] font-medium">Download the app</p>
+            <div class="flex gap-4 sm:flex-col">
+              <a target="_blank"
+                href="#"><img alt="facebook icon" loading="lazy" width="168" height="50" decoding="async" data-nimg="1" style="color:transparent" src="https://www.englishyaari.com/img/google-store.svg" /></a><a
+                target="_blank"
+                href="#"><img alt="facebook icon" loading="lazy" width="168" height="50" decoding="async" data-nimg="1" style="color:transparent" src="https://www.englishyaari.com/img/apple-store.svg" /></a>
+            </div>
+          </div>
+        </div>
       </div>
-      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-      <div class="sm:flex sm:items-center sm:justify-between">
-          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
-          </span>
-          <div class="flex mt-4 sm:justify-center sm:mt-0">
-              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
-                        <path fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd"/>
-                    </svg>
-                  <span class="sr-only">Facebook page</span>
-              </a>
-              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
-                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 16">
-                        <path d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z"/>
-                    </svg>
-                  <span class="sr-only">Discord community</span>
-              </a>
-              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
-                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 17">
-                    <path fill-rule="evenodd" d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z" clip-rule="evenodd"/>
-                </svg>
-                  <span class="sr-only">Twitter page</span>
-              </a>
-              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
-                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clip-rule="evenodd"/>
-                  </svg>
-                  <span class="sr-only">GitHub account</span>
-              </a>
-              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
-                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 0a10 10 0 1 0 10 10A10.009 10.009 0 0 0 10 0Zm6.613 4.614a8.523 8.523 0 0 1 1.93 5.32 20.094 20.094 0 0 0-5.949-.274c-.059-.149-.122-.292-.184-.441a23.879 23.879 0 0 0-.566-1.239 11.41 11.41 0 0 0 4.769-3.366ZM8 1.707a8.821 8.821 0 0 1 2-.238 8.5 8.5 0 0 1 5.664 2.152 9.608 9.608 0 0 1-4.476 3.087A45.758 45.758 0 0 0 8 1.707ZM1.642 8.262a8.57 8.57 0 0 1 4.73-5.981A53.998 53.998 0 0 1 9.54 7.222a32.078 32.078 0 0 1-7.9 1.04h.002Zm2.01 7.46a8.51 8.51 0 0 1-2.2-5.707v-.262a31.64 31.64 0 0 0 8.777-1.219c.243.477.477.964.692 1.449-.114.032-.227.067-.336.1a13.569 13.569 0 0 0-6.942 5.636l.009.003ZM10 18.556a8.508 8.508 0 0 1-5.243-1.8 11.717 11.717 0 0 1 6.7-5.332.509.509 0 0 1 .055-.02 35.65 35.65 0 0 1 1.819 6.476 8.476 8.476 0 0 1-3.331.676Zm4.772-1.462A37.232 37.232 0 0 0 13.113 11a12.513 12.513 0 0 1 5.321.364 8.56 8.56 0 0 1-3.66 5.73h-.002Z" clip-rule="evenodd"/>
-                </svg>
-                  <span class="sr-only">Dribbble account</span>
-              </a>
-          </div>
+      <hr class="mt-[30px] text-white" />
+      <div class="flex items-center justify-center pb-8 pt-[9px] md:py-8">
+        <p class="text-[10px] font-normal text-white md:text-[12px]">
+          © Copyright
+          <!-- -->2024
+          <!-- -->, All Rights Reserved by YOUR WEBSITES. PVT. LTD
+        </p>
       </div>
     </div>
-</footer>
-
-</body>
-</html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
-    integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset('js/slickside.js') }}"></script>
+  </div>
