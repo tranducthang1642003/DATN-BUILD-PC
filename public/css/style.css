@@ -1,0 +1,24 @@
+.product-slide .slick-next {
+    right: 5px !important;
+    width: 28px !important;
+    height: 44px !important;
+    background: #d9d9d9 !important;
+    opacity: 0.5;
+}
+
+.product-slide .slick-next:hover {
+    background: #d9d9d9;
+}
+
+.product-slide .slick-prev {
+    left: 0px !important;
+    z-index: 9;
+    width: 28px !important;
+    height: 44px !important;
+    background: #d9d9d9 !important;
+    opacity: 0.5;
+}
+
+.product-slide .slick-prev:hover {
+    background: #d9d9d9;
+}

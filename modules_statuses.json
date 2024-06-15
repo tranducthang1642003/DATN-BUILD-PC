@@ -5,6 +5,7 @@
     "Posts": true,
     "Home": true,
     "Product": true,
+    "DetailProduct": true,
     "Auth": true,
     "Category": true,
     "Brand": true,

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\App\Http\Controllers\AuthController;
+use Modules\DetailProduct\App\Http\Controllers\DetailProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,6 @@ use Modules\Auth\App\Http\Controllers\AuthController;
 |
 */
 
-Route::prefix('auth')->group(function () {
-    Route::get('/', 'AuthController@index');
-    Route::get('/register', 'AuthController@register');
-    Route::get('/forgotpassword', 'AuthController@forgotpassword');
+Route::group([], function () {
+    Route::resource('detailproduct', DetailProductController::class)->names('detailproduct');
 });
