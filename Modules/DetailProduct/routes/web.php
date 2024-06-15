@@ -14,6 +14,6 @@ use Modules\DetailProduct\App\Http\Controllers\DetailProductController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('detailproduct', DetailProductController::class)->names('detailproduct');
+Route::prefix('detailproduct')->group(function () {
+    Route::get('/', 'DetailProductController@index');
 });
