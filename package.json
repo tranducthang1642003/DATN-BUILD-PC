@@ -25,7 +25,8 @@
   "dependencies": {
     "@mui/icons-material": "^5.15.19",
     "cosmiconfig": "^9.0.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "tinymce": "^7.1.2"
   },
   "name": "datn-build-pc",
   "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",

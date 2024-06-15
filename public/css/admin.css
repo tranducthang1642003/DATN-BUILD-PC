@@ -50,3 +50,8 @@
     border-radius: 12px;
     box-shadow: 4px 4px 4px gray;
 }
+
+.selected {
+    border-bottom: 2px solid rgb(234 179 8);
+    color: rgb(234 179 8);
+}
