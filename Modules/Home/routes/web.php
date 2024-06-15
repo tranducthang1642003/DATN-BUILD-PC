@@ -15,5 +15,5 @@ use Modules\Home\App\Http\Controllers\HomeController;
 */
 
 Route::group([], function () {
-    Route::resource('home', HomeController::class)->names('home');
+    Route::resource('', HomeController::class)->names('home');
 });
