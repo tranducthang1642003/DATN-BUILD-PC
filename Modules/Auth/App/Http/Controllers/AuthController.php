@@ -14,9 +14,16 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('auth::index');
+        return view('public.auth.login');
     }
-
+    public function register()
+    {
+        return view('public.auth.register');
+    }
+    public function forgotpassword()
+    {
+        return view('public.auth.ForgotPassword');
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -28,7 +35,7 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         //
     }
@@ -52,7 +59,7 @@ class AuthController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         //
     }
