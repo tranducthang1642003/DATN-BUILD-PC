@@ -879,6 +879,9 @@ select {
 .mt-1 {
   margin-top: 0.25rem;
 }
+.mt-1 {
+  margin-top: 0.25rem;
+}
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -935,6 +938,9 @@ select {
 }
 .h-14 {
   height: 3.5rem;
+}
+.h-16 {
+  height: 4rem;
 }
 .h-20 {
   height: 5rem;
@@ -996,6 +1002,9 @@ select {
 .w-4 {
   width: 1rem;
 }
+.w-4\/12 {
+  width: 33.333333%;
+}
 .w-48 {
   width: 12rem;
 }
@@ -1053,6 +1062,9 @@ select {
 }
 .table-auto {
   table-layout: auto;
+}
+.table-fixed {
+  table-layout: fixed;
 }
 .-translate-x-1\/2 {
   --tw-translate-x: -50%;
@@ -1240,9 +1252,17 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
 .bg-gray-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 .bg-green-700 {
   --tw-bg-opacity: 1;
@@ -1614,6 +1634,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(77 124 15 / var(--tw-text-opacity));
 }
+.text-orange-600 {
+  --tw-text-opacity: 1;
+  color: rgb(234 88 12 / var(--tw-text-opacity));
+}
 .text-purple-700 {
   --tw-text-opacity: 1;
   color: rgb(126 34 206 / var(--tw-text-opacity));
@@ -1768,6 +1792,11 @@ select {
 .placeholder\:text-gray-400::placeholder {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+.hover\:border-spacing-2:hover {
+  --tw-border-spacing-x: 0.5rem;
+  --tw-border-spacing-y: 0.5rem;
+  border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
 }
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
@@ -1955,6 +1984,10 @@ select {
 }
 @media (min-width: 768px) {
 
+  .md\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
   .md\:mx-6 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
@@ -2130,6 +2163,11 @@ select {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+
+  .md\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 }
 @media (min-width: 1024px) {
 
@@ -2199,6 +2237,11 @@ select {
   .lg\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .lg\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 }
 @media (min-width: 1280px) {
