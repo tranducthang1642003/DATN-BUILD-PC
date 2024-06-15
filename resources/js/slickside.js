@@ -55,6 +55,7 @@ $(document).ready(function () {
         ],
     });
 });
+<<<<<<< HEAD
 // $(document).ready(function () {
 //     $(".slider-for").slick({
 //         slidesToShow: 1,
@@ -82,6 +83,25 @@ $(document).ready(function () {
 //         ],
 //     });
 // });
+=======
+$(document).ready(function () {
+    $(".slider-for").slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: ".slider-nav",
+    });
+    $(".slider-nav").slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: ".slider-for",
+        dots: true,
+        centerMode: true,
+        focusOnSelect: true,
+    });
+});
+>>>>>>> 3f14a49 (cập nhật detailproduct)
 
 $(document).ready(function () {
     $(".autoplay-sliderr").slick({
