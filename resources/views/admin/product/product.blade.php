@@ -5,7 +5,7 @@
     }
 </style>
 @include('admin.layout.header')
-<div class="col-span-10 p-5">
+<div class="flex-grow p-5 ml-10">
     <div class="flex justify-between text-sm">
         <div class="flex text-gray-600">
             <form action="{{ route('product') }}" method="GET" class="flex">
@@ -30,37 +30,45 @@
                 </div>
             </form>
         </div>
-        <div><a href="{{ route('add') }}"><button class="bg-green-700 text-white p-2 rounded-lg text-xm flex justify-center"><ion-icon class="text-xl px-2" name="add-outline"></ion-icon> Add product</button></a></div>
+        <div>
+            <a href="{{ route('add') }}">
+                <button class="bg-green-700 text-white p-2 rounded-lg text-xm flex justify-center">
+                    <ion-icon class="text-xl px-2" name="add-outline"></ion-icon> Add product
+                </button>
+            </a>
+        </div>
     </div>
+
+    <!-- Status Filters -->
     <div class="flex my-6">
         <div class="px-4 border-b-2 py-1">
             <a href="{{ route('product') }}" class="flex {{ request('status') == null ? 'selected' : '' }}">
                 <span {{ request('status') == null ? 'class=text-yellow-500' : '' }}>All</span>
-                <div class="icon_count ml-1 bg-yellow-500">{{$statusCounts[4]}}</div>
+                <div class="icon_count ml-1 bg-yellow-500">{{ $statusCounts[4] }}</div>
             </a>
         </div>
         <div class="px-4 border-b-2 py-1">
             <a href="{{ route('product', ['status' => '1']) }}" class="flex {{ request('status') == '1' ? 'selected' : '' }}">
                 <span {{ request('status') == '1' ? 'class=text-yellow-500' : '' }}>Active</span>
-                <div class="icon_count ml-1">{{$statusCounts[1]}}</div>
+                <div class="icon_count ml-1">{{ $statusCounts[1] }}</div>
             </a>
         </div>
         <div class="px-4 border-b-2 py-1">
             <a href="{{ route('product', ['status' => '2']) }}" class="flex {{ request('status') == '2' ? 'selected' : '' }}">
                 <span {{ request('status') == '2' ? 'class=text-yellow-500' : '' }}>Draft</span>
-                <div class="icon_count ml-1">{{$statusCounts[2]}}</div>
+                <div class="icon_count ml-1">{{ $statusCounts[2] }}</div>
             </a>
         </div>
         <div class="px-4 border-b-2 py-1">
             <a href="{{ route('product', ['status' => '3']) }}" class="flex {{ request('status') == '3' ? 'selected' : '' }}">
                 <span {{ request('status') == '3' ? 'class=text-yellow-500' : '' }}>Deleted</span>
-                <div class="icon_count ml-1">{{$statusCounts[3]}}</div>
+                <div class="icon_count ml-1">{{ $statusCounts[3] }}</div>
             </a>
         </div>
     </div>
 
-
-    <div class="">
+    <!-- Selected Actions -->
+    <div class="flex">
         <span>0 product selected</span>
         <button class="button_selected"><ion-icon class="mr-2 mb-1 text-purple-700 " name="bag-check-outline"></ion-icon>Out of Stock</button>
         <button class="button_selected"><ion-icon class="mr-2 mb-1 text-fuchsia-600 " name="cash-outline"></ion-icon>On Sale</button>
@@ -69,6 +77,8 @@
         <button class="button_selected"><ion-icon class="mr-2 mb-1 text-sky-500 " name="exit-outline"></ion-icon>Export</button>
         <button class="button_selected"><ion-icon class="mr-2 mb-1 text-red-500 " name="trash-outline"></ion-icon>Delete</button>
     </div>
+
+    <!-- Product Table -->
     <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
         <thead>
             <tr class="text-left bg-gray-400">
@@ -119,6 +129,8 @@
             @endforeach
         </tbody>
     </table>
+
+    <!-- Pagination -->
     <div class="flex justify-end mr-8">
         <div>
             {{ $products->links() }}

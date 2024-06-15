@@ -21,14 +21,15 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
-    
+
 </head>
 
 <body>
-    <div class="grid grid-cols-12 bg-gray-200">
-        <div class="col-span-2 p-4 bg-white">
+    <div x-data="{ sidebarOpen: true }" class=" flex text-sm-xs bg-gray-200">
+        <div :class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }" 
+        class="p-4 bg-white min-w-72 top-0 left-0 h-screen overflow-y-auto z-50 transition-transform duration-300 transform -translate-x-full sm:translate-x-0">
             <div class="flex items-end justify-end">
-                <button class="text-3xl"><ion-icon name="menu-outline"></ion-icon></button>
+                <button @click="sidebarOpen = !sidebarOpen" class="text-3xl"><ion-icon name="close-outline"></ion-icon></button>
             </div>
             <div class="flex items-center justify-center mb-8">
                 <img src="{{ asset('image/logo.svg') }}" alt="">

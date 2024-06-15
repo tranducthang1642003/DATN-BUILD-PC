@@ -5,7 +5,7 @@
     }
 </style>
 @include('admin.layout.header')
-<div class="col-span-10 p-5">
+<div class="flex-grow p-5 ml-10">
     <h1 class=" font-bold text-xl">This month</h1>
     <div class="grid grid-cols-12 gap-6 my-4">
         <div class="col-span-3  card_dashboard">
