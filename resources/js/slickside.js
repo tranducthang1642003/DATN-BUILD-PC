@@ -25,10 +25,6 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
     $(".autoplay-slider").slick({
-        // slidesToShow: 5,
-        // slidesToScroll: 1,
-        // autoplay: true,
-        // autoplaySpeed: 2000,
         infinite: true,
         speed: 300,
         slidesToShow: 5,
@@ -55,6 +51,26 @@ $(document).ready(function () {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 },
+            },
+        ],
+    });
+});
+$(document).ready(function () {
+    $(".slider-for").slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: ".slider-nav",
+    });
+    $(".slider-nav").slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: ".slider-for",
+        dots: true,
+        centerMode: true,
+        focusOnSelect: true,
+    });
             },
             {
                 breakpoint: 640,

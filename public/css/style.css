@@ -22,3 +22,51 @@
 .product-slide .slick-prev:hover {
     background: #d9d9d9;
 }
+.truncate-responsive {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .truncate-responsive {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+}
+.truncate-2-lines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
+
+@media (min-width: 768px) {
+    .truncate-2-lines {
+        -webkit-line-clamp: unset;
+        overflow: visible;
+        text-overflow: clip;
+        display: block;
+    }
+}
+@media (max-width: 767px) {
+    .product-detail__images .slick-slide {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .product-detail__images .slick-slide {
+        margin-left: 10px;
+    }
+}
+
+.product-detail__images .slick-next,
+.slick-prev {
+    background: #d9d9d9 !important;
+    width: 25px !important;
+    height: 44px !important;
+    opacity: 0.5;
+}
