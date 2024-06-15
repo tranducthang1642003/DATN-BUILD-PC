@@ -7,7 +7,7 @@
 
 @include('admin.layout.header')
 
-<div class="bg-gray-100 font-sans antialiased col-span-10">
+<div class="bg-gray-100 font-sans antialiased flex-grow p-5 ml-10">
     <form action="{{ route('add_product') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="min-h-screen bg-gray-100 flex justify-center items-center">
@@ -68,9 +68,6 @@
                 <div class="mb-4">
                     <label for="long_description" class="block text-sm font-medium text-gray-700 mb-1">Long Description</label>
                     <textarea name="long_description" id="mytextarea" rows="4" class=" border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter long description" required></textarea>
-                </div>
-                <div class="mb-4">
-                    <textarea id="textarea">Hello, World!</textarea>
                 </div>
                 <div class="mb-4">
                     <label for="featured" class="block text-sm font-medium text-gray-700 mb-1">Featured</label>
