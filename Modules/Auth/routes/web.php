@@ -14,8 +14,6 @@ use Modules\Auth\App\Http\Controllers\AuthController;
 |
 */
 
-Route::prefix('auth')->group(function () {
-    Route::get('/', 'AuthController@index');
-    Route::get('/register', 'AuthController@register');
-    Route::get('/forgotpassword', 'AuthController@forgotpassword');
+Route::group([], function () {
+    Route::resource('auth', AuthController::class)->names('auth');
 });
