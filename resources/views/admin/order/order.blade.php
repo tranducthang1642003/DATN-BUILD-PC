@@ -45,20 +45,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($categories as $index => $category)
+            @foreach($orders as $index => $order)
             <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
                 <td class="px-4 py-2"><input type="checkbox"></td>
-                <td class="px-4 py-2">{{ $category->id }}</td>
-                <td class="px-4 py-2">{{ $category->name }}</td>
-                <td class="px-4 py-2">{{ $category->slug }} VND</td>
-                <td class="px-4 py-2">{{ $category->description }}</td>
-                <td class="px-4 py-2">{{ $category->updated_at }}</td>
+                <td class="px-4 py-2">{{ $order->id }}</td>
+                <td class="px-4 py-2">{{ $order->name }}</td>
+                <td class="px-4 py-2">{{ $order->slug }} VND</td>
+                <td class="px-4 py-2">{{ $order->description }}</td>
+                <td class="px-4 py-2">{{ $order->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <a href="{{ route('edit_category', ['id' => $category->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Edit</a>
-                            <form action="{{ route('delete_category', ['id' => $category->id]) }}" method="POST">
+                            <a href="{{ route('edit_category', ['id' => $order->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Edit</a>
+                            <form action="{{ route('delete_category', ['id' => $order->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">Delete</button>
@@ -72,7 +72,7 @@
     </table>
     <div class="flex justify-end mr-8">
         <div>
-            {{ $categories->links() }}
+            {{ $orders->links() }}
         </div>
     </div>
 </div>

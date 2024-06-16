@@ -55,20 +55,19 @@
                         @endforeach
                     </select>
                 </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
                 <div class="mb-4">
                     <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
                     <input type="file" name="image" id="image" class="border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
                 </div>
-            </div>
-            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
-                
                 <div class="mb-4">
                     <label for="short_description" class="block text-sm font-medium text-gray-700 mb-1">Short Description</label>
-                    <trix-editor input="x" name="short_description" id="mytextarea" rows="2" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter short description" required></trix-editor>
+                    <textarea name="short_description" id="mytextarea" rows="2" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter short description" required></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="long_description" class="block text-sm font-medium text-gray-700 mb-1">Long Description</label>
-                    <trix-editor input="x" name="long_description" id="mytextarea" rows="4" class=" border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter long description" required></trix-editor>
+                    <textarea name="long_description" id="mytextarea" rows="4" class=" border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter long description" required></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="featured" class="block text-sm font-medium text-gray-700 mb-1">Featured</label>

@@ -51,6 +51,13 @@
     height: 120px;
     border-radius: 12px;
     box-shadow: 4px 4px 4px gray;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.card_dashboard:hover {
+    transform: translateY(-5px); /* Nổi lên 5px khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng khi hover */
+    cursor: pointer; /* Thay đổi con trỏ thành dấu nhấp chuột */
 }
 
 .selected {

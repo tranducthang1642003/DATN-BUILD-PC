@@ -33,7 +33,7 @@
         <div>
             <a href="{{ route('add') }}">
                 <button class="bg-green-700 text-white p-2 rounded-lg text-xm flex justify-center">
-                    <ion-icon class="text-xl px-2" name="add-outline"></ion-icon> Add product
+                    <ion-icon class="text-xl" name="add-outline"></ion-icon> Add product
                 </button>
             </a>
         </div>
@@ -114,7 +114,7 @@
                 <td class="px-4 py-2">{{ $product->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
-                        <button @click="isOpen = !isOpen" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
+                        <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
                             <a href="{{ route('edit_product', ['id' => $product->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Edit</a>
                             <form action="{{ route('delete_product', ['id' => $product->id]) }}" method="POST">
