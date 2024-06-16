@@ -16,8 +16,10 @@
     color: aliceblue;
     font-size: x-small;
     border-radius: 3px;
-    width: 15px;
+    min-width: 15px;
     height: 15px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .button_selected {
