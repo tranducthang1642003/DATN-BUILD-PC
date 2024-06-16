@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Cart\App\Http\Controllers;
+namespace Modules\Checkout\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class CartController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('public.cart');
+        return view('public.checkout');
     }
 
     /**
@@ -22,13 +22,13 @@ class CartController extends Controller
      */
     public function create()
     {
-        return view('cart::create');
+        return view('checkout::create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //
     }
@@ -38,7 +38,7 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        return view('cart::show');
+        return view('checkout::show');
     }
 
     /**
@@ -46,13 +46,13 @@ class CartController extends Controller
      */
     public function edit($id)
     {
-        return view('cart::edit');
+        return view('checkout::edit');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         //
     }
