@@ -10,5 +10,7 @@
     "Category": true,
     "Brand": true,
     "Images": true,
-    "Checkout": true
+    "Checkout": true,
+    "Order": true,
+    "Settings": true
 }
