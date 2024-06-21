@@ -12,6 +12,11 @@ class Users extends Model
     protected $fillable = [
         'id',
         'name',
+        'email',
+        'phone',
+        'address',
+        'name',
+        'remember_token',
      
     ];
 }

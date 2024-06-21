@@ -19,52 +19,36 @@ class OrderController extends Controller
         $keyword = $request->input('keyword');
 
         $ordersQuery = Order::query();
-
-        // Lọc theo ngày bắt đầu và kết thúc nếu được cung cấp
         if ($startDate && $endDate) {
             $ordersQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
-
-        // Lọc theo từ khóa nếu được cung cấp
         if ($keyword) {
             $ordersQuery->where('name', 'like', '%' . $keyword . '%');
         }
-        //  Phân trang
         $orders = $ordersQuery->paginate(10);
         return view('admin.order.order', compact('orders'));
     }
     public function edit($id)
     {
-        // Lấy thông tin sản phẩm cần chỉnh sửa từ ID
         $order = Order::All()->findOrFail($id);
         return view('admin.order.edit', compact('order'));
     }
     public function update_order(Request $request, $id)
     {
-        // Validate dữ liệu đầu vào
         $validatedData = $request->validate([
             'name' => 'required|string',
             'slug' => 'required|string',
             'description' => 'required|string',
         ]);
-
-        // Lấy thông tin sản phẩm cần chỉnh sửa từ ID
         $order = Order::findOrFail($id);
-
-        // Lưu các thay đổi vào cơ sở dữ liệu
         $order->name = $validatedData['name'];
         $order->slug = $validatedData['slug'];
         $order->description = $validatedData['description'];
-
-        // Lưu hình ảnh mới nếu có
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('order_images', 'public');
             $order->image = $imagePath;
         }
-
         $order->save();
-
-        // Redirect người dùng đến trang danh sách sản phẩm sau khi chỉnh sửa thành công
         return redirect()->route('order');
     }
 
@@ -75,7 +59,6 @@ class OrderController extends Controller
     }
     public function add_order(Request $request)
     {
-        // Validate dữ liệu đầu vào
         $validatedData = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
@@ -91,11 +74,7 @@ class OrderController extends Controller
             'discount' => 'required|numeric',
             'order_code' => 'required|string',
         ]);
-
-        // Tạo một instance mới của order
         $order = new Order();
-
-        // Gán các giá trị từ dữ liệu được xác thực vào các thuộc tính của sản phẩm
         $order->name = $validatedData['name'];
         $order->color = $validatedData['color'];
         $order->price = $validatedData['price'];
@@ -109,36 +88,23 @@ class OrderController extends Controller
         $order->slug = $validatedData['slug'];
         $order->discount = $validatedData['discount'];
         $order->order_code = $validatedData['order_code'];
-
-        // Lưu hình ảnh nếu có
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('order_images', 'public');
             $order->image = $imagePath;
         }
-
-        // Lưu sản phẩm vào cơ sở dữ liệu
         if ($order->save()) {
-            // Redirect người dùng đến trang danh sách sản phẩm sau khi thêm thành công
             return redirect()->route('order')->with('success', 'order added successfully!');
         } else {
-            // Nếu không thêm được sản phẩm, redirect về form thêm sản phẩm và hiển thị thông báo lỗi
             return redirect()->back()->withInput()->withErrors('Failed to add order.');
         }
     }
     public function destroy($id)
     {
-        // Tìm sản phẩm cần xóa từ ID
         $order = Order::findOrFail($id);
-
-        // Xóa hình ảnh nếu tồn tại
         if ($order->image) {
             Storage::disk('public')->delete($order->image);
         }
-
-        // Xóa sản phẩm từ cơ sở dữ liệu
         $order->delete();
-
-        // Redirect người dùng đến trang danh sách sản phẩm sau khi xóa thành công
         return redirect()->route('order')->with('success', 'order deleted successfully!');
     }
 }

@@ -5,6 +5,17 @@
     padding: 10px;
     border-radius: 5px;
 }
+.button_sidebar_cl {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+.button_sidebar_cl:hover {
+    background-color: cornflowerblue;
+    color: aliceblue;
+}
 
 .button_sidebar:hover {
     background-color: cornflowerblue;

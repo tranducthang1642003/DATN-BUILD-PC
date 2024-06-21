@@ -6,13 +6,13 @@
 </style>
 @include('admin.layout.header')
 <div class="flex-grow p-5 ml-10">
-    <h1 class=" font-bold text-xl">This month</h1>
+    <h1 class=" font-bold text-xl">Tháng này</h1>
     <div class="grid grid-cols-12 gap-6 my-4">
         <div class="col-span-3  card_dashboard " id="revenueCard">
             <div class="h-3/4 bg-gradient-to-r from-orange-500 to-orange-300 rounded-t-xl text-white">
                 <div class="p-4">
                     <div class="">
-                        <span class="">Revenue</span>
+                        <span class="">Doanh thu</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <h1 class="text-2xl">11,132,123</h1>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="h-1/4 flex justify-between px-4 items-center text-xs">
-                <span class="text-gray-700">Last month: 2,122,123,123</span>
+                <span class="text-gray-700">Tháng trước: 2,122,123,123</span>
                 <span class="text-lime-700">+12%</span>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="h-3/4 bg-gradient-to-r from-violet-800 to-violet-500 rounded-t-xl text-white">
                 <div class="p-4">
                     <div class="">
-                        <span class="">New Orders</span>
+                        <span class="">Đơn hàng mới</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <h1 class="text-2xl">12</h1>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="h-1/4 flex justify-between px-4 items-center text-xs">
-                <span class="text-gray-700">Last month: 24</span>
+                <span class="text-gray-700">Tháng trước: 24</span>
                 <span class="text-red-600">-10%</span>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="h-3/4 bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-t-xl text-white">
                 <div class="p-4">
                     <div class="">
-                        <span class="">Sold Products</span>
+                        <span class="">Sản phẩm đã bán</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <h1 class="text-2xl">952</h1>
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="h-1/4 flex justify-between px-4 items-center text-xs">
-                <span class="text-gray-700">Last month: 800</span>
+                <span class="text-gray-700">Tháng trước: 800</span>
                 <span class="text-lime-700">+12%</span>
             </div>
         </div>
@@ -63,7 +63,7 @@
             <div class="h-3/4 bg-gradient-to-r from-fuchsia-800 to-fuchsia-500 rounded-t-xl text-white">
                 <div class="p-4">
                     <div class="">
-                        <span class="">New Customers</span>
+                        <span class="">Khách hàng mới</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <h1 class="text-2xl">100</h1>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="h-1/4 flex justify-between px-4 items-center text-xs">
-                <span class="text-gray-700">Last month: 92</span>
+                <span class="text-gray-700">Tháng trước: 92</span>
                 <span class="text-lime-700">+12%</span>
             </div>
         </div>
