@@ -9,5 +9,8 @@
     "Auth": true,
     "Category": true,
     "Brand": true,
-    "Images": true
+    "Images": true,
+    "Checkout": true,
+    "Order": true,
+    "Settings": true
 }
