@@ -180,7 +180,7 @@ function fromByteArray (uint8) {
 
 
 var base64 = __webpack_require__(/*! base64-js */ "./node_modules/base64-js/index.js")
-var ieee754 = __webpack_require__(/*! ieee754 */ "./node_modules/buffer/node_modules/ieee754/index.js")
+var ieee754 = __webpack_require__(/*! ieee754 */ "./node_modules/ieee754/index.js")
 var isArray = __webpack_require__(/*! isarray */ "./node_modules/isarray/index.js")
 
 exports.Buffer = Buffer
@@ -1962,10 +1962,10 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ "./node_modules/buffer/node_modules/ieee754/index.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/buffer/node_modules/ieee754/index.js ***!
-  \***********************************************************/
+/***/ "./node_modules/ieee754/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/ieee754/index.js ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
