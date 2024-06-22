@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Product\App\Http\Controllers;
+
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
