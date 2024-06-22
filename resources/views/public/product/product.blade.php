@@ -26,7 +26,7 @@
                             </div>
                             <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1"><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy</div>
                             <div class="product-info p-3">
-                                <a href="" class="hover:text-blue-600 truncate-responsive"> {{ $item -> name }} </a>
+                                <a href="{{ url('/detailproduct', [$item->id]) }}" class="hover:text-blue-600 truncate-responsive"> {{ $item -> name }} </a>
                                 <p class="text-gray-400 truncate-2-lines">{{ $item -> short_description }}</p>
                                 <div class="mt-1 inline-flex text-xs md:text-base">
                                     <div class="">
@@ -152,7 +152,7 @@
                         </div>
                         <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy</div>
                         <div class="product-info p-3">
-                            <a href="" class="hover:text-blue-600"> {{ $item -> name }} </a>
+                            <a href="{{ url('/detailproduct', [$item->id]) }}" class="hover:text-blue-600"> {{ $item -> name }} </a>
                             <p class="text-gray-400"> {{ $item -> short_description }} </p>
                             <div class="mt-3 inline-flex text-xs md:text-base">
                                 <div class="">

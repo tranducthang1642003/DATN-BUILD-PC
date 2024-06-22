@@ -30,7 +30,7 @@
                 </div>
             </form>
         </div>
-        <div><a href="{{ route('add') }}"><button class="bg-green-700 text-white p-2 rounded-lg text-xm flex justify-center"><ion-icon class="text-xl px-2" name="add-outline"></ion-icon> Add category</button></a></div>
+        <div><a href="{{ route('add_category') }}"><button class="bg-green-700 text-white p-2 rounded-lg text-xm flex justify-center"><ion-icon class="text-xl px-2" name="add-outline"></ion-icon> Add category</button></a></div>
     </div>
     <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
         <thead>

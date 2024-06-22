@@ -40,14 +40,6 @@
                     <input type="number" name="quantity" id="quantity" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter quantity" required>
                 </div>
                 <div class="mb-4">
-                    <label for="id_category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                    <select name="id_category" id="id_category" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
-                        @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-4">
                     <label for="id_brand" class="block text-sm font-medium text-gray-700 mb-1">Brand</label>
                     <select name="id_brand" id="id_brand" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
                         @foreach($brands as $brand)
