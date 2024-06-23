@@ -55,6 +55,10 @@ $(document).ready(function () {
         ],
     });
 });
+<<<<<<< HEAD
+
+=======
+>>>>>>> e6decab8deefc6df25261af37841e4165a144ec1
 $(document).ready(function () {
     $(".slider-for").slick({
         slidesToShow: 1,
