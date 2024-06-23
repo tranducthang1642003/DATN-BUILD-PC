@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    <div class="min-h-screen bg-gray-100 flex items-center justify-center"style="background-image: url('https://picsum.photos/1920/1080')">
+@include('public.header.index')
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center bg-no-repeat " style="background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% )">
         <div class="container mx-auto">
             <div class="bg-white  rounded-md flex flex-col sm:flex-row">
                 <div class="md:w-1/2 bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-center items-center relative">
@@ -58,3 +57,4 @@
             </div>
         </div>
     </div>
+    @include('public.footer.footer')

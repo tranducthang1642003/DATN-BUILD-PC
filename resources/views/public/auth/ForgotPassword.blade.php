@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@include('public.header.index')
   <div class="min-h-screen bg-gray-100 flex items-center justify-center" style="background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% )">
     <div class="container mx-auto">
         <div class="bg-white  rounded-md flex flex-col sm:flex-row">
@@ -28,3 +28,4 @@
         </div>
     </div>
 </div>
+@include('public.footer.footer')
