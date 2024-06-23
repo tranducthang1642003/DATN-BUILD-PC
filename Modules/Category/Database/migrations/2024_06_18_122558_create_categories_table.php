@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('category_name');
             $table->string('slug');
+            $table->string('image');
             $table->boolean('featured')->default(0);
             $table->boolean('status')->default(0);
             $table->text('description')->nullable();
-            $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->timestamps();
         });
     }

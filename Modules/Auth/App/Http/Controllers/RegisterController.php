@@ -60,7 +60,7 @@ class RegisterController extends Controller
 
     public function showVerifyTokenForm()
     {
-        return view('auth/verify-token');
+        return view('public.auth.verify-token');
     }
 
     public function verifyToken(Request $request)
