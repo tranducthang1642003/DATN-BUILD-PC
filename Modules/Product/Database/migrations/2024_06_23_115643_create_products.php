@@ -22,12 +22,16 @@ return new class extends Migration
             $table->boolean('featured')->default(0);
             $table->boolean('status')->default(0);
             $table->integer('view')->default(0);
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('brand_id')->constrained('brands');
             $table->decimal('price', 10, 2);
             $table->integer('stock');
             $table->text('description')->nullable();
             $table->text('specifications')->nullable();
+            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('brand_id')->constrained('brands');
+            $table->foreignId('product_images_id')->constrained('product_images')->nullable();
+            $table->foreignId('promotion_id')->constrained('promotions')->nullable();
+            $table->foreignId('reviews_id')->constrained('reviews')->nullable();
+            $table->foreignId('wishlists_id')->constrained('wishlists')->nullable();
             $table->timestamps();
         });
     }

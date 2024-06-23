@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('productp_pomotions', function (Blueprint $table) {
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('promotion_id')->constrained('promotions');
-            $table->primary(['product_id', 'promotion_id']);
+        Schema::create('product_images', function (Blueprint $table) {
+            $table->id();
+            $table->string('image_url');
+            $table->boolean('is_main')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('productp_pomotions');
+        Schema::dropIfExists('product_images');
     }
 };
