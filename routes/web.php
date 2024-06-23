@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+// routes/web.php
+Route::middleware(['web', 'auth'])
+    ->get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');

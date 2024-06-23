@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use Modules\Auth\Entities\User; // Assuming User model is in Modules\Auth\Entities namespace
+use Modules\Auth\Entities\User;
 
 class PasswordResetLinkController extends Controller
 {
@@ -24,18 +24,12 @@ class PasswordResetLinkController extends Controller
         ]);
 
         $email = $request->input('email');
-
-        // Send the password reset link
         $status = Password::sendResetLink([
             'email' => $email,
         ]);
-
-        // Check the status and return the appropriate response
         if ($status === Password::RESET_LINK_SENT) {
             return back()->with('status', __($status));
         }
-
-        // If the status is not 'RESET_LINK_SENT', return with error
         throw ValidationException::withMessages([
             'email' => [trans($status)],
         ]);
