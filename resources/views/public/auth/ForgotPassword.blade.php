@@ -1,31 +1,96 @@
-@include('public.header.index')
-  <div class="min-h-screen bg-gray-100 flex items-center justify-center" style="background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% )">
-    <div class="container mx-auto">
-        <div class="bg-white  rounded-md flex flex-col sm:flex-row">
-            <div class="md:w-1/2 sm:px-6 py-4 bg-white rounded-lg">
-                <h2 class="text-2xl font-bold mb-6 text-center">Forgotpassword</h2>
-                <div class="text-center">
-                    <div class="flex items-center justify-center gap-2">
-                        <button class="flex items-center justify-center w-8 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"></button>
-                        <button class="flex items-center justify-center w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"></button>
-                    </div>
-                </div>
-                <form>
-                  <div class="mb-4">
-                    <label for="gmail" class="block text-gray-700">Gmail:</label>
-                    <input type="email" id="gmail" name="gmail" class="border border-gray-300 p-2 rounded w-full" required>
-                </div>
-                    <div class="flex items-center mt-3 justify-center">
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded ml-5">Submit</button>
-                        
-                    </div>
-                </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            max-width: 100%;
+        }
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group .error-message {
+            color: red;
+            font-size: 14px;
+        }
+        .form-group .success-message {
+            color: green;
+            font-size: 14px;
+        }
+        .form-group .input-group {
+            display: flex;
+        }
+        .form-group .input-group button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group .input-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2 class="card-header">Forgot Password</h2>
+
+        @if (session('status'))
+            <div class="form-group success-message">
+                {{ session('status') }}
             </div>
-            <div class="md:w-1/2 bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-center items-center relative">
-              <img src="https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg" alt="Image" class="h-full w-full object-cover">
-              <p class="image-text text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white font-bold bg-opacity-75 px-6 py-4 rounded-lg">Bạn đang ở trang Forgotpassword</p>
-          </div>
-        </div>
+        @endif
+
+        <form method="POST" action="{{ route('password.email') }}">
+            @csrf
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                @error('email')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <button type="submit">Send Password Reset Link</button>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
-@include('public.footer.footer')
+</body>
+</html>
