@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('productp_pomotions', function (Blueprint $table) {
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('promotion_id')->constrained('promotions');
-            $table->primary(['product_id', 'promotion_id']);
+        Schema::create('shopping_carts', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('productp_pomotions');
+        Schema::dropIfExists('shopping_carts');
     }
 };
