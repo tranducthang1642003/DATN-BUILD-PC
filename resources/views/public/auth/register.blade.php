@@ -1,4 +1,13 @@
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <div class="min-h-screen bg-gray-100 flex items-center justify-center"style="background-image: url('https://picsum.photos/1920/1080')">
         <div class="container mx-auto">
@@ -16,14 +25,15 @@
                         </div>
                         <p class="text-sm text-gray-600 mb-2">Or register with:</p>
                     </div>
-                    <form>
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700">Name:</label>
                             <input type="text" id="name" name="name" class="border border-gray-300 p-2 rounded w-full" required>
                         </div>
                         <div class="mb-4">
                             <label for="gmail" class="block text-gray-700">Gmail:</label>
-                            <input type="email" id="gmail" name="gmail" class="border border-gray-300 p-2 rounded w-full" required>
+                            <input type="email" id="gmail" name="email" class="border border-gray-300 p-2 rounded w-full" required>
                         </div>
                         <div class="mb-4 flex">
                             <div class="w-1/2 mr-2">
@@ -32,7 +42,7 @@
                             </div>
                             <div class="w-1/2 ml-2">
                                 <label for="confirm-password" class="block text-gray-700">Confirm Password:</label>
-                                <input type="password" id="confirm-password" name="confirm-password" class="border border-gray-300 p-2 rounded w-full" required>
+                                <input type="password" id="confirm-password" name="password_confirmation" class="border border-gray-300 p-2 rounded w-full" required>
                             </div>
                         </div>
                         <div class="mb-4">
@@ -40,20 +50,17 @@
                             <input type="tel" id="phone" name="phone" class="border border-gray-300 p-2 rounded w-full" required>
                         </div>
                         <div class="flex mb-4">
-                            <div class="w-1/2 mr-2">
+                            <div class="w-full mr-2">
                                 <label for="address" class="block text-gray-700">Address:</label>
                                 <input type="text" id="address" name="address" class="border border-gray-300 p-2 rounded w-full" required>
                             </div>
-                            <div class="w-1/2 mr-2">
-                                <label for="image" class="block text-gray-700">Image:</label>
-                                <input type="file" id="image" name="image" class="border border-gray-300 p-2 rounded w-full" accept="image/*" required>
-                            </div>
                         </div>
                         <div class="flex items-center mt-3 justify-center">
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded ml-5">register</button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded ml-5">Register</button>
                             <p class="ml-5">Bạn đã có tài khoản? Hãy ấn <a href="/login" class="text-green-500">Đăng nhập</a>.</p>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
