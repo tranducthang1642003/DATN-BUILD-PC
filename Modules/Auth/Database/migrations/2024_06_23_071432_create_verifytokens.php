@@ -17,9 +17,7 @@ return new class extends Migration
             $table->string('token')->unique();
             $table->tinyInteger('is_activated')->default(0);
             $table->timestamps();
-
         });
-        
     }
 
     /**

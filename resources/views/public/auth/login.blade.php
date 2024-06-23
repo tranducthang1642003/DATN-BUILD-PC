@@ -11,10 +11,11 @@
                     </div>
                     <p class="text-sm text-gray-600 mb-2">Or login with:</p>
                 </div>
-                <form>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
                   <div class="mb-4">
                     <label for="gmail" class="block text-gray-700">Gmail:</label>
-                    <input type="email" id="gmail" name="gmail" class="border border-gray-300 p-2 rounded w-full" required>
+                    <input type="email" id="gmail" name="email" class="border border-gray-300 p-2 rounded w-full" required>
                 </div>
                     <div class="mb-4">
                         <label for="gmail" class="block text-gray-700">password:</label>
