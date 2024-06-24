@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('verifytokens', function (Blueprint $table) {
             $table->id();
-            $table->integer('rating');
-            $table->text('comment')->nullable();
+            $table->string('email')->nullable();
+            $table->string('token')->unique();
+            $table->tinyInteger('is_activated')->default(0);
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('verifytokens');
     }
 };

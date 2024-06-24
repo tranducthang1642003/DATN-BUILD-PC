@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('rating');
-            $table->text('comment')->nullable();
+            $table->timestamp('order_date')->useCurrent();
+            $table->string('status', 50);
+            $table->decimal('total_amount', 10, 2);
+            $table->string('shipping_address');
+            $table->string('payment_method', 50);
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('orders');
     }
 };
