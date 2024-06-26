@@ -21,7 +21,6 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
-
 </head>
 
 <body>
@@ -46,7 +45,7 @@
                 <div>
                     <button id="category" class="button_sidebar category_active"><ion-icon class="icon_sidebar" name="cube"></ion-icon>Loại</button>
                     <a class="w-full button-none" id="category_list" href="{{ route('category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="category_add" href="{{ route('add_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
+                    <a class="w-full button-none" id="category_add" href="{{ route('category.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
                 </div>
                 <div>
                     <button id="order" class="button_sidebar order_active"><ion-icon class="icon_sidebar" name="document-text"></ion-icon>Đơn hàng</button>
@@ -65,7 +64,7 @@
                 <div>
                     <button id="brand" class="button_sidebar brand_active"><ion-icon class="icon_sidebar" name="bookmarks"></ion-icon>Thương hiệu</button>
                     <a class="w-full button-none" id="brand_list" href="{{ route('brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="brand_add" href="{{ route('add_brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
+                    <a class="w-full button-none" id="brand_add" href="{{ route('brand.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
                 </div>
             </div>
 

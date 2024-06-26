@@ -8,7 +8,7 @@
 @include('admin.layout.header')
 
 <div class="bg-gray-100 font-sans antialiased flex-grow p-5 ml-10">
-    <form action="{{ route('add_category') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="min-h-screen bg-gray-100 flex justify-center items-center">
             <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
@@ -24,11 +24,17 @@
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label for="featured" class="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
-                    <select name="featured" id="featured" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>
-                        <option value="yes">Có</option>
-                        <option value="no">Không</option>
-                    </select>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="featured" value="yes" class="form-radio text-blue-600">
+                            <span class="ml-2">Có</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="featured" value="no" class="form-radio text-blue-600">
+                            <span class="ml-2">Không</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="mb-4">
                     <label for="Trạng thái" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
@@ -43,8 +49,8 @@
                     <textarea name="description" id="description" rows="3" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Nhập mô tả sản phẩm" required></textarea>
                 </div>
                 <div class="mb-4">
-                    <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Mã loại</label>
-                    <input type="text" name="product_code" id="product_code" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Nhập đường dẫn sản phẩm" required>
+                    <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Thêm hình</label>
+                    <input type="file" name="image" id="image" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Nhập đường dẫn sản phẩm" required>
                 </div>
                 <div class="flex justify-end mt-6">
                     <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Lưu</button>

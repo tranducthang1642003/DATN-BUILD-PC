@@ -32,6 +32,15 @@
                 </div>
             </form>
         </div>
+        @if (session('success'))
+        <div id="alert" class="border-t-4 border-teal-500 rounded-b px-4 py-3 shadow-md" style="background-color: #4CAF50; color: #fff" role="alert">
+            <p class="font-bold">{{ session('success') }}</p>
+        </div>
+        @elseif (session('errors'))
+        <div id="alert" class="border-t-4 border-red-500 rounded-b px-4 py-3 shadow-md" style="background-color: #f44336; color: #fff" role="alert">
+            <p class="font-bold">{{ session('errors') }}</p>
+        </div>
+        @endif
     </div>
     <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
         <thead>
@@ -40,6 +49,7 @@
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Tên</th>
                 <th class="px-4 py-2">Slug</th>
+                <th class="px-4 py-2">Hình ảnh</th>
                 <th class="px-4 py-2">Trạng thái</th>
                 <th class="px-4 py-2">Mô tả</th>
                 <th class="px-4 py-2">Cập nhật lần cuối</th>
@@ -53,6 +63,7 @@
                 <td class="px-4 py-2">{{ $category->id }}</td>
                 <td class="px-4 py-2">{{ $category->category_name }}</td>
                 <td class="px-4 py-2">{{ $category->slug }}</td>
+                <td class="px-4 py-2"><img class="w-36" src="{{ asset($category->image) }}" alt=""></td>
                 <td class="px-4 py-2">
                     @php
                     $statusLabels = [
@@ -70,7 +81,7 @@
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <a href="{{ route('edit_category', ['id' => $category->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Sửa</a>
+                            <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Sửa</a>
                             <form action="{{ route('delete_category', ['id' => $category->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
