@@ -20,7 +20,7 @@
                     </div>
                     <div class="mb-4">
                         <label for="Màu sắc" class="block text-sm font-medium text-gray-700 mb-1">Màu sắc</label>
-                        <input type="text" name="color" id="color" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Nhập màu sắc" required>
+                        <input type="color" name="color" id="color" class="" required>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -55,10 +55,10 @@
                         @endforeach
                     </select>
                 </div>
-                <!-- <div class="mb-4">
-                    <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Ảnh sản phẩm</label>
-                    <input type="file" name="image" id="image" class="border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
-                </div> -->
+                <div class="mb-4">
+                    <label for="Ảnh sản phẩm" class="block text-sm font-medium text-gray-700 mb-1">Ảnh sản phẩm</label>
+                    <input type="text" name="image_url" id="image_url" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Nhập URL của ảnh" required>
+                </div>
             </div>
             <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
                 <div class="mb-4">
@@ -95,5 +95,14 @@
         </div>
     </form>
 </div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 @include('admin.layout.fotter')

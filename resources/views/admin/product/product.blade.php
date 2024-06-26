@@ -78,12 +78,12 @@
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Thông tin sản phẩm</th>
+                <th class="px-4 py-2">Màu sắc</th>
                 <th class="px-4 py-2">Thương hiệu</th>
                 <th class="px-4 py-2">Danh mục</th>
                 <th class="px-4 py-2">Giá</th>
                 <th class="px-4 py-2">Số lượng</th>
                 <th class="px-4 py-2">Trạng thái</th>
-                <th class="px-4 py-2">Cập nhật lần cuối</th>
                 <th class="px-4 py-2">...</th>
             </tr>
         </thead>
@@ -93,12 +93,13 @@
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $product->id }}</td>
                 <td class="px-4 py-2 flex">
-                    <img src="{{ asset('image/pc_demo.jpg') }}" width="50" alt="">
+                    <img src="{{ $products_images[$product->id]['primary_image']->image_path ?? 'placeholder.jpg' }}" width="50" alt="">
                     <div class="pl-2">
                         <p>{{ $product->product_name }}</p>
                         <span>{{ $product->product_code }}</span>
                     </div>
                 </td>
+                <td class="px-4 py-2">{{ $product->color }}</td>
                 <td class="px-4 py-2">{{ $product->brand->brand_name }}</td>
                 <td class="px-4 py-2">{{ $product->category->category_name }}</td>
                 <td class="px-4 py-2">{{ $product->price }} VND</td>
@@ -106,15 +107,14 @@
                 <td class="px-4 py-2">
                     @php
                     $statusLabels = [
-                        1 => 'Còn hàng',
-                        2 => 'Hết hàng',
-                        3 => 'Đã xóa'
+                    1 => 'Còn hàng',
+                    2 => 'Hết hàng',
+                    3 => 'Đã xóa'
                     ];
                     @endphp
 
                     {{ $statusLabels[$product->status] ?? 'Không xác định' }}
                 </td>
-                <td class="px-4 py-2">{{ $product->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>

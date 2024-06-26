@@ -24,6 +24,10 @@ class Product extends Model
         'status',
         'category_id',
         'brand_id', 
+        'product_images_id', 
+        'promotion_id', 
+        'reviews_id', 
+        'wishlists_id', 
         'stock', 
         'created_at',
         'updated_at',
@@ -39,8 +43,8 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function image()
-    {
-        return $this->belongsTo(Image::class, 'product_id');
-    }
+   
+    
+   
+   
 }
