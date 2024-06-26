@@ -5,16 +5,16 @@ namespace Modules\Admin\App\Http\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brands extends Model
+class Promotions extends Model
 {
     use HasFactory;
-    protected $table = 'brands';
+    protected $table = 'promotions';
     protected $fillable = [
         'id',
-        'brand_name',
+        'promotion_code',
         'description',
-        'slug',
-        'feature',
-        'status',
+        'discount',
+        'start_date',
+        'end_date',
     ];
 }
