@@ -6768,14 +6768,17 @@ __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
 /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap.js */ "./resources/js/bootstrap.js");
 Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+<<<<<<< HEAD
 =======
 Object(function webpackMissingModule() { var e = new Error("Cannot find module './bootstrap'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 >>>>>>> 236ee8a (f)
+=======
+>>>>>>> 21f31e9 (pull main)
 
 
-window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
-alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+window.Alpine = Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())();
 
 /***/ }),
 
