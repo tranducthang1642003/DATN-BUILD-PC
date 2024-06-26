@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Category\Entities\Category;
+use Modules\Product\Entities\Product;
+
 
 class HomeController extends Controller
 {
@@ -15,10 +17,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $Categorys = Category::all();
-        return view('public.home.layout',['Categorys' => $Categorys]);
+        $categories = Category::all();  
+        $products = Product::all();  // Retrieve all products from the database
+    
+        // Modify $products to include necessary attributes
+        $products = $products->map(function ($product) {
+            return [
+                'img' => $product->image_path, // Assuming this is the path to product image
+                'title' => $product->product_name,
+                'old_price' => $product->old_price,
+                'discount' => $product->discount,
+                'new_price' => $product->new_price,
+                'vocher' => $product->vocher,
+            ];
+        });
+    
+        return view('public.home.layout', compact('categories', 'products'));
     }
-
+    
+    
+    
     /**
      * Show the form for creating a new resource.
      */
