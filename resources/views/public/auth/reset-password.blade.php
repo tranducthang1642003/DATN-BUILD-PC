@@ -7,7 +7,6 @@
     <title>Reset Password</title>
 
 </head>
-
 <body>
     <form method="POST" action="{{ route('password.store') }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -59,7 +58,5 @@
             </button>
         </div>
     </form>
-
 </body>
-
 </html>
