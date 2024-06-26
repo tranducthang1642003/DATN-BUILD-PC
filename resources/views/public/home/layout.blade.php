@@ -26,23 +26,6 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                @php
-                    $products = [
-                        [
-                            'img' =>
-                                'https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg',
-                            'title' => 'Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)',
-                            'category' => 'Màn hình máy tính',
-                            'old_price' => '7.500.000',
-                            'discount' => '-25%',
-                            'new_price' => '6.000.000đ',
-                            'rating' => 3,
-                            'reviews' => 12,
-                        ],
-                        // ... thêm sản phẩm
-                    ];
-                @endphp
-                @for ($i = 0; $i < 10; $i++)
                     @foreach ($products as $product)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2">
@@ -54,7 +37,6 @@
                                         class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
                                 <div class="product-info p-3">
                                     <a href="" class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <p class="text-gray-400">{{ $product['category'] }}</p>
                                     <div class="mt-3 inline-flex">
                                         <div>
                                             <p class="product-price line-through text-slate-500">
@@ -69,7 +51,6 @@
                             </div>
                         </div>
                     @endforeach
-                @endfor
             </div>
         </div>
     </div>
@@ -89,23 +70,6 @@
                 </div>
             </div>
             <div class="autoplay-sliderr p-3 w-full md:w-2/3">
-                @php
-                    $products = [
-                        [
-                            'img' =>
-                                'https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg',
-                            'title' => 'Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)',
-                            'category' => 'Màn hình máy tính',
-                            'old_price' => '7.500.000',
-                            'discount' => '-25%',
-                            'new_price' => '6.000.000đ',
-                            'rating' => 3,
-                            'reviews' => 12,
-                        ],
-                        // ... thêm sản phẩm ở đây
-                    ];
-                @endphp
-                @for ($i = 0; $i < 10; $i++)
                     @foreach ($products as $product)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2">
@@ -117,7 +81,6 @@
                                         class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
                                 <div class="product-info p-3">
                                     <a href="" class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <p class="text-gray-400">{{ $product['category'] }}</p>
                                     <div class="mt-3 inline-flex">
                                         <div>
                                             <p class="product-price line-through text-slate-500">
@@ -132,7 +95,7 @@
                             </div>
                         </div>
                     @endforeach
-                @endfor
+               
             </div>
         </div>
     </div>
@@ -144,7 +107,7 @@
             <div class="text-animation text-xl md:text-2xl font-black">DANH MỤC NỖI BẬT</div>
         </div>
         <div class="autoplay-sliderr Categorys px-8 pt-5 bg-orange-400 h-28">
-            @foreach ($Categorys as $Categorys)
+            @foreach ($categories as $Categorys)
                 <li>{{ $Categorys->name }}</li>
             @endforeach
         </div>
@@ -158,22 +121,6 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                @php
-                    $products = [
-                        [
-                            'img' => 'https://nguyencongpc.vn/media/product/250-25984-pc-meo.jpg',
-                            'title' => 'Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)',
-                            'category' => 'Màn hình máy tính',
-                            'old_price' => '7.500.000',
-                            'discount' => '-25%',
-                            'new_price' => '6.000.000đ',
-                            'rating' => 3,
-                            'vocher' => 'Tặng thêm vocher 100k khi mua thêm phụ kiện',
-                        ],
-                        // ... thêm sản phẩm
-                    ];
-                @endphp
-                @for ($i = 0; $i < 10; $i++)
                     @foreach ($products as $product)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2">
@@ -185,7 +132,6 @@
                                         class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
                                 <div class="product-info p-3">
                                     <a href="" class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <p class="text-gray-400">{{ $product['category'] }}</p>
                                     <div class="mt-3 inline-flex">
                                         <div>
                                             <p class="product-price line-through text-slate-500">
@@ -205,7 +151,6 @@
                             </div>
                         </div>
                     @endforeach
-                @endfor
             </div>
         </div>
     </div>
@@ -219,23 +164,6 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                @php
-                    $products = [
-                        [
-                            'img' =>
-                                'https://nguyencongpc.vn/media/product/250-25388-m--n-h--nh-tuf-gaming-vg249q3a.jpg',
-                            'title' => 'Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)',
-                            'category' => 'Màn hình máy tính',
-                            'old_price' => '7.500.000',
-                            'discount' => '-25%',
-                            'new_price' => '6.000.000đ',
-                            'rating' => 3,
-                            'vocher' => 'Tặng thêm vocher 100k khi mua thêm phụ kiện',
-                        ],
-                        // ... thêm sản phẩm
-                    ];
-                @endphp
-                @for ($i = 0; $i < 10; $i++)
                     @foreach ($products as $product)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2">
@@ -248,7 +176,6 @@
                                 <div class="product-info p-3">
                                     <a href=""
                                         class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <p class="text-gray-400">{{ $product['category'] }}</p>
                                     <div class="mt-3 inline-flex">
                                         <div>
                                             <p class="product-price line-through text-slate-500">
@@ -268,7 +195,6 @@
                             </div>
                         </div>
                     @endforeach
-                @endfor
             </div>
         </div>
     </div>
@@ -281,23 +207,6 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                @php
-                    $products = [
-                        [
-                            'img' =>
-                                'https://nguyencongpc.vn/media/product/250-24496-colorful-igame-geforce-rtx-4070-ti-ultra-w-oc-vcolorful-igame-geforce-rtx-4070-ti-ultra-w-oc-v.jpg',
-                            'title' => 'Card Màn Hình Colorful IGame GeForce RTX 4070 Ti Ultra W OC-V',
-                            'category' => 'Màn hình máy tính',
-                            'old_price' => '7.500.000',
-                            'discount' => '-25%',
-                            'new_price' => '6.000.000đ',
-                            'rating' => 3,
-                            'vocher' => 'Tặng thêm vocher 100k khi mua thêm phụ kiện',
-                        ],
-                        // ... thêm sản phẩm
-                    ];
-                @endphp
-                @for ($i = 0; $i < 10; $i++)
                     @foreach ($products as $product)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2">
@@ -310,7 +219,6 @@
                                 <div class="product-info p-3">
                                     <a href=""
                                         class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <p class="text-gray-400">{{ $product['category'] }}</p>
                                     <div class="mt-3 inline-flex">
                                         <div>
                                             <p class="product-price line-through text-slate-500">
@@ -330,7 +238,6 @@
                             </div>
                         </div>
                     @endforeach
-                @endfor
             </div>
         </div>
     </div>
@@ -343,20 +250,7 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                @php
-                    $products = [
-                        [
-                            'img' =>
-                                'https://nguyencongpc.vn/media/news/3039-maxresdefault--1-.jpg',
-                            'title' => 'Combo SIÊU PHỔ THÔNG i5 12400F + RTX 3060 còn lại gì ở 2024 - Vẫn KHỎE lắm',
-                            'category' => 'Màn hình máy tính',
-                            'rating' => 3,
-                            'vocher' => 'Tặng thêm vocher 100k khi mua thêm phụ kiện',
-                        ],
-                        // ... thêm sản phẩm
-                    ];
-                @endphp
-                @for ($i = 0; $i < 10; $i++)
+                
                     @foreach ($products as $product)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2">
@@ -374,7 +268,6 @@
                             </div>
                         </div>
                     @endforeach
-                @endfor
             </div>
         </div>
     </div>
