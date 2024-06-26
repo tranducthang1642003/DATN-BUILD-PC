@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_images', function (Blueprint $table) {
+        Schema::create('verifytokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products');
-            $table->string('image_url');
-            $table->boolean('is_main')->default(false);
+            $table->string('email')->nullable();
+            $table->string('token')->unique();
+            $table->tinyInteger('is_activated')->default(0);
             $table->timestamps();
+
         });
+        
     }
 
     /**
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_images');
+        Schema::dropIfExists('verifytokens');
     }
 };
