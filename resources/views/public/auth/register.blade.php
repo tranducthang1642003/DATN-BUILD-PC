@@ -1,4 +1,13 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@include('public.header.index')
+<style>
+    .register {
+        position: relative;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/09/hinh-nen-may-tinh-4k-cong-nghe-4.jpg');
+        background-size: cover;
+        background-position: center;
+        font-family: Arial, sans-serif;
+    }
+</style>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -9,12 +18,15 @@
     </div>
 @endif
 
-    <div class="min-h-screen bg-gray-100 flex items-center justify-center"style="background-image: url('https://picsum.photos/1920/1080')">
-        <div class="container mx-auto">
+    <div class="register min-h-screen bg-gray-100 flex items-center justify-center">
+        <div class="w-9/12">
             <div class="bg-white  rounded-md flex flex-col sm:flex-row">
-                <div class="md:w-1/2 bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-center items-center relative">
-                    <img src="https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg" alt="Image" class="h-full w-full object-cover">
-                    <p class="image-text text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white font-bold bg-opacity-75 px-6 py-4 rounded-lg">Chào mừng bạn đến với chúng tôi</p>
+                <div class="md:w-1/2 bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/09/hinh-nen-may-tinh-4k-cong-nghe-4.jpg" alt="Image" class="h-full w-full max-w object-cover">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                        <p class="text-4xl md:text-5xl lg:text-6xl  font-bold text-white">Hello</p>
+                        <p class="xl:text-2xl 2xl:text-3xl text-white">Please provide the following information in the registration form.</p>
+                    </div>
                 </div>
                 <div class="md:w-1/2 sm:px-6 py-4 bg-white rounded-lg">
                     <h2 class="text-2xl font-bold mb-6 text-center">Đăng ký</h2>
