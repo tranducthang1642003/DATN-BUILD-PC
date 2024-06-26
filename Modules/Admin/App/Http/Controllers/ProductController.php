@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Admin\App\Http\Models\Brands;
 use Modules\Admin\App\Http\Models\Category;
 use Modules\Admin\App\Http\Models\Product;
-
+use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     public function index(Request $request)
@@ -49,42 +49,45 @@ class ProductController extends Controller
     public function update_product(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string',
-            'color' => 'required|string',
-            'price' => 'required|numeric',
-            'id_category' => 'required|string',
-            'sale' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'image' => 'nullable|image',
-            'id_brand' => 'required|string',
-            'short_description' => 'required|string',
-            'long_description' => 'required|string',
-            'featured' => 'required|in:yes,no',
-            'slug' => 'required|string',
-            'discount' => 'required|numeric',
+            'product_name' => 'required|string',
             'product_code' => 'required|string',
+            'color' => 'required|string',
+            'quantity' => 'required|numeric',
+            'sale' => 'required|numeric',
+            'featured' => 'required|in:yes,no',
+            'category_id' => 'required|string',
+            'brand_id' => 'required|string',
+            'price' => 'required|numeric',
+            'stock' => 'required|string',
+            'description' => 'required|string',
+            'specifications' => 'required|string',
         ]);
+
         $product = Product::findOrFail($id);
-        $product->name = $validatedData['name'];
-        $product->color = $validatedData['color'];
-        $product->price = $validatedData['price'];
-        $product->id_category = $validatedData['id_category'];
-        $product->sale = $validatedData['sale'];
-        $product->quantity = $validatedData['quantity'];
-        $product->brand()->associate($validatedData['id_brand']);
-        $product->short_description = $validatedData['short_description'];
-        $product->long_description = $validatedData['long_description'];
-        $product->featured = $validatedData['featured'] === 'yes' ? true : false;
+        $product->product_name = $validatedData['product_name'];
         $product->slug = $validatedData['slug'];
-        $product->discount = $validatedData['discount'];
         $product->product_code = $validatedData['product_code'];
+        $product->color = $validatedData['color'];
+        $product->quantity = $validatedData['quantity'];
+        $product->sale = $validatedData['sale'];
+        $product->featured = $validatedData['featured'] === 'yes' ? true : false;
+        $product->category_id = $validatedData['category_id'];
+        $product->brand_id = $validatedData['brand_id'];
+        $product->price = $validatedData['price'];
+        $product->stock = $validatedData['stock'];
+        $product->description = $validatedData['description'];
+        $product->specifications = $validatedData['specifications'];
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('product_images', 'public');
             $product->image = $imagePath;
         }
+
         $product->save();
+
         return redirect()->route('product');
     }
+
 
     public function add()
     {
@@ -96,45 +99,47 @@ class ProductController extends Controller
     public function add_product(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string',
-            'color' => 'required|string',
-            'price' => 'required|numeric',
-            'id_category' => 'required|exists:categories,id',
-            'sale' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'image' => 'nullable|image',
-            'id_brand' => 'required|exists:brands,id',
-            'short_description' => 'required|string',
-            'long_description' => 'required|string',
-            'featured' => 'required|in:yes,no',
-            'slug' => 'required|string',
-            'discount' => 'required|numeric',
+            'product_name' => 'required|string',
             'product_code' => 'required|string',
+            'color' => 'required|string',
+            'quantity' => 'required|numeric',
+            'sale' => 'required|numeric',
+            'featured' => 'required|in:yes,no',
+            'status' => 'required|in:1,2,3',
+            'view' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'description' => 'required|string',
+            'specifications' => 'required|string',
         ]);
+        
         $product = new Product();
-        $product->name = $validatedData['name'];
-        $product->color = $validatedData['color'];
-        $product->price = $validatedData['price'];
-        $product->id_category = $validatedData['id_category'];
-        $product->sale = $validatedData['sale'];
-        $product->quantity = $validatedData['quantity'];
-        $product->id_brand = $validatedData['id_brand'];
-        $product->short_description = $validatedData['short_description'];
-        $product->long_description = $validatedData['long_description'];
-        $product->featured = $validatedData['featured'] === 'yes' ? true : false;
-        $product->slug = $validatedData['slug'];
-        $product->discount = $validatedData['discount'];
+        $product->product_name = $validatedData['product_name'];
+        $product->slug = Str::slug($validatedData['product_name'], '-');;
         $product->product_code = $validatedData['product_code'];
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('product_images', 'public');
-            $product->image = $imagePath;
-        }
-        if ($product->save()) {
-            return redirect()->route('product')->with('success', 'Product added successfully!');
-        } else {
-            return redirect()->back()->withInput()->withErrors('Failed to add product.');
-        }
+        $product->color = $validatedData['color'];
+        $product->quantity = $validatedData['quantity'];
+        $product->sale = $validatedData['sale'];
+        $product->featured = $validatedData['featured'] === 'yes';
+        $product->status = $validatedData['status'];
+        $product->view = 0;
+        $product->category_id = $validatedData['category_id'];
+        $product->brand_id = $validatedData['brand_id'];
+        $product->price = $validatedData['price'];
+        $product->stock = $validatedData['stock'];
+        $product->description = $validatedData['description'];
+        $product->specifications = $validatedData['specifications'];
+        dd($request->all());
+        // if ($product->save()) {
+        //     return redirect()->route('product')->with('success', 'Thêm sản phẩm thành công!');
+        // } else {
+        //     return redirect()->back()->withInput()->withErrors('Thêm sản phẩm thất bại.');
+        // }
     }
+
+
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
