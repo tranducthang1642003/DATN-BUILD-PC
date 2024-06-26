@@ -6765,20 +6765,12 @@ const isThenable = (thing) =>
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
 /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap.js */ "./resources/js/bootstrap.js");
 Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-<<<<<<< HEAD
-=======
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './bootstrap'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
->>>>>>> 236ee8a (f)
-=======
->>>>>>> 21f31e9 (pull main)
 
 
-window.Alpine = Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())();
+window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
 
 /***/ }),
 
@@ -6850,7 +6842,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-<<<<<<< HEAD
 /******/ 	
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = __webpack_modules__;
@@ -6888,10 +6879,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /******/ 		};
 /******/ 	})();
 /******/ 	
-=======
-/******/ 	
-/************************************************************************/
->>>>>>> 236ee8a (f)
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -6904,7 +6891,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /******/ 		};
 /******/ 	})();
 /******/ 	
-<<<<<<< HEAD
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -6917,8 +6903,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /******/ 		})();
 /******/ 	})();
 /******/ 	
-=======
->>>>>>> 236ee8a (f)
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -6993,16 +6977,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/css/app.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-=======
-/******/ 	__webpack_require__("./resources/js/app.js");
-/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./resources/css/app.css");
->>>>>>> 236ee8a (f)
 /******/ 	
 /******/ })()
 ;
