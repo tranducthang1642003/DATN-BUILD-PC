@@ -5,6 +5,7 @@
     }
 </style>
 @include('admin.layout.header')
+
 <div class="flex-grow p-5 ml-10">
     <div class="flex justify-between text-sm">
         <div class="flex text-gray-600">
@@ -30,6 +31,15 @@
                 </div>
             </form>
         </div>
+        @if (session('success'))
+        <div id="alert" class="border-t-4 border-teal-500 rounded-b px-4 py-3 shadow-md" style="background-color: #4CAF50; color: #fff" role="alert">
+            <p class="font-bold">{{ session('success') }}</p>
+        </div>
+        @elseif (session('errors'))
+        <div id="alert" class="border-t-4 border-red-500 rounded-b px-4 py-3 shadow-md" style="background-color: #f44336; color: #fff" role="alert">
+            <p class="font-bold">{{ session('errors') }}</p>
+        </div>
+        @endif
     </div>
     <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
         <thead>
@@ -54,19 +64,19 @@
                 <td class="px-4 py-2">
                     @php
                     $featuredLabels = [
-                        1 => 'Có',
-                        2 => 'Không',
+                    0 => 'Không',
+                    1 => 'Có',
                     ];
                     @endphp
 
-                    {{ $featuredLabels[$brand->status] ?? 'Không xác định' }}
+                    {{ $featuredLabels[$brand->featured] ?? 'Không xác định' }}
                 </td>
                 <td class="px-4 py-2">
                     @php
                     $statusLabels = [
-                        1 => 'Còn hàng',
-                        2 => 'Hết hàng',
-                        3 => 'Đã xóa'
+                    1 => 'Còn hàng',
+                    2 => 'Hết hàng',
+                    3 => 'Đã xóa'
                     ];
                     @endphp
 
@@ -79,7 +89,7 @@
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <a href="{{ route('edit_brand', ['id' => $brand->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Sửa</a>
+                            <a href="{{ route('brand.edit', ['id' => $brand->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Sửa</a>
                             <form action="{{ route('delete_brand', ['id' => $brand->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -99,3 +109,9 @@
     </div>
 </div>
 @include('admin.layout.fotter')
+
+<script>
+    setTimeout(function() {
+        document.getElementById('alert').style.display = 'none';
+    }, 3000);
+</script>

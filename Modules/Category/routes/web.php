@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Category\App\Http\Controllers\CategoryController;
+use Modules\Category\App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +15,10 @@ use Modules\Category\App\Http\Controllers\CategoryController;
 */
 
 Route::group([], function () {
-    Route::resource('category', CategoryController::class)->names('category');
+    Route::get('admin/category', [CategoryController::class, 'index'])->name('category');
+    Route::get('admin/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('admin/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('admin/category/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('admin/category/{id}/edit', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('admin/category/{id}', [CategoryController::class, 'destroy'])->name('delete_category');
 });

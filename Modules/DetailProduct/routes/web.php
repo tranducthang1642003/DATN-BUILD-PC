@@ -16,4 +16,5 @@ use Modules\DetailProduct\App\Http\Controllers\DetailProductController;
 
 Route::prefix('detailproduct')->group(function () {
     Route::get('/', 'DetailProductController@index');
+    Route::get('/{id}', 'DetailProductController@show')->name('detailproduct.show');
 });
