@@ -1060,6 +1060,9 @@ select {
 .h-screen {
   height: 100vh;
 }
+.max-h-screen {
+  max-height: 100vh;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1117,6 +1120,9 @@ select {
 .w-full {
   width: 100%;
 }
+.w-9\/12 {
+  width: 75%;
+}
 .min-w-72 {
   min-width: 18rem;
 }
@@ -1150,6 +1156,9 @@ select {
 }
 .max-w-xl {
   max-width: 36rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1656,6 +1665,9 @@ select {
 }
 .pt-\[9px\] {
   padding-top: 9px;
+}
+.pb-4 {
+  padding-bottom: 1rem;
 }
 .text-left {
   text-align: left;
@@ -2201,6 +2213,10 @@ select {
     margin-top: 0px;
   }
 
+  .sm\:block {
+    display: block;
+  }
+
   .sm\:flex {
     display: flex;
   }
@@ -2235,6 +2251,10 @@ select {
 
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .sm\:flex-row {
@@ -2298,6 +2318,11 @@ select {
   .sm\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+
+  .sm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .sm\:leading-6 {
@@ -2493,6 +2518,10 @@ select {
 
   .lg\:block {
     display: block;
+  }
+
+  .lg\:flex {
+    display: flex;
   }
 
   .lg\:hidden {

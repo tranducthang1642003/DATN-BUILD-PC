@@ -96,7 +96,7 @@
                 <td class="px-4 py-2">{{ $product->color }}</td>
                 <td class="px-4 py-2">{{ $product->brand->brand_name }}</td>
                 <td class="px-4 py-2 hidden sm:table-cell">{{ $product->category->category_name }}</td>
-                <td class="px-4 py-2">{{ $product->price }} VND</td>
+                <td class="px-4 py-2">{{ number_format($product->price) }},000 VND</td>
                 <td class="px-4 py-2 hidden sm:table-cell">{{ $product->quantity }}</td>
                 <td class="px-4 py-2">
                     @php

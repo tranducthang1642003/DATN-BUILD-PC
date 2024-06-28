@@ -6,7 +6,11 @@
 </style>
 @include('admin.layout.header')
 <div class="flex-grow p-5 ml-10">
-    <h1 class="font-bold text-xl">Tháng này</h1>
+    @php
+    $yesterday = \Carbon\Carbon::now()->subDay();
+    $thirtyDaysAgo = \Carbon\Carbon::now()->subDays(30);
+    @endphp
+    <h1 class="font-bold text-xl">Tháng này</h1><p>{{ $thirtyDaysAgo->format('d/m/Y') }} - {{ $yesterday->format('d/m/Y') }}</p>
     <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 my-4">
         <div class="col-span-1 card_dashboard" id="revenueCard">
             <div class="h-48 sm:h-36 bg-gradient-to-r from-orange-500 to-orange-300 rounded-t-xl text-white">
@@ -15,7 +19,7 @@
                         <span class="text-sm sm:text-base">Doanh thu</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl sm:text-3xl">11,132,123</h1>
+                        <h1 class="text-2xl sm:text-2xl">11,132,123</h1>
                         <ion-icon name="logo-usd" class="text-4xl"></ion-icon>
                     </div>
                 </div>
@@ -32,7 +36,7 @@
                         <span class="text-sm sm:text-base">Đơn hàng mới</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl sm:text-3xl">12</h1>
+                        <h1 class="text-2xl sm:text-2xl">12</h1>
                         <ion-icon name="newspaper-outline" class="text-4xl"></ion-icon>
                     </div>
                 </div>
@@ -49,7 +53,7 @@
                         <span class="text-sm sm:text-base">Sản phẩm đã bán</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl sm:text-3xl">952</h1>
+                        <h1 class="text-2xl sm:text-2xl">952</h1>
                         <ion-icon class="text-4xl" name="bag"></ion-icon>
                     </div>
                 </div>
@@ -66,7 +70,7 @@
                         <span class="text-sm sm:text-base">Khách hàng mới</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl sm:text-3xl">100</h1>
+                        <h1 class="text-2xl sm:text-2xl">100</h1>
                         <ion-icon name="people-circle-outline" class="text-4xl"></ion-icon>
                     </div>
                 </div>
