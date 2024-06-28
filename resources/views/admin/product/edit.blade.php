@@ -87,13 +87,13 @@
                     <div class="mb-4">
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Mô tả Sản phẩm</label>
                         <input id="description" type="hidden" name="description">
-                        <trix-editor class="trix-content" input="description" value="{!! $product->description !!}"></trix-editor>
+                        <trix-editor class="trix-content" input="description" value="">{!! $product->description !!}</trix-editor>
                     </div>
 
                     <div class="mb-4">
                         <label for="specifications" class="block text-sm font-medium text-gray-700 mb-1">Thông số kỹ thuật</label>
                         <input id="specifications" type="hidden" name="specifications">
-                        <trix-editor class="trix-content" input="specifications" value="{!! $product->specifications !!}"></trix-editor>
+                        <trix-editor class="trix-content" input="specifications" value="">{!! $product->specifications !!}</trix-editor>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
