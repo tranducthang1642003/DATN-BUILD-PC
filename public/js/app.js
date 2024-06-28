@@ -6769,8 +6769,8 @@ __webpack_require__.r(__webpack_exports__);
 Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
-window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
-alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+window.Alpine = Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'alpinejs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())();
 
 /***/ }),
 

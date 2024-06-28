@@ -6,82 +6,83 @@
 </style>
 @include('admin.layout.header')
 <div class="flex-grow p-5 ml-10">
-    <h1 class=" font-bold text-xl">Tháng này</h1>
-    <div class="grid grid-cols-12 gap-6 my-4">
-        <div class="col-span-3  card_dashboard " id="revenueCard">
-            <div class="h-3/4 bg-gradient-to-r from-orange-500 to-orange-300 rounded-t-xl text-white">
+    <h1 class="font-bold text-xl">Tháng này</h1>
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 my-4">
+        <div class="col-span-1 card_dashboard" id="revenueCard">
+            <div class="h-48 sm:h-36 bg-gradient-to-r from-orange-500 to-orange-300 rounded-t-xl text-white">
                 <div class="p-4">
-                    <div class="">
-                        <span class="">Doanh thu</span>
+                    <div>
+                        <span class="text-sm sm:text-base">Doanh thu</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl">11,132,123</h1>
-                        <ion-icon name="logo-usd" class="text-3xl"></ion-icon>
+                        <h1 class="text-2xl sm:text-3xl">11,132,123</h1>
+                        <ion-icon name="logo-usd" class="text-4xl"></ion-icon>
                     </div>
                 </div>
             </div>
-            <div class="h-1/4 flex justify-between px-4 items-center text-xs">
+            <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: 2,122,123,123</span>
                 <span class="text-lime-700">+12%</span>
             </div>
         </div>
-        <div class="col-span-3  card_dashboard" id="newOrdersCard">
-            <div class="h-3/4 bg-gradient-to-r from-violet-800 to-violet-500 rounded-t-xl text-white">
+        <div class="col-span-1 card_dashboard" id="newOrdersCard">
+            <div class="h-48 sm:h-36 bg-gradient-to-r from-violet-800 to-violet-500 rounded-t-xl text-white">
                 <div class="p-4">
-                    <div class="">
-                        <span class="">Đơn hàng mới</span>
+                    <div>
+                        <span class="text-sm sm:text-base">Đơn hàng mới</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl">12</h1>
-                        <ion-icon name="newspaper-outline" class="text-3xl"></ion-icon>
+                        <h1 class="text-2xl sm:text-3xl">12</h1>
+                        <ion-icon name="newspaper-outline" class="text-4xl"></ion-icon>
                     </div>
                 </div>
             </div>
-            <div class="h-1/4 flex justify-between px-4 items-center text-xs">
+            <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: 24</span>
                 <span class="text-red-600">-10%</span>
             </div>
         </div>
-        <div class="col-span-3  card_dashboard" id="soldProductsCard">
-            <div class="h-3/4 bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-t-xl text-white">
+        <div class="col-span-1 card_dashboard" id="soldProductsCard">
+            <div class="h-48 sm:h-36 bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-t-xl text-white">
                 <div class="p-4">
-                    <div class="">
-                        <span class="">Sản phẩm đã bán</span>
+                    <div>
+                        <span class="text-sm sm:text-base">Sản phẩm đã bán</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl">952</h1>
-                        <ion-icon class="text-3xl" name="bag"></ion-icon>
+                        <h1 class="text-2xl sm:text-3xl">952</h1>
+                        <ion-icon class="text-4xl" name="bag"></ion-icon>
                     </div>
                 </div>
             </div>
-            <div class="h-1/4 flex justify-between px-4 items-center text-xs">
+            <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: 800</span>
                 <span class="text-lime-700">+12%</span>
             </div>
         </div>
-        <div class="col-span-3  card_dashboard" id="newCustomersCard">
-            <div class="h-3/4 bg-gradient-to-r from-fuchsia-800 to-fuchsia-500 rounded-t-xl text-white">
+        <div class="col-span-1 card_dashboard" id="newCustomersCard">
+            <div class="h-48 sm:h-36 bg-gradient-to-r from-fuchsia-800 to-fuchsia-500 rounded-t-xl text-white">
                 <div class="p-4">
-                    <div class="">
-                        <span class="">Khách hàng mới</span>
+                    <div>
+                        <span class="text-sm sm:text-base">Khách hàng mới</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-2xl">100</h1>
-                        <ion-icon name="people-circle-outline" class="text-3xl"></ion-icon>
+                        <h1 class="text-2xl sm:text-3xl">100</h1>
+                        <ion-icon name="people-circle-outline" class="text-4xl"></ion-icon>
                     </div>
                 </div>
             </div>
-            <div class="h-1/4 flex justify-between px-4 items-center text-xs">
+            <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: 92</span>
                 <span class="text-lime-700">+12%</span>
             </div>
         </div>
     </div>
-    <canvas id="revenueCanvas" class="h-28"></canvas>
-    <canvas id="newOrdersCanvas" class="h-28"></canvas>
-    <canvas id="soldProductsCanvas" class="h-28"></canvas>
-    <canvas id="newCustomersCanvas" class="h-28"></canvas>
+    <canvas id="revenueCanvas" class="h-36 sm:h-28"></canvas>
+    <canvas id="newOrdersCanvas" class="h-36 sm:h-28"></canvas>
+    <canvas id="soldProductsCanvas" class="h-36 sm:h-28"></canvas>
+    <canvas id="newCustomersCanvas" class="h-36 sm:h-28"></canvas>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Khởi tạo các biểu đồ
