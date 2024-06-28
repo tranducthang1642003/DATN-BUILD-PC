@@ -67,9 +67,9 @@
                 <td class="px-4 py-2">
                     @php
                     $statusLabels = [
-                        1 => 'Còn hàng',
-                        2 => 'Hết hàng',
-                        3 => 'Đã xóa'
+                    1 => 'Còn hàng',
+                    2 => 'Hết hàng',
+                    3 => 'Đã xóa'
                     ];
                     @endphp
 
@@ -102,3 +102,9 @@
 </div>
 
 @include('admin.layout.fotter')
+
+<script>
+    setTimeout(function() {
+        document.getElementById('alert').style.display = 'none';
+    }, 3000);
+</script>

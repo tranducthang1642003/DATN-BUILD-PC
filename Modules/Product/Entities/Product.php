@@ -3,6 +3,7 @@
 namespace Modules\Product\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Modules\Brand\Entities\Brand;
 use Modules\Category\Entities\Category;
 
@@ -52,5 +53,23 @@ class Product extends Model
     public function additionalImages()
     {
         return $this->hasMany(ProductImage::class)->where('is_primary', false);
+        'image',
+        'featured',
+        'status',
+        'description',
+        'price',
+        'quantity',
+        'short_description',
+        'view',
+        'product_code',
+        'color',
+        'sale',
+        'category_id',
+        'brand_id',
+    ];
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
     }
 }

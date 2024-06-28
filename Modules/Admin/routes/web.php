@@ -11,7 +11,6 @@ use Modules\Admin\App\Http\Controllers\VoucherController;
 
 Route::group(['admin'], function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
-  
 
     Route::get('admin/order', [OrderController::class, 'index'])->name('order');
     Route::get('admin/order/add', [OrderController::class, 'add'])->name('add_order');
