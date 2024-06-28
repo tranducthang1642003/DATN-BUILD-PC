@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class DetailProductController extends Controller
 {
@@ -38,7 +39,9 @@ class DetailProductController extends Controller
      */
     public function show($id)
     {
-        return view('detailproduct::show');
+        $product = DB::table('products')->get();
+        $products = DB::table('products')->where('id', $id)->first();
+        return view('public.product.detail-product', ['id' => $id, 'products' => $products, 'product' => $product]);
     }
 
     /**

@@ -71,7 +71,7 @@
             </div>
             <div class="box-right grow ml-0 md:ml-10 mt-5">
                 <h1 class="detail-product_name text-base md:text-lg xl:text-xl">
-                    Màn Hình TUF Gaming VG249Q3A (24 Inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)
+                    {{ $products -> product_name }}
                 </h1>
                 <div class="list-basic-product-info flex mt-3">
                     <div class="item-basic mr-10">
@@ -85,8 +85,8 @@
                     </div>
                 </div>
                 <div class="box-price-detail flex mt-3 border-2 rounded-2xl p-1 md:p-3">
-                    <p class="price-detail text-lg lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">3.190.000đ</p>
-                    <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">4.000.000₫</span>
+                    <p class="price-detail text-lg lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5"> {{ $products -> price }} </p>
+                    <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">{{ $products -> sale }}</span>
                     <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">Tiết kiệm 810.000đ</div>
                     <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">-25%</div>
                 </div>
@@ -238,6 +238,7 @@
                 </div>
                 <div class="product-slide box-list-relative-product mt-3">
                     <div class="autoplay-slider">
+                        @foreach ($product as $item)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2 border">
                                 <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
@@ -246,7 +247,7 @@
                                 </div>
                                 <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
                                 <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
+                                    <a href="{{ route('detailproduct.show', $item->id) }}" class="hover:text-blue-600 truncate-2-lines"> {{ $item -> product_name }} </a>
                                     <p class="text-gray-400">Màn hình máy tính</p>
                                     <div class="mt-3 inline-flex ">
                                         <div class="">
@@ -270,262 +271,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img ">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img ">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img ">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -538,47 +284,16 @@
                 </div>
                 <div class="product-slide box-list-history-product mt-3">
                     <div class="autoplay-slider">
+                        @foreach ($product as $item)
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2 border">
                                 <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3 ">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img ">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                                <div class="product-img mt-2">
+                                    <a href="{{ route('detailproduct.show', $item->id) }}"> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
                                 </div>
                                 <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
                                 <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
+                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> {{ $item -> product_name }} </a>
                                     <p class="text-gray-400">Màn hình máy tính</p>
                                     <div class="mt-3 inline-flex ">
                                         <div class="">
@@ -602,264 +317,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img ">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img ">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2 border">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img">
-                                    <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "> <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Bán chạy</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 truncate-2-lines"> Màn hình ASUS TUF Gaming VG279Q3A (27 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG) </a>
-                                    <p class="text-gray-400">Màn hình máy tính</p>
-                                    <div class="mt-3 inline-flex ">
-                                        <div class="">
-                                            <p class="product-price line-through text-slate-500">7.500.000</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">6.000.000đ</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-3 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="pt-3 mb-5 text-xs sm:text-base">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-between">
-            <div class="item border rounded-lg mr-2 mt-2">
-                <p class="text-center p-5">
-                    <i class="fa-solid fa-truck"></i>
-                    <b>CHÍNH SÁCH GIAO HÀNG</b><br>
-                    <span>Nhận Hàng Và Thanh Toán Tại Nhà</span>
-                </p>
-            </div>
-            <div class="item border rounded-lg mr-2 mt-2">
-                <p class="text-center p-5 ">
-                    <i class="fa-solid fa-repeat"></i>
-                    <b>ĐỔI TRẢ DỄ DÀNG</b><br>
-                    <span>1 Đổi 1 Trong 15 Ngày</span>
-                </p>
-            </div>
-            <div class="item border rounded-lg mr-2 mt-2">
-                <p class="text-center p-5 ">
-                    <i class="fa-solid fa-money-bill-wave"></i>
-                    <b>THANH TOÁN TIỆN LỢI</b><br>
-                    <span>Tiền Mặt, CK, Trả Góp 0%</span>
-                </p>
-            </div>
-            <div class="item border rounded-lg mr-2 mt-2">
-                <p class="text-center p-5 ">
-                    <i class="fa-solid fa-headphones"></i>
-                    <b>HỖ TRỢ NHIỆT TÌNH</b><br>
-                    <span>Tư Vấn, Giải Đáp Mọi Thắc Mắc</span>
-                </p>
+        <div class="pt-3 mb-5 mb-5 text-xs sm:text-base">
+            <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
+                <div class="item border rounded-lg">
+                    <p class="text-center p-5 ">
+                        <i class="fa-solid fa-truck"></i>
+                        <b>CHÍNH SÁCH GIAO HÀNG</b><br>
+                        <span>Nhận Hàng Và Thanh Toán Tại Nhà</span>
+                    </p>
+                </div>
+                <div class="item border rounded-lg">
+                    <p class="text-center p-5 ">
+                        <i class="fa-solid fa-repeat"></i>
+                        <b>ĐỔI TRẢ DỄ DÀNG</b><br>
+                        <span>1 Đổi 1 Trong 15 Ngày</span>
+                    </p>
+                </div>
+                <div class="item border rounded-lg">
+                    <p class="text-center p-5 ">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <b>THANH TOÁN TIỆN LỢI</b><br>
+                        <span>Tiền Mặt, CK, Trả Góp 0%</span>
+                    </p>
+                </div>
+                <div class="item border rounded-lg">
+                    <p class="text-center p-5 ">
+                        <i class="fa-solid fa-headphones"></i>
+                        <b>HỖ TRỢ NHIỆT TÌNH</b><br>
+                        <span>Tư Vấn, Giải Đáp Mọi Thắc Mắc</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
