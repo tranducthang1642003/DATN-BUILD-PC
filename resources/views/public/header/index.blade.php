@@ -25,9 +25,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
 </head>
 
 <body>
+
     <section class="site-section w-full">
         <div class="header__banner-news w-full max-w-max one-time">
             <img src="{{ asset('image/banner.webp') }}" alt="">
@@ -71,10 +73,35 @@
                             <i class="fa-solid fa-cart-shopping text-xl" style="color: #ffffff;"></i>
                             <a href="#">Giỏ hàng</a>
                         </li>
-                        <li class="menu__item menu__item--white flex items-center flex-col">
-                            <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
+                        <div class="relative">
+                            <button class="menu__item menu__item--white flex items-center flex-col" onclick="toggleDropdown()">
+                                <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
                             <a href="#">Tài khoản</a>
-                        </li>
+                            </button>
+                            <ul id="dropdown" class="absolute hidden mt-2 bg-white border border-gray-300 rounded-md">
+                                @if (!Auth::check())
+                                  <a href="{{route('login')}}"><li class="px-7 py-1 hover:bg-gray-100 text-black">Login</li></a>
+                                  <a href="{{route('register')}}"><li class="px-7 py-1 hover:bg-gray-100 text-black">Register</li></a>
+                                @else
+                                  
+                                  @if (Auth::check())
+                                    <a href="{{route('dashboard')}}"><li class="px-7 py-1 hover:bg-gray-100 text-black">Tài khoản</li></a>
+                                  @endif
+                                  <li class="px-7 py-1 hover:bg-gray-100 text-black"><form method="POST" action="/logout">
+                                    @csrf
+                                    <button type="submit" class="logout-btn">Logout</button>
+                                </form></li>
+                                @endif
+                              </ul>
+                          </div>
+                          
+                          <script>
+                            function toggleDropdown() {
+                              const dropdown = document.getElementById('dropdown');
+                              dropdown.classList.toggle('hidden');
+                            }
+                          </script>
+                          
                     </ul>
                 </div>
                 <div class="md:hidden">
