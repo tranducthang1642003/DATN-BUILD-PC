@@ -55,10 +55,6 @@ $(document).ready(function () {
         ],
     });
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> e6decab8deefc6df25261af37841e4165a144ec1
 $(document).ready(function () {
     $(".slider-for").slick({
         slidesToShow: 1,
@@ -120,7 +116,19 @@ $(document).ready(function () {
         ],
     });
 });
-
+$(document).ready(function () {
+    $(".autoplay-sliderrsre").slick({
+        // slidesToShow: 5,
+        // slidesToScroll: 1,
+        // autoplay: true,
+        // autoplaySpeed: 2000,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 10,
+        adaptiveHeight: true,
+      
+    });
+});
 $(document).ready(function () {
     $(".autoplay-evaluate").slick({
         // slidesToShow: 5,

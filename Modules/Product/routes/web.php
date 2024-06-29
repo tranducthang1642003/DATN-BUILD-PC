@@ -14,6 +14,7 @@ use Modules\Product\App\Http\Controllers\ProductController;
 |
 */
 
-Route::prefix('product')->group(function () {
-    Route::get('/', 'ProductController@index');
-});
+// Route::prefix('product')->group(function () {
+//     Route::get('/', 'ProductController@index');
+// });
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
