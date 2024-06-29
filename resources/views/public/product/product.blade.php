@@ -1,4 +1,5 @@
 @include('public.header.index')
+
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
     <nav class="bg-white mt-3 rounded-md w-full hidden md:block">
         <ol class="list-reset flex">
@@ -17,26 +18,31 @@
             <p class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-center pt-3 text-white">TOP 10 SẢN PHẨM NỔI BẬT</p>
             <div class="product-slide ">
                 <div class="autoplay-slider p-3">
-                    @foreach ($product as $item)
+                    @foreach ($topFeaturedProducts as $topProduct)
                     <div class="product__item ">
                         <div class="bg-white rounded-lg mr-2">
                             <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                            <div class="product-img  ">
-                                <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                            <div class="product-img pt-3">
+                                @foreach ($product_images as $image)
+                                @if ($image->product_id == $topProduct->id)
+                                <a href=""> <img class="w-32 mx-auto md:w-48" src="{{ $image -> image_path }}" alt=""> </a>
+                                @break
+                                @endif
+                                @endforeach
                             </div>
                             <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1"><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy</div>
                             <div class="product-info p-3">
-                                <a href="" class="hover:text-blue-600 truncate-responsive"> {{ $item -> name }} </a>
-                                <p class="text-gray-400 truncate-2-lines">{{ $item -> short_description }}</p>
+                                <a href="{{ route('detailproduct.show', $topProduct->id) }}" class="hover:text-blue-600 truncate-responsive"> {{ $topProduct -> product_name }} </a>
+                                <p class="text-gray-400 truncate-2-lines">{{ $topProduct -> short_description }}</p>
                                 <div class="mt-1 inline-flex text-xs md:text-base">
                                     <div class="">
-                                        <p class="product-price line-through text-slate-500">{{ $item -> discount }}</p>
+                                        <p class="product-price line-through text-slate-500">{{ $topProduct -> price }}</p>
                                     </div>
                                     <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
                                         -25%
                                     </div>
                                 </div>
-                                <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $item -> price }}</div>
+                                <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $topProduct -> price }}</div>
                                 <div class="flex items-center">
                                     <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
                                     <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
@@ -145,18 +151,23 @@
             <div class="product__list">
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2">
                     @foreach ($product as $item)
-                    <div class="product__item bg-white rounded-lg shadow border hover:shadow-xl hover:scale-105 transition-transform duration-300 m-1">
+                    <div class="product__item bg-white rounded-lg shadow-lg border hover:scale-105 transition-transform duration-300 m-1">
                         <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                        <div class="product-img">
-                            <a href=""> <img class="w-32 mx-auto md:w-48" src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt=""> </a>
+                        <div class="product-img mt-3">
+                            @foreach ($product_images as $image)
+                            @if ($image->product_id == $item->id)
+                            <a href=""> <img class="w-32 mx-auto md:w-48" src="{{ $image -> image_path }}" alt=""> </a>
+                            @break
+                            @endif
+                            @endforeach
                         </div>
                         <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy</div>
                         <div class="product-info p-3">
-                            <a href="" class="hover:text-blue-600"> {{ $item -> name }} </a>
+                            <a href="{{ route('detailproduct.show', $item->id) }}" class="hover:text-blue-600"> {{ $item -> product_name }} </a>
                             <p class="text-gray-400"> {{ $item -> short_description }} </p>
                             <div class="mt-3 inline-flex text-xs md:text-base">
                                 <div class="">
-                                    <p class="product-price line-through text-slate-500"> {{ $item -> discount }} </p>
+                                    <p class="product-price line-through text-slate-500"> {{ $item -> price }} </p>
                                 </div>
                                 <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
                                     -25%
@@ -179,58 +190,42 @@
                 </div>
             </div>
             <div class="flex justify-center">
-                <nav class="px-4 py-3 flex items-center justify-center border-gray-200 sm:justify-between">
-                    <button class="flex items-center justify-center hover:bg-amber-400 text-black font-medium py-1 md:py-2 px-2 md:px-3 rounded hover:text-white">
-                        <svg class="w-3 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a.75.75 0 0 1-.53-.22l-7-7a.75.75 0 0 1 0-1.06l7-7a.75.75 0 0 1 1.06 1.06L4.81 10l6.72 6.72a.75.75 0 0 1 0 1.06A.75.75 0 0 1 10 18z" />
-                        </svg>
-                    </button>
-                    <div>
-                        <span class="">
-                            <a href="#" class="py-1 md:py-2 px-2 md:px-3 bg-white-400 font-medium hover:bg-amber-400 rounded-lg hover:text-white">1</a>
-                            <a href="#" class="py-1 md:py-2 px-2 md:px-3 bg-white-400 font-medium hover:bg-amber-400 rounded-lg hover:text-white">2</a>
-                            <a href="#" class="py-1 md:py-2 px-2 md:px-3 bg-white-400 font-medium hover:bg-amber-400 rounded-lg hover:text-white">3</a>
-                        </span>
-                    </div>
-                    <button class="flex items-center justify-center hover:bg-amber-400 text-black font-medium py-1 md:py-2 px-2 md:px-3 rounded hover:text-white">
-                        <svg class="w-3 h-4 mr-2 transform rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a.75.75 0 0 1-.53-.22l-7-7a.75.75 0 0 1 0-1.06l7-7a.75.75 0 0 1 1.06 1.06L4.81 10l6.72 6.72a.75.75 0 0 1 0 1.06A.75.75 0 0 1 10 18z" />
-                        </svg>
-                    </button>
-                </nav>
+                <div class="pagination">
+                    {{ $product->links() }}
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="pt-3 mb-5">
-    <div class="px-16 grid gap-4 p-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-truck"></i>
-                <b>CHÍNH SÁCH GIAO HÀNG</b><br>
-                <span>Nhận Hàng Và Thanh Toán Tại Nhà</span>
-            </p>
-        </div>
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-repeat"></i>
-                <b>ĐỔI TRẢ DỄ DÀNG</b><br>
-                <span>1 Đổi 1 Trong 15 Ngày</span>
-            </p>
-        </div>
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-money-bill-wave"></i>
-                <b>THANH TOÁN TIỆN LỢI</b><br>
-                <span>Tiền Mặt, CK, Trả Góp 0%</span>
-            </p>
-        </div>
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-headphones"></i>
-                <b>HỖ TRỢ NHIỆT TÌNH</b><br>
-                <span>Tư Vấn, Giải Đáp Mọi Thắc Mắc</span>
-            </p>
+    <div class="pt-3 mb-5">
+        <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-truck"></i>
+                    <b>CHÍNH SÁCH GIAO HÀNG</b><br>
+                    <span>Nhận Hàng Và Thanh Toán Tại Nhà</span>
+                </p>
+            </div>
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-repeat"></i>
+                    <b>ĐỔI TRẢ DỄ DÀNG</b><br>
+                    <span>1 Đổi 1 Trong 15 Ngày</span>
+                </p>
+            </div>
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <b>THANH TOÁN TIỆN LỢI</b><br>
+                    <span>Tiền Mặt, CK, Trả Góp 0%</span>
+                </p>
+            </div>
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-headphones"></i>
+                    <b>HỖ TRỢ NHIỆT TÌNH</b><br>
+                    <span>Tư Vấn, Giải Đáp Mọi Thắc Mắc</span>
+                </p>
+            </div>
         </div>
     </div>
 </div>

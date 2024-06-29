@@ -21,51 +21,53 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+
 
 </head>
 
 <body>
-    <div x-data="{ sidebarOpen: true }" class=" flex text-sm-xs bg-gray-200">
-        <div :class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }" class="p-4 bg-white min-w-72 top-0 left-0 h-screen overflow-y-auto z-50 transition-transform duration-300 transform -translate-x-full sm:translate-x-0">
+    <div x-data="{ sidebarOpen: true }" class=" flex text-sm-xs">
+        <div :class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }" class="p-4 drop-shadow-xl bg-white min-w-72 top-0 left-0 h-screen overflow-y-auto z-50 transition-transform duration-300 transform ">
             <div class="flex items-end justify-end">
                 <button @click="sidebarOpen = !sidebarOpen" class="text-3xl"><ion-icon name="close-outline"></ion-icon></button>
             </div>
-            <div class="flex items-center justify-center mb-8">
-                <img src="{{ asset('image/logo.svg') }}" alt="">
+            <div class="flex items-center justify-center mb-16 mt-8">
+                <img src="{{ asset('image/logo.svg') }}" width="100" alt="">
             </div>
-            <div>
-                <div>
+            <div class="">
+                <div class="mb-4">
                     <button id="dashboard" class="button_sidebar dashboard_active"><ion-icon class="icon_sidebar" name="logo-microsoft"></ion-icon>Dashboard</button>
                     <a class="w-full button-none" id="dashboard_list" href="{{ route('admin') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
                 </div>
-                <div>
+                <div class="mb-4">
                     <button id="product" class="button_sidebar product_active"><ion-icon class="icon_sidebar" name="bag"></ion-icon>Sản phẩm</button>
                     <a class="w-full button-none" id="product_list" href="{{ route('product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
                     <a class="w-full button-none" id="product_add" href="{{ route('add_product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
                 </div>
-                <div>
+                <div class="mb-4">
                     <button id="category" class="button_sidebar category_active"><ion-icon class="icon_sidebar" name="cube"></ion-icon>Loại</button>
                     <a class="w-full button-none" id="category_list" href="{{ route('category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="category_add" href="{{ route('add_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
+                    <a class="w-full button-none" id="category_add" href="{{ route('category.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
                 </div>
-                <div>
+                <div class="mb-4">
                     <button id="order" class="button_sidebar order_active"><ion-icon class="icon_sidebar" name="document-text"></ion-icon>Đơn hàng</button>
                     <a class="w-full button-none" id="order_list" href="{{ route('order') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
                 </div>
-                <div>
+                <div class="mb-4">
                     <button id="user" class="button_sidebar user_active"><ion-icon class="icon_sidebar" name="person"></ion-icon>Người dùng</button>
                     <a class="w-full button-none" id="user_list" href="{{ route('user') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
                     <a class="w-full button-none" id="user_add" href="{{ route('add_user') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
                 </div>
-                <div>
+                <div class="mb-4">
                     <button id="voucher" class="button_sidebar voucher_active"><ion-icon class="icon_sidebar" name="receipt"></ion-icon>Mã giảm giá</button>
                     <a class="w-full button-none" id="voucher_list" href="{{ route('voucher') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
                     <a class="w-full button-none" id="voucher_add" href="{{ route('add_voucher') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
                 </div>
-                <div>
+                <div class="mb-4">
                     <button id="brand" class="button_sidebar brand_active"><ion-icon class="icon_sidebar" name="bookmarks"></ion-icon>Thương hiệu</button>
                     <a class="w-full button-none" id="brand_list" href="{{ route('brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="brand_add" href="{{ route('add_brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
+                    <a class="w-full button-none" id="brand_add" href="{{ route('brand.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mx-4"></ion-icon>Thêm</button></a>
                 </div>
             </div>
 
@@ -73,34 +75,24 @@
                 document.addEventListener("DOMContentLoaded", function() {
                     const buttons = document.querySelectorAll('.button_sidebar');
                     const links = document.querySelectorAll('div > a.button-none');
-
-                    // Ẩn tất cả các thẻ <a> ban đầu
                     links.forEach(link => {
                         link.style.display = 'none';
                     });
-
                     buttons.forEach(button => {
                         button.addEventListener('click', () => {
                             const buttonId = button.id;
-
-                            // Lặp qua từng link để hiển thị hoặc ẩn nếu không phải link tương ứng với buttonId
                             links.forEach(link => {
                                 if (link.id === `${buttonId}_list` || link.id === `${buttonId}_add`) {
-                                    // Toggle (chuyển đổi) trạng thái hiển thị của link
                                     link.style.display = link.style.display === 'inline-block' ? 'none' : 'inline-block';
                                 } else {
                                     link.style.display = 'none';
                                 }
                             });
-
-                            // Nếu đã hiển thị các thẻ <a> tương ứng với button này, thì thêm class active
                             if (document.getElementById(`${buttonId}_list`).style.display === 'inline-block') {
                                 button.classList.add('active');
                             } else {
                                 button.classList.remove('active');
                             }
-
-                            // Đảm bảo chỉ có một button được active vào một thời điểm
                             buttons.forEach(otherButton => {
                                 if (otherButton !== button) {
                                     otherButton.classList.remove('active');

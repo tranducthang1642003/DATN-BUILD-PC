@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Brand\App\Http\Controllers\BrandController;
+use Modules\Brand\App\Http\Controllers\Admin\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +15,10 @@ use Modules\Brand\App\Http\Controllers\BrandController;
 */
 
 Route::group([], function () {
-    Route::resource('brand', BrandController::class)->names('brand');
+    Route::get('admin/brand', [BrandController::class, 'index'])->name('brand');
+    Route::get('admin/brand/add', [BrandController::class, 'create'])->name('brand.create');
+    Route::post('admin/brand/add', [BrandController::class, 'store'])->name('brand.store');
+    Route::get('admin/brand/{id}/', [BrandController::class, 'edit'])->name('brand.edit');
+    Route::put('admin/brand/{id}/edit', [BrandController::class, 'update'])->name('brand.update');
+    Route::delete('admin/brand/{id}', [BrandController::class, 'destroy'])->name('delete_brand');
 });

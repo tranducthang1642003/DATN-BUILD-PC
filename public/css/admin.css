@@ -4,6 +4,8 @@
     align-items: center;
     padding: 10px;
     border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(219, 218, 218);
+    font-weight: 500;
 }
 .button_sidebar_cl {
     width: 100%;
@@ -20,6 +22,8 @@
 .button_sidebar:hover {
     background-color: cornflowerblue;
     color: aliceblue;
+    /* transition: transform 0.1s ease, box-shadow 0.1s ease; */
+    transform: translateY(-5px);
 }
 
 .icon_count {
@@ -51,7 +55,13 @@
     margin-right: 5px;
 }
 
-
+.button_selected:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    background-color: aqua;
+    color: orangered;
+}
 
 .icon_sidebar {
     font-size: larger;
@@ -63,15 +73,27 @@
     border-radius: 12px;
     box-shadow: 4px 4px 4px gray;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding-bottom: 0; 
 }
 
 .card_dashboard:hover {
-    transform: translateY(-5px); /* Nổi lên 5px khi hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng khi hover */
-    cursor: pointer; /* Thay đổi con trỏ thành dấu nhấp chuột */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    cursor: pointer; 
 }
+
 
 .selected {
     border-bottom: 2px solid rgb(234 179 8);
     color: rgb(234 179 8);
+}
+
+.trix-content {
+    max-height: 200px;
+    overflow-y: auto;
+    min-height: 200px;
 }
