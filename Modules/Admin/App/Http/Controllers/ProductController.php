@@ -11,6 +11,8 @@ use Modules\Admin\App\Http\Models\Brands;
 use Modules\Admin\App\Http\Models\Category;
 use Modules\Admin\App\Http\Models\Product;
 use Illuminate\Support\Str;
+use Modules\Admin\App\Http\Models\Product_images;
+
 class ProductController extends Controller
 {
     public function index(Request $request)
@@ -19,9 +21,9 @@ class ProductController extends Controller
             '1' => Product::where('status', 1)->count(),
             '2' => Product::where('status', 2)->count(),
             '3' => Product::where('status', 3)->count(),
-            '4' => Product::all()->count(),
+            '4' => Product::count(), // Tổng số sản phẩm
         ];
-        $productsQuery = Product::with('brand', 'category', 'image');
+        $productsQuery = Product::with('brand', 'category');
         $status = $request->input('status');
         if ($status) {
             $productsQuery->where('status', $status);
@@ -33,11 +35,26 @@ class ProductController extends Controller
         }
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $productsQuery->where('name', 'like', '%' . $keyword . '%');
+            $productsQuery->where('product_name', 'like', '%' . $keyword . '%');
         }
         $products = $productsQuery->paginate(10);
-        return view('admin.product.product', compact('products', 'statusCounts'));
+        $products_images = [];
+        foreach ($products as $product) {
+            $primary_image = Product_images::where('product_id', $product->id)
+                ->where('is_primary', 1)
+                ->first();
+            $product->primary_image_url = $primary_image ? $primary_image->image_path : null;
+            $secondary_images = Product_images::where('product_id', $product->id)
+                ->where('is_primary', 0)
+                ->get();
+            $products_images[$product->id] = [
+                'primary_image' => $primary_image,
+                'secondary_images' => $secondary_images,
+            ];
+        }
+        return view('admin.product.product', compact('products', 'statusCounts', 'products_images'));
     }
+
 
     public function edit($id)
     {
@@ -106,18 +123,24 @@ class ProductController extends Controller
             'sale' => 'required|numeric',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
-            'view' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'description' => 'required|string',
             'specifications' => 'required|string',
+            'image_url' => 'required|url',
         ]);
-        
+
+        $product_images = new Product_images();
+        $product_images->image_url = $validatedData['image_url'];
+        $product_images->save();
+
+        $image_id = $product_images->id;
+
         $product = new Product();
         $product->product_name = $validatedData['product_name'];
-        $product->slug = Str::slug($validatedData['product_name'], '-');;
+        $product->slug = Str::slug($validatedData['product_name'], '-');
         $product->product_code = $validatedData['product_code'];
         $product->color = $validatedData['color'];
         $product->quantity = $validatedData['quantity'];
@@ -128,15 +151,19 @@ class ProductController extends Controller
         $product->category_id = $validatedData['category_id'];
         $product->brand_id = $validatedData['brand_id'];
         $product->price = $validatedData['price'];
+        $product->product_images_id = $image_id;
+        $product->promotion_id = NULL;
+        $product->wishlists_id = NULL;
+        $product->reviews_id = NULL;
         $product->stock = $validatedData['stock'];
         $product->description = $validatedData['description'];
         $product->specifications = $validatedData['specifications'];
-        dd($request->all());
-        // if ($product->save()) {
-        //     return redirect()->route('product')->with('success', 'Thêm sản phẩm thành công!');
-        // } else {
-        //     return redirect()->back()->withInput()->withErrors('Thêm sản phẩm thất bại.');
-        // }
+
+        if ($product->save()) {
+            return redirect()->route('product')->with('success', 'Thêm sản phẩm thành công!');
+        } else {
+            return redirect()->back()->withInput()->withErrors('Thêm sản phẩm thất bại.');
+        }
     }
 
 

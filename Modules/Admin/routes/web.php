@@ -11,13 +11,6 @@ use Modules\Admin\App\Http\Controllers\VoucherController;
 
 Route::group(['admin'], function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('admin/product', [ProductController::class, 'index'])->name('product');
-    Route::get('admin/product/add', [ProductController::class, 'add'])->name('add');
-    Route::post('admin/product/add', [ProductController::class, 'add_product'])->name('add_product');
-    Route::get('admin/product/{id}', [ProductController::class, 'show'])->name('show_product');
-    Route::get('admin/product/{id}/edit', [ProductController::class, 'edit'])->name('edit_product');
-    Route::put('admin/product/{id}/edit', [ProductController::class, 'update_product'])->name('update_product');
-    Route::delete('admin/product/{id}', [ProductController::class, 'destroy'])->name('delete_product');
 
     Route::get('admin/order', [OrderController::class, 'index'])->name('order');
     Route::get('admin/order/add', [OrderController::class, 'add'])->name('add_order');
