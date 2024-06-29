@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
+use Modules\Product\Entities\Product;
+use Modules\Product\Entities\ProductImage;
 class ProductController extends Controller
 {
     /**
@@ -40,10 +41,23 @@ class ProductController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function show($slug)
     {
-        return view('product::show');
+        $product = Product::where('slug', $slug)->firstOrFail();
+
+        $primary_image = ProductImage::where('product_id', $product->id)
+            ->where('is_primary', 1)
+            ->first();
+        $secondary_images = ProductImage::where('product_id', $product->id)
+            ->where('is_primary', 0)
+            ->get();
+
+        $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
+        $product->secondary_images = $secondary_images;
+
+        return view('public.product.detail-product', compact('product'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

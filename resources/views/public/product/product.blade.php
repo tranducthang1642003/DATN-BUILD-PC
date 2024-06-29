@@ -5,7 +5,7 @@
         <ol class="list-reset flex">
             <li><a href="#" class="text-black hover:text-blue-800">Trang chủ</a></li>
             <li><span class="mx-2 text-black"> > </span></li>
-            <li><a href="#" class="text-black hover:text-blue-800">MÀN HÌNH MÁY TÍNH</a></li>
+            <li><a href="#" class="text-black hover:text-blue-800">{{ $category->category_name }}</a></li>
         </ol>
     </nav>
     <div class="product__banner">
@@ -30,7 +30,6 @@
                                 @endif
                                 @endforeach
                             </div>
-                            <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1"><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy</div>
                             <div class="product-info p-3">
                                 <a href="{{ route('detailproduct.show', $topProduct->id) }}" class="hover:text-blue-600 truncate-responsive"> {{ $topProduct -> product_name }} </a>
                                 <p class="text-gray-400 truncate-2-lines">{{ $topProduct -> short_description }}</p>
@@ -56,8 +55,10 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                     @endforeach
                 </div>
+                
             </div>
         </div>
         <div class="product__box-filter border mt-3 rounded-lg ">
