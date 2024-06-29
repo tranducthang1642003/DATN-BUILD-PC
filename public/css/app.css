@@ -848,6 +848,9 @@ select {
 .m-1 {
   margin: 0.25rem;
 }
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
 .m-2 {
   margin: 0.5rem;
 }

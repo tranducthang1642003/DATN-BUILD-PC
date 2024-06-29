@@ -24,3 +24,7 @@ Route::group([], function () {
     Route::put('admin/product/{id}/edit', [ProductController::class, 'update_product'])->name('update_product');
     Route::delete('admin/product/{id}', [ProductController::class, 'destroy'])->name('delete_product');
 });
+// Route::prefix('product')->group(function () {
+//     Route::get('/', 'ProductController@index');
+// });
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
