@@ -5,7 +5,7 @@
         <ol class="list-reset flex">
             <li><a href="#" class="text-black hover:text-blue-800">Trang chủ</a></li>
             <li><span class="mx-2 text-black"> > </span></li>
-            <li><a href="#" class="text-black hover:text-blue-800">MÀN HÌNH MÁY TÍNH</a></li>
+            <li><a href="#" class="text-black hover:text-blue-800">{{ $category->category_name }}</a></li>
         </ol>
     </nav>
     <div class="product__banner">
@@ -18,31 +18,35 @@
             <p class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-center pt-3 text-white">TOP 10 SẢN PHẨM NỔI BẬT</p>
             <div class="product-slide ">
                 <div class="autoplay-slider p-3">
-                    @foreach ($topFeaturedProducts as $topProduct)
-                    <div class="product__item ">
-                        <div class="bg-white rounded-lg mr-2">
+                    @foreach ($products as $product)
+                    <div class="product__item">
+                        <div class="bg-white rounded-lg mr-2 relative">
                             <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                            <div class="product-img pt-3">
-                                @foreach ($product_images as $image)
-                                @if ($image->product_id == $topProduct->id)
-                                <a href=""> <img class="w-32 mx-auto md:w-48" src="{{ $image -> image_path }}" alt=""> </a>
-                                @break
-                                @endif
-                                @endforeach
+                            <a href="{{ route('product.show', $product->slug) }}">
+                            <div class="product-img">
+                                <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}" ></a>
                             </div>
-                            <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1"><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy</div>
+                            <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
+                                <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
+                            </div>
                             <div class="product-info p-3">
-                                <a href="{{ route('detailproduct.show', $topProduct->id) }}" class="hover:text-blue-600 truncate-responsive"> {{ $topProduct -> product_name }} </a>
-                                <p class="text-gray-400 truncate-2-lines">{{ $topProduct -> short_description }}</p>
+                                <a href="" class="hover:text-blue-600 truncate-responsive"  style="overflow: hidden;
+                                text-overflow: ellipsis;
+                                line-height: 25px;
+                                -webkit-line-clamp: 2;
+                                height: 50px;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
+                                <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
                                 <div class="mt-1 inline-flex text-xs md:text-base">
-                                    <div class="">
-                                        <p class="product-price line-through text-slate-500">{{ $topProduct -> price }}</p>
+                                    <div>
+                                        <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
                                     </div>
                                     <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
                                         -25%
                                     </div>
                                 </div>
-                                <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $topProduct -> price }}</div>
+                                <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
                                 <div class="flex items-center">
                                     <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
                                     <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
@@ -56,8 +60,10 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                     @endforeach
                 </div>
+                
             </div>
         </div>
         <div class="product__box-filter border mt-3 rounded-lg ">
@@ -150,39 +156,44 @@
             </div>
             <div class="product__list">
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2">
-                    @foreach ($product as $item)
-                    <div class="product__item bg-white rounded-lg shadow-lg border hover:scale-105 transition-transform duration-300 m-1">
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                        <div class="product-img mt-3">
-                            @foreach ($product_images as $image)
-                            @if ($image->product_id == $item->id)
-                            <a href=""> <img class="w-32 mx-auto md:w-48" src="{{ $image -> image_path }}" alt=""> </a>
-                            @break
-                            @endif
-                            @endforeach
-                        </div>
-                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic "><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy</div>
-                        <div class="product-info p-3">
-                            <a href="{{ route('detailproduct.show', $item->id) }}" class="hover:text-blue-600"> {{ $item -> product_name }} </a>
-                            <p class="text-gray-400"> {{ $item -> short_description }} </p>
-                            <div class="mt-3 inline-flex text-xs md:text-base">
-                                <div class="">
-                                    <p class="product-price line-through text-slate-500"> {{ $item -> price }} </p>
-                                </div>
-                                <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                    -25%
-                                </div>
+                    @foreach ($products as $product)
+                    <div class="product__item">
+                        <div class="bg-white rounded-lg mr-2 relative">
+                            <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                            <div class="product-img">
+                                <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}" ></a>
                             </div>
-                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1"> {{ $item -> price }} </div>
-                            <div class="flex items-center">
-                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
-                                    (12 Đánh giá)
-                                </span>
+                            <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
+                                <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
+                            </div>
+                            <div class="product-info p-3">
+                                <a href="" class="hover:text-blue-600 truncate-responsive"  style="overflow: hidden;
+                                text-overflow: ellipsis;
+                                line-height: 25px;
+                                -webkit-line-clamp: 2;
+                                height: 50px;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
+                                <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
+                                <div class="mt-1 inline-flex text-xs md:text-base">
+                                    <div>
+                                        <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
+                                    </div>
+                                    <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                        -25%
+                                    </div>
+                                </div>
+                                <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
+                                <div class="flex items-center">
+                                    <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                    <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                    <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                    <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
+                                    <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
+                                    <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
+                                        (12 Đánh giá)
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
