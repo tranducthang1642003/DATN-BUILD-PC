@@ -15,8 +15,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = DB::table('products')->limit(20)->get();
-        return view('public.product.product', ['product' => $product]);
+        $topFeaturedProducts = DB::table('products')->where('featured', true)->orderBy('updated_at', 'desc')->take(10)->get();
+        $product = DB::table('products')->limit(20)->orderBy('updated_at', 'desc')->paginate(10);
+        $product_images = DB::table('product_images')->get();
+        return view('public.product.product', ['product' => $product, 'product_images' => $product_images, 'topFeaturedProducts' => $topFeaturedProducts]);
     }
 
     /**

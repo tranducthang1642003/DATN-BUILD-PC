@@ -7,8 +7,10 @@
 
 @include('admin.layout.header')
 
+
 <div class="bg-gray-100 font-sans antialiased flex-grow p-5 ml-10">
-    <form action="{{ route('add_brand') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
+
         @csrf
         <div class="min-h-screen bg-gray-100 flex justify-center items-center">
             <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
@@ -18,13 +20,23 @@
                         <label for="Tên" class="block text-sm font-medium text-gray-700 mb-1">Tên</label>
                         <input type="text" name="brand_name" id="brand_name" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter Name" required>
                     </div>
+                    <div class="mb-4">
+                        <label for="Đường dẫn" class="block text-sm font-medium text-gray-700 mb-1">Đường dẫn</label>
+                        <input type="text" name="slug" id="slug" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter color" required>
+                    </div>
                 </div>
                 <div class="mb-4">
-                    <label for="featured" class="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
-                    <select name="featured" id="featured" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>
-                        <option value="yes">Có</option>
-                        <option value="no">Không</option>
-                    </select>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="featured" value="yes" class="form-radio text-blue-600">
+                            <span class="ml-2">Có</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="featured" value="no" class="form-radio text-blue-600">
+                            <span class="ml-2">Không</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="mb-4">
                     <label for="Trạng thái" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>

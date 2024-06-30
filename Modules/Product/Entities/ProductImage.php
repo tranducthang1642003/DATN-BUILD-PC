@@ -11,4 +11,8 @@ class ProductImage extends Model
         'image_path',
         'is_primary',
     ];
+    public function images()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
