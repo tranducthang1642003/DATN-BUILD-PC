@@ -3,8 +3,10 @@
 namespace Modules\Product\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Product\Entities\ProductImage;
 use Modules\Brand\Entities\Brand;
 use Modules\Category\Entities\Category;
+
 
 class Product extends Model
 {
@@ -49,8 +51,10 @@ class Product extends Model
         return $this->hasOne(ProductImage::class)->where('is_primary', true);
     }
 
-    public function additionalImages()
+
+    public function images()
     {
-        return $this->hasMany(ProductImage::class)->where('is_primary', false);
+        return $this->hasMany(ProductImage::class);
     }
+    
 }
