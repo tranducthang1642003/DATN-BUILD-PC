@@ -9,7 +9,7 @@ use Modules\Admin\App\Http\Controllers\UserController;
 use Modules\Admin\App\Http\Controllers\ProductController;
 use Modules\Admin\App\Http\Controllers\VoucherController;
 
-Route::group(['admin'], function () {
+Route::group([], function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
 
     Route::get('admin/order', [OrderController::class, 'index'])->name('order');
