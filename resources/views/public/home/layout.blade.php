@@ -17,7 +17,7 @@
     </div>
 </section>
 {{-- GIÁ TỐT SIÊU SALE MỖI NGÀY --}}
-<section class="produtc px-8 pt-6">
+<section class="product px-8 pt-6">
     <div class="bg-yellow-400 rounded-lg shadow-2xl shadow-white">
         <div class="text grid-cols-1 md:grid-cols-3 grid justify-between items-center pt-2 px-6">
             <div class="text-sale text-xl md:text-2xl font-black text-red-500">GIÁ TỐT SIÊU SALE MỖI NGÀY</div>
@@ -26,35 +26,50 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                    @foreach ($products as $product)
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                @foreach ($products as $product)
+                    <div class="product__item">
+                        <div class="bg-white rounded-lg mr-2">
+                            <!-- Assuming you want to display a hot tag -->
+                            <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                            <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img w-48 mx-auto">
-                                    <a href=""><img src="{{ $product['img'] }}" alt=""></a>
+                                    <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
                                 </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic"><i
-                                        class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <div class="mt-3 inline-flex">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">
-                                                {{ $product['old_price'] }}</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            {{ $product['discount'] }}
-                                        </div>
+                            </a>
+                            <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
+                                <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                            </div>
+                            <div class="product-info p-3 h-40">
+                                <a href="{{ route('product.show', $product->slug) }}"
+                                    class="hover:text-blue-600 text-base h-16 line-clamp-2"
+                                    style="overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 2;
+    height: 50px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
+                                <div class="mt-3 inline-flex">
+                                    <div>
+                                        <p class="product-price line-through text-slate-500">
+                                            {{ $product->price }}
+                                        </p>
                                     </div>
-                                    <div class="text-red-700 font-bold text-2xl mt-2">{{ $product['new_price'] }}</div>
+                                    <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
+                                        {{ $product->discount }}
+                                    </div>
                                 </div>
+                                <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
 </section>
+
+
 {{-- SẢN PHẨM BÁN CHẠY --}}
 <section class="produtc px-8 pt-6">
     <div class="bg-cyan-400 rounded-lg shadow shadow-white">
@@ -70,91 +85,126 @@
                 </div>
             </div>
             <div class="autoplay-sliderr p-3 w-full md:w-2/3">
-                    @foreach ($products as $product)
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                @foreach ($products as $product)
+                    <div class="product__item">
+                        <div class="bg-white rounded-lg mr-2">
+                            <!-- Assuming you want to display a hot tag -->
+                            <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                            <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img w-48 mx-auto">
-                                    <a href=""><img src="{{ $product['img'] }}" alt=""></a>
+                                    <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
                                 </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic"><i
-                                        class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <div class="mt-3 inline-flex">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">
-                                                {{ $product['old_price'] }}</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            {{ $product['discount'] }}
-                                        </div>
+                            </a>
+                            <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
+                                <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                            </div>
+                            <div class="product-info p-3 h-40">
+                                <a href="{{ route('product.show', $product->slug) }}"
+                                    class="hover:text-blue-600 text-base h-16 line-clamp-2"
+                                    style="overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 2;
+    height: 50px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
+                                <div class="mt-3 inline-flex">
+                                    <div>
+                                        <p class="product-price line-through text-slate-500">
+                                            {{ $product->price }}
+                                        </p>
                                     </div>
-                                    <div class="text-red-700 font-bold text-2xl mt-2">{{ $product['new_price'] }}</div>
+                                    <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
+                                        {{ $product->discount }}
+                                    </div>
                                 </div>
+                                <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
                             </div>
                         </div>
-                    @endforeach
-               
+                    </div>
+                @endforeach
+
             </div>
         </div>
     </div>
 </section>
 {{-- danh mục --}}
 <section class="produtc px-8 pt-6">
-    <div class="rounded-lg shadow shadow-white">
+    <div class="rounded-lg shadow shadow-white ">
         <div class="text grid-cols-1 md:grid-cols-1 grid justify-between items-center pt-2 px-6">
             <div class="text-animation text-xl md:text-2xl font-black">DANH MỤC NỖI BẬT</div>
         </div>
-        <div class="autoplay-sliderr Categorys px-8 pt-5 bg-orange-400 h-28">
-            @foreach ($categories as $Categorys)
-                <li>{{ $Categorys->name }}</li>
-            @endforeach
-        </div>
-</section>
-{{-- PC GAMEMING --}}
-<section class="produtc px-8 pt-6">
-    <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
-        <div class="text grid-cols-1 md:grid-cols-2 grid justify-between items-center pt-2 px-6">
-            <div class="text-sale text-xl md:text-2xl font-black text-red-500">PC GAMING</div>
-            <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
-        </div>
-        <div class="product-slide">
-            <div class="autoplay-slider p-3">
-                    @foreach ($products as $product)
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img w-48 mx-auto">
-                                    <a href=""><img src="{{ $product['img'] }}" alt=""></a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic"><i
-                                        class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
-                                <div class="product-info p-3">
-                                    <a href="" class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <div class="mt-3 inline-flex">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">
-                                                {{ $product['old_price'] }}</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            {{ $product['discount'] }}
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-2xl mt-2">{{ $product['new_price'] }}
-                                    </div>
-
-                                    <div class="flex items-center pt-2">
-                                        {{ $product['vocher'] }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+        <div class="  Categorys px-8 pt-5 bg-orange-400 h-28">
+            <div class="autoplay-sliderrsre">
+                @foreach ($categories as $category)
+                    <a href="{{ route('category.show', $category->slug) }}"><span class="" style="overflow: hidden;
+                        text-overflow: ellipsis;
+                        line-height: 25px;
+                        -webkit-line-clamp: 1;
+                        height: 50px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;">{{ $category->category_name }}</span></a>
+                @endforeach
             </div>
         </div>
     </div>
 </section>
+{{-- PC GAMEMING --}}
+<div class="produtc px-8 pt-6">
+    <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
+        <div class="text grid-cols-1 md:grid-cols-2 grid justify-between items-center pt-2 px-6">
+            <div class="text-sale text-xl md:text-2xl font-black text-red-500">
+                {{-- @foreach ($categories as $category)
+                    <a href="{{ route('category.show', $category->slug) }}">{{ $category->category_name }}</a>
+                @endforeach --}}
+            </div>
+            <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
+        </div>
+        <div class="product-slide">
+            <div class="autoplay-slider p-3">
+                @foreach ($products as $product)
+                <div class="product__item">
+                    <div class="bg-white rounded-lg mr-2">
+                        <!-- Assuming you want to display a hot tag -->
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                        <a href="{{ route('product.show', $product->slug) }}">
+                            <div class="product-img w-48 mx-auto">
+                                <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+                            </div>
+                        </a>
+                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                        </div>
+                        <div class="product-info p-3 h-40">
+                            <a href="{{ route('product.show', $product->slug) }}"
+                                class="hover:text-blue-600 text-base h-16 line-clamp-2"
+                                style="overflow: hidden;
+text-overflow: ellipsis;
+line-height: 25px;
+-webkit-line-clamp: 2;
+height: 50px;
+display: -webkit-box;
+-webkit-box-orient: vertical;">{{ $product->product_name }}</a>
+                            <div class="mt-3 inline-flex">
+                                <div>
+                                    <p class="product-price line-through text-slate-500">
+                                        {{ $product->price }}
+                                    </p>
+                                </div>
+                                <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
+                                    {{ $product->discount }}
+                                </div>
+                            </div>
+                            <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- MÀN HÌNH GAMEMING --}}
 <section class="produtc px-8 pt-6">
     <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
@@ -164,80 +214,44 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                    @foreach ($products as $product)
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img w-48 mx-auto">
-                                    <a href=""><img src="{{ $product['img'] }}" alt=""></a>
+                @foreach ($products as $product)
+                <div class="product__item">
+                    <div class="bg-white rounded-lg mr-2">
+                        <!-- Assuming you want to display a hot tag -->
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                        <a href="{{ route('product.show', $product->slug) }}">
+                            <div class="product-img w-48 mx-auto">
+                                <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+                            </div>
+                        </a>
+                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                        </div>
+                        <div class="product-info p-3 h-40">
+                            <a href="{{ route('product.show', $product->slug) }}"
+                                class="hover:text-blue-600 text-base h-16 line-clamp-2"
+                                style="overflow: hidden;
+text-overflow: ellipsis;
+line-height: 25px;
+-webkit-line-clamp: 2;
+height: 50px;
+display: -webkit-box;
+-webkit-box-orient: vertical;">{{ $product->product_name }}</a>
+                            <div class="mt-3 inline-flex">
+                                <div>
+                                    <p class="product-price line-through text-slate-500">
+                                        {{ $product->price }}
+                                    </p>
                                 </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic"><i
-                                        class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
-                                <div class="product-info p-3">
-                                    <a href=""
-                                        class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <div class="mt-3 inline-flex">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">
-                                                {{ $product['old_price'] }}</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            {{ $product['discount'] }}
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-2xl mt-2">{{ $product['new_price'] }}
-                                    </div>
-
-                                    <div class="flex items-center pt-2">
-                                        {{ $product['vocher'] }}
-                                    </div>
+                                <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
+                                    {{ $product->discount }}
                                 </div>
                             </div>
+                            <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
                         </div>
-                    @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-<section class="produtc px-8 pt-6">
-    <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
-        <div class="text grid-cols-1 md:grid-cols-2 grid justify-between items-center pt-2 px-6">
-            <div class="text-sale text-xl md:text-2xl font-black text-red-500">LINH KIỆN MÁY TÍNH</div>
-            <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
-        </div>
-        <div class="product-slide">
-            <div class="autoplay-slider p-3">
-                    @foreach ($products as $product)
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                                <div class="product-img w-48 mx-auto">
-                                    <a href=""><img src="{{ $product['img'] }}" alt=""></a>
-                                </div>
-                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic"><i
-                                        class="fa-solid fa-bolt" style="color: #FFD43B;"></i>Siêu SALE</div>
-                                <div class="product-info p-3">
-                                    <a href=""
-                                        class="hover:text-blue-600 text-base">{{ $product['title'] }}</a>
-                                    <div class="mt-3 inline-flex">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">
-                                                {{ $product['old_price'] }}</p>
-                                        </div>
-                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                            {{ $product['discount'] }}
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-2xl mt-2">{{ $product['new_price'] }}
-                                    </div>
-
-                                    <div class="flex items-center pt-2">
-                                        {{ $product['vocher'] }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                    </div>
+                </div>
+            @endforeach
             </div>
         </div>
     </div>
@@ -250,24 +264,24 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                
-                    @foreach ($products as $product)
-                        <div class="product__item">
-                            <div class="bg-white rounded-lg mr-2">
-                                <div class="product-img w-48 mx-auto">
-                                    <a href=""><img src="{{ $product['img'] }}" alt=""></a>
-                                </div>
-                                <div class="product-info p-2">
-                                    <div class="text-red-700 font-bold text-2xl mt-2">
-                                    </div>
 
-                                    <div class="flex items-center pt-2">
-                                        {{ $product['title'] }}
-                                    </div>
+                @foreach ($products as $product)
+                    <div class="product__item">
+                        <div class="bg-white rounded-lg mr-2">
+                            <div class="product-img w-48 mx-auto">
+                                <a href=""><img src="{{ $product['img'] }}" alt=""></a>
+                            </div>
+                            <div class="product-info p-2">
+                                <div class="text-red-700 font-bold text-2xl mt-2">
+                                </div>
+
+                                <div class="flex items-center pt-2">
+                                    {{ $product['title'] }}
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -306,8 +320,10 @@
 <section>
     <div class="chinh-sach">
         <div class="rounded-lg shadow-2xl shadow-white px-8 pt-6">
-            <div class="text grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid gap-4 justify-between items-center pt-2 px-6 m-auto">
-                <div class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
+            <div
+                class="text grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid gap-4 justify-between items-center pt-2 px-6 m-auto">
+                <div
+                    class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
                     <div class="text-4xl"><i class="fa-solid fa-house" style="color: #438ef6;"></i></div>
                     <div class="px-1">
                         <p>CHÍNH SÁCH GIAO HÀNG</p>
@@ -315,7 +331,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
+                <div
+                    class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
                     <div class="text-4xl"><i class="fa-solid fa-house" style="color: #438ef6;"></i></div>
                     <div class="px-1">
                         <p>CHÍNH SÁCH GIAO HÀNG</p>
@@ -323,7 +340,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
+                <div
+                    class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
                     <div class="text-4xl"><i class="fa-solid fa-house" style="color: #438ef6;"></i></div>
                     <div class="px-1">
                         <p>CHÍNH SÁCH GIAO HÀNG</p>
@@ -331,7 +349,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
+                <div
+                    class="text-see-more text-sm font-bold text-center h-24 bg-slate-300 rounded-lg flex justify-center items-center	">
                     <div class="text-4xl"><i class="fa-solid fa-house" style="color: #438ef6;"></i></div>
                     <div class="px-1">
                         <p>CHÍNH SÁCH GIAO HÀNG</p>
