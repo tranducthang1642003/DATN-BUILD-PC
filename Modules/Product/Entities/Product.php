@@ -53,6 +53,7 @@ class Product extends Model
     public function additionalImages()
     {
         return $this->hasMany(ProductImage::class)->where('is_primary', false);
+        [
         'image',
         'featured',
         'status',
@@ -67,6 +68,8 @@ class Product extends Model
         'category_id',
         'brand_id',
     ];
+
+    }
 
     public function images()
     {
