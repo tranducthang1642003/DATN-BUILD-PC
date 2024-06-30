@@ -27,8 +27,9 @@ class HomeController extends Controller
     public function showCategory($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
+        $products  = Product::all();
 
-        return view('public.product.product', compact('category'));
+        return view('public.product.product', compact('category','products'));
     }
 
     public function show($slug)
