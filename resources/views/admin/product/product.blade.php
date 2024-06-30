@@ -3,6 +3,38 @@
         background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
         color: white;
     }
+
+    .product-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    @media screen and (max-width: 2840px) {
+        .product-name {
+            max-width: 30ch;
+        }
+    }
+    @media screen and (max-width: 1640px) {
+        .product-name {
+            max-width: 24ch;
+        }
+    }
+    @media screen and (max-width: 1240px) {
+        .product-name {
+            max-width: 20ch;
+        }
+    }
+    @media screen and (max-width: 1168px) {  
+        .product-name {
+            max-width: 14ch;
+        }
+    }
+
+    @media screen and (max-width: 680px) {
+        .product-name {
+            max-width: 8ch;
+        }
+    }
 </style>
 @include('admin.layout.header')
 <div class="flex-grow p-5 ml-10">
@@ -70,12 +102,12 @@
         <thead>
             <tr class="text-left bg-gray-400">
                 <th class="px-4 py-2"></th>
-                <th class="px-4 py-2">ID</th>
+                <th class="px-2 py-2 hidden sm:table-cell">ID</th>
                 <th class="px-4 py-2">Thông tin sản phẩm</th>
-                <th class="px-4 py-2">Màu sắc</th>
+                <th class="px-4 py-2 hidden sm:table-cell">Màu sắc</th>
                 <th class="px-4 py-2">Thương hiệu</th>
                 <th class="px-4 py-2 hidden sm:table-cell">Danh mục</th>
-                <th class="px-4 py-2">Giá</th>
+                <th class="px-4 py-2">Đơn giá</th>
                 <th class="px-4 py-2 hidden sm:table-cell">Số lượng</th>
                 <th class="px-4 py-2">Trạng thái</th>
                 <th class="px-4 py-2">...</th>
@@ -84,19 +116,19 @@
         <tbody>
             @foreach($products as $index => $product)
             <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
-                <td class="px-4 py-2"><input type="checkbox"></td>
-                <td class="px-4 py-2">{{ $product->id }}</td>
+                <td class="px-2 py-2"><input type="checkbox"></td>
+                <td class="px-4 py-2 hidden sm:table-cell">{{ $product->id }}</td>
                 <td class="px-4 py-2 flex">
-                    <img src="{{ asset($product->primary_image_url ?? 'placeholder.jpg') }}" width="50" alt="">
+                    <img src="{{ asset($product->primary_image_url ?? 'placeholder.jpg') }}" width="50" alt="" class="hidden sm:table-cell">
                     <div class="pl-2">
-                        <p>{{ $product->product_name }}</p>
+                        <p class="product-name">{{ $product->product_name }}</p>
                         <span>{{ $product->product_code }}</span>
                     </div>
                 </td>
-                <td class="px-4 py-2">{{ $product->color }}</td>
+                <td class="px-4 py-2 hidden sm:table-cell">{{ Illuminate\Support\Str::limit($product->color, 6) }}</td>
                 <td class="px-4 py-2">{{ $product->brand->brand_name }}</td>
                 <td class="px-4 py-2 hidden sm:table-cell">{{ $product->category->category_name }}</td>
-                <td class="px-4 py-2">{{ number_format($product->price) }},000 VND</td>
+                <td class="px-4 py-2">{{ number_format($product->price) }} VND</td>
                 <td class="px-4 py-2 hidden sm:table-cell">{{ $product->quantity }}</td>
                 <td class="px-4 py-2">
                     @php

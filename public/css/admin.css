@@ -15,14 +15,13 @@
     border-radius: 5px;
 }
 .button_sidebar_cl:hover {
-    background-color: cornflowerblue;
-    color: aliceblue;
+    color: orange;
+    background-color: aliceblue;
 }
 
 .button_sidebar:hover {
-    background-color: cornflowerblue;
-    color: aliceblue;
-    /* transition: transform 0.1s ease, box-shadow 0.1s ease; */
+    color: orange;
+    background-color: aliceblue;
     transform: translateY(-5px);
 }
 
@@ -59,8 +58,8 @@
     transform: translateY(-5px); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    background-color: aqua;
-    color: orangered;
+    color: orange;
+    font-weight: bold;
 }
 
 .icon_sidebar {
