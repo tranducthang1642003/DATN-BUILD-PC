@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $category = Category::where('slug', $slug)->firstOrFail();
 
-        return view('public.product.products', compact('category'));
+        return view('public.product.product', compact('category'));
     }
 
     public function show($slug)

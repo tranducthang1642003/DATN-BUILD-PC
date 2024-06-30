@@ -36,8 +36,7 @@
                                     alt="">
                             </div>
                             <div class="">
-                                <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577053.png"
-                                    alt="">
+                                
                             </div>
                         </div>
                     </div>
@@ -93,7 +92,7 @@
                     <p class="price-detail text-lg lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">3.190.000đ</p>
                     <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">4.000.000₫</span>
                     <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">Tiết kiệm 810.000đ</div>
-                    <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">-25%</div>
+                    <div class="bg-red-700 text-red-700 font-bold  rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">-25%</div>
                 </div>
                 <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
                     <div class="flex items-center space-x-4 mr-5 md:mr-10">
@@ -577,6 +576,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -662,6 +662,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                         <div class="product__item">
                             <div class="bg-white rounded-lg mr-2 border">
                                 <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
@@ -890,7 +891,7 @@
                 </div>
             </div>
         </div>
-        <div class="pt-3 mb-5 mb-5 text-xs sm:text-base">
+        <div class="pt-3 mb-5 text-xs sm:text-base">
             <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
                 <div class="item border rounded-lg">
                     <p class="text-center p-5 ">
