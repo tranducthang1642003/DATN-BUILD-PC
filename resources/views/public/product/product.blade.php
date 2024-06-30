@@ -202,7 +202,7 @@
             </div>
             <div class="flex justify-center">
                 <div class="pagination">
-                    {{ $product->links() }}
+                    {{-- {{ $product->links() }} --}}
                 </div>
             </div>
         </div>

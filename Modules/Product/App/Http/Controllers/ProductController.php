@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductImage;
-use Modules\Category\Entities\Category;
 
 
 class ProductController extends Controller
@@ -19,28 +18,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-    
         // $topFeaturedProducts = DB::table('products')->where('featured', true)->orderBy('updated_at', 'desc')->take(10)->get();
-        // $products = DB::table('products')->limit(20)->orderBy('updated_at', 'desc')->paginate(10);
+        // $product = DB::table('products')->limit(20)->orderBy('updated_at', 'desc')->paginate(10);
         // $product_images = DB::table('product_images')->get();
-        $products = Product::all();
-
-        foreach ($products as $product) {
-            $primary_image = ProductImage::where('product_id', $product->id)
-                ->where('is_primary', 1)
-                ->first();
-            $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
-        }
-    
-        return view('public.product.product', [
-            'categories' => $categories,
-            'products' => $products,
-            // 'product_images' => $product_images,
-            // 'topFeaturedProducts' => $topFeaturedProducts
-        ]);
+        // return view('public.product.product', ['product' => $product, 'product_images' => $product_images, 'topFeaturedProducts' => $topFeaturedProducts]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
