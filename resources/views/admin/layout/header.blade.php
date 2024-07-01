@@ -51,6 +51,16 @@
                     <a class="w-full button-none" id="category_add" href="{{ route('category.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Thêm</button></a>
                 </div>
                 <div class="mb-4">
+                    <button id="brand" class="button_sidebar brand_active"><ion-icon class="icon_sidebar" name="bookmarks"></ion-icon>Thương hiệu</button>
+                    <a class="w-full button-none" id="brand_list" href="{{ route('brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="brand_add" href="{{ route('brand.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Thêm</button></a>
+                </div>
+                <div class="mb-4">
+                    <button id="posts" class="button_sidebar posts_active"><ion-icon class="icon_sidebar" name="create"></ion-icon>Bài viết</button>
+                    <a class="w-full button-none" id="posts_list" href="{{ route('post') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="posts_add" href="{{ route('add_post') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Thêm</button></a>
+                </div>
+                <div class="mb-4">
                     <button id="order" class="button_sidebar order_active"><ion-icon class="icon_sidebar" name="document-text"></ion-icon>Đơn hàng</button>
                     <a class="w-full button-none" id="order_list" href="{{ route('order') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Danh sách</button></a>
                 </div>
@@ -65,9 +75,9 @@
                     <a class="w-full button-none" id="voucher_add" href="{{ route('add_voucher') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Thêm</button></a>
                 </div>
                 <div class="mb-4">
-                    <button id="brand" class="button_sidebar brand_active"><ion-icon class="icon_sidebar" name="bookmarks"></ion-icon>Thương hiệu</button>
-                    <a class="w-full button-none" id="brand_list" href="{{ route('brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="brand_add" href="{{ route('brand.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Thêm</button></a>
+                    <button id="setting" class="button_sidebar setting_active"><ion-icon class="icon_sidebar" name="settings"></ion-icon>Cài đặt</button>
+                    <a class="w-full button-none" id="setting_list" href="{{ route('setting') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Banner</button></a>
+                    <a class="w-full button-none" id="setting_add" href="{{ route('add_setting') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="pl-10"></ion-icon>Thêm</button></a>
                 </div>
             </div>
 
