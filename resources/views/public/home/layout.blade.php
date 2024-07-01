@@ -26,7 +26,7 @@
         </div>
         <div class="product-slide">
             <div class="autoplay-slider p-3">
-                @foreach ($products as $product)
+                {{-- @foreach ($products as $product)
                     <div class="product__item">
                         <div class="bg-white rounded-lg mr-2">
                             <!-- Assuming you want to display a hot tag -->
@@ -52,7 +52,7 @@
                                 <div class="mt-3 inline-flex">
                                     <div>
                                         <p class="product-price line-through text-slate-500">
-                                            {{ $product->price }}
+                                            {{ number_format($product->price) }},000 VNĐ
                                         </p>
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endforeach --}}
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="autoplay-sliderr p-3 w-full md:w-2/3">
-                @foreach ($products as $product)
+                {{-- @foreach ($products as $product)
                     <div class="product__item">
                         <div class="bg-white rounded-lg mr-2">
                             <!-- Assuming you want to display a hot tag -->
@@ -111,7 +111,7 @@
                                 <div class="mt-3 inline-flex">
                                     <div>
                                         <p class="product-price line-through text-slate-500">
-                                            {{ $product->price }}
+                                            {{ number_format($product->price) }},000 VNĐ
                                         </p>
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
@@ -122,7 +122,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endforeach --}}
 
             </div>
         </div>
@@ -130,159 +130,75 @@
 </section>
 {{-- danh mục --}}
 <section class="produtc px-8 pt-6">
-    <div class="rounded-lg shadow shadow-white ">
+    <div class="rounded-lg shadow shadow-white">
         <div class="text grid-cols-1 md:grid-cols-1 grid justify-between items-center pt-2 px-6">
             <div class="text-animation text-xl md:text-2xl font-black">DANH MỤC NỖI BẬT</div>
         </div>
-        <div class="  Categorys px-8 pt-5 bg-orange-400 h-28">
+        <div class="Categorys px-8 pt-5 bg-orange-400 h-28">
             <div class="autoplay-sliderrsre">
-                @foreach ($categories as $category)
-                    <a href="{{ route('category.show', $category->slug) }}"><span class="" style="overflow: hidden;
-                        text-overflow: ellipsis;
-                        line-height: 25px;
-                        -webkit-line-clamp: 1;
-                        height: 50px;
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;">{{ $category->category_name }}</span></a>
+                @foreach ($featuredCategories as $category)
+                    <a href="{{ route('category.show', $category->slug) }}">
+                        <span class="truncate">{{ $category->category_name }}</span>
+                    </a>
                 @endforeach
             </div>
         </div>
     </div>
 </section>
 {{-- PC GAMEMING --}}
-<div class="produtc px-8 pt-6">
-    <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
-        <div class="text grid-cols-1 md:grid-cols-2 grid justify-between items-center pt-2 px-6">
-            <div class="text-sale text-xl md:text-2xl font-black text-red-500">
-                {{-- @foreach ($categories as $category)
-                    <a href="{{ route('category.show', $category->slug) }}">{{ $category->category_name }}</a>
-                @endforeach --}}
-            </div>
-            <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
-        </div>
-        <div class="product-slide">
-            <div class="autoplay-slider p-3">
-                @foreach ($products as $product)
-                <div class="product__item">
-                    <div class="bg-white rounded-lg mr-2">
-                        <!-- Assuming you want to display a hot tag -->
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                        <a href="{{ route('product.show', $product->slug) }}">
-                            <div class="product-img w-48 mx-auto">
-                                <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
-                            </div>
-                        </a>
-                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
-                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
-                        </div>
-                        <div class="product-info p-3 h-40">
-                            <a href="{{ route('product.show', $product->slug) }}"
-                                class="hover:text-blue-600 text-base h-16 line-clamp-2"
-                                style="overflow: hidden;
-text-overflow: ellipsis;
-line-height: 25px;
--webkit-line-clamp: 2;
-height: 50px;
-display: -webkit-box;
--webkit-box-orient: vertical;">{{ $product->product_name }}</a>
-                            <div class="mt-3 inline-flex">
-                                <div>
-                                    <p class="product-price line-through text-slate-500">
-                                        {{ $product->price }}
-                                    </p>
+<section>
+    <div class="produtc px-8 pt-6">
+        <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
+            @foreach ($categories as $category)
+                <div class="text grid-cols-1 md:grid-cols-2 grid justify-between items-center pt-2 px-6">
+                    <div class="text-sale text-xl md:text-2xl font-black text-red-500">
+                        <a href="{{ route('category.show', $category->slug) }}">{{ $category->category_name }}</a>
+                    </div>
+                    <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
+                </div>
+                <div class="product-slide">
+                    <div class="autoplay-slider p-3">
+                        @foreach ($category->products as $product)
+                            <div class="product__item">
+                                <div class="bg-white rounded-lg mr-2">
+                                    <!-- Assuming you want to display a hot tag -->
+                                    <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                                    <a href="{{ route('product.show', $product->slug) }}">
+                                        <div class="product-img w-48 mx-auto">
+                                            <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}">
+                                        </div>
+                                    </a>
+                                    <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
+                                        <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                                    </div>
+                                    <div class="product-info p-3 h-40">
+                                        <a href="{{ route('product.show', $product->slug) }}"
+                                            class="hover:text-blue-600 text-base h-16 line-clamp-2"
+                                            style="overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        -webkit-line-clamp: 2;
+        height: 50px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
+                                        <div class="mt-3 inline-flex">
+                                            <div>
+                                                <p class="product-price line-through text-slate-500">
+                                                    {{ $product->price }}
+                                                </p>
+                                            </div>
+                                            <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
+                                                {{ $product->discount }}
+                                            </div>
+                                        </div>
+                                        <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
+                                    </div>
                                 </div>
-                                <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                    {{ $product->discount }}
-                                </div>
                             </div>
-                            <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- MÀN HÌNH GAMEMING --}}
-<section class="produtc px-8 pt-6">
-    <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
-        <div class="text grid-cols-1 md:grid-cols-2 grid justify-between items-center pt-2 px-6">
-            <div class="text-sale text-xl md:text-2xl font-black text-red-500">MÀN HÌNH MÁY TÍNH </div>
-            <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
-        </div>
-        <div class="product-slide">
-            <div class="autoplay-slider p-3">
-                @foreach ($products as $product)
-                <div class="product__item">
-                    <div class="bg-white rounded-lg mr-2">
-                        <!-- Assuming you want to display a hot tag -->
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                        <a href="{{ route('product.show', $product->slug) }}">
-                            <div class="product-img w-48 mx-auto">
-                                <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
-                            </div>
-                        </a>
-                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
-                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
-                        </div>
-                        <div class="product-info p-3 h-40">
-                            <a href="{{ route('product.show', $product->slug) }}"
-                                class="hover:text-blue-600 text-base h-16 line-clamp-2"
-                                style="overflow: hidden;
-text-overflow: ellipsis;
-line-height: 25px;
--webkit-line-clamp: 2;
-height: 50px;
-display: -webkit-box;
--webkit-box-orient: vertical;">{{ $product->product_name }}</a>
-                            <div class="mt-3 inline-flex">
-                                <div>
-                                    <p class="product-price line-through text-slate-500">
-                                        {{ $product->price }}
-                                    </p>
-                                </div>
-                                <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                    {{ $product->discount }}
-                                </div>
-                            </div>
-                            <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="produtc px-8 pt-6">
-    <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
-        <div class="text grid-cols-1 md:grid-cols-1 grid justify-between items-center pt-2 px-6">
-            <div class="text-sale text-xl md:text-2xl font-black text-red-500">TIN TỨC CÔNG NGHỆ</div>
-        </div>
-        <div class="product-slide">
-            <div class="autoplay-slider p-3">
-
-                @foreach ($products as $product)
-                    <div class="product__item">
-                        <div class="bg-white rounded-lg mr-2">
-                            <div class="product-img w-48 mx-auto">
-                                <a href=""><img src="{{ $product['img'] }}" alt=""></a>
-                            </div>
-                            <div class="product-info p-2">
-                                <div class="text-red-700 font-bold text-2xl mt-2">
-                                </div>
-
-                                <div class="flex items-center pt-2">
-                                    {{ $product['title'] }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
         </div>
     </div>
 </section>
@@ -296,8 +212,10 @@ display: -webkit-box;
                     <p> Nguyễn Văn linh</p>
                     <img src="https://nguyencongpc.vn/media/news/0709_tienlinh.jpg" alt=""
                         class="w-36 mx-auto	px-8 rounded-r-3xl	">
-                    Tôi rất hài lòng với sản phẩm máy xay sinh tố XYZ và dịch vụ của cửa hàng. Đây là một lựa chọn tốt
-                    cho những ai đang tìm kiếm một máy xay chất lượng với giá cả phải chăng. Tôi chắc chắn sẽ giới thiệu
+                    Tôi rất hài lòng với sản phẩm máy xay sinh tố XYZ và dịch vụ của cửa hàng. Đây là một lựa chọn
+                    tốt
+                    cho những ai đang tìm kiếm một máy xay chất lượng với giá cả phải chăng. Tôi chắc chắn sẽ giới
+                    thiệu
                     sản phẩm này cho bạn bè và người thân.
                 </div>
             </div>
@@ -307,8 +225,10 @@ display: -webkit-box;
                     <p> Nguyễn Văn linh</p>
                     <img src="https://nguyencongpc.vn/media/news/0709_tienlinh.jpg" alt=""
                         class="w-36 mx-auto	px-8 rounded-r-3xl	">
-                    Tôi rất hài lòng với sản phẩm máy xay sinh tố XYZ và dịch vụ của cửa hàng. Đây là một lựa chọn tốt
-                    cho những ai đang tìm kiếm một máy xay chất lượng với giá cả phải chăng. Tôi chắc chắn sẽ giới thiệu
+                    Tôi rất hài lòng với sản phẩm máy xay sinh tố XYZ và dịch vụ của cửa hàng. Đây là một lựa chọn
+                    tốt
+                    cho những ai đang tìm kiếm một máy xay chất lượng với giá cả phải chăng. Tôi chắc chắn sẽ giới
+                    thiệu
                     sản phẩm này cho bạn bè và người thân.
                 </div>
             </div>

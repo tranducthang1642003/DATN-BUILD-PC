@@ -20,23 +20,7 @@
                     <div class="swiper gallery-top">
                         <div class="md:max-w-xl max-w-sm mx-auto slider-for">
                             <div class="">
-                                <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg"
-                                    alt="">
-                            </div>
-                            <div class="">
-                                <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577024.png"
-                                    alt="">
-                            </div>
-                            <div class="">
-                                <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577032.png"
-                                    alt="">
-                            </div>
-                            <div class="">
-                                <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577045.png"
-                                    alt="">
-                            </div>
-                            <div class="">
-                                
+                                <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}" ></a>
                             </div>
                         </div>
                     </div>
@@ -44,7 +28,7 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide thumb-img max-w-lg mx-auto slider-nav">
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-m--n-h--nh-asus-tuf-gaming-vg279q3a.jpg" alt="">
+                                    <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}" ></a>
                                 </div>
                                 <div class="rounded-lg w-48 h-auto mr-3">
                                     <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577024.png" alt="">
@@ -75,7 +59,7 @@
             </div>
             <div class="box-right grow ml-0 md:ml-10 mt-5">
                 <h1 class="detail-product_name text-base md:text-lg xl:text-xl">
-                    Màn Hình TUF Gaming VG249Q3A (24 Inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)
+               {{$product->product_name}}
                 </h1>
                 <div class="list-basic-product-info flex mt-3">
                     <div class="item-basic mr-10">
@@ -89,7 +73,7 @@
                     </div>
                 </div>
                 <div class="box-price-detail flex mt-3 border-2 rounded-2xl p-1 md:p-3">
-                    <p class="price-detail text-lg lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">3.190.000đ</p>
+                    <p class="price-detail text-lg lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">   {{$product->price}}</p>
                     <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">4.000.000₫</span>
                     <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">Tiết kiệm 810.000đ</div>
                     <div class="bg-red-700 text-red-700 font-bold  rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">-25%</div>
