@@ -176,7 +176,7 @@
                                         <div class="mt-3 inline-flex">
                                             <div>
                                                 <p class="product-price line-through text-slate-500">
-                                                    {{ $product->price }}
+                                                    {{ number_format($product->price) }}
                                                 </p>
                                             </div>
                                             <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
@@ -375,12 +375,12 @@
     }
 
     .text_css {
-        style="overflow: hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         line-height: 25px;
         -webkit-line-clamp: 2;
         height: 50px;
         display: -webkit-box;
-        -webkit-box-orient: vertical;"
+        -webkit-box-orient: vertical;
     }
 </style>
