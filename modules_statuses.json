@@ -14,5 +14,6 @@
     "Order": true,
     "Settings": true,
     "User": true,
-    "Dashboard": true
+    "Dashboard": true,
+    "Review": true
 }
