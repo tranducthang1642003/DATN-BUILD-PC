@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Home\Repositories;
+namespace Modules\Product\Repositories;
 
 use Modules\Category\Entities\Category;
-use Modules\Home\Repositories\HomeRepositoryInterface;
+use Modules\Home\Repositories\ProductRepositoryInterface;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductImage;
 
-class HomeRepository implements HomeRepositoryInterface
+class ProductRepository implements ProductRepositoryInterface
 {
     public function getAllProducts()
     {
@@ -26,12 +26,16 @@ class HomeRepository implements HomeRepositoryInterface
         return $categories;
     }
 
+
     public function getFeaturedCategories()
     {
         return Category::where('featured', true)
             ->with('products')
             ->get();
     }
+
+
+
 
     public function getSaleProducts()
     {
@@ -44,6 +48,8 @@ class HomeRepository implements HomeRepositoryInterface
         }
         return $products;
     }
+
+
 
     public function getBestsellingProducts($limit = 5)
     {
@@ -58,23 +64,8 @@ class HomeRepository implements HomeRepositoryInterface
         return $products;
     }
 
-    public function getProductByProduct($slug)
-    {
-        $category = Category::where('slug', $slug)->where('featured', true)->firstOrFail();
-        $products = $category->products;
-        foreach ($products as $product) {
-            $primary_image = ProductImage::where('product_id', $product->id)
-                ->where('is_primary', 1)
-                ->first();
-            $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
-        }
-        return $products;
-    }
 
-    public function getCategoryBySlug($slug)
-    {
-        return Category::where('slug', $slug)->firstOrFail();
-    }
+
 
     public function getProductById($id)
     {
@@ -91,6 +82,9 @@ class HomeRepository implements HomeRepositoryInterface
         }
     }
 
+
+
+    
     public function createProduct(array $data)
     {
         return Product::create($data);

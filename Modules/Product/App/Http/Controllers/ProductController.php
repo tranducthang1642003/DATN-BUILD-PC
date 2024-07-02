@@ -39,21 +39,44 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
-
-        $primary_image = ProductImage::where('product_id', $product->id)
-            ->where('is_primary', 1)
-            ->first();
-        $secondary_images = ProductImage::where('product_id', $product->id)
-            ->where('is_primary', 0)
-            ->get();
-
+        $product = Product::with(['images' => function ($query) {
+            $query->orderBy('is_primary', 'desc');
+        }])->where('slug', $slug)->firstOrFail();
+    
+        $primary_image = $product->images->firstWhere('is_primary', 1);
+        $secondary_images = $product->images->where('is_primary', 0);
+    
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
-
-        return view('public.product.detail-product', compact('product'));
+    
+        $recentlyViewed = session()->get('recently_viewed', []);
+    
+        if (!in_array($product->id, $recentlyViewed)) {
+            if (count($recentlyViewed) >= 5) {
+                array_shift($recentlyViewed);
+            }
+            $recentlyViewed[] = $product->id;
+            session()->put('recently_viewed', $recentlyViewed);
+        }
+    
+        $recentlyViewedProducts = Product::whereIn('id', $recentlyViewed)->get();
+    
+        $similarProducts = Product::with(['images' => function ($query) {
+            $query->orderBy('is_primary', 'desc');
+        }])
+        ->where('category_id', $product->category_id)
+        ->where('id', '!=', $product->id)
+        ->take(5)
+        ->get();
+    
+        foreach ($similarProducts as $similarProduct) {
+            $primaryImage = $similarProduct->images->firstWhere('is_primary', 1);
+            $similarProduct->primary_image_path = $primaryImage ? $primaryImage->image_path : null;
+        }
+    
+        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
