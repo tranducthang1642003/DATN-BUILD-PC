@@ -88,7 +88,7 @@
     <canvas id="newCustomersCanvas" class="h-36 sm:h-28"></canvas>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         var revenueCtx = document.getElementById('revenueCanvas').getContext('2d');
         var newOrdersCtx = document.getElementById('newOrdersCanvas').getContext('2d');
         var soldProductsCtx = document.getElementById('soldProductsCanvas').getContext('2d');
@@ -160,35 +160,35 @@
         });
     });
     hideAllCharts();
+    document.getElementById('revenueCanvas').style.display = 'block';
+
+    // Lắng nghe sự kiện click vào mỗi card để hiển thị biểu đồ tương ứng
+    document.getElementById('revenueCard').addEventListener('click', function() {
+        hideAllCharts();
         document.getElementById('revenueCanvas').style.display = 'block';
+    });
 
-        // Lắng nghe sự kiện click vào mỗi card để hiển thị biểu đồ tương ứng
-        document.getElementById('revenueCard').addEventListener('click', function() {
-            hideAllCharts();
-            document.getElementById('revenueCanvas').style.display = 'block';
-        });
+    document.getElementById('newOrdersCard').addEventListener('click', function() {
+        hideAllCharts();
+        document.getElementById('newOrdersCanvas').style.display = 'block';
+    });
 
-        document.getElementById('newOrdersCard').addEventListener('click', function() {
-            hideAllCharts();
-            document.getElementById('newOrdersCanvas').style.display = 'block';
-        });
+    document.getElementById('soldProductsCard').addEventListener('click', function() {
+        hideAllCharts();
+        document.getElementById('soldProductsCanvas').style.display = 'block';
+    });
 
-        document.getElementById('soldProductsCard').addEventListener('click', function() {
-            hideAllCharts();
-            document.getElementById('soldProductsCanvas').style.display = 'block';
-        });
+    document.getElementById('newCustomersCard').addEventListener('click', function() {
+        hideAllCharts();
+        document.getElementById('newCustomersCanvas').style.display = 'block';
+    });
 
-        document.getElementById('newCustomersCard').addEventListener('click', function() {
-            hideAllCharts();
-            document.getElementById('newCustomersCanvas').style.display = 'block';
-        });
-
-        // Hàm ẩn tất cả các biểu đồ
-        function hideAllCharts() {
-            var charts = document.querySelectorAll('canvas');
-            for (var i = 0; i < charts.length; i++) {
-                charts[i].style.display = 'none';
-            }
+    // Hàm ẩn tất cả các biểu đồ
+    function hideAllCharts() {
+        var charts = document.querySelectorAll('canvas');
+        for (var i = 0; i < charts.length; i++) {
+            charts[i].style.display = 'none';
         }
+    }
 </script>
 @include('admin.layout.fotter')

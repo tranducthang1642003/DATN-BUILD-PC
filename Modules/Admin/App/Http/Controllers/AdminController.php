@@ -19,10 +19,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $currentMonthStart = Carbon::now()->startOfMonth();
-        $lastMonthStart = Carbon::now()->subMonth()->startOfMonth();
-        $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth();
-        $totalRevenueCurrentMonth = Orders::whereBetween('order_date', [$currentMonthStart, $currentMonthStart->copy()->endOfMonth()])
+        $lastMonthEnd = Carbon::now()->subDays(30)->startOfDay();// 2024-06-01
+        $currentMonthStart = Carbon::now()->subMonths(1)->endOfMonth(); //2024-06-30
+        $lastMonthStart = Carbon::now()->subDays(60)->startOfDay(); //2024-05-02
+        $totalRevenueCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
             ->sum('total_amount');
         $totalRevenueLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])
             ->sum('total_amount');
@@ -30,7 +30,7 @@ class AdminController extends Controller
         if ($totalRevenueLastMonth != 0) {
             $rateRevenue = (($totalRevenueCurrentMonth - $totalRevenueLastMonth) / $totalRevenueLastMonth) * 100;
         }
-        $totalOrdersCurrentMonth = Orders::whereBetween('order_date', [$currentMonthStart, $currentMonthStart->copy()->endOfMonth()])
+        $totalOrdersCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
             ->count();
         $totalOrdersLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])
             ->count();
@@ -39,7 +39,7 @@ class AdminController extends Controller
             $rateOrders = (($totalOrdersCurrentMonth - $totalOrdersLastMonth) / $totalOrdersLastMonth) * 100;
         }
         $totalProductsSoldCurrentMonth = Order_items::join('orders', 'order_items.order_id', '=', 'orders.id')
-            ->whereBetween('orders.order_date', [$currentMonthStart, $currentMonthStart->copy()->endOfMonth()])
+            ->whereBetween('orders.order_date', [$lastMonthEnd, $currentMonthStart])
             ->sum('order_items.quantity');
         $totalProductsSoldLastMonth = Order_items::join('orders', 'order_items.order_id', '=', 'orders.id')
             ->whereBetween('orders.order_date', [$lastMonthStart, $lastMonthEnd])
@@ -48,7 +48,7 @@ class AdminController extends Controller
         if ($totalRevenueLastMonth != 0) {
             $rateProducts = (($totalProductsSoldCurrentMonth - $totalProductsSoldLastMonth) / $totalProductsSoldLastMonth) * 100;
         }
-        $newUsersCountCurrentMonth = User::whereBetween('created_at', [$currentMonthStart, $currentMonthStart->copy()->endOfMonth()])
+        $newUsersCountCurrentMonth = User::whereBetween('created_at', [$lastMonthEnd, $currentMonthStart])
             ->count();
         $newUsersCountLastMonth = User::whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])
             ->count();
@@ -56,10 +56,10 @@ class AdminController extends Controller
         if ($newUsersCountLastMonth != 0) {
             $rateUsers = (($newUsersCountCurrentMonth - $newUsersCountLastMonth) / $newUsersCountLastMonth) * 100;
         }
-        $currentMonthRevenueData = $this->getChartData('revenue', $currentMonthStart, $currentMonthStart->copy()->endOfMonth());
-        $currentMonthOrdersData = $this->getChartData('new_orders', $currentMonthStart, $currentMonthStart->copy()->endOfMonth());
-        $currentMonthSoldProductsData = $this->getChartData('sold_products', $currentMonthStart, $currentMonthStart->copy()->endOfMonth());
-        $currentMonthNewCustomersData = $this->getChartData('new_customers', $currentMonthStart, $currentMonthStart->copy()->endOfMonth());
+        $currentMonthRevenueData = $this->getChartData('revenue', $lastMonthEnd, $currentMonthStart);
+        $currentMonthOrdersData = $this->getChartData('new_orders', $lastMonthEnd, $currentMonthStart);
+        $currentMonthSoldProductsData = $this->getChartData('sold_products', $lastMonthEnd, $currentMonthStart);
+        $currentMonthNewCustomersData = $this->getChartData('new_customers', $lastMonthEnd, $currentMonthStart);
         $lastMonthRevenueData = $this->getChartData('revenue', $lastMonthStart, $lastMonthEnd);
         $lastMonthOrdersData = $this->getChartData('new_orders', $lastMonthStart, $lastMonthEnd);
         $lastMonthSoldProductsData = $this->getChartData('sold_products', $lastMonthStart, $lastMonthEnd);
@@ -94,15 +94,10 @@ class AdminController extends Controller
     {
         $dates = [];
         $data = [];
-
-        // Tạo một khoảng thời gian từ $startDate đến $endDate
         $interval = CarbonPeriod::create($startDate, $endDate);
-
-        // Duyệt qua từng ngày trong khoảng thời gian
         foreach ($interval as $date) {
             $dates[] = $date->format('Y-m-d');
         }
-
         switch ($type) {
             case 'revenue':
                 $results = Orders::selectRaw('DATE(order_date) as date, SUM(total_amount) as total')
@@ -137,8 +132,6 @@ class AdminController extends Controller
                 $results = collect();
                 break;
         }
-
-        // Duyệt qua mảng ngày để tạo mảng dữ liệu
         foreach ($dates as $date) {
             $result = $results->firstWhere('date', $date);
             $data[] = $result ? $result->total : 0;
