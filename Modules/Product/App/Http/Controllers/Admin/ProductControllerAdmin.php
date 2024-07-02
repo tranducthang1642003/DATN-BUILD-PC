@@ -12,7 +12,7 @@ use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductImage;
 
-class ProductController extends Controller
+class ProductControllerAdmin extends Controller
 {
     public function index(Request $request)
     {
