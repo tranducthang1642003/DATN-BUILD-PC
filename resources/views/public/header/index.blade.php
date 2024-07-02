@@ -44,7 +44,7 @@
                 <div class="nav__search flex-grow mx-4 md:mx-6 lg:mx-8 xl:mx-10">
                     <div class="search__wrapper relative w-auto">
                         <input type="text"
-                            class="search__input w-full p-2 md:p-3 lg:p-4 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            class="search__input w-full p-2 md:p-3 lg:p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                             placeholder="Search...">
                         <div class="search__icon absolute inset-y-0 left-0 pl-2 md:pl-3 lg:pl-4 flex items-center pointer-events-none">
                             <!-- Search icon can go here -->

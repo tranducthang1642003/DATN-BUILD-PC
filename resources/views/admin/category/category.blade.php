@@ -47,12 +47,11 @@
             <tr class="text-left bg-gray-400">
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
+                <th class="px-4 py-2">Hình ảnh</th>
                 <th class="px-4 py-2">Tên</th>
                 <th class="px-4 py-2">Slug</th>
-                <th class="px-4 py-2">Hình ảnh</th>
-                <th class="px-4 py-2">Trạng thái</th>
+                <th class="px-4 py-2">Nổi bật</th>
                 <th class="px-4 py-2">Mô tả</th>
-                <th class="px-4 py-2">Cập nhật lần cuối</th>
                 <th class="px-4 py-2">...</th>
             </tr>
         </thead>
@@ -61,22 +60,20 @@
             <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $category->id }}</td>
+                <td class="px-4 py-2"><img class="w-12" src="{{ asset($category->image) }}" alt=""></td>
                 <td class="px-4 py-2">{{ $category->category_name }}</td>
                 <td class="px-4 py-2">{{ $category->slug }}</td>
-                <td class="px-4 py-2"><img class="w-36" src="{{ asset($category->image) }}" alt=""></td>
                 <td class="px-4 py-2">
                     @php
                     $statusLabels = [
-                    1 => 'Còn hàng',
-                    2 => 'Hết hàng',
-                    3 => 'Đã xóa'
+                    0 => 'Không',
+                    1 => 'Nổi bật',
                     ];
                     @endphp
 
-                    {{ $statusLabels[$category->status] ?? 'Không xác định' }}
+                    {{ $statusLabels[$category->featured] ?? 'Không xác định' }}
                 </td>
-                <td class="px-4 py-2">{{ $category->description }}</td>
-                <td class="px-4 py-2">{{ $category->updated_at }}</td>
+                <td class="px-4 py-2 product-name">{{ $category->description }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
