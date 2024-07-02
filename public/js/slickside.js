@@ -49,7 +49,7 @@ $(document).ready(function () {
   $(".autoplay-slider").slick({
     infinite: true,
     speed: 300,
-    slidesToShow: 5,
+    slidesToShow: 6,
     adaptiveHeight: true,
     responsive: [{
       breakpoint: 1280,
