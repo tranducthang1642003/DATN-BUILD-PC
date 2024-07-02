@@ -1,96 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 400px;
-            max-width: 100%;
-        }
-        .card-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-group .error-message {
-            color: red;
-            font-size: 14px;
-        }
-        .form-group .success-message {
-            color: green;
-            font-size: 14px;
-        }
-        .form-group .input-group {
-            display: flex;
-        }
-        .form-group .input-group button {
-            padding: 8px 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .form-group .input-group button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h2 class="card-header">Forgot Password</h2>
-
+@include('public.header.index')
+<style>
+    .bg {
+        position: relative;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/09/hinh-nen-may-tinh-4k-cong-nghe-4.jpg');
+        background-size: cover;
+        background-position: center;
+        font-family: Arial, sans-serif;
+    }
+    @keyframes textChange {
+        0% { color: #edfdff; }
+        50% { color: #1c0055; } 
+    }
+    .color-changing {
+        animation: textChange 5s infinite;
+    }
+</style>
+<div class=" bg flex justify-center items-center p-10 bg-gray-100">
+    <div class="card w-96  rounded-lg shadow-lg ">
+        <h2 class="card-header text-3xl font-bold text-center py-4 text-white bg-cyan-600">Forgot Password</h2>
         @if (session('status'))
-            <div class="form-group success-message">
+            <div class="success-message text-green-500 text-center py-2">
                 {{ session('status') }}
             </div>
         @endif
 
-        <form method="POST" action="{{ route('password.email') }}">
+        <form method="POST" action="{{ route('password.email') }}" class="px-6 pt-4 pb-6 bg-white bg-opacity-60">
             @csrf
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
+            <div class="form-group mb-6">
+                <label for="email" class="block text-lg font-semibold text-gray-700 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
                 @error('email')
-                    <div class="error-message">{{ $message }}</div>
+                    <div class="error-message text-red-500 mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <div class="input-group">
-                    <button type="submit">Send Password Reset Link</button>
+                <div class="input-group flex justify-center">
+                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-800 color-changing">Send Password Reset Link</button>
                 </div>
             </div>
         </form>
     </div>
-</body>
-</html>
+</div>
+
+@include('public.footer.footer') 

@@ -2,14 +2,11 @@
 
 namespace Modules\Product\App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductImage;
-
 
 class ProductController extends Controller
 {
@@ -18,10 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $topFeaturedProducts = DB::table('products')->where('featured', true)->orderBy('updated_at', 'desc')->take(10)->get();
-        // $product = DB::table('products')->limit(20)->orderBy('updated_at', 'desc')->paginate(10);
-        // $product_images = DB::table('product_images')->get();
-        // return view('public.product.product', ['product' => $product, 'product_images' => $product_images, 'topFeaturedProducts' => $topFeaturedProducts]);
+        // Implement logic to fetch and display a list of products
     }
 
     /**
@@ -37,11 +31,11 @@ class ProductController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        // Implement logic to store a new product
     }
 
     /**
-     * Show the specified resource.
+     * Display the specified resource.
      */
     public function show($slug)
     {
@@ -56,9 +50,9 @@ class ProductController extends Controller
 
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
+
         return view('public.product.detail-product', compact('product'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -73,7 +67,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        //
+        // Implement logic to update an existing product
     }
 
     /**
@@ -81,6 +75,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Implement logic to delete a product
     }
 }

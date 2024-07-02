@@ -1,18 +1,15 @@
 <?php
 
-namespace Modules\Home\App\Providers;
+namespace Modules\Dashboard\App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Home\Repositories\HomeRepositoryInterface;
-use Modules\Home\Repositories\HomeRepository;
 
-
-class HomeServiceProvider extends ServiceProvider
+class DashboardServiceProvider extends ServiceProvider
 {
-    protected string $moduleName = 'Home';
+    protected string $moduleName = 'Dashboard';
 
-    protected string $moduleNameLower = 'home';
+    protected string $moduleNameLower = 'dashboard';
 
     /**
      * Boot the application events.
@@ -33,8 +30,6 @@ class HomeServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
-
     }
 
     /**
@@ -116,5 +111,4 @@ class HomeServiceProvider extends ServiceProvider
 
         return $paths;
     }
-    
 }

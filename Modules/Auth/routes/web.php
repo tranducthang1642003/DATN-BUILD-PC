@@ -31,7 +31,6 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/auth/verify-token/show', [RegisterController::class, 'showVerifyTokenForm'])->name('verify.token.show');
     Route::post('/auth/verify-token/verify', [RegisterController::class, 'verifyToken'])->name('verify.token.verify');
-
 });
 
 Route::middleware('auth')->group(function () {
@@ -55,5 +54,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-
+    
 });

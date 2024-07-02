@@ -51,7 +51,7 @@ class CategoryController extends Controller
         }
         return view('public.product.product', compact('category', 'products'));
     }
-
+ 
     /**
      * Show the form for editing the specified resource.
      */
