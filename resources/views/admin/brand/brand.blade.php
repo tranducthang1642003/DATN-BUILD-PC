@@ -5,8 +5,7 @@
     }
 </style>
 @include('admin.layout.header')
-
-<div class="flex-grow p-5 ml-10">
+<div class="m-4 pt-20">
     <div class="flex justify-between text-sm">
         <div class="flex text-gray-600">
             <form action="{{ route('brand') }}" method="GET" class="flex">
@@ -107,6 +106,7 @@
             {{ $brands->links() }}
         </div>
     </div>
+</div>
 </div>
 @include('admin.layout.fotter')
 

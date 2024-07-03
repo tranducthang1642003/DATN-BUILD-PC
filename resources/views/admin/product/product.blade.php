@@ -3,11 +3,9 @@
         background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
         color: white;
     }
-
-   
 </style>
 @include('admin.layout.header')
-<div class="flex-grow p-5 ml-10">
+<div class="m-4 pt-20">
     <div class="flex justify-between text-xs sm:text-sm">
         <div class="flex text-gray-600">
             <form action="{{ route('product') }}" method="GET" class="flex">
@@ -28,7 +26,7 @@
                     </div>
                 </div>
                 <div class="ml-2 sm:ml-6">
-                    <button type="submit" class="bg-indigo-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
+                    <button type="submit" class="bg-slate-800 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
                 </div>
             </form>
         </div>
@@ -132,5 +130,6 @@
             {{ $products->links() }}
         </div>
     </div>
+</div>
 </div>
 @include('admin.layout.fotter')

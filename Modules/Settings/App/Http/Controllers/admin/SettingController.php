@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\App\Http\Controllers\Admin;
+namespace Modules\Settings\App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,67 +9,44 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Modules\Brand\Entities\Brand;
 use Modules\Category\Entities\Category;
-use Modules\Product\Entities\Product;
-use Modules\Product\Entities\ProductImage;
+use Modules\Setting\Entities\Setting;
+use Modules\Settings\Entities\Settings;
 
-class ProductController extends Controller
+class SettingController extends Controller
 {
-    public function index(Request $request)
+    public function index_banner(Request $request)
     {
-        $statusCounts = [
-            '1' => Product::where('status', 1)->count(),
-            '2' => Product::where('status', 2)->count(),
-            '3' => Product::where('status', 3)->count(),
-            '4' => Product::count(),
-        ];
-        $productsQuery = Product::with('brand', 'category');
-        $status = $request->input('status');
-        if ($status) {
-            $productsQuery->where('status', $status);
-        }
+        $settingsQuery = Settings::All();
+        // dd($settingsQuery);
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         if ($startDate && $endDate) {
-            $productsQuery->whereBetween('created_at', [$startDate, $endDate]);
+            $settingsQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $productsQuery->where('product_name', 'like', '%' . $keyword . '%');
+            $settingsQuery->where('Setting_name', 'like', '%' . $keyword . '%');
         }
-        $products = $productsQuery->paginate(10);
-        $products_images = [];
-        foreach ($products as $product) {
-            $primary_image = ProductImage::where('product_id', $product->id)
-                ->where('is_primary', 1)
-                ->first();
-            $product->primary_image_url = $primary_image ? $primary_image->image_path : null;
-            $secondary_images = ProductImage::where('product_id', $product->id)
-                ->where('is_primary', 0)
-                ->get();
-            $products_images[$product->id] = [
-                'primary_image' => $primary_image,
-                'secondary_images' => $secondary_images,
-            ];
-        }
-        return view('admin.product.product', compact('products', 'statusCounts', 'products_images'));
+        $settings = $settingsQuery;
+        return view('admin.setting.banner', compact('settings'));
     }
-    public function edit($id)
+    public function edit_banner($id)
     {
         $brands = Brand::all();
         $categories = Category::all();
-        $product = Product::with('brand', 'category')->findOrFail($id);
-        $productImages = $product->productImages()->orderBy('is_primary', 'desc')->get();
-        $primaryImage = $productImages->where('is_primary', true)->first();
-        $secondaryImages = $productImages->where('is_primary', false);
-        return view('admin.product.edit', compact('product', 'brands', 'categories', 'primaryImage', 'secondaryImages'));
+        $Setting = Settings::with('brand', 'category')->findOrFail($id);
+        $SettingImages = $Setting->SettingImages()->orderBy('is_primary', 'desc')->get();
+        $primaryImage = $SettingImages->where('is_primary', true)->first();
+        $secondaryImages = $SettingImages->where('is_primary', false);
+        return view('admin.Setting.edit', compact('Setting', 'brands', 'categories', 'primaryImage', 'secondaryImages'));
     }
 
 
-    public function update_product(Request $request, $id)
+    public function update_banner(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'product_name' => 'required|string',
-            'product_code' => 'required|string',
+            'Setting_name' => 'required|string',
+            'Setting_code' => 'required|string',
             'color' => 'required|string',
             'quantity' => 'required|numeric',
             'sale' => 'required|numeric',
@@ -89,21 +66,21 @@ class ProductController extends Controller
         }
 
         try {
-            $product = Product::findOrFail($id);
-            $product->product_name = $request->input('product_name');
-            $product->slug = Str::slug($request->input('product_name'), '-');
-            $product->product_code = $request->input('product_code');
-            $product->color = $request->input('color');
-            $product->quantity = $request->input('quantity');
-            $product->sale = $request->input('sale');
-            $product->featured = $request->input('featured') === 'yes';
-            $product->status = $request->input('status');
-            $product->category_id = $request->input('category_id');
-            $product->brand_id = $request->input('brand_id');
-            $product->price = $request->input('price');
-            $product->description = $request->input('description');
-            $product->short_description = $request->input('specifications');
-            $product->save();
+            $Setting = Settings::findOrFail($id);
+            $Setting->Setting_name = $request->input('Setting_name');
+            $Setting->slug = Str::slug($request->input('Setting_name'), '-');
+            $Setting->Setting_code = $request->input('Setting_code');
+            $Setting->color = $request->input('color');
+            $Setting->quantity = $request->input('quantity');
+            $Setting->sale = $request->input('sale');
+            $Setting->featured = $request->input('featured') === 'yes';
+            $Setting->status = $request->input('status');
+            $Setting->category_id = $request->input('category_id');
+            $Setting->brand_id = $request->input('brand_id');
+            $Setting->price = $request->input('price');
+            $Setting->description = $request->input('description');
+            $Setting->short_description = $request->input('specifications');
+            $Setting->save();
 
             if ($request->hasFile('image')) {
                 $imagePrimary = $request->file('image');
@@ -111,16 +88,16 @@ class ProductController extends Controller
                 $imagePrimary->move(public_path('images'), $imagePrimaryName);
                 $imagePrimaryPath = 'images/' . $imagePrimaryName;
 
-                if ($product->primaryImage) {
-                    Storage::disk('public')->delete($product->primaryImage->image_path);
-                    $product->primaryImage->image_path = $imagePrimaryPath;
-                    $product->primaryImage->save();
+                if ($Setting->primaryImage) {
+                    Storage::disk('public')->delete($Setting->primaryImage->image_path);
+                    $Setting->primaryImage->image_path = $imagePrimaryPath;
+                    $Setting->primaryImage->save();
                 } else {
-                    $productImage = new ProductImage();
-                    $productImage->product_id = $product->id;
-                    $productImage->image_path = $imagePrimaryPath;
-                    $productImage->is_primary = true;
-                    $productImage->save();
+                    // $SettingImage = new SettingImage();
+                    // $SettingImage->Setting_id = $Setting->id;
+                    // $SettingImage->image_path = $imagePrimaryPath;
+                    // $SettingImage->is_primary = true;
+                    // $SettingImage->save();
                 }
             }
 
@@ -130,16 +107,16 @@ class ProductController extends Controller
                     $imageSecondaryName = time() . '_' . $image->getClientOriginalName();
                     $image->move(public_path('images'), $imageSecondaryName);
                     $imageSecondaryPath = 'images/' . $imageSecondaryName;
-                    $secondaryImage = new ProductImage();
-                    $secondaryImage->product_id = $product->id;
-                    $secondaryImage->image_path = $imageSecondaryPath;
-                    $secondaryImage->is_primary = false;
-                    $secondaryImage->save();
-                    $imageSecondaryPaths[] = $imageSecondaryPath;
+                    // $secondaryImage = new SettingImage();
+                    // $secondaryImage->Setting_id = $Setting->id;
+                    // $secondaryImage->image_path = $imageSecondaryPath;
+                    // $secondaryImage->is_primary = false;
+                    // $secondaryImage->save();
+                    // $imageSecondaryPaths[] = $imageSecondaryPath;
                 }
             }
-            if (!empty($product->additionalImages)) {
-                foreach ($product->additionalImages as $image) {
+            if (!empty($Setting->additionalImages)) {
+                foreach ($Setting->additionalImages as $image) {
                     if (!in_array($image->image_path, $imageSecondaryPaths)) {
                         Storage::disk('public')->delete($image->image_path);
                         $image->delete();
@@ -149,7 +126,7 @@ class ProductController extends Controller
 
 
 
-            return redirect()->route('product')->with('success', 'Cập nhật sản phẩm thành công!');
+            return redirect()->route('Setting')->with('success', 'Cập nhật sản phẩm thành công!');
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->withInput()->withErrors('Cập nhật sản phẩm thất bại.');
@@ -160,18 +137,18 @@ class ProductController extends Controller
 
 
 
-    public function add()
+    public function add_banner()
     {
         $brands = Brand::All();
         $categories = Category::all();
-        $product = Product::with('brand', 'category', 'image');
-        return view('admin.product.add', compact('product', 'brands', 'categories'));
+        $Setting = Settings::with('brand', 'category', 'image');
+        return view('admin.Setting.add', compact('Setting', 'brands', 'categories'));
     }
-    public function add_product(Request $request)
+    public function add_banners(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product_name' => 'required|string',
-            'product_code' => 'required|string',
+            'Setting_name' => 'required|string',
+            'Setting_code' => 'required|string',
             'color' => 'required|string',
             'quantity' => 'required|numeric',
             'sale' => 'required|numeric',
@@ -205,37 +182,37 @@ class ProductController extends Controller
         }
 
         try {
-            $product = new Product();
-            $product->product_name = $request->input('product_name');
-            $product->slug = Str::slug($request->input('product_name'), '-');
-            $product->product_code = $request->input('product_code');
-            $product->color = $request->input('color');
-            $product->quantity = $request->input('quantity');
-            $product->sale = $request->input('sale');
-            $product->featured = $request->input('featured') === 'yes';
-            $product->status = $request->input('status');
-            $product->category_id = $request->input('category_id');
-            $product->brand_id = $request->input('brand_id');
-            $product->price = $request->input('price');
-            $product->description = $request->input('description');
-            $product->short_description = $request->input('specifications');
-            $product->save();
+            $Setting = new Settings();
+            $Setting->Setting_name = $request->input('Setting_name');
+            $Setting->slug = Str::slug($request->input('Setting_name'), '-');
+            $Setting->Setting_code = $request->input('Setting_code');
+            $Setting->color = $request->input('color');
+            $Setting->quantity = $request->input('quantity');
+            $Setting->sale = $request->input('sale');
+            $Setting->featured = $request->input('featured') === 'yes';
+            $Setting->status = $request->input('status');
+            $Setting->category_id = $request->input('category_id');
+            $Setting->brand_id = $request->input('brand_id');
+            $Setting->price = $request->input('price');
+            $Setting->description = $request->input('description');
+            $Setting->short_description = $request->input('specifications');
+            $Setting->save();
 
-            $primaryImage = new ProductImage();
-            $primaryImage->product_id = $product->id;
-            $primaryImage->image_path = $imagePrimaryPath;
-            $primaryImage->is_primary = true;
-            $primaryImage->save();
+            // $primaryImage = new SettingImage();
+            // $primaryImage->Setting_id = $Setting->id;
+            // $primaryImage->image_path = $imagePrimaryPath;
+            // $primaryImage->is_primary = true;
+            // $primaryImage->save();
 
             foreach ($imageSecondaryPaths as $imageSecondaryPath) {
-                $secondaryImage = new ProductImage();
-                $secondaryImage->product_id = $product->id;
-                $secondaryImage->image_path = $imageSecondaryPath;
-                $secondaryImage->is_primary = false;
-                $secondaryImage->save();
+                // $secondaryImage = new SettingImage();
+                // $secondaryImage->Setting_id = $Setting->id;
+                // $secondaryImage->image_path = $imageSecondaryPath;
+                // $secondaryImage->is_primary = false;
+                // $secondaryImage->save();
             }
 
-            return redirect()->route('product')->with('success', 'Thêm sản phẩm thành công!');
+            return redirect()->route('Setting')->with('success', 'Thêm sản phẩm thành công!');
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->withInput()->withErrors('Thêm sản phẩm thất bại.');
@@ -243,22 +220,22 @@ class ProductController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy_banner($id)
     {
         try {
-            $product = Product::findOrFail($id);
-            if ($product->primaryImage) {
-                Storage::disk('public')->delete($product->primaryImage->image_path);
-                $product->primaryImage->delete();
+            $Setting = Settings::findOrFail($id);
+            if ($Setting->primaryImage) {
+                Storage::disk('public')->delete($Setting->primaryImage->image_path);
+                $Setting->primaryImage->delete();
             }
-            foreach ($product->additionalImages as $image) {
+            foreach ($Setting->additionalImages as $image) {
                 Storage::disk('public')->delete($image->image_path);
                 $image->delete();
             }
-            $product->delete();
-            return redirect()->route('product.index')->with('success', 'Product deleted successfully!');
+            $Setting->delete();
+            return redirect()->route('Setting.index')->with('success', 'Setting deleted successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors('Failed to delete product.');
+            return redirect()->back()->withErrors('Failed to delete Setting.');
         }
     }
 }
