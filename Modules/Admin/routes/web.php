@@ -11,9 +11,8 @@ use Modules\Admin\App\Http\Controllers\VoucherController;
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('/admin', [AdminController::class, 'login_admin'])->name('admin.login')->middleware('admin');
 
-    Route::prefix('admin')->group(function () {
+
         Route::get('order', [OrderController::class, 'index'])->name('order');
         Route::get('order/add', [OrderController::class, 'add'])->name('add_order');
         Route::post('order/add', [OrderController::class, 'add_product'])->name('add_order');
@@ -40,4 +39,3 @@ Route::group(['middleware' => 'admin'], function () {
     });
 
 
-});

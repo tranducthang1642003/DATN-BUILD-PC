@@ -69,10 +69,11 @@
                             <i class="fa-solid fa-person-chalkboard text-xl" style="color: #ffffff;"></i>
                             <a href="#">Theo dõi đơn hàng</a>
                         </li>
-                        <li class="menu__item menu__item--white flex items-center flex-col">
+                        {{-- <li class="menu__item menu__item--white flex items-center flex-col">
                             <i class="fa-solid fa-cart-shopping text-xl" style="color: #ffffff;"></i>
                             <a href="#">Giỏ hàng</a>
-                        </li>
+                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2">{{ $cartCount }}</span>
+                        </li> --}}
                         <div class="relative">
                             <button class="menu__item menu__item--white flex items-center flex-col" onclick="toggleDropdown()">
                                 <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
@@ -178,3 +179,34 @@
     <script src="{{ asset('js/slickside.js') }}"></script>
 </body>
 </html>
+
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+document.querySelectorAll('.add-to-cart-button').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        let productId = this.dataset.productId;
+        let quantity = 1; // Hoặc lấy số lượng từ input nếu có
+
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ product_id: productId, quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('cart-count').innerText = data.cartCount;
+                alert(data.success);
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
