@@ -33,7 +33,7 @@
                 <button @click="sidebarOpen = !sidebarOpen" class="text-3xl"><ion-icon name="close-outline"></ion-icon></button>
             </div>
             <div class="flex items-center justify-center mb-16 mt-8">
-                <img src="{{ asset('image/logo.svg') }}" width="100" alt="">
+                <a href="{{ route('home') }}"><img src="{{ asset('image/logo.svg') }}" width="100" alt=""></a>
             </div>
             <div class="">
                 <div class="mb-4">
