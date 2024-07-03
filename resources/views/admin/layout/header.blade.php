@@ -26,14 +26,12 @@
 
 </head>
 
-<body>
-    <div x-data="{ sidebarOpen: true }" class=" flex text-sm-xs">
-        <div :class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }" class="p-4 drop-shadow-xl bg-white min-w-72 top-0 left-0 h-screen overflow-y-auto z-50 transition-transform duration-300 transform ">
-            <div class="flex items-end justify-end">
-                <button @click="sidebarOpen = !sidebarOpen" class="text-3xl"><ion-icon name="close-outline"></ion-icon></button>
-            </div>
-            <div class="flex items-center justify-center mb-16 mt-8">
-                <img src="{{ asset('image/logo.svg') }}" width="100" alt="">
+<body class="bg-slate-300">
+    <div x-data="{ sidebarOpen: true }" class=" flex text-sm-xs ">
+        <div :class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }" class="p-4 drop-shadow-xl bg-slate-800 min-w-72 top-0 left-0 z-50 transition-transform duration-300 transform min-h-screen">
+
+            <div class="flex items-center justify-center mb-12 mt-2">
+                <a href="{{ route('home') }}"><img src="{{ asset('image/logo.svg') }}" width="100" alt=""></a>
             </div>
             <div class="">
                 <div class="mb-4">
@@ -76,8 +74,8 @@
                 </div>
                 <div class="mb-4">
                     <button id="setting" class="button_sidebar setting_active"><ion-icon class="icon_sidebar" name="settings"></ion-icon>Cài đặt</button>
-                    <a class="w-full button-none" id="setting_list" href="{{ route('setting') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Banner</button></a>
-                    <a class="w-full button-none" id="setting_add" href="{{ route('add_setting') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                    <a class="w-full button-none" id="setting_list" href="{{ route('banner') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Banner</button></a>
+                    <a class="w-full button-none" id="setting_add" href="{{ route('add_banner') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
                 </div>
             </div>
 
@@ -113,3 +111,15 @@
                 });
             </script>
         </div>
+        <div class="flex-grow">
+            <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed min-w-full w-screen z-30">
+                <div class="flex justify-between items-center">
+                    <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-40 ml-4"><ion-icon name="menu"></ion-icon></button>
+                    <div class="flex justify-between items-center z-40">
+                        <h1 class="mx-8 text-white">WELCOME</h1>
+                        <img src="{{ asset('image/pc_demo.jpg') }}" width="40" alt="" class="rounded-full">
+                        <ion-icon name="build-outline" class="text-2xl text-white mx-6"></ion-icon>
+                        <ion-icon name="notifications-circle" class="text-3xl text-white"></ion-icon>
+                    </div>
+                </div>
+            </div>

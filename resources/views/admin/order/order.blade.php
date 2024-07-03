@@ -5,7 +5,7 @@
     }
 </style>
 @include('admin.layout.header')
-<div class="flex-grow p-5 ml-10">
+<div class="m-4 pt-20">
     <div class="flex justify-between text-sm">
         <div class="flex text-gray-600">
             <form action="{{ route('order') }}" method="GET" class="flex">
@@ -30,7 +30,6 @@
                 </div>
             </form>
         </div>
-        <div><a href="{{ route('add') }}"><button class="bg-green-700 text-white p-2 rounded-lg text-xm flex justify-center"><ion-icon class="text-xl" name="add-outline"></ion-icon> Add order</button></a></div>
     </div>
     <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
         <thead>
@@ -75,5 +74,6 @@
             {{ $orders->links() }}
         </div>
     </div>
+</div>
 </div>
 @include('admin.layout.fotter')
