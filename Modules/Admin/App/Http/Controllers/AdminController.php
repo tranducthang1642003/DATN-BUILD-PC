@@ -156,6 +156,10 @@ class AdminController extends Controller
         return view('admin.category.add');
     }
 
+    public function login_admin()
+    {
+        return view('admin.login.admin_login');
+    }
     /**
      * Show the specified resource.
      */

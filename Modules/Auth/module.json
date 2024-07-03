@@ -6,6 +6,7 @@
     "priority": 0,
     "providers": [
         "Modules\\Auth\\App\\Providers\\AuthServiceProvider"
+        
     ],
     "files": []
 }

@@ -16,4 +16,8 @@ use Modules\Cart\App\Http\Controllers\CartController;
 
 Route::group([], function () {
     Route::resource('cart', CartController::class)->names('cart');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/updateQuantity/{id}', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+
+
 });
