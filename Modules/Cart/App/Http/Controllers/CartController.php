@@ -4,9 +4,9 @@ namespace Modules\Cart\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Auth\Entities\User;
 use Modules\Cart\Entities\CartItem;
 use Modules\Product\Entities\Product;
-use Modules\Auth\Entities\User;
 
 class CartController extends Controller
 {
@@ -16,7 +16,7 @@ class CartController extends Controller
         $cartItems = CartItem::where('user_id', $user->id)->with('product')->get();
 
         // Tính tổng giá tiền
-        $totalPrice = $cartItems->sum(function($cartItem) {
+        $totalPrice = $cartItems->sum(function ($cartItem) {
             return $cartItem->product->price * $cartItem->quantity;
         });
 
@@ -34,8 +34,8 @@ class CartController extends Controller
         }
 
         $existingCart = CartItem::where('user_id', $user->id)
-                                ->where('product_id', $productId)
-                                ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if ($existingCart) {
             $existingCart->update([
@@ -68,5 +68,11 @@ class CartController extends Controller
 
         return response()->json(['success' => false, 'message' => 'Sản phẩm không tồn tại trong giỏ hàng.']);
     }
-}
 
+
+    public function checkout()
+    {
+        return view('public.checkout');
+    }
+
+}

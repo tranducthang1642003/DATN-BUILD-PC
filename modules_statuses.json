@@ -15,5 +15,8 @@
     "Settings": true,
     "User": true,
     "Dashboard": true,
-    "Review": true
+    "Review": true,
+    "Build": true,
+    "PCPC": true,
+    "BuildPC": true
 }

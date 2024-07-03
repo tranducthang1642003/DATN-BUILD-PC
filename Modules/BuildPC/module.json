@@ -1,0 +1,11 @@
+{
+    "name": "BuildPC",
+    "alias": "buildpc",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BuildPC\\App\\Providers\\BuildPCServiceProvider"
+    ],
+    "files": []
+}

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Cart\App\Http\Controllers\CartController;
+use Modules\BuildPC\App\Http\Controllers\BuildPCController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,5 @@ use Modules\Cart\App\Http\Controllers\CartController;
 */
 
 Route::group([], function () {
-    Route::resource('cart', CartController::class)->names('cart');
-    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-    Route::post('/cart/updateQuantity/{id}', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
-    Route::get('checkout',[ CartController::class,'checkout']);
-
-
+    Route::resource('buildpc', BuildPCController::class)->names('buildpc');
 });
