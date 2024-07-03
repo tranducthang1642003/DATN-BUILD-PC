@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\Http\Middleware;
+namespace Modules\Auth\App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -14,6 +14,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        abort(403, 'Unauthorized.');
+        return redirect()->route('home'); 
     }
 }
