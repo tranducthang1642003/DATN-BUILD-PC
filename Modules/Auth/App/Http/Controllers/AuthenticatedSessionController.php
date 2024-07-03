@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
             }
         }
         return back()->withErrors(['email' => 'Invalid credentials.']);
-    }
+    } 
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Product\Entities\ProductImage;
 use Modules\Brand\Entities\Brand;
 use Modules\Category\Entities\Category;
-
+use Modules\Cart\Entities\CartItem;
 
 class Product extends Model
 {
@@ -58,5 +58,9 @@ class Product extends Model
     }
 
     
+    public function cart()
+    {
+        return $this->hasMany(CartItem::class);
+    }
     
 }

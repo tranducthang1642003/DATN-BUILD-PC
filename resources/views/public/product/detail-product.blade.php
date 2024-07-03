@@ -89,10 +89,12 @@
                         <span id="quantity" class="text-base md:text-lg lg:text-xl font-medium">1</span>
                         <button id="increment" class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400">+</button>
                     </div>
-                    <a class="border p-3 rounded-xl pr-5 pl-5 border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-white" href="">
-                        <i class="fa-solid fa-cart-shopping hover:text-white"></i>
-                        THÊM VÀO GIỎ HÀNG
-                    </a>
+                    <form action="{{ route('cart.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="number" name="quantity" value="1" min="1">
+                        <button type="submit">Thêm vào giỏ hàng</button>
+                    </form>
                 </div>
                 <div class="fixed bottom-0 left-0 right-0 bg-white p-3 md:hidden z-10 shadow-xl border w-full">
                     <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
@@ -102,7 +104,12 @@
                             <button id="increment" class="bg-slate-200 text-black px-2 py-1 rounded-full hover:bg-amber-400">+</button>
                         </div>
                         <a class="border p-2 text-xs md:text-base rounded-xl mr-2 pr-3 pl-3 border-amber-400 text-amber-400" href="">
-                            THÊM VÀO GIỎ HÀNG
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="number" name="quantity" value="1" min="1">
+                                <button type="submit">Thêm vào giỏ hàng</button>
+                            </form>
                         </a>
                         <div class="detail-buy-now border p-2 text-xs md:text-base md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white text-center">
                             <a href="" class="w-full">
