@@ -14,7 +14,7 @@ use Modules\Blog\App\Http\Controllers\admin\BlogController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/blog', [BlogController::class, 'index'])->name('blog');
     Route::get('admin/blog/add', [BlogController::class, 'add'])->name('add_blog');
     Route::post('admin/blog/add', [BlogController::class, 'add_blog'])->name('add_blog');

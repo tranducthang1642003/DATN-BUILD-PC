@@ -14,7 +14,7 @@ use Modules\Brand\App\Http\Controllers\Admin\BrandController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/brand', [BrandController::class, 'index'])->name('brand');
     Route::get('admin/brand/add', [BrandController::class, 'create'])->name('brand.create');
     Route::post('admin/brand/add', [BrandController::class, 'store'])->name('brand.store');
