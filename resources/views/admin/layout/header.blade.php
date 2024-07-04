@@ -74,7 +74,7 @@
                 </div>
                 <div class="mb-4">
                     <button id="setting" class="button_sidebar setting_active"><ion-icon class="icon_sidebar" name="settings"></ion-icon>Cài đặt</button>
-                    <a class="w-full button-none" id="setting_list" href="{{ route('banner') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Banner</button></a>
+                    <a class="w-full button-none" id="setting_list" href="{{ route('banner') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a>
                     <a class="w-full button-none" id="setting_add" href="{{ route('add_banner') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
                 </div>
             </div>
@@ -112,12 +112,18 @@
             </script>
         </div>
         <div class="flex-grow">
-            <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed min-w-full w-screen z-30">
+            <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed z-30 w-full">
                 <div class="flex justify-between items-center">
                     <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-40 ml-4"><ion-icon name="menu"></ion-icon></button>
                     <div class="flex justify-between items-center z-40">
                         <h1 class="mx-8 text-white">WELCOME</h1>
-                        <img src="{{ asset('image/pc_demo.jpg') }}" width="40" alt="" class="rounded-full">
+                        <div>
+                            <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                <span class="absolute -inset-1.5"></span>
+                                <span class="sr-only">Open user menu</span>
+                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            </button>
+                        </div>
                         <ion-icon name="build-outline" class="text-2xl text-white mx-6"></ion-icon>
                         <ion-icon name="notifications-circle" class="text-3xl text-white"></ion-icon>
                     </div>
