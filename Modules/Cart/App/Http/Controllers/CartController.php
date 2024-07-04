@@ -15,16 +15,23 @@ class CartController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $cartItems = CartItem::where('user_id', $user->id)->with('product')->get();
-        $cartItems->primary_image_path = $primary_image ? $primary_image->image_path : null;
-        $cartItems->secondary_images = $secondary_images;
+        
+        $cartItems = CartItem::where('user_id', $user->id)
+            ->with('product')
+            ->get();
+
+        $cartItems->each(function ($cartItem) {
+            $primary_image = $cartItem->product->images->firstWhere('is_primary', 1);
+            $cartItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
+        });
+
+    
         $totalPrice = $cartItems->sum(function ($cartItem) {
             return $cartItem->product->price * $cartItem->quantity;
         });
 
         return view('public.cart', compact('cartItems', 'totalPrice'));
     }
-
 
 
 

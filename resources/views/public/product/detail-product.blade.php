@@ -22,8 +22,7 @@
                         <div class="md:max-w-xl max-w-sm mx-auto slider-for">
                             <div class="">
                                 <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48"
-                                        src="{{ $product->primary_image_path }}">
-                                    </a>
+                                        src="{{ $product->primary_image_path }}"></a>
                             </div>
                         </div>
                     </div>
@@ -97,13 +96,13 @@
                     <div class="flex items-center space-x-4 mr-5 md:mr-10 ">
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
-                            <div class="grid grid-cols-2	">
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400"
-                                    type="number" name="quantity" value="1" min="1">
-                                <button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400"
-                                    type="submit">Thêm vào giỏ hàng</button>
-                            </div>
+                           <div class="grid grid-cols-2	">
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400"
+                                type="number" name="quantity" value="1" min="1">
+                            <button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400"
+                                type="submit">Thêm vào giỏ hàng</button>
+                           </div>
                         </form>
                     </div>
 
@@ -291,40 +290,37 @@
                 </div>
             </div>
         </div>
-        <section>
-            <div
-                class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
-                <div class="product__list">
-                    <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
-                    <div class="flex flex-wrap -mx-2">
-                        @foreach ($similarProducts as $product)
-                            <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                                <div class="bg-white rounded-lg shadow-md p-4 h-96">
-                                    <a href="{{ route('product.show', $product->slug) }}">
-                                        <div class="product-img">
-                                            <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+            <div class="product__list">
+                <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
+                <div class="flex flex-wrap -mx-2">
+                    @foreach ($similarProducts as $product)
+                        <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                            <div class="bg-white rounded-lg shadow-md p-4">
+                                <a href="{{ route('product.show', $product->slug) }}">
+                                    <div class="product-img">
+                                        <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+                                    </div>
+                                    <div class="product-info mt-2">
+                                        <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
+                                        <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                        <div class="mt-1">
+                                            <span class="text-red-700 font-bold">
+                                                {{ number_format($product->price) }} VND
+                                            </span>
+                                            @if ($product->discount)
+                                                <span
+                                                    class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                            @endif
                                         </div>
-                                        <div class="product-info mt-2">
-                                            <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                            <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                            <div class="mt-1">
-                                                <span class="text-red-700 font-bold">
-                                                    {{ number_format($product->price) }} VND
-                                                </span>
-                                                @if ($product->discount)
-                                                    <span
-                                                        class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                    </div>
+                                </a>
                             </div>
-                        @endforeach
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-        </section>
+        </div>
         <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
             <div class="product__list">
                 <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>

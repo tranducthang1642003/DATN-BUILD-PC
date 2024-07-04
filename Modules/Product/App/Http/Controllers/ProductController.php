@@ -45,10 +45,9 @@ class ProductController extends Controller
     
         $primary_image = $product->images->firstWhere('is_primary', 1);
         $secondary_images = $product->images->where('is_primary', 0);
-    
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
-        $product->secondary_images = $secondary_images;
-    
+        $product->secondary_images = $secondary_images ;
+     
         $recentlyViewed = session()->get('recently_viewed', []);
     
         if (!in_array($product->id, $recentlyViewed)) {
