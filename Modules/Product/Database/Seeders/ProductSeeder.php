@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $productsFile = storage_path('app/products.csv');
-        $imagesFile = storage_path('app/images.csv');
+        $imagesFile = storage_path('app/image.csv');
 
         if (!file_exists($productsFile)) {
             dd("File not found: $productsFile");

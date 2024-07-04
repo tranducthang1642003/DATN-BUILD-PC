@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Modules\Product\Entities\Product;
-use Modules\Product\Entities\ProductImage;
 use Modules\Review\Entities\Review;
 
 class ProductController extends Controller
@@ -43,15 +42,14 @@ class ProductController extends Controller
         $product = Product::with(['images' => function ($query) {
             $query->orderBy('is_primary', 'desc');
         }])->where('slug', $slug)->firstOrFail();
-
+    
         $primary_image = $product->images->firstWhere('is_primary', 1);
         $secondary_images = $product->images->where('is_primary', 0);
-
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
-        $product->secondary_images = $secondary_images;
-
+        $product->secondary_images = $secondary_images ;
+     
         $recentlyViewed = session()->get('recently_viewed', []);
-
+    
         if (!in_array($product->id, $recentlyViewed)) {
             if (count($recentlyViewed) >= 5) {
                 array_shift($recentlyViewed);
@@ -59,9 +57,19 @@ class ProductController extends Controller
             $recentlyViewed[] = $product->id;
             session()->put('recently_viewed', $recentlyViewed);
         }
-
-        $recentlyViewedProducts = Product::whereIn('id', $recentlyViewed)->get();
-
+    
+        $recentlyViewedProducts = Product::with(['images' => function ($query) {
+            $query->orderBy('is_primary', 'desc');
+        }])
+            ->whereIn('id', $recentlyViewed)
+            ->get();
+    
+        // Add primary image path to each recently viewed product
+        foreach ($recentlyViewedProducts as $recentlyViewedProduct) {
+            $primaryImage = $recentlyViewedProduct->images->firstWhere('is_primary', 1);
+            $recentlyViewedProduct->primary_image_path = $primaryImage ? $primaryImage->image_path : null;
+        }
+    
         $similarProducts = Product::with(['images' => function ($query) {
             $query->orderBy('is_primary', 'desc');
         }])
@@ -69,17 +77,17 @@ class ProductController extends Controller
             ->where('id', '!=', $product->id)
             ->take(5)
             ->get();
-
+    
         foreach ($similarProducts as $similarProduct) {
             $primaryImage = $similarProduct->images->firstWhere('is_primary', 1);
             $similarProduct->primary_image_path = $primaryImage ? $primaryImage->image_path : null;
         }
-
+    
         $reviews = Review::where('product_id', $product->id)->orderBy('created_at', 'desc')->get();
-
+    
         return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */

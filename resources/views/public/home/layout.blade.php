@@ -5,24 +5,26 @@
         <img src="{{ asset('image/bannre-pc.jpg') }}" alt="" class="w-full h-auto">
         <img src="{{ asset('image/bannre-pc.jpg') }}" alt="" class="w-full h-auto">
     </div>
-    <div class="post-ter px-8 pt-6 flex flex-wrap justify-between">
-        <div class="post w-full md:w-1/2">
+    <div class="post-ter px-4 md:px-8 pt-6 flex flex-wrap justify-between">
+        <div class="post w-full md:w-1/2 mb-4 md:mb-0">
             <img src="https://anphat.com.vn/media/banner/31_May251c443c69dfa5f4548f1a206f5447f8.png" alt=""
-                class="w-full h-48 px-5 md:px-2">
+                class="w-full h-48 md:h-auto">
         </div>
         <div class="post w-full md:w-1/2">
             <img src="https://anphat.com.vn/media/banner/31_May251c443c69dfa5f4548f1a206f5447f8.png" alt=""
-                class="w-full h-48 px-5 md:px-2">
+                class="w-full h-48 md:h-auto">
         </div>
     </div>
 </section>
+
 {{-- GIÁ TỐT SIÊU SALE MỖI NGÀY --}}
-<section class="product px-8 pt-6">
-    <div class="rounded-lg shadow-2xl shadow-white"
-        style="background: linear-gradient(180deg, #FF3615 0%, #FFCE00 100%);">
-        <div class="text grid-cols-1 md:grid-cols-3 grid justify-between items-center pt-2 px-6">
+<section class="product px-4 md:px-8 pt-6">
+    <div class="rounded-lg shadow-2xl shadow-white bg-gradient-to-b from-orange-500 to-yellow-400"        style="background: linear-gradient(180deg, #FF3615 0%, #FFCE00 100%);">
+        >
+        
+        <div class="text grid grid-cols-1 md:grid-cols-3 justify-between items-center pt-2 px-6">
             <div class="text-sale text-xl md:text-2xl font-black text-amber-400">GIÁ TỐT SIÊU SALE MỖI NGÀY</div>
-            <div class="text-end-sale text-lg md:text-xl font-bold  text-white  flex">kết thúc sau:
+            <div class="text-end-sale text-lg md:text-xl font-bold text-white flex">kết thúc sau:
                 @include('public.home.demgio')</div>
             <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
         </div>
@@ -31,7 +33,6 @@
                 @foreach ($saleproduct as $product)
                     <div class="product__item">
                         <div class="bg-white rounded-lg mr-2">
-                            <!-- Assuming you want to display a hot tag -->
                             <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img w-48 mx-auto">
@@ -51,10 +52,10 @@
                                         </p>
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                        {{ $product->discount }}
+                                        {{ $product->stock }}%
                                     </div>
                                 </div>
-                                <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
+                                <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                             </div>
                         </div>
                     </div>
@@ -63,6 +64,8 @@
         </div>
     </div>
 </section>
+
+
 
 {{-- SẢN PHẨM BÁN CHẠY --}}
 <section class="produtc px-8 pt-6">
@@ -99,14 +102,14 @@
                                 <div class="mt-3 inline-flex">
                                     <div>
                                         <p class="product-price line-through text-slate-500">
-                                            {{ number_format($product->price) }},000 VNĐ
+                                            {{number_format ($product->price) }} VND
                                         </p>
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
                                         {{ $product->discount }}
                                     </div>
                                 </div>
-                                <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
+                                <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                             </div>
                         </div>
                     </div>
@@ -176,14 +179,14 @@
                                         <div class="mt-3 inline-flex">
                                             <div>
                                                 <p class="product-price line-through text-slate-500">
-                                                    {{ number_format($product->price) }}
+                                                    {{number_format ($product->price) }} VND
                                                 </p>
                                             </div>
                                             <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
                                                 {{ $product->discount }}
                                             </div>
                                         </div>
-                                        <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
+                                        <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                                     </div>
                                 </div>
                             </div>
