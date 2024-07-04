@@ -21,4 +21,10 @@ class CartItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+
+    public function primaryImage()
+    {
+        return $this->hasOne(ProductImage::class)->where('is_primary', true);
+    }
 }

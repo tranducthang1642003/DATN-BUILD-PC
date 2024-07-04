@@ -19,15 +19,35 @@
             </div>
         </div>
     </section>
+    <div class="flex justify-start mb-4 space-x-4">
+        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn CPU</button>
+        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn Mainboard</button>
+        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn VGA</button>
+        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn RAM</button>
+    </div>
     <section>
-        <div class="">
+ <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <table class="min-w-full divide-y divide-gray-200">
+        <tbody>
             @foreach ($Productandcategory as $category)
-                <button class="bg-rose-500 text-white rounded-md px-4 py-2 hover:bg-rose-700 transition flex"
-                    onclick="openModal('modelConfirm{{ $category->id }}')">
-                    {{ $category->category_name }}
-                </button>
+                <tr class="border-b">
+                    <td class="py-4 px-6">
+                        <ul>
+                            <li>{{ $category->category_name }}</li>
+                        </ul>
+                    </td>
+                    <td class="py-4 px-6 text-right">
+                        <button class="bg-rose-500 text-white rounded-md px-4 py-2 hover:bg-rose-700 transition flex"
+                            onclick="openModal('modelConfirm{{ $category->id }}')">
+                            {{ $category->category_name }}
+                        </button>
+                    </td>
+                </tr>
             @endforeach
-        </div>
+        </tbody>
+    </table>
+</div>
+
         @foreach ($Productandcategory as $category)
             <div id="modelConfirm{{ $category->id }}"
                 class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 modal">
@@ -35,7 +55,8 @@
                     <div class="flex justify-end p-2">
                         <button onclick="closeModal('modelConfirm{{ $category->id }}')" type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                     clip-rule="evenodd"></path>
@@ -45,19 +66,20 @@
                     <div class="p-6 pt-0 text-center">
                         <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">{{ $category->category_name }}</h3>
                         <div>
-                            @if($category->products->isEmpty())
+                            @if ($category->products->isEmpty())
                                 <p>Không có sản phẩm nào.</p>
                             @else
-                              <div class=" grid grid-cols-5 pt-4 ">
-                                @foreach ($category->products as $product)
-                                <div class="border p-4 w-56 pt-6 py-9 ">
-                                    <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-60 h-48 object-cover mb-2">
-                                    <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
-                                    <p class="text-gray-600">{{ $product->price }} VND</p>
-                               <button>thêm vào linh kiện</button>
+                                <div class="grid grid-cols-5 pt-4">
+                                    @foreach ($category->products as $product)
+                                        <div class=" p-4 w-56 pt-6 py-9">
+                                            <img src="{{ $product->primary_image_path }}"
+                                                alt="{{ $product->product_name }}" class="w-60 h-48 object-cover mb-2">
+                                            <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
+                                            <p class="text-gray-600">{{ $product->price }} VND</p>
+                                            <button>thêm vào linh kiện</button>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
-                              </div>
                             @endif
                         </div>
                     </div>
@@ -65,32 +87,33 @@
             </div>
         @endforeach
     </section>
+
     <section>
         <div class="pt-3 mb-5">
             <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
                 <div class="item border rounded-lg">
-                    <p class="text-center p-5 ">
+                    <p class="text-center p-5">
                         <i class="fa-solid fa-truck"></i>
                         <b>CHÍNH SÁCH GIAO HÀNG</b><br>
                         <span>Nhận Hàng Và Thanh Toán Tại Nhà</span>
                     </p>
                 </div>
                 <div class="item border rounded-lg">
-                    <p class="text-center p-5 ">
+                    <p class="text-center p-5">
                         <i class="fa-solid fa-repeat"></i>
                         <b>ĐỔI TRẢ DỄ DÀNG</b><br>
                         <span>1 Đổi 1 Trong 15 Ngày</span>
                     </p>
                 </div>
                 <div class="item border rounded-lg">
-                    <p class="text-center p-5 ">
+                    <p class="text-center p-5">
                         <i class="fa-solid fa-money-bill-wave"></i>
                         <b>THANH TOÁN TIỆN LỢI</b><br>
                         <span>Tiền Mặt, CK, Trả Góp 0%</span>
                     </p>
                 </div>
                 <div class="item border rounded-lg">
-                    <p class="text-center p-5 ">
+                    <p class="text-center p-5">
                         <i class="fa-solid fa-headphones"></i>
                         <b>HỖ TRỢ NHIỆT TÌNH</b><br>
                         <span>Tư Vấn, Giải Đáp Mọi Thắc Mắc</span>
@@ -101,7 +124,6 @@
     </section>
 </div>
 @include('public.footer.footer')
-
 
 <script type="text/javascript">
     window.openModal = function(modalId) {

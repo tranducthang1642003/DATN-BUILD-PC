@@ -102,14 +102,14 @@
                                 <div class="mt-3 inline-flex">
                                     <div>
                                         <p class="product-price line-through text-slate-500">
-                                            {{ number_format($product->price) }},000 VNĐ
+                                            {{number_format ($product->price) }} VND
                                         </p>
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
                                         {{ $product->discount }}
                                     </div>
                                 </div>
-                                <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
+                                <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                             </div>
                         </div>
                     </div>
@@ -179,14 +179,14 @@
                                         <div class="mt-3 inline-flex">
                                             <div>
                                                 <p class="product-price line-through text-slate-500">
-                                                    {{ number_format($product->price) }}
+                                                    {{number_format ($product->price) }} VND
                                                 </p>
                                             </div>
                                             <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
                                                 {{ $product->discount }}
                                             </div>
                                         </div>
-                                        <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
+                                        <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                                     </div>
                                 </div>
                             </div>
