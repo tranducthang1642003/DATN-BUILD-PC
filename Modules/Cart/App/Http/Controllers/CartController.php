@@ -15,7 +15,6 @@ class CartController extends Controller
         $user = auth()->user();
         $cartItems = CartItem::where('user_id', $user->id)->with('product')->get();
 
-        // Tính tổng giá tiền
         $totalPrice = $cartItems->sum(function ($cartItem) {
             return $cartItem->product->price * $cartItem->quantity;
         });
