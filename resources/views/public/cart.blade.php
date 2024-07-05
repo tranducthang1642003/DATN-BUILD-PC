@@ -42,14 +42,14 @@
                 <tbody class="align-middle">
                     @foreach ($cartItems as $item)
                         <tr class="border">
-                            <td class="py-2 flex items-center justify-center"><img src="{{ $item->primary_image_path }}" alt="{{ $item->product->product_name }}"
-                                class="w-20 h-20 p-2 text">
-                </td>
+                            <td class="py-2 flex items-center justify-center"><img src="{{ $item->primary_image_path }}"
+                                    alt="{{ $item->product->product_name }}" class="w-20 h-20 p-2 text">
+                            </td>
                             <td class="py-2 whitespace-normal">
                                 <span>
                                     <p>{{ $item->product->product_name }}</p>
                                 </span>
-                          
+
                             </td>
                             <td class="py-2">{{ number_format($item->product->price) }} VND</td>
                             <td class="py-2">
@@ -62,7 +62,7 @@
                                         onclick="updateQuantity({{ $item->id }}, 1)">+</button>
                                 </div>
                             </td>
-                            <td class="py-2">{{ number_format ($item->product->price * $item->quantity) }} VND</td>
+                            <td class="py-2">{{ number_format($item->product->price * $item->quantity) }} VND</td>
                             <td class="py-2">
                                 <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                     @csrf
@@ -107,9 +107,11 @@
                     <span>$55.00</span>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mt-5">
+                  <a href="checkout">
                     <button
-                        class="col-span-2 md:col-span-1 bg-yellow-400 text-white px-4 py-2 rounded w-70% hover:bg-yellow-500">Đặt
-                        hàng</button>
+                    class="col-span-2 md:col-span-1 bg-yellow-400 text-white px-4 py-2 rounded w-70% hover:bg-yellow-500">Đặt
+                    hàng</button>
+                  </a>
                     <button
                         class="col-span-2 md:col-span-1 bg-blue-500 text-white px-4 py-2 rounded w-70% hover:bg-blue-600">Trả
                         góp</button>

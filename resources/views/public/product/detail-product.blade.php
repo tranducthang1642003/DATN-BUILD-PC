@@ -21,19 +21,33 @@
                     <div class="swiper gallery-top">
                         <div class="md:max-w-xl max-w-sm mx-auto slider-for">
                             <div class="">
-                                <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48"
-                                        src="{{ $product->primary_image_path }}"></a>
+                               <img class="w-32 mx-auto md:w-48"
+                                        src="{{ $product->primary_image_path }}">
                             </div>
+                            @foreach ($secondary_images as $item)
+                            <div class="">
+                                <img class="w-32 mx-auto md:w-48"
+                                         src="{{ $item->image_path }}">
+                             </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="swiper gallery-thumbs mt-3 hidden lg:block">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide thumb-img max-w-lg mx-auto slider-nav">
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                    <a href="{{ route('product.show', $product->slug) }}"><img
-                                            class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
+                                   <img
+                                            class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
                                 </div>
-                                <div class="rounded-lg w-48 h-auto mr-3">
+
+                                @foreach ($secondary_images as $item)
+                                <div class="">
+                                    <img class="w-32 mx-auto md:w-48"
+                                             src="{{ $item->image_path }}">
+                                 </div>
+                                @endforeach
+
+                                {{-- <div class="rounded-lg w-48 h-auto mr-3">
                                     <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577024.png"
                                         alt="">
                                 </div>
@@ -48,7 +62,7 @@
                                 <div class="rounded-lg w-48 h-auto mr-3">
                                     <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577053.png"
                                         alt="">
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -296,7 +310,7 @@
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($similarProducts as $product)
                         <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                            <div class="bg-white rounded-lg shadow-md p-4">
+                            <div class="bg-white rounded-lg shadow-md p-4 h-96">
                                 <a href="{{ route('product.show', $product->slug) }}">
                                     <div class="product-img">
                                         <img src="{{ $product->primary_image_path }}" alt="Primary Image">
@@ -327,7 +341,7 @@
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($recentlyViewedProducts as $product)
                         <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                            <div class="bg-white rounded-lg shadow-md p-4">
+                            <div class="bg-white rounded-lg shadow-md p-4 h-96">
                                 <a href="{{ route('product.show', $product->slug) }}">
                                     <div class="product-img">
                                         <img class="w-full h-48 object-cover"

@@ -15,5 +15,8 @@ use Modules\BuildPC\App\Http\Controllers\BuildPCController;
 */
 
 Route::group([], function () {
-    Route::resource('buildpc', BuildPCController::class)->names('buildpc');
+    Route::get('buildpc', [BuildPCController::class,'index'])->name('buildpc');
+    Route::post('/add-component', [BuildPCController::class, 'store'])->name('add-component');
+
+
 });

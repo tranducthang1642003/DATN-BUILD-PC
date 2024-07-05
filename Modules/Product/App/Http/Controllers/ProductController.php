@@ -85,7 +85,7 @@ class ProductController extends Controller
     
         $reviews = Review::where('product_id', $product->id)->orderBy('created_at', 'desc')->get();
     
-        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews'));
+        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews','secondary_images'));
     }
     
     /**
