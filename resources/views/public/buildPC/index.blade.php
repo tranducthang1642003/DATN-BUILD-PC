@@ -26,32 +26,65 @@
         <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn RAM</button>
     </div>
     <section>
- <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <table class="min-w-full divide-y divide-gray-200">
-        <tbody>
-            @foreach ($Productandcategory as $category)
-                <tr class="border-b">
-                    <td class="py-4 px-6">
-                        <ul>
-                            <li>{{ $category->category_name }}</li>
-                        </ul>
-                    </td>
-                    <td class="py-4 px-6 text-right">
-                        <button class="bg-rose-500 text-white rounded-md px-4 py-2 hover:bg-rose-700 transition flex"
-                            onclick="openModal('modelConfirm{{ $category->id }}')">
-                            {{ $category->category_name }}
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <table class="min-w-full divide-y divide-gray-200">
+                <tbody>
+                    @foreach ($Productandcategory as $category)
+                        <tr class="border-b">
+                            <td class="py-4 px-6">
+                                <ul>
+                                    <li>{{ $category->category_name }}</li>
+                                </ul>
+                            </td>
+                            <td class="py-4 px-6 text-right">
+                                <button
+                                    class="bg-rose-500 text-white rounded-md px-4 py-2 hover:bg-rose-700 transition flex"
+                                    onclick="openModal('modelConfirm{{ $category->id }}')">
+                                    {{ $category->category_name }}
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+        <div class="max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+            <h2 class="text-2xl font-semibold mb-4">Danh sách linh kiện trong cấu hình PC của bạn</h2>
+        
+            @if ($configuration->items->isEmpty())
+                <p>Chưa có linh kiện nào trong cấu hình của bạn.</p>
+            @else
+                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                    @foreach ($configuration->items as $item)
+                        <div class="border border-gray-300 rounded p-4">
+                            <img src="{{ $item->product->primary_image_path }}" alt="{{ $item->product->product_name }}"
+                                class="w-full h-48 object-cover mb-2">
+                            <h3 class="text-lg font-medium">{{ $item->product->product_name }}</h3>
+                            <p class="text-gray-600">{{ number_format($item->product->price) }} VND</p>
+                            <p class="text-gray-600">Số lượng: {{ $item->quantity }}</p>
+                        </div>
+                    @endforeach
+                </div>
+        
+                <div class="mt-4">
+                    <p class="text-lg">Tổng giá: {{ number_format($configuration->total_price) }} VND</p>
+                </div>
+            @endif
+        </div>
+    
+
+
+
+
 
         @foreach ($Productandcategory as $category)
             <div id="modelConfirm{{ $category->id }}"
                 class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 modal">
-                <div class="relative top-40 mx-auto shadow-xl rounded-md bg-white  w-3/4">
+                <div class="relative top-10 mx-auto shadow-xl rounded-md bg-white w-full lg:w-3/4">
                     <div class="flex justify-end p-2">
                         <button onclick="closeModal('modelConfirm{{ $category->id }}')" type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
@@ -65,28 +98,82 @@
                     </div>
                     <div class="p-6 pt-0 text-center">
                         <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">{{ $category->category_name }}</h3>
-                        <div>
-                            @if ($category->products->isEmpty())
-                                <p>Không có sản phẩm nào.</p>
-                            @else
-                                <div class="grid grid-cols-5 pt-4">
-                                    @foreach ($category->products as $product)
-                                        <div class=" p-4 w-56 pt-6 py-9">
-                                            <img src="{{ $product->primary_image_path }}"
-                                                alt="{{ $product->product_name }}" class="w-60 h-48 object-cover mb-2">
-                                            <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
-                                            <p class="text-gray-600">{{ $product->price }} VND</p>
-                                            <button>thêm vào linh kiện</button>
+                        <div class="flex">
+                            <!-- Filter Section -->
+                            <div class="w-1/4 p-4 border-r border-gray-300">
+                                <h4 class="text-lg font-medium mb-4">Chọn linh kiện</h4>
+                                <!-- Filters go here -->
+                                <div class="text-left">
+                                    <!-- Example filter section -->
+                                    <div class="mb-4">
+                                        <h5 class="text-md font-medium mb-2">Thương hiệu</h5>
+                                        <div>
+                                            <label class="block">
+                                                <input type="checkbox" class="mr-2">Brand 1
+                                            </label>
+                                            <label class="block">
+                                                <input type="checkbox" class="mr-2">Brand 2
+                                            </label>
                                         </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h5 class="text-md font-medium mb-2">Giá</h5>
+                                        <div>
+                                            <label class="block">
+                                                <input type="checkbox" class="mr-2">0 - 2,000,000 VND
+                                            </label>
+                                            <label class="block">
+                                                <input type="checkbox" class="mr-2">2,000,000 - 4,000,000 VND
+                                            </label>
+                                            <!-- Add more price ranges as needed -->
+                                        </div>
+                                    </div>
+                                    <!-- Add more filters as needed -->
+                                </div>
+                            </div>
+                            <!-- Product List Section -->
+                            <div class="w-3/4 p-4 overflow-y-auto">
+                                @if ($category->products->isEmpty())
+                                    <p>Không có sản phẩm nào.</p>
+                                @else
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                                    @foreach ($category->products as $product)
+                                    <form action="{{ route('add-component') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <div class="border border-gray-300 rounded p-4">
+                                            <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}"
+                                                class="w-full h-48 object-cover mb-2">
+                                            <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
+                                            <p class="text-gray-600">{{ number_format($product->price) }} VND</p>
+                                            <div class="mt-2">
+                                                <label for="quantity" class="text-sm">Số lượng:</label>
+                                                <input type="number" id="quantity" name="quantity" value="1"
+                                                    class="w-16 border-gray-300 rounded-md py-1 px-2 text-sm focus:outline-none focus:border-blue-500">
+                                            </div>
+                                            <button type="submit"
+                                                class="bg-blue-500 text-white rounded px-4 py-2 mt-2">Thêm vào linh kiện</button>
+                                        </div>
+                                    </form>
                                     @endforeach
                                 </div>
-                            @endif
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         @endforeach
+        <div class="mt-4">
+            <p class="text-lg">Tổng giá: {{ number_format($configuration->total_price) }} VND</p>
+        </div>
     </section>
+
+
+
+
+
 
     <section>
         <div class="pt-3 mb-5">
