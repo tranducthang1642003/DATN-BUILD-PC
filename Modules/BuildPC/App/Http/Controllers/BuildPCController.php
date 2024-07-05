@@ -21,87 +21,96 @@ class BuildPCController extends Controller
         $this->BuildPCRepository = $BuildPCRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Retrieve the current user's configuration
         $userId = Auth::id();
-        $configuration = Configuration::where('user_id', $userId)->with('items.product')->first();
+        $configurationItems = session()->get('configuration_items', []);
 
-        if (!$configuration) {
-            return redirect()->route('buildpc')->with('error', 'Bạn chưa có cấu hình nào.');
-        }
+        $totalPrice = collect($configurationItems)->sum(function ($item) {
+            return $item['product']->price * $item['quantity'];
+        });
+
         $Productandcategory = $this->BuildPCRepository->getFeaturedCategories();
-        return view('public.buildPC.index', compact('Productandcategory', 'configuration'));
+        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('buildpc::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
         $product = Product::findOrFail($request->product_id);
 
+        $configurationItems = session()->get('configuration_items', []);
+
+        $configurationItems[] = [
+            'product_id' => $product->id,
+            'category_id' => $request->category_id,
+            'quantity' => $request->quantity,
+            'product' => $product,
+        ];
+        // dd($configurationItems);
+        session()->put('configuration_items', $configurationItems);
+
+        return redirect()->back()->with('success', 'Linh kiện ' . $product->product_name . ' đã được thêm vào cấu hình thành công.');
+    }
+
+    public function show($id)
+    {
+        return view('buildpc::show');
+    }
+
+    public function edit($id)
+    {
+        return view('buildpc::edit');
+    }
+
+    public function update(Request $request, $id): RedirectResponse
+    {
+        //
+    }
+
+    public function destroy($id)
+    {
+        //
+    }
+
+    public function saveConfiguration()
+    {
+        $configurationItems = session()->get('configuration_items', []);
+
+        if (empty($configurationItems)) {
+            return redirect()->back()->with('error', 'Không có linh kiện nào để lưu.');
+        }
+
         $configuration = Configuration::firstOrCreate(['user_id' => auth()->id()], []);
 
-        $configurationItem = new ConfigurationItem([
-            'configuration_id' => $configuration->id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-        ]);
+        foreach ($configurationItems as $item) {
+            $configurationItem = new ConfigurationItem([
+                'configuration_id' => $configuration->id,
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+            ]);
 
-        $configurationItem->save();
+            $configurationItem->save();
+        }
+
         $totalPrice = $configuration->items->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
 
         $configuration->update(['total_price' => $totalPrice]);
 
-        return redirect()->back()->with('success', 'Linh kiện ' . $product->product_name . ' đã được thêm vào cấu hình thành công.');
-    }
+        session()->forget('configuration_items');
 
-   
-    public function show($id)
-    {
-        return view('buildpc::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('buildpc::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('buildpc')->with('success', 'Cấu hình đã được lưu thành công.');
     }
 }
