@@ -262,60 +262,56 @@
                 </div>
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
-            <div class="product__list">
-                <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
-                <div class="flex flex-wrap -mx-2">
-                    @foreach ($similarProducts as $product)
-                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4">
-                            <a href="{{ route('product.show', $product->slug) }}">
-                                <div class="product-img">
-                                    <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+        <div class="product__list">
+            <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
+            <div class="flex flex-wrap -mx-2">
+                @foreach ($similarProducts as $product)
+                <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                    <div class="bg-white rounded-lg shadow-md p-4">
+                        <a href="{{ route('product.show', $product->slug) }}">
+                            <div class="product-img">
+                                <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+                            </div>
+                            <div class="product-info mt-2">
+                                <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
+                                <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                <div class="mt-1">
+                                    <span class="text-red-700 font-bold">{{ $product->price }}</span>
+                                    @if($product->discount)
+                                    <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                    @endif
                                 </div>
-                                <div class="product-info mt-2">
-                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                    <div class="mt-1">
-                                        <span class="text-red-700 font-bold">{{ $product->price }}</span>
-                                        @if($product->discount)
-                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
-                    @endforeach
                 </div>
+                @endforeach
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
-            <div class="product__list">
-                <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
-                <div class="flex flex-wrap -mx-2">
-                    @foreach ($recentlyViewedProducts as $product)
-                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4">
-                            <a href="{{ route('product.show', $product->slug) }}">
-                                <div class="product-img">
-                                    <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+        <div class="product__list">
+            <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
+            <div class="flex flex-wrap -mx-2">
+                @foreach ($recentlyViewedProducts as $product)
+                <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                    <div class="bg-white rounded-lg shadow-md p-4">
+                        <a href="{{ route('product.show', $product->slug) }}">
+                            <div class="product-img">
+                                <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+                            </div>
+                            <div class="product-info mt-2">
+                                <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
+                                <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                <div class="mt-1">
+                                    <span class="text-red-700 font-bold">{{ $product->price }}</span>
+                                    @if ($product->discount)
+                                    <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                    @endif
                                 </div>
-                                <div class="product-info mt-2">
-                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                    <div class="mt-1">
-                                        <span class="text-red-700 font-bold">{{ $product->price }}</span>
-                                        @if ($product->discount)
-                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
-                    @endforeach
                 </div>
+                @endforeach
             </div>
         </div>
         <div class="pt-3 mb-5 text-xs sm:text-base">
