@@ -25,9 +25,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
 </head>
 
 <body>
+
     <section class="site-section w-full">
         <div class="header__banner-news w-full max-w-max one-time">
             <img src="{{ asset('image/banner.webp') }}" alt="">
@@ -42,7 +44,7 @@
                 <div class="nav__search flex-grow mx-4 md:mx-6 lg:mx-8 xl:mx-10">
                     <div class="search__wrapper relative w-auto">
                         <input type="text"
-                            class="search__input w-full p-2 md:p-3 lg:p-4 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            class="search__input w-full p-2 md:p-3 lg:p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                             placeholder="Search...">
                         <div class="search__icon absolute inset-y-0 left-0 pl-2 md:pl-3 lg:pl-4 flex items-center pointer-events-none">
                             <!-- Search icon can go here -->
@@ -67,14 +69,40 @@
                             <i class="fa-solid fa-person-chalkboard text-xl" style="color: #ffffff;"></i>
                             <a href="#">Theo dõi đơn hàng</a>
                         </li>
-                        <li class="menu__item menu__item--white flex items-center flex-col">
+                        {{-- <li class="menu__item menu__item--white flex items-center flex-col">
                             <i class="fa-solid fa-cart-shopping text-xl" style="color: #ffffff;"></i>
                             <a href="#">Giỏ hàng</a>
-                        </li>
-                        <li class="menu__item menu__item--white flex items-center flex-col">
-                            <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
+                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2">{{ $cartCount }}</span>
+                        </li> --}}
+                        <div class="relative">
+                            <button class="menu__item menu__item--white flex items-center flex-col" onclick="toggleDropdown()">
+                                <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
                             <a href="#">Tài khoản</a>
-                        </li>
+                            </button>
+                            <ul id="dropdown" class="absolute hidden mt-2 bg-white border border-gray-300 rounded-md">
+                                @if (!Auth::check())
+                                  <a href="{{route('login')}}"><li class="px-7 py-1 hover:bg-gray-100 text-black">Login</li></a>
+                                  <a href="{{route('register')}}"><li class="px-7 py-1 hover:bg-gray-100 text-black">Register</li></a>
+                                @else
+                                  
+                                  @if (Auth::check())
+                                    <a href="{{route('dashboard')}}"><li class="px-7 py-1 hover:bg-gray-100 text-black">Tài khoản</li></a>
+                                  @endif
+                                  <li class="px-7 py-1 hover:bg-gray-100 text-black"><form method="POST" action="/logout">
+                                    @csrf
+                                    <button type="submit" class="logout-btn">Logout</button>
+                                </form></li>
+                                @endif
+                              </ul>
+                          </div>
+                          
+                          <script>
+                            function toggleDropdown() {
+                              const dropdown = document.getElementById('dropdown');
+                              dropdown.classList.toggle('hidden');
+                            }
+                          </script>
+                          
                     </ul>
                 </div>
                 <div class="md:hidden">
@@ -151,3 +179,34 @@
     <script src="{{ asset('js/slickside.js') }}"></script>
 </body>
 </html>
+
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+document.querySelectorAll('.add-to-cart-button').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        let productId = this.dataset.productId;
+        let quantity = 1; // Hoặc lấy số lượng từ input nếu có
+
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ product_id: productId, quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('cart-count').innerText = data.cartCount;
+                alert(data.success);
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>

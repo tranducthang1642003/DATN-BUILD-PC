@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Order\App\Http\Controllers\OrderController;
+use Modules\Order\App\Http\Controllers\admin\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,12 @@ use Modules\Order\App\Http\Controllers\OrderController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('order', OrderController::class)->names('order');
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('admin/order', [OrderController::class, 'index'])->name('order');
+    Route::get('admin/order/add', [OrderController::class, 'add'])->name('add_order');
+    Route::post('admin/order/add', [OrderController::class, 'add_product'])->name('add_order');
+    Route::get('admin/order/{id}', [OrderController::class, 'show'])->name('show_order');
+    Route::get('admin/order/{id}/edit', [OrderController::class, 'edit'])->name('edit_order');
+    Route::put('admin/order/{id}/edit', [OrderController::class, 'update_product'])->name('update_order');
+    Route::delete('admin/order/{id}', [OrderController::class, 'destroy'])->name('delete_order');
 });

@@ -14,7 +14,7 @@ use Modules\Category\App\Http\Controllers\Admin\CategoryController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/category', [CategoryController::class, 'index'])->name('category');
     Route::get('admin/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::post('admin/category/store', [CategoryController::class, 'store'])->name('category.store');

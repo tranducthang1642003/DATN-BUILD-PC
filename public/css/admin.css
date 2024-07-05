@@ -1,25 +1,29 @@
 .button_sidebar {
     width: 100%;
+    background-color: rgb(151, 166, 187);
     display: flex;
     align-items: center;
     padding: 10px;
     border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(219, 218, 218);
+    font-weight: 500;
 }
 .button_sidebar_cl {
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 10px 0 10px 50px;
+    background-color: rgb(182, 193, 209);
 }
 .button_sidebar_cl:hover {
-    background-color: cornflowerblue;
-    color: aliceblue;
+    color: orange;
+    background-color: aliceblue;
 }
 
 .button_sidebar:hover {
-    background-color: cornflowerblue;
-    color: aliceblue;
+    color: orange;
+    background-color: aliceblue;
+    transform: translateY(-5px);
 }
 
 .icon_count {
@@ -35,10 +39,10 @@
 
 .button_selected {
     display: inline-block;
-    background-color: aliceblue;
+    background-color: rgb(255, 255, 255);
     border-radius: 20px;
     padding: 10px;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     margin: 5px;
     text-align: center;
     vertical-align: middle;
@@ -51,7 +55,13 @@
     margin-right: 5px;
 }
 
-
+.button_selected:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    color: orange;
+    font-weight: bold;
+}
 
 .icon_sidebar {
     font-size: larger;
@@ -63,15 +73,58 @@
     border-radius: 12px;
     box-shadow: 4px 4px 4px gray;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding-bottom: 0; 
 }
 
 .card_dashboard:hover {
-    transform: translateY(-5px); /* Nổi lên 5px khi hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng khi hover */
-    cursor: pointer; /* Thay đổi con trỏ thành dấu nhấp chuột */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    cursor: pointer; 
 }
+
 
 .selected {
     border-bottom: 2px solid rgb(234 179 8);
     color: rgb(234 179 8);
+}
+
+.trix-content {
+    max-height: 200px;
+    overflow-y: auto;
+    min-height: 200px;
+}
+.product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media screen and (max-width: 2840px) {
+    .product-name {
+        max-width: 30ch;
+    }
+}
+@media screen and (max-width: 1640px) {
+    .product-name {
+        max-width: 24ch;
+    }
+}
+@media screen and (max-width: 1240px) {
+    .product-name {
+        max-width: 20ch;
+    }
+}
+@media screen and (max-width: 1168px) {  
+    .product-name {
+        max-width: 14ch;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .product-name {
+        max-width: 8ch;
+    }
 }

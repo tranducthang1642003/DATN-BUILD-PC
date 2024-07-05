@@ -14,7 +14,12 @@ class Promotions extends Model
         'promotion_code',
         'description',
         'discount',
+        'product_id',
         'start_date',
         'end_date',
     ];
+    public function promotions()
+    {
+        return $this->belongsTo(product::class, 'promotion_id');
+    }
 }

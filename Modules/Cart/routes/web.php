@@ -12,8 +12,14 @@ use Modules\Cart\App\Http\Controllers\CartController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::resource('cart', CartController::class)->names('cart');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/updateQuantity/{id}', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+    Route::get('checkout', [CartController::class, 'checkout']);
+
 });

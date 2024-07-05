@@ -5,7 +5,9 @@ namespace Modules\Category\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Modules\Category\Entities\Category;
+use Modules\Product\Entities\Product;
+use Modules\Product\Entities\ProductImage;
 
 class CategoryController extends Controller
 {
@@ -36,11 +38,20 @@ class CategoryController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function show($slug)
     {
-        return view('category::show');
-    }
+        $category = Category::where('slug', $slug)->firstOrFail();
+        $products = Product::where('category_id', $category->id)->get();
 
+        foreach ($products as $product) {
+            $primary_image = ProductImage::where('product_id', $product->id)
+                ->where('is_primary', 1)
+                ->first();
+            $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
+        }
+        return view('public.product.product', compact('category', 'products'));
+    }
+ 
     /**
      * Show the form for editing the specified resource.
      */

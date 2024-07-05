@@ -1,7 +1,9 @@
 <?php
+
 namespace Modules\Product\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Product\Entities\Product;
 
 class ProductImage extends Model
 {
@@ -11,4 +13,8 @@ class ProductImage extends Model
         'image_path',
         'is_primary',
     ];
+    public function images()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

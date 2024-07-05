@@ -3,85 +3,49 @@
 namespace Modules\Home\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Modules\Category\Entities\Category;
+use Modules\Home\Repositories\HomeRepositoryInterface;
 use Modules\Product\Entities\Product;
-
+use Modules\Product\Entities\ProductImage;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $homeRepository;
+
+    public function __construct(HomeRepositoryInterface $homeRepository)
+    {
+        $this->homeRepository = $homeRepository;
+    }
+
     public function index()
     {
-        $categories = Category::all();  
-        $products = Product::all();  // Retrieve all products from the database
-    
-        // Modify $products to include necessary attributes
-        $products = $products->map(function ($product) {
-            return [
-                'img' => $product->image_path, // Assuming this is the path to product image
-                'title' => $product->product_name,
-                'old_price' => $product->old_price,
-                'discount' => $product->discount,
-                'new_price' => $product->new_price,
-                'vocher' => $product->vocher,
-            ];
-        });
-    
-        return view('public.home.layout', compact('categories', 'products'));
-    }
-    
-    
-    
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('home::create');
+        $categories = $this->homeRepository->getAllProducts();
+        $featuredCategories = $this->homeRepository->getFeaturedCategories();
+        $saleproduct = $this->homeRepository->getSaleProducts();
+        $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
+
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
+    public function showCategory($slug)
     {
-        //
+
+        $category = $this->homeRepository->getCategoryBySlug($slug);
+        $products = $this->homeRepository->getProductByProduct($slug);
+
+        return view('public.product.product', compact('category', 'products'));
     }
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function show($slug)
     {
-        return view('home::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('home::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        $product = Product::where('slug', $slug)->firstOrFail();
+        $primary_image = ProductImage::where('product_id', $product->id)
+            ->where('is_primary', 1)
+            ->first();
+        $secondary_images = ProductImage::where('product_id', $product->id)
+            ->where('is_primary', 0)
+            ->get();
+        $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
+        $product->secondary_images = $secondary_images;
+        return view('public.product.detail-product', compact('product'));
     }
 }

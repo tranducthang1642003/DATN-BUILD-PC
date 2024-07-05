@@ -27,7 +27,7 @@ $(document).ready(function () {
     $(".autoplay-slider").slick({
         infinite: true,
         speed: 300,
-        slidesToShow: 5,
+        slidesToShow: 6,
         adaptiveHeight: true,
         responsive: [
             {
@@ -116,7 +116,19 @@ $(document).ready(function () {
         ],
     });
 });
-
+$(document).ready(function () {
+    $(".autoplay-sliderrsre").slick({
+        // slidesToShow: 5,
+        // slidesToScroll: 1,
+        // autoplay: true,
+        // autoplaySpeed: 2000,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 10,
+        adaptiveHeight: true,
+      
+    });
+});
 $(document).ready(function () {
     $(".autoplay-evaluate").slick({
         // slidesToShow: 5,

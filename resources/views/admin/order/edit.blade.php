@@ -24,7 +24,7 @@
         });
     </script>
 @include('admin.layout.header')
-<div class="bg-gray-100 font-sans antialiased flex-grow p-5 ml-10">
+<div class="m-4 pt-20">
     <form action="{{ route('update_product', ['id' => $product->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

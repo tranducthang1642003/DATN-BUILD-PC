@@ -12,5 +12,11 @@
     "Images": true,
     "Checkout": true,
     "Order": true,
-    "Settings": true
+    "Settings": true,
+    "User": true,
+    "Dashboard": true,
+    "Review": true,
+    "Build": true,
+    "PCPC": true,
+    "BuildPC": true
 }
