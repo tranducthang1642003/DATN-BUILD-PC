@@ -15,5 +15,6 @@
     "Settings": true,
     "User": true,
     "Dashboard": true,
-    "Review": true
+    "Review": true,
+    "Like": true
 }

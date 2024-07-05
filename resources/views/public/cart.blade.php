@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@include('public.header.index')
 <style>
     .table-fixed {
         table-layout: fixed;
@@ -24,57 +24,75 @@
                 < mua thêm sản phẩm khác</span></a>
     </div>
     <div class="flex flex-wrap px-2 justify-between">
-        <div class="w-full lg:w-7/12 table-responsive mb-5">
+        <div class="w-full lg:w-8/12 table-responsive mb-5" style="max-height: 500px; overflow-y: auto;">
 
-            <table
-                class="w-full bg-white border border-gray-200 divide-y divide-gray-200 text-center hover:border-spacing-2 table-fixed ">
-                <thead class="bg-gray-800 text-white">
+            <table class="w-full">
+                <thead>
                     <tr>
                         <th class="py-2">Hình</th>
-                        <th class="py-2">Tên sản phẩm</th>
-                        <th class="py-2">Giá</th>
+                        <th></th>
                         <th class="py-2">Số lượng</th>
-                        <th class="py-2">Tôngt tiền</th>
-                        <th class="py-2">Xóa</th>
+                        <th class="py-2">Giá</th>
+                        <th class="py-2">Tổng tiền</th>
+                        <th class="py-2">Chỉnh sữa</th>
                     </tr>
                 </thead>
-
                 <tbody class="align-middle">
                     @foreach ($cartItems as $item)
-                        <tr class="border">
-                            <td class="py-2 flex items-center justify-center"><img src="{{ $item->product->image_url }}"
-                                    alt="" class="w-20 h-20 p-2 tex"></td>
-                            <td class="py-2 whitespace-normal">
-                                <span>
-                                    <p>{{ $item->product->product_name }}</p>
+                    <tr class="border">
+                        <td class="w-2/12">
+                            <div class="p-3">
+                                <img src="https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg" alt="" class="max-w">
+                            </div>
+                        </td>
+                        <td class="w-3/12">
+
+                            <span class="p-3">
+                                <p class="text-lg font-semibold leading-tight">
+                                    {{ Str::limit($item->product->product_name, 35, '...') }}
+                                </p>
+                            </span>
+                                <span class="">
+                                    <p class="text-xs">{{ $item->product->color }}</p>
                                 </span>
-                            </td>
-                            <td class="py-2">{{ $item->product->price }} VND</td>
-                            <td class="py-2">
-                                <div class="flex items-center justify-center">
-                                    <button class="px-2 py-1 bg-gray-200 text-gray-700 rounded-l"
-                                        onclick="updateQuantity({{ $item->id }}, -1)">-</button>
-                                    <input type="number" class="w-12 px-2 py-1 text-center border border-gray-300"
-                                        value="{{ $item->quantity }}" readonly>
-                                    <button class="px-2 py-1 bg-gray-200 text-gray-700 rounded-r"
-                                        onclick="updateQuantity({{ $item->id }}, 1)">+</button>
-                                </div>
-                            </td>
-                            <td class="py-2">{{ $item->product->price * $item->quantity }} VND</td>
-                            <td class="py-2">
+                                <span class="">
+                                    <p class="text-xs">Size: {{ $item->product->size }}</p>
+                                </span>
+                                <span class="">
+                                    <p class="text-xs">Product Code: {{ $item->product->code }}</p>
+                                </span>
+                        </td>
+                            
+                        <td class="w-2/12 text-center">{{ $item->product->price }} VND</td>
+                        <td class="w-2/12">
+                            <div class="flex items-center justify-center">
+                                <button class="px-2 py-1 bg-gray-200 text-gray-700 rounded-l" onclick="updateQuantity({{ $item->id }}, -1)">-</button>
+                                <input type="number" class="w-12 px-2 py-1 text-center border border-gray-300" value="{{ $item->quantity }}" readonly>
+                                <button class="px-2 py-1 bg-gray-200 text-gray-700 rounded-r" onclick="updateQuantity({{ $item->id }}, 1)">+</button>
+                            </div>
+                        </td>
+                        <td class="w-2/12 text-center">
+                            
+                            <div class="">{{ $item->product->price * $item->quantity }} VND</div>
+                        </td>
+                        <td class="w-1/12 text-center">
+                            <div class="">
                                 <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="fa fa-times">X</i></button>
+                                    <button type="submit" class="bg-red-400 hover:bg-red-500 text-white font-bold py-1 px-3 rounded">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </form>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                            
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="w-full lg:w-4/12">
+        <div class="w-full lg:w-3/12">
             <div class=" mx-auto border-2">
                 <div class="flex justify-between items-center px-4 py-3 border-b">
                     <h1 class="text-lg font-bold">
@@ -143,3 +161,4 @@
             .catch(error => console.error('Error:', error));
     }
 </script>
+@include('public.footer.footer')
