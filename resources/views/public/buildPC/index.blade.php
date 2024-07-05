@@ -52,7 +52,7 @@
 
 
 
-        <div class="max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+        {{-- <div class="max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
             <h2 class="text-2xl font-semibold mb-4">Danh sách linh kiện trong cấu hình PC của bạn</h2>
         
             @if ($configuration->items->isEmpty())
@@ -74,8 +74,8 @@
                     <p class="text-lg">Tổng giá: {{ number_format($configuration->total_price) }} VND</p>
                 </div>
             @endif
-        </div>
-    
+        </div> --}}
+
 
 
 
@@ -136,41 +136,87 @@
                                 @if ($category->products->isEmpty())
                                     <p>Không có sản phẩm nào.</p>
                                 @else
-                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                                    @foreach ($category->products as $product)
-                                    <form action="{{ route('add-component') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <div class="border border-gray-300 rounded p-4">
-                                            <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}"
-                                                class="w-full h-48 object-cover mb-2">
-                                            <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
-                                            <p class="text-gray-600">{{ number_format($product->price) }} VND</p>
-                                            <div class="mt-2">
-                                                <label for="quantity" class="text-sm">Số lượng:</label>
-                                                <input type="number" id="quantity" name="quantity" value="1"
-                                                    class="w-16 border-gray-300 rounded-md py-1 px-2 text-sm focus:outline-none focus:border-blue-500">
-                                            </div>
-                                            <button type="submit"
-                                                class="bg-blue-500 text-white rounded px-4 py-2 mt-2">Thêm vào linh kiện</button>
-                                        </div>
-                                    </form>
-                                    @endforeach
-                                </div>
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                                        @foreach ($category->products as $product)
+                                            <form action="{{ route('add-component') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <div class="border border-gray-300 rounded p-4">
+                                                    <img src="{{ $product->primary_image_path }}"
+                                                        alt="{{ $product->product_name }}"
+                                                        class="w-full h-48 object-cover mb-2">
+                                                    <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
+                                                    <p class="text-gray-600">{{ number_format($product->price) }} VND
+                                                    </p>
+                                                    <div class="mt-2">
+                                                        <label for="quantity" class="text-sm">Số lượng:</label>
+                                                        <input type="number" id="quantity" name="quantity"
+                                                            value="1"
+                                                            class="w-16 border-gray-300 rounded-md py-1 px-2 text-sm focus:outline-none focus:border-blue-500">
+                                                    </div>
+                                                    <button type="submit"
+                                                        class="bg-blue-500 text-white rounded px-4 py-2 mt-2">Thêm vào
+                                                        linh kiện</button>
+                                                </div>
+                                            </form>
+                                        @endforeach
+                                    </div>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
         @endforeach
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <p class="text-lg">Tổng giá: {{ number_format($configuration->total_price) }} VND</p>
-        </div>
+        </div> --}}
     </section>
 
+    <div class="container">
+        <h1>Build Your PC</h1>
 
+        <!-- Featured Categories -->
+        @foreach ($Productandcategory as $category)
+            <h2>{{ $category->name }}</h2>
+            <!-- Display products in this category -->
+        @endforeach
+
+        <!-- Configuration Items -->
+        <h2>Unsaved Configuration Items</h2>
+        @if (!empty($configurationItems))
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($configurationItems as $item)
+                        <tr>
+                            <td>{{ $item['product']->product_name }}</td>
+                            <td>{{ $item['quantity'] }}</td>
+                            <td>{{ number_format($item['product']->price) }}</td>
+                            <td>{{ number_format($item['product']->price * $item['quantity']) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <h3>Total Price: {{ $totalPrice }}</h3>
+            <button class="bg-green-500 text-white font-bold py-2 px-4 rounded"
+                onclick="event.preventDefault(); document.getElementById('save-configuration-form').submit();">Lưu cấu
+                hình</button>
+            <form id="save-configuration-form" action="{{ route('save-configuration') }}" method="POST"
+                style="display: none;">
+                @csrf
+            </form>
+        @else
+            <p>No items added to the configuration yet.</p>
+        @endif
+    </div>
 
 
 
