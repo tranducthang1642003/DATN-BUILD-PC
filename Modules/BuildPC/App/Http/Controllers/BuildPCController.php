@@ -42,6 +42,7 @@ class BuildPCController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
@@ -52,10 +53,11 @@ class BuildPCController extends Controller
 
         $configurationItems[] = [
             'product_id' => $product->id,
+            'category_id' => $request->category_id,
             'quantity' => $request->quantity,
             'product' => $product,
         ];
-
+        // dd($configurationItems);
         session()->put('configuration_items', $configurationItems);
 
         return redirect()->back()->with('success', 'Linh kiện ' . $product->product_name . ' đã được thêm vào cấu hình thành công.');

@@ -1,9 +1,4 @@
-<div class="fixed top-4 left-4">
-        <button @click="sidebarOpen = !sidebarOpen" 
-                :class="{ 'hidden': sidebarOpen, 'block': !sidebarOpen }"
-                class="text-3xl"><ion-icon name="menu-outline"></ion-icon></button>
-    </div>
-</div>
+
 </div>
 
 
