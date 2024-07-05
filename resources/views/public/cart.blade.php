@@ -84,11 +84,10 @@
                     </h1>
                     <a href="#" class="text-yellow-500">Xem thêm ></a>
                 </div>
-                <form class="flex p-5">
-                    <input type="text" placeholder="Nhập coupon"
-                        class=" w-8/12 p-2 border border-gray-300 rounded-l focus:outline-none focus:ring focus:border-yellow-300">
-                    <button type="submit" class=" w-4/12 bg-yellow-500 text-white p-1  hover:bg-yellow-600 ml-1">Apply
-                        Coupon</button>
+                <form action="{{ route('apply.coupon') }}" method="POST">
+                    @csrf
+                    <input type="text" name="coupon_code" placeholder="Nhập mã giảm giá">
+                    <button type="submit">Áp dụng</button>
                 </form>
             </div>
             <h5 class="text-lg font-bold mt-5 mb-5 p-1 border-b"><span class="text-yellow-500 pr-3 bold">Cart
