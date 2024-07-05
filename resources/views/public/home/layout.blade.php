@@ -136,8 +136,6 @@
                                 </div>
                                 <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                             </div>
-                                <div class="text-red-700 font-bold text-2xl mt-2">{{ $product->price }}</div>
-                            </div>
                             <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                 {{-- like --}}
                                 <div class="flex items-center justify-center h-10 w-10 bg-red-500 rounded-full text-white">
@@ -153,6 +151,7 @@
                         </div>
                     </div>
                 @endforeach
+
             </div>
         </div>
     </div>
