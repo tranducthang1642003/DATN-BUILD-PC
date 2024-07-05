@@ -1,60 +1,18 @@
 <?php
 
-namespace Modules\Product\Entities;
+namespace Modules\Settings\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Product\Entities\ProductImage;
-use Modules\Brand\Entities\Brand;
-use Modules\Category\Entities\Category;
 
 
-class Product extends Model
+class Settings extends Model
 {
-    protected $table = 'products';
+    protected $table = 'Settings';
     protected $fillable = [
-        'product_name',
-        'slug',
-        'price',
-        'quantity',
-        'description',
-        'specifications',
-        'view',
-        'product_code',
-        'sale',
-        'color',
-        'featured',
-        'status',
-        'category_id',
-        'brand_id', 
-        'stock', 
+        'id',
+        'name',
+        'images_url',
         'created_at',
         'updated_at',
     ];
-
-    
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class, 'brand_id');
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
-
-    public function productImages()
-    {
-        return $this->hasMany(ProductImage::class);
-    }
-    public function primaryImage()
-    {
-        return $this->hasOne(ProductImage::class)->where('is_primary', true);
-    }
-
-
-    public function images()
-    {
-        return $this->hasMany(ProductImage::class);
-    }
-    
 }

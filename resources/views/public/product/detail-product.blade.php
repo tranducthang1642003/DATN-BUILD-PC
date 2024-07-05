@@ -21,28 +21,44 @@
                     <div class="swiper gallery-top">
                         <div class="md:max-w-xl max-w-sm mx-auto slider-for">
                             <div class="">
-                                <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
+                                <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
                             </div>
+                            @foreach ($secondary_images as $item)
+                            <div class="">
+                                <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="swiper gallery-thumbs mt-3 hidden lg:block">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide thumb-img max-w-lg mx-auto slider-nav">
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                    <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
+                                    <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
+                                </div>
+
+                                @foreach ($secondary_images as $item)
+                                <div class="">
+                                    <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                                </div>
+                                @endforeach
+
+                                {{-- <div class="rounded-lg w-48 h-auto mr-3">
+                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577024.png"
+                                        alt="">
                                 </div>
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577024.png" alt="">
+                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577032.png"
+                                        alt="">
                                 </div>
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577032.png" alt="">
+                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577045.png"
+                                        alt="">
                                 </div>
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577045.png" alt="">
-                                </div>
-                                <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577053.png" alt="">
-                                </div>
+                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577053.png"
+                                        alt="">
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -74,8 +90,8 @@
                     </div>
                 </div>
                 <div class="box-price-detail flex mt-3 border-2 rounded-2xl p-1 md:p-3">
-                    <p class="price-detail text-lg lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
-                        {{ $product->price }}
+                    <p class="price-detail text-xs lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
+                        {{ number_format($product->price) }} VND
                     </p>
                     <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">4.000.000₫</span>
                     <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
@@ -84,40 +100,19 @@
                         -25%</div>
                 </div>
                 <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
-                    <div class="flex items-center space-x-4 mr-5 md:mr-10">
-                        <button id="decrement" class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400">-</button>
-                        <span id="quantity" class="text-base md:text-lg lg:text-xl font-medium">1</span>
-                        <button id="increment" class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400">+</button>
-                    </div>
-                    <form action="{{ route('cart.add') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <input type="number" name="quantity" value="1" min="1">
-                        <button type="submit">Thêm vào giỏ hàng</button>
-                    </form>
-                </div>
-                <div class="fixed bottom-0 left-0 right-0 bg-white p-3 md:hidden z-10 shadow-xl border w-full">
-                    <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
-                        <div class="flex items-center space-x-4 mr-3 md:mr-10">
-                            <button id="decrement" class="bg-slate-200 text-black px-2 py-1 rounded-full hover:bg-amber-400">-</button>
-                            <span id="quantity" class="text-xs md:text-lg lg:text-xl font-medium">1</span>
-                            <button id="increment" class="bg-slate-200 text-black px-2 py-1 rounded-full hover:bg-amber-400">+</button>
-                        </div>
-                        <a class="border p-2 text-xs md:text-base rounded-xl mr-2 pr-3 pl-3 border-amber-400 text-amber-400" href="">
-                            <form action="{{ route('cart.add') }}" method="POST">
-                                @csrf
+                    <div class="flex items-center space-x-4 mr-5 md:mr-10 ">
+                        <form action="{{ route('cart.add') }}" method="POST">
+                            @csrf
+                            <div class="grid grid-cols-2	">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="number" name="quantity" value="1" min="1">
-                                <button type="submit">Thêm vào giỏ hàng</button>
-                            </form>
-                        </a>
-                        <div class="detail-buy-now border p-2 text-xs md:text-base md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white text-center">
-                            <a href="" class="w-full">
-                                <p class="text-xs">MUA NGAY</p>
-                            </a>
-                        </div>
+                                <input class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400" type="number" name="quantity" value="1" min="1">
+                                <button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400" type="submit">Thêm vào giỏ hàng</button>
+                            </div>
+                        </form>
                     </div>
+
                 </div>
+
                 <div class="detail-buy mt-2 md:mt-5">
                     <div class="detail-buy-now border p-2 md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white hover:bg-red-500 hover:text-white text-center">
                         <a href="" class="w-full">
@@ -262,56 +257,64 @@
                 </div>
             </div>
         </div>
-        <div class="product__list">
-            <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
-            <div class="flex flex-wrap -mx-2">
-                @foreach ($similarProducts as $product)
-                <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                    <div class="bg-white rounded-lg shadow-md p-4">
-                        <a href="{{ route('product.show', $product->slug) }}">
-                            <div class="product-img">
-                                <img src="{{ $product->primary_image_path }}" alt="Primary Image">
-                            </div>
-                            <div class="product-info mt-2">
-                                <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                <div class="mt-1">
-                                    <span class="text-red-700 font-bold">{{ $product->price }}</span>
-                                    @if($product->discount)
-                                    <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
-                                    @endif
+        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+            <div class="product__list">
+                <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
+                <div class="flex flex-wrap -mx-2">
+                    @foreach ($similarProducts as $product)
+                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                        <div class="bg-white rounded-lg shadow-md p-4 h-96">
+                            <a href="{{ route('product.show', $product->slug) }}">
+                                <div class="product-img">
+                                    <img src="{{ $product->primary_image_path }}" alt="Primary Image">
                                 </div>
-                            </div>
-                        </a>
+                                <div class="product-info mt-2">
+                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
+                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                    <div class="mt-1">
+                                        <span class="text-red-700 font-bold">
+                                            {{ number_format($product->price) }} VND
+                                        </span>
+                                        @if ($product->discount)
+                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
-        <div class="product__list">
-            <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
-            <div class="flex flex-wrap -mx-2">
-                @foreach ($recentlyViewedProducts as $product)
-                <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                    <div class="bg-white rounded-lg shadow-md p-4">
-                        <a href="{{ route('product.show', $product->slug) }}">
-                            <div class="product-img">
-                                <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
-                            </div>
-                            <div class="product-info mt-2">
-                                <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                <div class="mt-1">
-                                    <span class="text-red-700 font-bold">{{ $product->price }}</span>
-                                    @if ($product->discount)
-                                    <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
-                                    @endif
+        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+            <div class="product__list">
+                <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
+                <div class="flex flex-wrap -mx-2">
+                    @foreach ($recentlyViewedProducts as $product)
+                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                        <div class="bg-white rounded-lg shadow-md p-4 h-96">
+                            <a href="{{ route('product.show', $product->slug) }}">
+                                <div class="product-img">
+                                    <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
                                 </div>
-                            </div>
-                        </a>
+                                <div class="product-info mt-2">
+                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
+                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                    <div class="mt-1">
+                                        <span class="text-red-700 font-bold">
+                                            {{ number_format($product->price) }} VND
+                                        </span>
+                                        @if ($product->discount)
+                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
         <div class="pt-3 mb-5 text-xs sm:text-base">

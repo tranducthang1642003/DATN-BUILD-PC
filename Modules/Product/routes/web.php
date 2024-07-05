@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Product\App\Http\Controllers\ProductController;
 use Modules\Product\App\Http\Controllers\Admin\ProductControllerAdmin;
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::get('product', [ProductController::class, 'index'])->name('product.index');
     Route::get('product/add', [ProductController::class, 'create'])->name('product.create');
     Route::post('product/add', [ProductController::class, 'store'])->name('product.store');

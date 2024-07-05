@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Auth\App\Http\Controllers\admin\UsersAdminController;
 use Modules\Auth\App\Http\Controllers\AuthenticatedSessionController;
 use Modules\Auth\App\Http\Controllers\NewPasswordController;
 use Modules\Auth\App\Http\Controllers\PasswordResetLinkController;
@@ -55,4 +56,13 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
     
+});
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('admin/user', [UsersAdminController::class, 'index'])->name('user');
+    Route::get('admin/user/add', [UsersAdminController::class, 'add'])->name('add_user');
+    Route::post('admin/user/add', [UsersAdminController::class, 'add_user'])->name('add_user');
+    Route::get('admin/user/{id}', [UsersAdminController::class, 'show'])->name('show_user');
+    Route::get('admin/user/{id}/edit', [UsersAdminController::class, 'edit'])->name('edit_user');
+    Route::put('admin/user/{id}/edit', [UsersAdminController::class, 'update_user'])->name('update_user');
+    Route::delete('admin/user/{id}', [UsersAdminController::class, 'destroy'])->name('delete_user');
 });
