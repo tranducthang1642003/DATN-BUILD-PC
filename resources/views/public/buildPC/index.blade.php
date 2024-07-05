@@ -220,7 +220,50 @@
     @endif
 </div>
 
+    <div class="container">
+        <h1>Build Your PC</h1>
 
+        <!-- Featured Categories -->
+        @foreach ($Productandcategory as $category)
+            <h2>{{ $category->name }}</h2>
+            <!-- Display products in this category -->
+        @endforeach
+
+        <!-- Configuration Items -->
+        <h2>Unsaved Configuration Items</h2>
+        @if (!empty($configurationItems))
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($configurationItems as $item)
+                        <tr>
+                            <td>{{ $item['product']->product_name }}</td>
+                            <td>{{ $item['quantity'] }}</td>
+                            <td>{{ number_format($item['product']->price) }}</td>
+                            <td>{{ number_format($item['product']->price * $item['quantity']) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <h3>Total Price: {{ $totalPrice }}</h3>
+            <button class="bg-green-500 text-white font-bold py-2 px-4 rounded"
+                onclick="event.preventDefault(); document.getElementById('save-configuration-form').submit();">Lưu cấu
+                hình</button>
+            <form id="save-configuration-form" action="{{ route('save-configuration') }}" method="POST"
+                style="display: none;">
+                @csrf
+            </form>
+        @else
+            <p>No items added to the configuration yet.</p>
+        @endif
+    </div>
 
 
 <section>
