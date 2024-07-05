@@ -50,7 +50,7 @@
                                             <div>
                                                 <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
                                             </div>
-                                            <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                            <div class="bg-red-700font-bold text-white rounded-full ml-3 pl-3 pr-3">
                                                 -25%
                                             </div>
                                         </div>
@@ -209,7 +209,7 @@
                                         </p>
                                     </div>
                                     <div
-                                        class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                        class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
                                         -25%
                                     </div>
                                 </div>

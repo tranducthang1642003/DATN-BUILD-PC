@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/buildpc",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\BuildPC\\": "",
+            "Modules\\BuildPC\\App\\": "app/",
+            "Modules\\BuildPC\\Database\\Factories\\": "database/factories/",
+            "Modules\\BuildPC\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\BuildPC\\Tests\\": "tests/"
+        }
+    }
+}
