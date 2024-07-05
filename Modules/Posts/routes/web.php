@@ -14,7 +14,7 @@ use Modules\Posts\App\Http\Controllers\PostsController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/post', [PostsController::class, 'index'])->name('post');
     Route::get('admin/post/add', [PostsController::class, 'add'])->name('add_post');
     Route::post('admin/post/add', [PostsController::class, 'add_post'])->name('add_post');

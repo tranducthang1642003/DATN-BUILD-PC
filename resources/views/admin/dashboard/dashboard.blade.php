@@ -5,7 +5,7 @@
     }
 </style>
 @include('admin.layout.header')
-<div class="flex-grow p-5 ml-10">
+<div class="m-4 mt-20">
     @php
     $yesterday = \Carbon\Carbon::now()->subDay();
     $thirtyDaysAgo = \Carbon\Carbon::now()->subDays(30);
@@ -82,10 +82,10 @@
             </div>
         </div>
     </div>
-    <canvas id="revenueCanvas" class="h-36 sm:h-28"></canvas>
-    <canvas id="newOrdersCanvas" class="h-36 sm:h-28"></canvas>
-    <canvas id="soldProductsCanvas" class="h-36 sm:h-28"></canvas>
-    <canvas id="newCustomersCanvas" class="h-36 sm:h-28"></canvas>
+    <canvas id="revenueCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
+    <canvas id="newOrdersCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
+    <canvas id="soldProductsCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
+    <canvas id="newCustomersCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -191,4 +191,5 @@
         }
     }
 </script>
+</div>
 @include('admin.layout.fotter')

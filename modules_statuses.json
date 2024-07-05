@@ -16,5 +16,7 @@
     "User": true,
     "Dashboard": true,
     "Review": true,
-    "Like": true
+    "Build": true,
+    "PCPC": true,
+    "BuildPC": true
 }

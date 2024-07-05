@@ -14,7 +14,7 @@ use Modules\Order\App\Http\Controllers\admin\OrderController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/order', [OrderController::class, 'index'])->name('order');
     Route::get('admin/order/add', [OrderController::class, 'add'])->name('add_order');
     Route::post('admin/order/add', [OrderController::class, 'add_product'])->name('add_order');
