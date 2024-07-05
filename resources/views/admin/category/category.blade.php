@@ -50,6 +50,9 @@
                 <th class="px-4 py-2">Tên</th>
                 <th class="px-4 py-2">Slug</th>
                 <th class="px-4 py-2">Nổi bật</th>
+                <th class="px-4 py-2">Thuộc tính</th>
+                <th class="px-4 py-2">Nổi bật home</th>
+                <th class="px-4 py-2">Build PC</th>
                 <th class="px-4 py-2">Mô tả</th>
                 <th class="px-4 py-2">...</th>
             </tr>
@@ -72,7 +75,37 @@
 
                     {{ $statusLabels[$category->featured] ?? 'Không xác định' }}
                 </td>
-                <td class="px-4 py-2 product-name">{{ $category->description }}</td>
+                <td class="px-4 py-2">
+                    @php
+                    $statusLabels = [
+                    1 => 'Còn hàng',
+                    2 => 'Hết hàng',
+                    3 => 'Đã xóa'
+                    ];
+                    @endphp
+                    {{ $statusLabels[$category->status] ?? 'Không xác định' }}
+                </td>
+                <td class="px-4 py-2">
+                    @php
+                    $statusLabels = [
+                    0 => 'Không',
+                    1 => 'Nổi bật',
+                    ];
+                    @endphp
+
+                    {{ $statusLabels[$category->is_featured_home] ?? 'Không xác định' }}
+                </td>
+                <td class="px-4 py-2">
+                    @php
+                    $statusLabels = [
+                    0 => 'Không',
+                    1 => 'Nổi bật',
+                    ];
+                    @endphp
+
+                    {{ $statusLabels[$category->build_pc] ?? 'Không xác định' }}
+                </td>
+                <td class="px-4 py-2 product-name">{!! ($category->description) !!}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
