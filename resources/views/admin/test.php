@@ -1,78 +1,88 @@
-<style>
-    .brand_active {
-        background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
-        color: white;
-    }
-
-    .trix-contents {
-        max-height: 280px;
-        overflow-y: auto;
-        min-height: 280px;
-    }
-</style>
-
-@include('admin.layout.header')
-
-<div class="m-4 pt-20 font-sans antialiased">
-    <form action="{{ route('brand.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="w-full">
-            <h2 class="text-2xl font-semibold text-slate-800 mb-8">Thêm mới Thương hiệu</h2>
-            <div class="bg-white p-8 rounded-lg shadow-lg w-full grid lg:grid-cols-2 sm:grid-cols-1 gap-4">
-                <div class="p-4">
-                    <div class=" gap-4 mb-10">
-                        <div class="mb-4">
-                            <label for="brand_name" class="block text-sm font-medium text-slate-700 mb-1">Tên Thương hiệu</label>
-                            <input type="text" name="brand_name" id="brand_name" class="border border-slate-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $brand->brand_name }} required>
+<div id="section-banner" class="content-section">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner top header</h2>
+            <div class="">
+                <!-- Thêm hình ảnh và thông tin cho mục Banner -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ asset('image/banner.webp') }}" alt="Banner" class="w-full" width="">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Banner top header</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="mb-10">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
-                            <div class="flex items-center space-x-4">
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="featured" value="yes" {{ $brand->featured ? 'checked' : '' }} class="form-radio text-blue-600">
-                                    <span class="ml-2">Có</span>
-                                </label>
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="featured" value="no" {{ !$brand->featured ? 'checked' : '' }} class="form-radio text-blue-600">
-                                    <span class="ml-2">Không</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mb-10">
-                            <label for="status" class="block text-sm font-medium text-slate-700 mb-1">Trạng thái</label>
-                            <select name="status" id="status" class="border border-slate-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>
-                                <option value="1" {{ $brand->status == 1 ? 'selected' : '' }}>Còn hàng</option>
-                                <option value="2" {{ $brand->status == 2 ? 'selected' : '' }}>Hết hàng</option>
-                                <option value="3" {{ $brand->status == 3 ? 'selected' : '' }}>Đã xóa</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-4">
-                    <div class="mb-4">
-                        <label for="description" class="block text-sm font-medium text-slate-700 mb-1">Mô tả loại</label>
-                        <input id="description" type="hidden" name="description">
-                        <trix-editor class="trix-contents" input="description">{!! ($brand->description) !!}</trix-editor>
-                    </div>
-                    <div class="flex justify-end mt-6">
-                        <button type="submit" class="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600">Lưu</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+            <hr class="my-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Thêm hình ảnh và thông tin cho mục Banner -->
+              
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ asset('image/bannre-pc.jpg') }}" alt="Banner" class="w-full">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Banner Home</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+      
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ asset('image/bannre-pc.jpg') }}" alt="Banner" class="w-full">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">{{ $setting->name }}</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
 
-@include('admin.layout.fotter')
+            </div>
+        </div>
+
+        <div id="section-poster" class="content-section">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Poster</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- Thêm hình ảnh và thông tin cho mục Poster -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Các hình ảnh và thông tin khác của Poster -->
+            </div>
+        </div>

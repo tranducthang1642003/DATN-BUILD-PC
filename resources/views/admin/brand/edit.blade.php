@@ -23,13 +23,13 @@
                 <div class="p-4">
                     <div class=" gap-4 mb-10">
                         <div class="mb-4">
-                            <label for="brand_name" class="block text-sm font-medium text-slate-700 mb-1">Tên Thương hiệu</label>
-                            <input type="text" name="brand_name" id="brand_name" class="border border-slate-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $brand->brand_name }}" required>
+                            <label for="brand_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Tên Thương hiệu</label>
+                            <input type="text" name="brand_name" id="brand_name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $brand->brand_name }}" required>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="mb-10">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
+                            <label class="block text-sm font-medium leading-6 text-gray-900 mb-2">Nổi bật</label>
                             <div class="flex items-center space-x-4">
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="featured" value="yes" {{ $brand->featured ? 'checked' : '' }} class="form-radio text-blue-600">
@@ -42,8 +42,8 @@
                             </div>
                         </div>
                         <div class="mb-10">
-                            <label for="status" class="block text-sm font-medium text-slate-700 mb-1">Trạng thái</label>
-                            <select name="status" id="status" class="border border-slate-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>
+                            <label for="status" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Trạng thái</label>
+                            <select name="status" id="status" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                                 <option value="1" {{ $brand->status == 1 ? 'selected' : '' }}>Còn hàng</option>
                                 <option value="2" {{ $brand->status == 2 ? 'selected' : '' }}>Hết hàng</option>
                                 <option value="3" {{ $brand->status == 3 ? 'selected' : '' }}>Đã xóa</option>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="p-4">
                     <div class="mb-4">
-                        <label for="description" class="block text-sm font-medium text-slate-700 mb-1">Mô tả loại</label>
+                        <label for="description" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Mô tả loại</label>
                         <input id="description" type="hidden" name="description">
                         <trix-editor class="trix-contents" input="description">{!! ($brand->description) !!}</trix-editor>
                     </div>

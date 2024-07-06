@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Settings\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
 class ImageType extends Model
 {
-    protected $table = 'image_types';
+    protected $fillable = ['name'];
 
-    // Nếu có quan hệ với các bảng khác, bạn có thể định nghĩa ở đây
+    public function settings()
+    {
+        return $this->hasMany(Settings::class, 'image_type_id', 'id');
+    }
+
 }
