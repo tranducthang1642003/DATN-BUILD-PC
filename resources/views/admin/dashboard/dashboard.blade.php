@@ -101,6 +101,12 @@
         var soldProductsData = {!! $currentMonthSoldProductsData !!};
         var newCustomersData = {!! $currentMonthNewCustomersData !!};
         var labelsData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
+        function formatLabels(labels) {
+            return labels.map(function(label) {
+            var parts = label.split('-');
+            return parts[2] + '/' + parts[1];
+        });
+}
         var chartOptions = {
             scales: {
                 y: {
@@ -112,7 +118,7 @@
         var revenueChart = new Chart(revenueCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(revenueData.labels),
                 datasets: [{
                     label: 'Doanh thu',
                     data: revenueData.data,
@@ -125,7 +131,7 @@
         var newOrdersChart = new Chart(newOrdersCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(newOrdersData.labels),
                 datasets: [{
                     label: 'Đơn hàng mới',
                     data: newOrdersData.data,
@@ -138,7 +144,7 @@
         var soldProductsChart = new Chart(soldProductsCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(soldProductsData.labels),
                 datasets: [{
                     label: 'Sản phẩm đã bán',
                     data: soldProductsData.data,
@@ -151,7 +157,7 @@
         var newCustomersChart = new Chart(newCustomersCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(newCustomersData.labels),
                 datasets: [{
                     label: 'Khách hàng mới',
                     data: newCustomersData.data,

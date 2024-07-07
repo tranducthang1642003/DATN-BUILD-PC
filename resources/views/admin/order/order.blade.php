@@ -40,7 +40,8 @@
                 <th class="px-4 py-2">Tổng tiền</th>
                 <th class="px-4 py-2">Địa chỉ</th>
                 <th class="px-4 py-2">Phương thức TT</th>
-                <th class="px-4 py-2">...</th>
+                <th class="px-4 py-2">Trạng thái</th>
+                <th class="px-4 py-2">Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -53,22 +54,61 @@
                 <td class="px-4 py-2">{{ $order->shipping_address }}</td>
                 <td class="px-4 py-2">{{ $order->payment_method }}</td>
                 <td class="px-4 py-2">
-                    <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
-                        <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
-                        <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <a href="{{ route('edit_order', ['id' => $order->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Edit</a>
-                            <form action="{{ route('delete_order', ['id' => $order->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">Delete</button>
-                            </form>
-                        </div>
+                    <div class="relative">
+                        <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none">
+                            <option value="1" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quết</option>
+                            <option value="2" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
+                            <option value="3" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
+                            <option value="4" {{ $order->status == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
+                        </select>
                     </div>
+                </td>
+                <td class="px-4 py-2">
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button>
+                    <button class="hidden bg-green-600 text-white px-4 py-2 rounded-md update-btn">Cập nhật</button>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selects = document.querySelectorAll('.status-select');
+
+            selects.forEach(select => {
+                select.addEventListener('change', function() {
+                    const orderId = this.closest('tr').querySelector('.order-id').innerText;
+                    const newStatus = this.value;
+
+                    // Gửi yêu cầu cập nhật trạng thái đơn hàng lên server
+                    fetch(`/admin/orders/${orderId}/update-status`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Đảm bảo sử dụng csrf token để bảo vệ chống CSRF attacks
+                            },
+                            body: JSON.stringify({
+                                status: newStatus
+                            })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Xử lý thành công
+                                console.log('Cập nhật thành công');
+                            } else {
+                                // Xử lý lỗi
+                                console.error('Có lỗi xảy ra khi cập nhật');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi mạng:', error);
+                        });
+                });
+            });
+        });
+    </script>
+
     <div class="flex justify-end mr-8">
         <div>
             {{ $orders->links() }}

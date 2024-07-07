@@ -14,5 +14,8 @@ class CategoryBlog extends Model
         'created_at',
         'updated_at',
     ];
-
+    public function blog()
+    {
+        return $this->belongsTo(CategoryBlog::class, 'category_blog_id');
+    }
 }
