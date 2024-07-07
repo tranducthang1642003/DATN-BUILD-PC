@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Order\App\Http\Controllers\admin\OrderController;
+use Modules\Order\App\Http\Controllers\OrderController1;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +24,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/order/{id}/edit', [OrderController::class, 'edit'])->name('edit_order');
     Route::put('admin/order/{id}/edit', [OrderController::class, 'update_product'])->name('update_order');
     Route::delete('admin/order/{id}', [OrderController::class, 'destroy'])->name('delete_order');
+});
+
+Route::middleware('auth')->group(function() {
+   // routes/web.php
+
+Route::get('orders/checkout', [OrderController1::class, 'checkout'])->name('orders.checkout');
+Route::post('orders/place', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
+
 });
