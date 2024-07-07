@@ -3,42 +3,193 @@
         background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
         color: white;
     }
+
+    /* CSS cho menu */
+    .menu-item {
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .menu-item:hover {
+        background-color: #edf2f7;
+    }
+
+    .menu-item.active {
+        background-color: #edf2f7;
+        font-weight: bold;
+    }
+
+    /* CSS cho nội dung */
+    .content-section {
+        display: none;
+    }
+
+    .content-section.active {
+        display: block;
+    }
 </style>
 @include('admin.layout.header')
-<div class="m-4 pt-20">
-    <div class="flex justify-between text-xs sm:text-sm">
-        <div class="flex text-gray-600">
-            <form action="{{ route('setting') }}" method="GET" class="flex">
-                <div class="ml-2 sm:ml-4 flex">
-                    <label for="startDate" class="block text-gray-500 mt-1">Từ ngày</label>
-                    <input class="p-1.5 sm:p-2 rounded-lg ml-2" type="date" id="startDate" name="start_date">
-                </div>
-                <div class="ml-2 sm:ml-4 flex">
-                    <label for="endDate" class="block text-gray-500 mt-1">Đến ngày</label>
-                    <input class="p-1.5 sm:p-2 rounded-lg ml-2" type="date" id="endDate" name="end_date">
-                </div>
-                <div class="ml-2 sm:ml-6">
-                    <div class="relative rounded-md shadow-sm">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-                            <ion-icon class="text-gray-500 sm:text-sm" name="search-outline"></ion-icon>
+<div class="m-4 pt-16">
+    <h1 class="text-2xl font-semibold mb-4">Quản lý hình ảnh</h1>
+    <div class="container mx-auto p-4 bg-white min-h-screen">
+        <div class="flex mb-6 ">
+            <div id="menu-banner" class="menu-item px-4 py-2 rounded-md mr-4">Banner</div>
+            <div id="menu-poster" class="menu-item px-4 py-2 rounded-md mr-4">Poster</div>
+            <div id="menu-logo" class="menu-item px-4 py-2 rounded-md mr-4">Logo</div>
+        </div>
+        <hr class="mb-4">
+        <!-- Nội dung của từng mục -->
+        <div id="section-logo" class="content-section">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Logo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Thêm hình ảnh và thông tin cho mục Logo -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ asset('image/logo.svg') }}" alt="Logo" class="w-full" width="">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Logo 1</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về logo 1</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
                         </div>
-                        <input type="text" name="keyword" id="keyword" class="block w-full rounded-md border-0 py-1.5 sm:py-2 pl-5 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Tìm kiếm">
                     </div>
                 </div>
-                <div class="ml-2 sm:ml-6">
-                    <button type="submit" class="bg-indigo-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
-                </div>
-            </form>
+                <!-- Các hình ảnh và thông tin khác của Logo -->
+            </div>
         </div>
+
+        <div id="section-banner" class="content-section">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner top header</h2>
+            <div class="">
+                <!-- Thêm hình ảnh và thông tin cho mục Banner -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ asset('image/banner.webp') }}" alt="Banner" class="w-full" width="">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Banner top header</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Thêm hình ảnh và thông tin cho mục Banner -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ asset('image/bannre-pc.jpg') }}" alt="Banner" class="w-full">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Banner Home</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="{{ asset('image/bannre-pc.jpg') }}" alt="Banner" class="w-full">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Banner Home</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="section-poster" class="content-section">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Poster</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- Thêm hình ảnh và thông tin cho mục Poster -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
+                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
+                        <div class="mt-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Các hình ảnh và thông tin khác của Poster -->
+            </div>
+        </div>
+
     </div>
-    <div class="flex flex-wrap justify-start items-center">
-        <span class="text-sm sm:text-base mr-4">0 sản phẩm đã chọn</span>
-        <button class="button_selected text-xs sm:text-sm"><ion-icon class="mr-2 mb-1 text-purple-700 " name="bag-check-outline"></ion-icon>Hết hàng</button>
-        <button class="button_selected text-xs sm:text-sm"><ion-icon class="mr-2 mb-1 text-fuchsia-600 " name="cash-outline"></ion-icon>Giảm giá</button>
-        <button class="button_selected text-xs sm:text-sm"><ion-icon class="mr-2 mb-1 text-blue-400 " name="apps-outline"></ion-icon>Chọn tất cả</button>
-        <button class="button_selected text-xs sm:text-sm"><ion-icon class="mr-2 mb-1 text-blue-700 " name="file-tray-full-outline"></ion-icon>In mã QR</button>
-        <button class="button_selected text-xs sm:text-sm"><ion-icon class="mr-2 mb-1 text-sky-500 " name="exit-outline"></ion-icon>Xuất file</button>
-        <button class="button_selected text-xs sm:text-sm"><ion-icon class="mr-2 mb-1 text-red-500 " name="trash-outline"></ion-icon>Xóa</button>
-    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lấy các phần tử menu và nội dung
+            const menuLogo = document.getElementById("menu-logo");
+            const menuBanner = document.getElementById("menu-banner");
+            const menuPoster = document.getElementById("menu-poster");
+            const sectionLogo = document.getElementById("section-logo");
+            const sectionBanner = document.getElementById("section-banner");
+            const sectionPoster = document.getElementById("section-poster");
+
+            // Mặc định hiển thị mục Logo
+            sectionBanner.classList.add("active");
+
+            // Bắt sự kiện click vào từng menu
+            menuLogo.addEventListener("click", function() {
+                // Ẩn tất cả các section và loại bỏ class active
+                sectionLogo.classList.add("active");
+                sectionBanner.classList.remove("active");
+                sectionPoster.classList.remove("active");
+                // Đánh dấu menu Logo là active, các menu khác bình thường
+                menuLogo.classList.add("active");
+                menuBanner.classList.remove("active");
+                menuPoster.classList.remove("active");
+            });
+
+            menuBanner.addEventListener("click", function() {
+                sectionLogo.classList.remove("active");
+                sectionBanner.classList.add("active");
+                sectionPoster.classList.remove("active");
+                menuLogo.classList.remove("active");
+                menuBanner.classList.add("active");
+                menuPoster.classList.remove("active");
+            });
+
+            menuPoster.addEventListener("click", function() {
+                sectionLogo.classList.remove("active");
+                sectionBanner.classList.remove("active");
+                sectionPoster.classList.add("active");
+                menuLogo.classList.remove("active");
+                menuBanner.classList.remove("active");
+                menuPoster.classList.add("active");
+            });
+        });
+    </script>
 </div>
 @include('admin.layout.fotter')
