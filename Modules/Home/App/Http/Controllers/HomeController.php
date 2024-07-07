@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Modules\Home\Repositories\HomeRepositoryInterface;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductImage;
-
+use Modules\Like\Entities\wishlists;
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     protected $homeRepository;
@@ -18,12 +19,13 @@ class HomeController extends Controller
 
     public function index()
     {
+            
         $categories = $this->homeRepository->getAllProducts();
         $featuredCategories = $this->homeRepository->getFeaturedCategories();
         $saleproduct = $this->homeRepository->getSaleProducts();
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts'));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts',));
     }
 
     public function showCategory($slug)

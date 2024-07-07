@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Modules\Category\Entities\Category;
-use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -46,16 +46,19 @@ class CategoryController extends Controller
         //
         $validatedData = $request->validate([
             'category_name' => 'required|string',
-            'slug' => 'required|string',
-            'image' => 'required|mimes:jpg,jpeg,png,bmp|max:2048',
+            'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
             'featured' => 'required|in:yes,no',
+            'is_featured_home' => 'required|in:yes,no',
+            'build_pc' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'description' => 'required|string',
         ]);
         $category = new Category();
         $category->category_name = $validatedData['category_name'];
-        $category->slug = $validatedData['slug'];
+        $category->slug = Str::slug($request->input('category_name'), '-');
         $category->featured = $validatedData['featured'] === 'yes';
+        $category->is_featured_home = $validatedData['is_featured_home'] === 'yes';
+        $category->build_pc = $validatedData['build_pc'] === 'yes';
         $category->status = $validatedData['status'];
         $category->description = $validatedData['description'];
 
@@ -97,16 +100,19 @@ class CategoryController extends Controller
         //
         $validatedData = $request->validate([
             'category_name' => 'required|string',
-            'slug' => 'required|string',
-            'image' => 'mimes:jpg,jpeg,png,bmp|max:2048',
+            'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
             'featured' => 'required|in:yes,no',
+            'is_featured_home' => 'required|in:yes,no',
+            'build_pc' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'description' => 'required|string',
         ]);
         $category = Category::findOrFail($id);
         $category->category_name = $validatedData['category_name'];
-        $category->slug = $validatedData['slug'];
+        $category->slug = Str::slug($request->input('category_name'), '-');
         $category->featured = $validatedData['featured'] === 'yes';
+        $category->is_featured_home = $validatedData['is_featured_home'] === 'yes';
+        $category->build_pc = $validatedData['build_pc'] === 'yes';
         $category->status = $validatedData['status'];
         $category->description = $validatedData['description'];
         if ($image = $request->file('image')) {
@@ -126,7 +132,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
         $category = category::findOrFail($id);
         $category->delete();
         return redirect()->route('category')->with('success', 'Xóa danh mục thành công!');

@@ -7,7 +7,7 @@ use Modules\Product\Entities\ProductImage;
 use Modules\Brand\Entities\Brand;
 use Modules\Category\Entities\Category;
 use Modules\Cart\Entities\CartItem;
-
+use Modules\Like\Entities\wishlists;
 class Product extends Model
 {
     protected $table = 'products';
@@ -31,7 +31,11 @@ class Product extends Model
         'updated_at',
     ];
 
-    
+    public function promotions()
+    {
+        return $this->belongsToMany(promotions::class,'product_promotions');
+    }
+
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
@@ -62,5 +66,15 @@ class Product extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+    public function isLikedBy($user)
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
+    
+    public function likes()
+    {
+        return $this->hasMany(Wishlists::class);
+    }
+    
     
 }

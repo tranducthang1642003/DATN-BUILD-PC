@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Settings\App\Http\Controllers\Admin\MenuController;
 use Modules\Settings\App\Http\Controllers\Admin\SettingController;
 
 /*
@@ -15,12 +16,17 @@ use Modules\Settings\App\Http\Controllers\Admin\SettingController;
 */
 
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('admin/setting', [SettingController::class, 'index'])->name('setting');
-    Route::get('admin/setting/banner', [SettingController::class, 'index_banner'])->name('banner');
-    Route::get('admin/setting/banner/add', [SettingController::class, 'add_banner'])->name('add_banner');
-    Route::post('admin/setting/banner/add', [SettingController::class, 'add_banners'])->name('add_banner');
-    Route::get('admin/setting/banner/{id}', [SettingController::class, 'show_banner'])->name('show_banner');
-    Route::get('admin/setting/banner/{id}/edit', [SettingController::class, 'edit_banner'])->name('edit_banner');
-    Route::put('admin/setting/banner/{id}/edit', [SettingController::class, 'update_banner'])->name('update_banner');
-    Route::delete('admin/setting/banner/{id}', [SettingController::class, 'destroy_banner'])->name('delete_banner');
+    Route::get('admin/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('admin/settings/create', [SettingController::class, 'create'])->name('settings.create');
+    Route::post('admin/settings', [SettingController::class, 'store'])->name('settings.store');
+    Route::get('admin/settings/{id}/edit', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('admin/settings/{id}', [SettingController::class, 'update'])->name('settings.update');
+    Route::delete('admin/settings/delete/{id}', [SettingController::class, 'destroy'])->name('settings.destroy');
+
+    Route::get('admin/menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::get('admin/menu/create', [MenuController::class, 'create'])->name('menu.create');
+    Route::post('admin/menu', [MenuController::class, 'store'])->name('menu.store');
+    Route::get('admin/menu/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');
+    Route::put('admin/menu/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('admin/menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
 });

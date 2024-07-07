@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Order\App\Http\Controllers;
+namespace Modules\Checkout\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class OrderController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('order::index');
+        return view('public.checkout');
     }
 
     /**
@@ -22,7 +22,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('order::create');
+        return view('checkout::create');
     }
 
     /**
@@ -38,7 +38,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        return view('order::show');
+        return view('checkout::show');
     }
 
     /**
@@ -46,7 +46,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        return view('order::edit');
+        return view('checkout::edit');
     }
 
     /**

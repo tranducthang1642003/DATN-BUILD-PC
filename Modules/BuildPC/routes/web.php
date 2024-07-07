@@ -17,6 +17,10 @@ use Modules\BuildPC\App\Http\Controllers\BuildPCController;
 Route::group([], function () {
     Route::get('buildpc', [BuildPCController::class,'index'])->name('buildpc');
     Route::post('/add-component', [BuildPCController::class, 'store'])->name('add-component');
+    Route::post('/save-configuration', [BuildPCController::class, 'saveConfiguration'])->name('save-configuration');
+    Route::delete('/buildpc/remove/{index}', 'BuildPCController@removeItemFromConfiguration')
+    ->name('buildpc.remove');
+    Route::post('/cart/add-multiple', [BuildPCController::class, 'addToCartMultiple'])->name('cart.add-multiple');
 
 
 });

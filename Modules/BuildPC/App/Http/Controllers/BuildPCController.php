@@ -3,17 +3,16 @@
 namespace Modules\BuildPC\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\BuildPC\Entities\Configuration;
 use Modules\BuildPC\Entities\ConfigurationItem;
 use Modules\BuildPC\Repositories\BuildPCRepositoryInterface;
+use Modules\Cart\Entities\CartItem;
 use Modules\Product\Entities\Product;
 
 class BuildPCController extends Controller
 {
-
     protected $BuildPCRepository;
 
     public function __construct(BuildPCRepositoryInterface $BuildPCRepository)
@@ -21,87 +20,125 @@ class BuildPCController extends Controller
         $this->BuildPCRepository = $BuildPCRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Retrieve the current user's configuration
         $userId = Auth::id();
-        $configuration = Configuration::where('user_id', $userId)->with('items.product')->first();
+        $configurationItems = session()->get('configuration_items', []);
 
-        if (!$configuration) {
-            return redirect()->route('buildpc')->with('error', 'Bạn chưa có cấu hình nào.');
+        // Calculate total price
+        $totalPrice = collect($configurationItems)->sum(function ($item) {
+            return $item['product']->price * $item['quantity'];
+        });
+
+        // Fetch primary images for each product in configurationItems
+        foreach ($configurationItems as &$item) {
+            $product = Product::findOrFail($item['product_id']);
+            $primaryImage = $product->images()->where('is_primary', true)->first();
+
+            if ($primaryImage) {
+                $item['image_path'] = $primaryImage->image_path;
+            } else {
+                // Handle case where no primary image is found, provide a default path
+                $item['image_path'] = asset('images/default-product-image.jpg');
+            }
         }
+
+        // Fetch featured categories from repository
         $Productandcategory = $this->BuildPCRepository->getFeaturedCategories();
-        return view('public.buildPC.index', compact('Productandcategory', 'configuration'));
+
+        // Pass data to the view
+        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('buildpc::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
         $product = Product::findOrFail($request->product_id);
 
+        $configurationItems = session()->get('configuration_items', []);
+
+        $configurationItems[] = [
+            'product_id' => $product->id,
+            'category_id' => $request->category_id,
+            'quantity' => $request->quantity,
+            'product' => $product,
+        ];
+
+        session()->put('configuration_items', $configurationItems);
+
+        return redirect()->back()->with('success', 'Linh kiện ' . $product->product_name . ' đã được thêm vào cấu hình thành công.');
+    }
+
+    public function saveConfiguration()
+    {
+        $configurationItems = session()->get('configuration_items', []);
+
+        if (empty($configurationItems)) {
+            return redirect()->back()->with('error', 'Không có linh kiện nào để lưu.');
+        }
+
         $configuration = Configuration::firstOrCreate(['user_id' => auth()->id()], []);
 
-        $configurationItem = new ConfigurationItem([
-            'configuration_id' => $configuration->id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-        ]);
+        foreach ($configurationItems as $item) {
+            $configurationItem = new ConfigurationItem([
+                'configuration_id' => $configuration->id,
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+            ]);
 
-        $configurationItem->save();
+            $configurationItem->save();
+        }
+
         $totalPrice = $configuration->items->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
 
         $configuration->update(['total_price' => $totalPrice]);
 
-        return redirect()->back()->with('success', 'Linh kiện ' . $product->product_name . ' đã được thêm vào cấu hình thành công.');
+        session()->forget('configuration_items');
+
+        return redirect()->route('buildpc')->with('success', 'Cấu hình đã được lưu thành công.');
     }
 
-   
-    public function show($id)
+    public function removeItemFromConfiguration($index)
     {
-        return view('buildpc::show');
+        $configurationItems = session()->get('configuration_items', []);
+
+        if (isset($configurationItems[$index])) {
+            unset($configurationItems[$index]);
+            session()->put('configuration_items', $configurationItems);
+        }
+
+        return redirect()->back()->with('success', 'Linh kiện đã được xóa khỏi cấu hình.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function addToCartMultiple(Request $request)
     {
-        return view('buildpc::edit');
-    }
+        $configurationItems = session()->get('configuration_items', []);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
+        foreach ($configurationItems as $item) {
+            $product = Product::findOrFail($item['product_id']);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+            CartItem::create([
+                'user_id' => auth()->id(),
+                'product_id' => $product->id,
+                'quantity' => $item['quantity'],
+                'price' => $product->price,
+            ]);
+        }
+
+        session()->forget('configuration_items');
+
+        return redirect()->route('cart.index')->with('success', 'Đã thêm các linh kiện vào giỏ hàng thành công.');
     }
 }

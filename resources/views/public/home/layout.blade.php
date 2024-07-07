@@ -33,29 +33,54 @@
                 @foreach ($saleproduct as $product)
                     <div class="product__item">
                         <div class="bg-white rounded-lg mr-2">
-                            <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                            <a href="{{ route('product.show', $product->slug) }}">
-                                <div class="product-img w-48 mx-auto">
-                                    <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
-                                </div>
-                            </a>
-                            <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
-                                <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
-                            </div>
-                            <div class="product-info p-3 h-40">
-                                <a href="{{ route('product.show', $product->slug) }}"
-                                    class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
-                                <div class="mt-3 inline-flex">
-                                    <div>
-                                        <p class="product-price line-through text-slate-500">
-                                            {{ number_format($product->price) }}
-                                        </p>
+                            <div class="bg-white rounded-lg mr-2 relative group">
+                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                                <a href="{{ route('product.show', $product->slug) }}">
+                                    <div class="product-img w-48 mx-auto">
+                                        <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
                                     </div>
-                                    <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
-                                        {{ $product->stock }}%
+                                </a>
+                                <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
+                                    <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                                </div>
+                                <div class="product-info p-3 h-40">
+                                    <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
+                                    <div class="mt-3 inline-flex">
+                                        <div>
+                                            <p class="product-price line-through text-slate-500">
+                                                {{ number_format($product->price) }}
+                                            </p>
+                                        </div>
+                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
+                                            {{ $product->stock }}%
+                                        </div>
+                                    </div>
+                                    <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
+                                </div>
+                                <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                        @auth
+                                            @if ($product->isLikedBy(auth()->user()))
+                                                <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                </form>
+                                            @else
+                                                <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            <i class="fa-solid fa-heart"></i>
+                                        @endauth
+                                    </div>
+                                    <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                        <i class="fa-solid fa-shopping-cart"></i>
                                     </div>
                                 </div>
-                                <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +110,7 @@
             <div class="autoplay-sliderr p-5 w-full md:w-2/3 h-96">
                 @foreach ($bestsellingProducts as $product)
                     <div class="product__item">
-                        <div class="bg-white rounded-lg mr-2 h-96">
+                        <div class="bg-white rounded-lg mr-2 h-96 relative group">
                             <!-- Assuming you want to display a hot tag -->
                             <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                             <a href="{{ route('product.show', $product->slug) }}">
@@ -111,6 +136,34 @@
                                 </div>
                                 <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
                             </div>
+                            <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                {{-- like --}}
+                                <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                    @auth
+                                        @if ($product->isLikedBy(auth()->user()))
+                                            <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                            </form>
+                                        @else
+                                            <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                            </form>
+                                        @endif
+                                    @else
+                                        <i class="fa-solid fa-heart"></i>
+                                    @endauth
+                                </div>
+                                {{-- end like --}}
+                                {{-- cart --}}
+                                <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                    <i class="fa-solid fa-shopping-cart"></i>
+                                </div>
+                                {{-- end cart --}}
+                            </div> 
                         </div>
                     </div>
                 @endforeach
@@ -148,7 +201,7 @@
 
 {{-- PC GAMEMING --}}
 <section>
-    <div class="produtc px-8 pt-6">
+    <div class="product px-8 pt-6">
         <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
             @foreach ($categories as $category)
                 <div class="text grid-cols-1 md:grid-cols-2 grid justify-between items-center pt-2 px-6">
@@ -161,33 +214,60 @@
                     <div class="autoplay-slider p-3">
                         @foreach ($category->products as $product)
                             <div class="product__item">
-                                <div class="bg-white rounded-lg mr-2">
+                                <div class="bg-white rounded-lg mr-2 h-96 relative group">
                                     <!-- Assuming you want to display a hot tag -->
                                     <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                                     <a href="{{ route('product.show', $product->slug) }}">
-                                        <div class="product-img w-48 mx-auto ">
-                                            <img src="{{ $product->primary_image_path }}"
-                                                alt="{{ $product->name }}">
+                                        <div class="product-img w-48 mx-auto">
+                                            <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}">
                                         </div>
                                     </a>
                                     <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
                                         <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
                                     </div>
                                     <div class="product-info p-3 h-40">
-                                        <a href="{{ route('product.show', $product->slug) }}"
-                                            class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
+                                        <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
                                         <div class="mt-3 inline-flex">
                                             <div>
                                                 <p class="product-price line-through text-slate-500">
-                                                    {{number_format ($product->price) }} VND
+                                                    {{ number_format($product->price) }} VND
                                                 </p>
                                             </div>
                                             <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
                                                 {{ $product->discount }}
                                             </div>
                                         </div>
-                                        <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
+                                        <div class="text-red-700 font-bold text-2xl mt-2">{{ number_format($product->price) }} VND</div>
                                     </div>
+                                    
+                                    <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        {{-- like --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                            @auth
+                                                @if ($product->isLikedBy(auth()->user()))
+                                                    <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                        <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                    </form>
+                                                @endif
+                                            @else
+                                                <i class="fa-solid fa-heart"></i>
+                                            @endauth
+                                        </div>
+                                        {{-- end like --}}
+                                        {{-- cart --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                            <i class="fa-solid fa-shopping-cart"></i>
+                                        </div>
+                                        {{-- end cart --}}
+                                    </div> 
                                 </div>
                             </div>
                         @endforeach

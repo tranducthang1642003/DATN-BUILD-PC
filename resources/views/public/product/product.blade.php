@@ -34,240 +34,258 @@
                                 </div>
                                 <div class="product-info p-3">
                                     <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
+                    <div class=" product-slide ">
+                        <div class=" autoplay-slider p-3">
+                                        @foreach ($products as $product)
+                                        <div class="product__item">
+                                            <div class="bg-white rounded-lg mr-2 relative group">
+                                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                                                <div class="product-img">
+                                                    <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
+                                                </div>
+                                                <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
+                                                    <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
+                                                </div>
+                                                <div class="product-info p-3">
+                                                    <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
                                         text-overflow: ellipsis;
                                         line-height: 25px;
                                         -webkit-line-clamp: 2;
                                         height: 50px;
                                         display: -webkit-box;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
-                                    <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                                    <div class="mt-1 inline-flex text-xs md:text-base">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
+                                                    <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
+                                                    <div class="mt-1 inline-flex text-xs md:text-base">
+                                                        <div>
+                                                            <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
+                                                        </div>
+                                                        <div class="bg-red-700font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                                            -25%
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
+                                                    <div class="flex items-center">
+                                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
+                                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
+                                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
+                                                            (12 Đánh giá)
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                    {{-- like --}}
+                                                    <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                                        @auth
+                                                        @if ($product->isLikedBy(auth()->user()))
+                                                        <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                        </form>
+                                                        @else
+                                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                        </form>
+                                                        @endif
+                                                        @else
+                                                        <i class="fa-solid fa-heart"></i>
+                                                        @endauth
+                                                    </div>
+                                                    {{-- end like --}}
+                                                    {{-- cart --}}
+                                                    <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                                        <i class="fa-solid fa-shopping-cart"></i>
+                                                    </div>
+                                                    {{-- end cart --}}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
-                                        </div>
-                                    </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
-                                            (12 Đánh giá)
-                                        </span>
-                                    </div>
+                                    </a>
+                                    @endforeach
                                 </div>
-                            </div>
-                        </div>
-                        </a>
-                        @endforeach
-                    </div>
 
-                    <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                    <div class="mt-1 inline-flex text-xs md:text-base">
-                        <div>
-                            <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
-                        </div>
-                        <div class="bg-red-700font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                            -25%
-                        </div>
-                    </div>
-                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
-                    <div class="flex items-center">
-                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                        <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                        <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
-                            (12 Đánh giá)
-                        </span>
-                    </div>
+
+            </section>
+        </div>
+    </div>
+
+    <div class="product__box-filter border mt-3 rounded-lg ">
+        <div class="info-filter-product p-2">
+            <p class="title font-medium">Khoảng giá:</p>
+            <div class="list-filter-product flex flex-wrap lg:flex-row ">
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">1 triệu - 2 triệu</a>
+                    <a href="">(12)</a>
                 </div>
-        </div>
-    </div>
-    </a>
-    @endforeach
-</div>
-
-
-</section>
-</div>
-</div>
-
-<div class="product__box-filter border mt-3 rounded-lg ">
-    <div class="info-filter-product p-2">
-        <p class="title font-medium">Khoảng giá:</p>
-        <div class="list-filter-product flex flex-wrap lg:flex-row ">
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">1 triệu - 2 triệu</a>
-                <a href="">(12)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">2 triệu - 5 triệu</a>
-                <a href="">(122)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">5 triệu - 7 triệu</a>
-                <a href="">(48)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">7 triệu - 10 triệu</a>
-                <a href="">(37)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">10 triệu - 15 triệu</a>
-                <a href="">(26)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">15 triệu - 20 triệu</a>
-                <a href="">(9)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">20 triệu - 50 triệu</a>
-                <a href="">(21)</a>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">2 triệu - 5 triệu</a>
+                    <a href="">(122)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">5 triệu - 7 triệu</a>
+                    <a href="">(48)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">7 triệu - 10 triệu</a>
+                    <a href="">(37)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">10 triệu - 15 triệu</a>
+                    <a href="">(26)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">15 triệu - 20 triệu</a>
+                    <a href="">(9)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">20 triệu - 50 triệu</a>
+                    <a href="">(21)</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="product__info-filter p-2">
-        <p class="title font-medium">Chọn theo thương hiệu:</p>
-        <div class="flex flex-wrap lg:flex-row list-filter-product">
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500 ">
-                <a href="">ASUS</a>
-                <a href="">(12)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">ASUS</a>
-                <a href="">(122)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">ASUS</a>
-                <a href="">(48)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">ASUS</a>
-                <a href="">(37)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">ASUS</a>
-                <a href="">(26)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">ASUS</a>
-                <a href="">(9)</a>
-            </div>
-            <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <a href="">ASUS</a>
-                <a href="">(21)</a>
+        <div class="product__info-filter p-2">
+            <p class="title font-medium">Chọn theo thương hiệu:</p>
+            <div class="flex flex-wrap lg:flex-row list-filter-product">
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500 ">
+                    <a href="">ASUS</a>
+                    <a href="">(12)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">ASUS</a>
+                    <a href="">(122)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">ASUS</a>
+                    <a href="">(48)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">ASUS</a>
+                    <a href="">(37)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">ASUS</a>
+                    <a href="">(26)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">ASUS</a>
+                    <a href="">(9)</a>
+                </div>
+                <div class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="">ASUS</a>
+                    <a href="">(21)</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="product__box-list border rounded-lg mt-3">
-    <div class="box-sort-product pl-3">
-        <div class="flex flex-wrap lg:flex-row md:flex-wrap">
-            <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <span>Giá tăng dần</span>
-            </a>
-            <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <span>Giá giảm dần</span>
-            </a>
-            <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <span>Trao đổi</span>
-            </a>
-            <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <span>Đánh giá</span>
-            </a>
-            <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                <span>Từ A->Z</span>
-            </a>
+    <div class="product__box-list border rounded-lg mt-3">
+        <div class="box-sort-product pl-3">
+            <div class="flex flex-wrap lg:flex-row md:flex-wrap">
+                <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <span>Giá tăng dần</span>
+                </a>
+                <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <span>Giá giảm dần</span>
+                </a>
+                <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <span>Trao đổi</span>
+                </a>
+                <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <span>Đánh giá</span>
+                </a>
+                <a href="" class="border p-2 mt-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <span>Từ A->Z</span>
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="product__list">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2">
-            @foreach ($products as $product)
-            <div class="product__item">
-                <div class="bg-white rounded-lg mr-2 relative">
-                    <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                    <div class="product-img">
-                        <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
-                    </div>
-                    <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
-                        <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
-                    </div>
-                    <div class="product-info p-3">
-                        <a href="" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
+        <div class="product__list">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2">
+                @foreach ($products as $product)
+                <div class="product__item">
+                    <div class="bg-white rounded-lg mr-2 relative group">
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                        <div class="product-img">
+                            <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
+                        </div>
+                        <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
+                        </div>
+                        <div class="product-info p-3">
+                            <a href="" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
                                 text-overflow: ellipsis;
                                 line-height: 25px;
                                 -webkit-line-clamp: 2;
                                 height: 50px;
                                 display: -webkit-box;
                                 -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
-                        <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                        <div class="mt-1 inline-flex text-xs md:text-base">
-                            <div>
-                                <p class="product-price line-through text-slate-500">{{ $product->discount }}
-                                </p>
+                            <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
+                            <div class="mt-1 inline-flex text-xs md:text-base">
+                                <div>
+                                    <p class="product-price line-through text-slate-500">{{ $product->discount }}
+                                    </p>
+                                </div>
+                                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                    -25%
+                                </div>
                             </div>
-                            <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                -25%
+                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">
+                                {{ $product->price }}
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
+                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
+                                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
+                                <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
+                                    (12 Đánh giá)
+                                </span>
                             </div>
                         </div>
-                        <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">
-                            {{ $product->price }}
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                            <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                            <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                            <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                            <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                            <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
-                                (12 Đánh giá)
-                            </span>
+                        <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            {{-- like --}}
+                            <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                @auth
+                                @if ($product->isLikedBy(auth()->user()))
+                                <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                </form>
+                                @else
+                                <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                </form>
+                                @endif
+                                @else
+                                <i class="fa-solid fa-heart"></i>
+                                @endauth
+                            </div>
+                            {{-- end like --}}
+                            {{-- cart --}}
+                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                <i class="fa-solid fa-shopping-cart"></i>
+                            </div>
+                            {{-- end cart --}}
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-            <div class="mt-1 inline-flex text-xs md:text-base">
-                <div>
-                    <p class="product-price line-through text-slate-500">{{ $product->discount }}
-                    </p>
-                </div>
-                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                    -25%
-                </div>
-            </div>
-            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">
-                {{ $product->price }}
-            </div>
-            <div class="flex items-center">
-                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-amber-400">&#9733;</span>
-                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                <span class="text-sm md:text-base xl:text-lg lg:text-xl text-gray-400">&#9733;</span>
-                <span class="text-xs md:text-sm xl:text-base lg:text-lg ml-2 text-gray-400">
-                    (12 Đánh giá)
-                </span>
+        </div>
+        <div class="flex justify-center">
+            <div class="pagination">
+                {{-- {{ $product->links() }} --}}
             </div>
         </div>
     </div>
-</div>
-@endforeach
-</div>
-</div>
-<div class="flex justify-center">
-    <div class="pagination">
-        {{-- {{ $product->links() }} --}}
-    </div>
-</div>
 </div>
 <div class="pt-3 mb-5">
     <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">

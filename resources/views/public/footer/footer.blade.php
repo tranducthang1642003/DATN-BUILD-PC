@@ -110,3 +110,13 @@
       </div>
     </div>
   </div>
+  @if(Session::has('message'))
+      <script>
+        swal("Message","{{Session::get('message')}}",'success'),
+        {
+          button:true,
+          button:"ok",
+          
+        }
+      </script>
+  @endif
