@@ -22,7 +22,7 @@ class AdminController extends Controller
         $lastMonthEnd = Carbon::now()->subDays(30)->startOfDay();// 2024-06-01
         $currentMonthStart = Carbon::now()->subDays(0)->endOfDay(); //2024-06-30
         $lastMonthStart = Carbon::now()->subDays(60)->startOfDay(); //2024-05-02
-        dd($lastMonthStart,  $currentMonthStart, $lastMonthEnd);
+        // dd($lastMonthStart,  $currentMonthStart, $lastMonthEnd);
         $totalRevenueCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
             ->sum('total_amount');
         $totalRevenueLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])
