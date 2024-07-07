@@ -31,7 +31,11 @@ class Product extends Model
         'updated_at',
     ];
 
-    
+    public function promotions()
+    {
+        return $this->belongsToMany(promotions::class,'product_promotions');
+    }
+
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');

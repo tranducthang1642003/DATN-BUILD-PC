@@ -18,6 +18,7 @@ class LikeController extends Controller
     {
         $user=Auth::User();
         $likeItem = wishlists::where('user_id', $user->id)->with('product')->get();
+        
         return view('public.dashboard.like',compact('likeItem'));
     }
     public function addlike(Product $product,Request $request)
