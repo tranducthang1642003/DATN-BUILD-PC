@@ -33,7 +33,6 @@ class CartController extends Controller
             $totalPrice -= $coupon['discount'];
         }
 
-        // Lấy ảnh chính của sản phẩm để hiển thị
         $cartItems->each(function ($cartItem) {
             $primary_image = $cartItem->product->images->firstWhere('is_primary', 1);
             $cartItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
@@ -57,7 +56,7 @@ class CartController extends Controller
             return redirect()->back()->withErrors('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
         }
 
-        // Lưu thông tin mã giảm giá vào session để sử dụng ở trang giỏ hàng
+       
         session()->put('coupon', [
             'code' => $coupon->promotion_code,
             'discount' => $coupon->discount,
@@ -66,9 +65,7 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success_message', 'Đã áp dụng mã giảm giá thành công.');
     }
 
-    // Các phương thức khác của CartController không có vấn đề, đã được triển khai đúng.
-
-    // Ví dụ phương thức thêm sản phẩm vào giỏ hàng
+   
     public function addToCart(Request $request)
     {
         $user = auth()->user();
@@ -97,4 +94,26 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success', 'Đã thêm sản phẩm vào giỏ hàng.');
     }
+
+    public function updateQuantity(Request $request, $cartItemId)
+{
+    $cartItem = CartItem::find($cartItemId);
+
+    if (!$cartItem) {
+        return response()->json(['success' => false, 'message' => 'Cart item not found.']);
+    }
+
+    // Validate and update the quantity
+    $change = $request->input('change', 0); // Change can be -1 or 1
+    $newQuantity = $cartItem->quantity + $change;
+
+    if ($newQuantity <= 0) {
+        $cartItem->delete(); // Remove item if quantity drops to zero or below
+    } else {
+        $cartItem->update(['quantity' => $newQuantity]);
+    }
+
+    return response()->json(['success' => true]);
+}
+
 }

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Modules\Cart\Entities\CartItem;
 use Modules\Order\Entities\Orders;
 use Modules\Order\Entities\Order_items;
+use Illuminate\Support\Facades\Mail;
+use Modules\Order\App\Emails\CheckoutEmail;
+
 
 class OrderController1 extends Controller
 {
@@ -17,6 +20,10 @@ class OrderController1 extends Controller
         $cartItems = CartItem::where('user_id', $user->id)
             ->with('product')
             ->get();
+            $cartItems->each(function ($cartItem) {
+                $primary_image = $cartItem->product->images->firstWhere('is_primary', 1);
+                $cartItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
+            });
 
         $total = $cartItems->sum(function ($cartItem) {
             return $cartItem->product->price * $cartItem->quantity;
@@ -49,11 +56,10 @@ class OrderController1 extends Controller
 
         $order = Orders::create([
             'user_id' => $user->id,
-            // 'order_number' => uniqid('ORD-'),
+            
             'total_amount' => $cartItems->sum(function ($cartItem) {
                 return $cartItem->product->price * $cartItem->quantity;
             }),
-            // 'status' => 'pending',
             // 'full_name' => $request->input('full-name'),
             // 'phone_number' => $request->input('phone-number'),
             // 'email' => $request->input('email'),
@@ -70,8 +76,8 @@ class OrderController1 extends Controller
             ]);
         }
 
-        // Xóa giỏ hàng sau khi đặt hàng thành công
         CartItem::where('user_id', $user->id)->delete();
+        Mail::to($user->email)->send(new CheckoutEmail($order));
 
         return redirect()->route('home')->with('success', 'Đặt hàng thành công.');
     }
