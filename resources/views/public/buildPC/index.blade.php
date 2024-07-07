@@ -1,30 +1,31 @@
 @include('public.header.index')
 
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+    <!-- Breadcrumb Navigation -->
     <nav class="bg-white mt-3 rounded-md w-full hidden md:block">
         <ol class="list-reset flex">
             <li><a href="#" class="text-black hover:text-blue-800">Trang chủ</a></li>
             <li><span class="mx-2 text-black"> > BUILD PC </span></li>
         </ol>
     </nav>
+
+    <!-- Product Banner -->
     <section>
-        <div class="product__banner">
-            <div class="mt-3 slider autoplay w-full max-w-max">
-                <div><a href="" class=""> <img class="rounded-lg"
-                            src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg"
-                            alt=""> </a></div>
-                <div><a href="" class=""> <img class="rounded-lg"
-                            src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg"
-                            alt=""> </a></div>
-            </div>
+        <div class="product__banner mt-3 slider autoplay w-full max-w-max">
+            @for ($i = 0; $i < 2; $i++)
+                <div><a href="#"><img class="rounded-lg" src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg" alt=""></a></div>
+            @endfor
         </div>
     </section>
+
+    <!-- Component Selection Buttons -->
     <div class="flex justify-start mb-4 space-x-4">
-        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn CPU</button>
-        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn Mainboard</button>
-        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn VGA</button>
-        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn RAM</button>
+        @foreach (['CPU', 'Mainboard', 'VGA', 'RAM'] as $component)
+            <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Chọn {{ $component }}</button>
+        @endforeach
     </div>
+
+    <!-- Component List Table -->
     <section>
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <table class="min-w-full divide-y divide-gray-200">
@@ -37,16 +38,12 @@
                                 </ul>
                             </td>
                             <td class="py-4 px-6 text-right">
-                                @php
-                                    $hasProduct = false;
-                                @endphp
+                                @php $hasProduct = false; @endphp
                                 @foreach ($configurationItems as $index => $item)
                                     @if ($item['category_id'] == $category->id)
-                                        @php
-                                            $hasProduct = true;
-                                        @endphp
+                                        @php $hasProduct = true; @endphp
                                         <p>{{ $item['product']->product_name }}</p>
-                                        <img src="{{ $item['image_path'] }}" alt="{{ $item['product']->product_name }} " class="w-20 h-20 p-2 text">
+                                        <img src="{{ $item['image_path'] }}" alt="{{ $item['product']->product_name }}" class="w-20 h-20 p-2">
                                     @endif
                                 @endforeach
                                 
@@ -72,13 +69,14 @@
             </table>
         </div>
 
+        <!-- Modals for Component Selection -->
         @foreach ($Productandcategory as $category)
             <div id="modelConfirm{{ $category->id }}" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 modal">
                 <div class="relative top-10 mx-auto shadow-xl rounded-md bg-white w-full lg:w-3/4">
                     <div class="flex justify-end p-2">
                         <button onclick="closeModal('modelConfirm{{ $category->id }}')" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 010-1.414z" clip-rule="evenodd"></path>
                             </svg>
                         </button>
                     </div>
@@ -91,23 +89,17 @@
                                     <div class="mb-4">
                                         <h5 class="text-md font-medium mb-2">Thương hiệu</h5>
                                         <div>
-                                            <label class="block">
-                                                <input type="checkbox" class="mr-2">Brand 1
-                                            </label>
-                                            <label class="block">
-                                                <input type="checkbox" class="mr-2">Brand 2
-                                            </label>
+                                            @foreach (['Brand 1', 'Brand 2'] as $brand)
+                                                <label class="block"><input type="checkbox" class="mr-2">{{ $brand }}</label>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="mb-4">
                                         <h5 class="text-md font-medium mb-2">Giá</h5>
                                         <div>
-                                            <label class="block">
-                                                <input type="checkbox" class="mr-2">0 - 2,000,000 VND
-                                            </label>
-                                            <label class="block">
-                                                <input type="checkbox" class="mr-2">2,000,000 - 4,000,000 VND
-                                            </label>
+                                            @foreach (['0 - 2,000,000 VND', '2,000,000 - 4,000,000 VND'] as $price)
+                                                <label class="block"><input type="checkbox" class="mr-2">{{ $price }}</label>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +108,7 @@
                                 @if ($category->products->isEmpty())
                                     <p>Không có sản phẩm nào.</p>
                                 @else
-                                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 ">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                                         @foreach ($category->products as $product)
                                             <form action="{{ route('add-component') }}" method="POST">
                                                 @csrf
@@ -144,38 +136,33 @@
         @endforeach
     </section>
 
+   
     <div class="container">
         <h3>Total Price: {{ number_format($totalPrice) }} VND</h3>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Xác nhận</button>
+        <button class="bg-green-500 text-white font-bold py-2 px-4 rounded"
+            onclick="event.preventDefault(); document.getElementById('save-configuration-form').submit();">Lưu cấu
+            hình</button>
+        <form id="save-configuration-form" action="{{ route('save-configuration') }}" method="POST"
+            style="display: none;">
+            @csrf
+        </form>
+
     </div>
     <br>
     <form action="{{ route('cart.add-multiple') }}" method="POST">
         @csrf
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm vào giỏ hàng</button>
     </form>
-    
 </div>
 
 @include('public.footer.footer')
-<script type="text/javascript">
-    window.openModal = function(modalId) {
-        document.getElementById(modalId).style.display = 'block';
-        document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden');
-    }
 
-    window.closeModal = function(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-        document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden');
-    }
+<script>
+function openModal(modalId) {
+    document.getElementById(modalId).classList.remove('hidden');
+}
 
-    document.onkeydown = function(event) {
-        event = event || window.event;
-        if (event.keyCode === 27) {
-            document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden');
-            let modals = document.getElementsByClassName('modal');
-            Array.prototype.slice.call(modals).forEach(i => {
-                i.style.display = 'none';
-            });
-        }
-    };
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+}
 </script>
