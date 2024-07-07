@@ -18,5 +18,6 @@
     "Review": true,
     "Build": true,
     "PCPC": true,
-    "BuildPC": true
+    "BuildPC": true,
+    "Promotions": true
 }

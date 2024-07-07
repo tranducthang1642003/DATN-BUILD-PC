@@ -1,88 +1,99 @@
-<div id="section-banner" class="content-section">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner top header</h2>
-            <div class="">
-                <!-- Thêm hình ảnh và thông tin cho mục Banner -->
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <img src="{{ asset('image/banner.webp') }}" alt="Banner" class="w-full" width="">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">Banner top header</h2>
-                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
-                        <div class="mt-4">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
-                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Thêm hình ảnh và thông tin cho mục Banner -->
-              
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <img src="{{ asset('image/bannre-pc.jpg') }}" alt="Banner" class="w-full">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">Banner Home</h2>
-                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
-                        <div class="mt-4">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
-                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
-                        </div>
-                    </div>
-                </div>
-      
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <img src="{{ asset('image/bannre-pc.jpg') }}" alt="Banner" class="w-full">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">{{ $setting->name }}</h2>
-                        <p class="text-gray-600 mt-2">Thông tin chi tiết về banner home</p>
-                        <div class="mt-4">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
-                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
-                        </div>
-                    </div>
-                </div>
+<style>
+    .products_active {
+        background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
+        color: white;
+    }
+</style>
 
+@include('admin.layout.header')
+
+<div class="m-4 pt-20">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Thêm mã giảm giá</div>
+
+                <div class="card-body">
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
+                    <form action="{{ route('vouchers.store') }}" method="POST">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="promotion_code">Mã giảm giá:</label>
+                            <input type="text" name="promotion_code" id="promotion_code" class="form-control @error('promotion_code') is-invalid @enderror" value="{{ old('promotion_code') }}" required>
+                            @error('promotion_code')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Mô tả:</label>
+                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="discount">Giảm giá (% hoặc số tiền):</label>
+                            <input type="number" name="discount" id="discount" class="form-control @error('discount') is-invalid @enderror" value="{{ old('discount') }}" min="0" step="any" required>
+                            @error('discount')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="start_date">Ngày bắt đầu:</label>
+                            <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date') }}" required>
+                            @error('start_date')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="end_date">Ngày kết thúc:</label>
+                            <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') is-invalid @enderror" value="{{ old('end_date') }}" required>
+                            @error('end_date')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product_id">Sản phẩm áp dụng:</label>
+                            <select name="product_id" id="product_id" class="form-control @error('product_id') is-invalid @enderror" required>
+                                <option value="">Chọn sản phẩm</option>
+                                @foreach($products as $product)
+                                <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('product_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Thêm mã giảm giá</button>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div id="section-poster" class="content-section">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Poster</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <!-- Thêm hình ảnh và thông tin cho mục Poster -->
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
-                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
-                        <div class="mt-4">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
-                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
-                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
-                        <div class="mt-4">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
-                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <img src="https://anphat.com.vn/media/banner/01_Jula6d3a3b63b24a183f22978ef03e59c8f.jpg" alt="Poster" width="100" class="ml-16">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">Poster 1</h2>
-                        <p class="text-gray-600 mt-2">Thông tin chi tiết về poster 1</p>
-                        <div class="mt-4">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Chỉnh sửa</button>
-                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2">Xóa</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Các hình ảnh và thông tin khác của Poster -->
-            </div>
-        </div>
+@include('admin.layout.fotter')
