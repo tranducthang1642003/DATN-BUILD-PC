@@ -30,8 +30,8 @@
                             <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->price }}" required>
                         </div>
                         <div class="mb-4">
-                            <label for="sale" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Giảm giá</label>
-                            <input type="number" name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->sale }}" required>
+                            <label for="stock" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Tồn kho</label>
+                            <input type="number" name="stock" id="stock" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->stock }}" required>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
@@ -56,9 +56,18 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="pb-4 my-4">
-                        <label for="product_code" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Mã Sản phẩm</label>
-                        <input type="text" name="product_code" id="product_code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->product_code }}" required>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+                        <div class="pb-4 my-4">
+                            <label for="product_code" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Mã Sản phẩm</label>
+                            <input type="text" name="product_code" id="product_code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->product_code }}" required>
+                        </div>
+                        <div class="pb-4 my-4">
+                            <label for="sale" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Giảm giá</label>
+                            <select name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                                <option value="yes" {{ $product->sale ? 'selected' : '' }}>Có</option>
+                                <option value="no" {{ !$product->sale ? 'selected' : '' }}>Không</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
