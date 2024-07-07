@@ -18,7 +18,10 @@ class LikeController extends Controller
     {
         $user=Auth::User();
         $likeItem = wishlists::where('user_id', $user->id)->with('product')->get();
-        
+        $likeItem->each(function ($likeItem) {
+            $primary_image = $likeItem->product->images->firstWhere('is_primary', 1);
+            $likeItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
+        });
         return view('public.dashboard.like',compact('likeItem'));
     }
     public function addlike(Product $product,Request $request)
