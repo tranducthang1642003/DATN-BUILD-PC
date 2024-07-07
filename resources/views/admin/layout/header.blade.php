@@ -66,13 +66,13 @@
                 </div>
                 <div class="mb-4">
                     <button id="voucher" class="button_sidebar voucher_active"><ion-icon class="icon_sidebar" name="receipt"></ion-icon>Mã giảm giá</button>
-                    <a class="w-full button-none" id="voucher_list" href="{{ route('voucher') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="voucher_add" href="{{ route('add_voucher') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                    <a class="w-full button-none" id="voucher_list" href="{{ route('vouchers.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="voucher_add" href="{{ route('vouchers.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
                 </div>
                 <div class="mb-4">
                     <button id="setting" class="button_sidebar setting_active"><ion-icon class="icon_sidebar" name="settings"></ion-icon>Cài đặt</button>
-                    <a class="w-full button-none" id="setting_list" href="{{ route('banner') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a>
-                    <a class="w-full button-none" id="setting_add" href="{{ route('add_banner') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                    <a class="w-full button-none" id="setting_list" href="{{ route('settings.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a>
+                    <a class="w-full button-none" id="setting_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Menu</button></a>
                 </div>
             </div>
 
