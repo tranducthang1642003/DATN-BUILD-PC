@@ -9,6 +9,7 @@ use Modules\Category\Entities\Category;
 use Modules\Cart\Entities\CartItem;
 use Modules\Like\Entities\wishlists;
 use Modules\Product\Entities\Promotion;
+use Modules\Review\Entities\Review;
 
 class Product extends Model
 {
@@ -27,8 +28,8 @@ class Product extends Model
         'featured',
         'status',
         'category_id',
-        'brand_id', 
-        'stock', 
+        'brand_id',
+        'stock',
         'created_at',
         'updated_at',
     ];
@@ -63,7 +64,7 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    
+
     public function cart()
     {
         return $this->hasMany(CartItem::class);
@@ -76,11 +77,15 @@ class Product extends Model
     {
         return $this->hasMany(CartItem::class);
     }
-    
+
     public function likes()
     {
         return $this->hasMany(Wishlists::class);
     }
-    
-    
+
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
