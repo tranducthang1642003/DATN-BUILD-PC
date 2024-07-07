@@ -72,7 +72,8 @@ class ProductControllerAdmin extends Controller
             'product_code' => 'required|string',
             'color' => 'required|string',
             'quantity' => 'required|numeric',
-            'sale' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'sale' => 'required|in:yes,no',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -95,14 +96,15 @@ class ProductControllerAdmin extends Controller
             $product->product_code = $request->input('product_code');
             $product->color = $request->input('color');
             $product->quantity = $request->input('quantity');
-            $product->sale = $request->input('sale');
+            $product->stock = $request->input('stock');
+            $product->sale = $request->input('sale') === 'yes';
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');
             $product->category_id = $request->input('category_id');
             $product->brand_id = $request->input('brand_id');
             $product->price = $request->input('price');
             $product->description = $request->input('description');
-            $product->short_description = $request->input('specifications');
+            $product->specifications = $request->input('specifications');
             $product->save();
 
             if ($request->hasFile('image')) {
@@ -174,7 +176,8 @@ class ProductControllerAdmin extends Controller
             'product_code' => 'required|string',
             'color' => 'required|string',
             'quantity' => 'required|numeric',
-            'sale' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'sale' => 'required|in:yes,no',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -211,14 +214,15 @@ class ProductControllerAdmin extends Controller
             $product->product_code = $request->input('product_code');
             $product->color = $request->input('color');
             $product->quantity = $request->input('quantity');
-            $product->sale = $request->input('sale');
+            $product->stock = $request->input('stock');
+            $product->sale = $request->input('sale') === 'yes';
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');
             $product->category_id = $request->input('category_id');
             $product->brand_id = $request->input('brand_id');
             $product->price = $request->input('price');
             $product->description = $request->input('description');
-            $product->short_description = $request->input('specifications');
+            $product->specifications = $request->input('specifications');
             $product->save();
 
             $primaryImage = new ProductImage();

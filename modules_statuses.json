@@ -19,6 +19,6 @@
     "Build": true,
     "PCPC": true,
     "BuildPC": true,
-    "Like":true,
-    "Promotions":true
+    "Promotions": true,
+    "Like":true
 }
