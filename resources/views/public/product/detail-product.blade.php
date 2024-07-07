@@ -310,7 +310,7 @@
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($similarProducts as $product)
                         <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                            <div class="bg-white rounded-lg shadow-md p-4 h-96">
+                            <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
                                 <a href="{{ route('product.show', $product->slug) }}">
                                     <div class="product-img">
                                         <img src="{{ $product->primary_image_path }}" alt="Primary Image">
@@ -327,6 +327,34 @@
                                                     class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
                                             @endif
                                         </div>
+                                        <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                            {{-- like --}}
+                                            <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                                @auth
+                                                    @if ($product->isLikedBy(auth()->user()))
+                                                        <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                        </form>
+                                                    @else
+                                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                        </form>
+                                                    @endif
+                                                @else
+                                                    <i class="fa-solid fa-heart"></i>
+                                                @endauth
+                                            </div>
+                                            {{-- end like --}}
+                                            {{-- cart --}}
+                                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                                <i class="fa-solid fa-shopping-cart"></i>
+                                            </div>
+                                            {{-- end cart --}}
+                                        </div>    
                                     </div>
                                 </a>
                             </div>
@@ -341,7 +369,7 @@
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($recentlyViewedProducts as $product)
                         <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                            <div class="bg-white rounded-lg shadow-md p-4 h-96">
+                            <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
                                 <a href="{{ route('product.show', $product->slug) }}">
                                     <div class="product-img">
                                         <img class="w-full h-48 object-cover"
@@ -360,6 +388,34 @@
                                                     class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
                                             @endif
                                         </div>
+                                        <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                            {{-- like --}}
+                                            <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                                @auth
+                                                    @if ($product->isLikedBy(auth()->user()))
+                                                        <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                        </form>
+                                                    @else
+                                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                        </form>
+                                                    @endif
+                                                @else
+                                                    <i class="fa-solid fa-heart"></i>
+                                                @endauth
+                                            </div>
+                                            {{-- end like --}}
+                                            {{-- cart --}}
+                                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                                <i class="fa-solid fa-shopping-cart"></i>
+                                            </div>
+                                            {{-- end cart --}}
+                                        </div> 
                                     </div>
                                 </a>
                             </div>

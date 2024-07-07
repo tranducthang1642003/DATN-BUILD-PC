@@ -17,7 +17,7 @@
             <tbody class="align-middle">
                 @foreach ($likeItem as $item)
                 <tr class="border">
-                    <td class="py-2 flex items-center justify-center"><img src="{{ $item->product->image_url }}"
+                    <td class="py-2 flex items-center justify-center"><img src="{{ $item->primary_image_path }}"
                             alt="" class="w-20 h-20 p-2 tex"></td>
                     <td>
                         <span>

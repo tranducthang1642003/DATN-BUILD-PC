@@ -29,7 +29,7 @@
                         <div class="autoplay-slider p-3">
                             @foreach ($products as $product)
                             <div class="product__item">
-                                <div class="bg-white rounded-lg mr-2 relative">
+                                <div class="bg-white rounded-lg mr-2 relative group">
                                     <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                                     <div class="product-img">
                                         <a href="{{ route('product.show', $product->slug) }}"><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}" ></a>
@@ -66,6 +66,34 @@
                                             </span>
                                         </div>
                                     </div>
+                                    <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        {{-- like --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                            @auth
+                                                @if ($product->isLikedBy(auth()->user()))
+                                                    <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                        <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                    </form>
+                                                @endif
+                                            @else
+                                                <i class="fa-solid fa-heart"></i>
+                                            @endauth
+                                        </div>
+                                        {{-- end like --}}
+                                        {{-- cart --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                            <i class="fa-solid fa-shopping-cart"></i>
+                                        </div>
+                                        {{-- end cart --}}
+                                    </div> 
                                 </div>
                             </div>
                             </a>
@@ -184,7 +212,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2">
                 @foreach ($products as $product)
                     <div class="product__item">
-                        <div class="bg-white rounded-lg mr-2 relative">
+                        <div class="bg-white rounded-lg mr-2 relative group">
                             <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                             <div class="product-img">
                                 <a href=""><img class="w-32 mx-auto md:w-48"
@@ -231,6 +259,34 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                {{-- like --}}
+                                <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                    @auth
+                                        @if ($product->isLikedBy(auth()->user()))
+                                            <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                            </form>
+                                        @else
+                                            <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                            </form>
+                                        @endif
+                                    @else
+                                        <i class="fa-solid fa-heart"></i>
+                                    @endauth
+                                </div>
+                                {{-- end like --}}
+                                {{-- cart --}}
+                                <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                    <i class="fa-solid fa-shopping-cart"></i>
+                                </div>
+                                {{-- end cart --}}
+                            </div> 
                         </div>
                     </div>
                 @endforeach
