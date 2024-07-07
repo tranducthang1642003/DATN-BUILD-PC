@@ -51,11 +51,11 @@
             <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $user->id }}</td>
-                <td class="px-4 py-2">{{ $user->username }}</td>
+                <td class="px-4 py-2">{{ $user->name }}</td>
                 <td class="px-4 py-2">{{ $user->email }}</td>
                 <td class="px-4 py-2">{{ $user->phone }}</td>
                 <td class="px-4 py-2">{{ $user->address }}</td>
-                <td class="px-4 py-2">{{ $user->remember_token }}</td>
+                <td class="px-4 py-2">{{ ($user->remember_token)?($user->remember_token):0 }}</td>
                 <td class="px-4 py-2">{{ $user->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">

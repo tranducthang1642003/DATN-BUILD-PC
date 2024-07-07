@@ -12,7 +12,17 @@ class Settings extends Model
         'id',
         'name',
         'images_url',
-        'created_at',
-        'updated_at',
+        'image_type_id',
     ];
+    public function imageType()
+    {
+        return $this->belongsTo(ImageType::class, 'image_type_id', 'id');
+    }
+
+    public function scopeOfType($query, $typeName)
+    {
+        return $query->whereHas('imageType', function ($q) use ($typeName) {
+            $q->where('name', $typeName);
+        });
+    }
 }

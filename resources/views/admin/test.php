@@ -1,78 +1,99 @@
 <style>
-    .brand_active {
+    .products_active {
         background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
         color: white;
-    }
-
-    .trix-contents {
-        max-height: 280px;
-        overflow-y: auto;
-        min-height: 280px;
     }
 </style>
 
 @include('admin.layout.header')
 
-<div class="m-4 pt-20 font-sans antialiased">
-    <form action="{{ route('brand.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="w-full">
-            <h2 class="text-2xl font-semibold text-slate-800 mb-8">Thêm mới Thương hiệu</h2>
-            <div class="bg-white p-8 rounded-lg shadow-lg w-full grid lg:grid-cols-2 sm:grid-cols-1 gap-4">
-                <div class="p-4">
-                    <div class=" gap-4 mb-10">
-                        <div class="mb-4">
-                            <label for="brand_name" class="block text-sm font-medium text-slate-700 mb-1">Tên Thương hiệu</label>
-                            <input type="text" name="brand_name" id="brand_name" class="border border-slate-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $brand->brand_name }} required>
-                        </div>
+<div class="m-4 pt-20">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Thêm mã giảm giá</div>
+
+                <div class="card-body">
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="mb-10">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
-                            <div class="flex items-center space-x-4">
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="featured" value="yes" {{ $brand->featured ? 'checked' : '' }} class="form-radio text-blue-600">
-                                    <span class="ml-2">Có</span>
-                                </label>
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="featured" value="no" {{ !$brand->featured ? 'checked' : '' }} class="form-radio text-blue-600">
-                                    <span class="ml-2">Không</span>
-                                </label>
-                            </div>
+                    @endif
+
+                    <form action="{{ route('vouchers.store') }}" method="POST">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="promotion_code">Mã giảm giá:</label>
+                            <input type="text" name="promotion_code" id="promotion_code" class="form-control @error('promotion_code') is-invalid @enderror" value="{{ old('promotion_code') }}" required>
+                            @error('promotion_code')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
-                        <div class="mb-10">
-                            <label for="status" class="block text-sm font-medium text-slate-700 mb-1">Trạng thái</label>
-                            <select name="status" id="status" class="border border-slate-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>
-                                <option value="1" {{ $brand->status == 1 ? 'selected' : '' }}>Còn hàng</option>
-                                <option value="2" {{ $brand->status == 2 ? 'selected' : '' }}>Hết hàng</option>
-                                <option value="3" {{ $brand->status == 3 ? 'selected' : '' }}>Đã xóa</option>
+
+                        <div class="form-group">
+                            <label for="description">Mô tả:</label>
+                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="discount">Giảm giá (% hoặc số tiền):</label>
+                            <input type="number" name="discount" id="discount" class="form-control @error('discount') is-invalid @enderror" value="{{ old('discount') }}" min="0" step="any" required>
+                            @error('discount')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="start_date">Ngày bắt đầu:</label>
+                            <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date') }}" required>
+                            @error('start_date')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="end_date">Ngày kết thúc:</label>
+                            <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') is-invalid @enderror" value="{{ old('end_date') }}" required>
+                            @error('end_date')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product_id">Sản phẩm áp dụng:</label>
+                            <select name="product_id" id="product_id" class="form-control @error('product_id') is-invalid @enderror" required>
+                                <option value="">Chọn sản phẩm</option>
+                                @foreach($products as $product)
+                                <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
+                                @endforeach
                             </select>
+                            @error('product_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
-                    </div>
-                </div>
-                <div class="p-4">
-                    <div class="mb-4">
-                        <label for="description" class="block text-sm font-medium text-slate-700 mb-1">Mô tả loại</label>
-                        <input id="description" type="hidden" name="description">
-                        <trix-editor class="trix-contents" input="description">{!! ($brand->description) !!}</trix-editor>
-                    </div>
-                    <div class="flex justify-end mt-6">
-                        <button type="submit" class="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600">Lưu</button>
-                    </div>
+
+                        <button type="submit" class="btn btn-primary">Thêm mã giảm giá</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 </div>
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
 
 @include('admin.layout.fotter')
