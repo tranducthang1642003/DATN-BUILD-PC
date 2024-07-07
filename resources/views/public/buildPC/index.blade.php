@@ -50,7 +50,7 @@
                                 Thay đổi sản phẩm
                             </button>
                             @else
-                            <button class="bg-rose-500 text-white rounded-md px-4 py-2 hover:bg-rose-700 transition flex" onclick="openModal('modelConfirm{{ $category->id }}')">
+                            <button class="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-rose-700 transition flex" onclick="openModal('modelConfirm{{ $category->id }}')">
                                 {{ $category->category_name }}
                             </button>
                             @endif
