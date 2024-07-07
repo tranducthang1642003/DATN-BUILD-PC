@@ -14,18 +14,17 @@ class BlogCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $blog_categoryQuery = CategoryBlog::all();
+        $blog_category = CategoryBlog::all();
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         if ($startDate && $endDate) {
-            $blog_categoryQuery->whereBetween('created_at', [$startDate, $endDate]);
+            $blog_category->whereBetween('created_at', [$startDate, $endDate]);
         }
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $blog_categoryQuery->where('blog_name', 'like', '%' . $keyword . '%');
+            $blog_category->where('blog_name', 'like', '%' . $keyword . '%');
         }
-        $blog_category = $blog_categoryQuery->paginate(10);
-
+        // dd($blog_category);
         return view('admin.blog.Blog_category', compact('blog_category'));
     }
     public function edit($id)
@@ -77,48 +76,20 @@ class BlogCategoryController extends Controller
 
     public function add()
     {
-        $category_blog = CategoryBlog::all();
-        $blog = blogs::with('category_blog');
-        return view('admin.blog.add', compact('blog', 'category_blog'));
+        return view('admin.blog.add_category');
     }
     public function add_blog_category(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'featured' => 'required|in:0,1',
-            'blog_image' => 'required',
-            // 'user_id' => 'required|numeric',
-            'category_blog_id' => 'required|numeric',
+            'name' => 'required|string',
         ]);
 
-        // dd($validator);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        $blog_category = new CategoryBlog();
+        $blog_category->name = $request->input('name');
+        $blog_category->save();
 
-        try {
-            $blog = new blogs();
-            $blog->title = $request->input('title');
-            $blog->slug = Str::slug($request->input('title'), '-');
-            $blog->content = $request->input('content');
-            // $blog->blog_image = $request->input('blog_image');
-            $blog->featured = $request->input('featured');
-            // $blog->user_id = $request->input('user_id');
-            $blog->user_id = 1;
-            $blog->category_blog_id = $request->input('category_blog_id');
-            if ($blog_image = $request->file('blog_image')) {
-                $fileName = time() . '_' . $blog_image->getClientOriginalName();
-                $blog_image->move(public_path('blog_image'), $fileName);
-                $blog->blog_image = 'blog_image/' . $fileName;
-            }
-            $blog->save();
-
-            return redirect()->route('blog')->with('success', 'Thêm sản phẩm thành công!');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            return redirect()->back()->withInput()->withErrors('Thêm sản phẩm thất bại.');
-        }
+        return redirect()->route('blog_category')
+            ->with('success', 'menu has been created successfully.');
     }
 
     public function destroy($id)

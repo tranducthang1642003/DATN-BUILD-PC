@@ -53,7 +53,7 @@
                 <div class="mb-4">
                     <button id="blog" class="button_sidebar blog_active"><ion-icon class="icon_sidebar" name="create"></ion-icon>Bài viết</button>
                     <a class="w-full button-none" id="blog_list" href="{{ route('blog') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="blog_add" href="{{ route('blog_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh mục bài viết</button></a>
+                    <a class="w-full button-none" id="blog_add" href="{{ route('blog_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh mục</button></a>
                 </div>
                 <div class="mb-4">
                     <button id="order" class="button_sidebar order_active"><ion-icon class="icon_sidebar" name="document-text"></ion-icon>Đơn hàng</button>
