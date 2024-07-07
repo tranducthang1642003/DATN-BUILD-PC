@@ -35,7 +35,11 @@
                         <span>{{ $error }}</span><br>
                     @endforeach
                 </div>
+                
             @endif
+            @error('email')
+            <small class="text-red-500">{{$message}}</small>   
+           @enderror
         </div>
 
         <div class="mb-4">

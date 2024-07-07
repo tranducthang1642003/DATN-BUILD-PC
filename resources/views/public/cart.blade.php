@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@include('public.header.index')
 <style>
     .table-fixed {
         table-layout: fixed;
@@ -24,21 +24,19 @@
                 < mua thêm sản phẩm khác</span></a>
     </div>
     <div class="flex flex-wrap px-2 justify-between">
-        <div class="w-full lg:w-7/12 table-responsive mb-5">
+        <div class="w-full lg:w-8/12 table-responsive mb-5" style="max-height: 500px; overflow-y: auto;">
 
-            <table
-                class="w-full bg-white border border-gray-200 divide-y divide-gray-200 text-center hover:border-spacing-2 table-fixed ">
-                <thead class="bg-gray-800 text-white">
+            <table class="w-full">
+                <thead>
                     <tr>
                         <th class="py-2">Hình</th>
-                        <th class="py-2">Tên sản phẩm</th>
-                        <th class="py-2">Giá</th>
+                        <th></th>
                         <th class="py-2">Số lượng</th>
-                        <th class="py-2">Tôngt tiền</th>
-                        <th class="py-2">Xóa</th>
+                        <th class="py-2">Giá</th>
+                        <th class="py-2">Tổng tiền</th>
+                        <th class="py-2">Chỉnh sữa</th>
                     </tr>
                 </thead>
-
                 <tbody class="align-middle">
                     @foreach ($cartItems as $item)
                         <tr class="border">
@@ -67,16 +65,19 @@
                                 <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="fa fa-times">X</i></button>
+                                    <button type="submit" class="bg-red-400 hover:bg-red-500 text-white font-bold py-1 px-3 rounded">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </form>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                            
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="w-full lg:w-4/12">
+        <div class="w-full lg:w-3/12">
             <div class=" mx-auto border-2">
                 <div class="flex justify-between items-center px-4 py-3 border-b">
                     <h1 class="text-lg font-bold">
@@ -146,3 +147,4 @@
             .catch(error => console.error('Error:', error));
     }
 </script>
+@include('public.footer.footer')

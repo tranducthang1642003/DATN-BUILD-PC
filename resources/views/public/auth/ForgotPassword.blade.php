@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <div class="input-group flex justify-center">
-                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-800 color-changing">Send Password Reset Link</button>
+                    <button type="submit" class="px-6 py-3 bg-blue-500 hover:bg-yellow-600  text-white rounded-lg hover:bg-blue-800 color-changing">Send Password Reset Link</button>
                 </div>
             </div>
         </form>
