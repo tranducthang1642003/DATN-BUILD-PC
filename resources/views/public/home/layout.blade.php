@@ -64,13 +64,13 @@
                                                 <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
                                                 </form>
                                             @else
                                                 <form id="like-form" action="{{ route('addlike') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
                                                 </form>
                                             @endif
                                         @else
