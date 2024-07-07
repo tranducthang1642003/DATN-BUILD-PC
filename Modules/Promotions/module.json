@@ -1,0 +1,11 @@
+{
+    "name": "Promotions",
+    "alias": "promotions",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Promotions\\App\\Providers\\PromotionsServiceProvider"
+    ],
+    "files": []
+}

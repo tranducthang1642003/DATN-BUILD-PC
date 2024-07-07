@@ -82,7 +82,7 @@
             </div>
         </div>
     </div>
-    <canvas id="revenueCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
+    <canvas id="revenueCanvas" class="h-20 sm:h-20 bg-white rounded-lg" width="300" height="150"></canvas>
     <canvas id="newOrdersCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
     <canvas id="soldProductsCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
     <canvas id="newCustomersCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
@@ -90,6 +90,8 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var revenueCtx = document.getElementById('revenueCanvas').getContext('2d');
+        revenueCtx.width = 200;
+        revenueCtx.height = 200;
         var newOrdersCtx = document.getElementById('newOrdersCanvas').getContext('2d');
         var soldProductsCtx = document.getElementById('soldProductsCanvas').getContext('2d');
         var newCustomersCtx = document.getElementById('newCustomersCanvas').getContext('2d');
@@ -98,7 +100,7 @@
         var newOrdersData = {!! $currentMonthOrdersData !!};
         var soldProductsData = {!! $currentMonthSoldProductsData !!};
         var newCustomersData = {!! $currentMonthNewCustomersData !!};
-
+        var labelsData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
         var chartOptions = {
             scales: {
                 y: {
@@ -110,7 +112,7 @@
         var revenueChart = new Chart(revenueCtx, {
             type: 'bar',
             data: {
-                labels: revenueData.labels,
+                labels: labelsData,
                 datasets: [{
                     label: 'Doanh thu',
                     data: revenueData.data,
@@ -123,7 +125,7 @@
         var newOrdersChart = new Chart(newOrdersCtx, {
             type: 'bar',
             data: {
-                labels: newOrdersData.labels,
+                labels: labelsData,
                 datasets: [{
                     label: 'Đơn hàng mới',
                     data: newOrdersData.data,
@@ -136,7 +138,7 @@
         var soldProductsChart = new Chart(soldProductsCtx, {
             type: 'bar',
             data: {
-                labels: soldProductsData.labels,
+                labels: labelsData,
                 datasets: [{
                     label: 'Sản phẩm đã bán',
                     data: soldProductsData.data,
@@ -149,7 +151,7 @@
         var newCustomersChart = new Chart(newCustomersCtx, {
             type: 'bar',
             data: {
-                labels: newCustomersData.labels,
+                labels: labelsData,
                 datasets: [{
                     label: 'Khách hàng mới',
                     data: newCustomersData.data,
