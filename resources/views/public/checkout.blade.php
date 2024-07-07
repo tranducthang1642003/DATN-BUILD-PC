@@ -1,4 +1,4 @@
-@include('public.header.index')
+{{-- @include('public.header.index')
 <div class="container mx-auto">
   <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 sm:grid-cols-1">
     <div class="col-span-1">
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="mb-4 border-b-2 border-yellow-500 p-2 mt-4">
-          <h1 class="text-xl sm:text-3xl md:text-3xl  font-bold font-bold text-orange-600">Phương thức thanh toán</h1>
+          <h1 class="text-xl sm:text-3xl md:text-3xl   font-bold text-orange-600">Phương thức thanh toán</h1>
         </div>
         <div>
           <label class="inline-flex items-center mb-2">
@@ -81,7 +81,7 @@
           </div>
         </div>
         <div class="border mt-5 p-2 bg-gray-300">
-          <span class="text-xl sm:text-3xl md:text-3xl  font-bold font-bold text-orange-600">Tổng tiền</span>
+          <span class="text-xl sm:text-3xl md:text-3xl  font-bold text-orange-600">Tổng tiền</span>
         </div>
         <div class="border p-4">
           <div class="flex justify-between p-2 border-b-2 text-lg sm:text-xl md:text-2xl lg:text-2xl ml-2">
@@ -100,4 +100,103 @@
     </div>
   </div>
 </div>
-@include('public.footer.footer')
+@include('public.footer.footer') --}}
+
+{{-- <form action="{{ route('orders.store') }}" method="POST">
+  @csrf
+  <!-- Các trường nhập thông tin khách hàng -->
+  <input type="text" name="full-name" placeholder="Nhập họ và tên" required>
+  <input type="text" name="phone-number" placeholder="Nhập số điện thoại" required>
+  <input type="email" name="email" placeholder="Nhập email" required>
+  <input type="text" name="address" placeholder="Nhập địa chỉ" required>
+  <input type="text" name="city" placeholder="Nhập thành phố" required>
+  <input type="text" name="district" placeholder="Nhập quận/huyện" required>
+  
+  <!-- Lựa chọn phương thức thanh toán -->
+  <label><input type="radio" name="payment-method" value="cash" required> Thanh toán bằng tiền mặt</label>
+  <label><input type="radio" name="payment-method" value="momo" required> Thanh toán bằng MoMo</label>
+  <label><input type="radio" name="payment-method" value="vnpay" required> Thanh toán bằng VNPay</label>
+
+  <!-- Hiển thị thông tin giỏ hàng -->
+  <div class="bg-white p-8 border shadow-md mt-4">
+    <h1 class="text-xl font-bold text-orange-600 mb-4">Thông tin đơn hàng</h1>
+    @foreach ($cartItems as $item)
+      <div class="flex items-center justify-between border-b-2 py-2">
+        <div class="flex items-center">
+          <img src="{{ $item['product_image_url'] }}" alt="{{ $item['product_name'] }}" class="w-16 h-16 mr-4">
+          <span>{{ $item['product_name'] }}</span>
+        </div>
+        <div>
+          <span>{{ $item['quantity'] }} x {{ number_format($item['price'], 0, ',', '.') }} VNĐ</span>
+        </div>
+      </div>
+    @endforeach
+
+    <!-- Tổng tiền -->
+    <div class="flex justify-between mt-4">
+      <span class="font-bold">Tổng tiền:</span>
+      <span>{{ number_format($total, 0, ',', '.') }} VNĐ</span>
+    </div>
+  </div>
+
+  <!-- Nút xác nhận thanh toán -->
+  <button type="submit" class="col-span-2 md:col-span-1 bg-yellow-400 text-white px-4 py-2 rounded w-70% hover:bg-yellow-500 mt-4">Xác nhận thanh toán</button>
+</form> --}}
+
+
+
+
+<!-- resources/views/orders/checkout.blade.php -->
+<!-- resources/views/orders/checkout.blade.php -->
+
+
+<div class="container mx-auto mt-8">
+    <h1 class="text-2xl font-bold mb-4">Xác nhận đặt hàng</h1>
+    
+    <div class="bg-white p-8 border shadow-md">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Thông tin đơn hàng</h2>
+        
+        @foreach ($cartItems as $item)
+        <div class="flex items-center justify-between border-b py-2">
+            <div class="flex items-center">
+                <img src="{{ $item['product_image_url'] }}" alt="{{ $item['product_name'] }}" class="w-16 h-16 mr-4">
+                <span>{{ $item['product_name'] }}</span>
+            </div>
+            <div>
+                <span>{{ $item['quantity'] }} x {{ number_format($item['price'], 0, ',', '.') }} VNĐ</span>
+            </div>
+        </div>
+        @endforeach
+        
+        <div class="flex justify-between mt-4">
+            <span class="font-bold">Tổng tiền:</span>
+            <span>{{ number_format($total, 0, ',', '.') }} VNĐ</span>
+        </div>
+    </div>
+
+    <!-- Form xác nhận đặt hàng -->
+    <form action="{{ route('orders.placeOrder') }}" method="POST" class="mt-8">
+        @csrf
+        <!-- Các trường thông tin khách hàng -->
+        <input type="text" name="full-name" placeholder="Nhập họ và tên" required class="border border-gray-300 px-4 py-2 rounded w-full mb-4">
+        <input type="text" name="phone-number" placeholder="Nhập số điện thoại" required class="border border-gray-300 px-4 py-2 rounded w-full mb-4">
+        <input type="email" name="email" placeholder="Nhập email" required class="border border-gray-300 px-4 py-2 rounded w-full mb-4">
+        <input type="text" name="address" placeholder="Nhập địa chỉ" required class="border border-gray-300 px-4 py-2 rounded w-full mb-4">
+        <input type="text" name="city" placeholder="Nhập thành phố" required class="border border-gray-300 px-4 py-2 rounded w-full mb-4">
+        <input type="text" name="district" placeholder="Nhập quận/huyện" required class="border border-gray-300 px-4 py-2 rounded w-full mb-4">
+        
+        <!-- Lựa chọn phương thức thanh toán -->
+        <label class="block mb-4">
+            <input type="radio" name="payment-method" value="cash" required> Thanh toán bằng tiền mặt
+        </label>
+        <label class="block mb-4">
+            <input type="radio" name="payment-method" value="momo" required> Thanh toán bằng MoMo
+        </label>
+        <label class="block mb-4">
+            <input type="radio" name="payment-method" value="vnpay" required> Thanh toán bằng VNPay
+        </label>
+
+        <!-- Nút xác nhận đặt hàng -->
+        <button type="submit" class="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-500 mt-4">Xác nhận đặt hàng</button>
+    </form>
+</div>

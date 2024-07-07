@@ -21,6 +21,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('apply.coupon');
 
-    Route::get('checkout', [CartController::class, 'checkout']);
+  
 
 });

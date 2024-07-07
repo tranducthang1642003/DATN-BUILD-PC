@@ -107,11 +107,11 @@
                     <span>$55.00</span>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mt-5">
-                  <a href="checkout">
-                    <button
-                    class="col-span-2 md:col-span-1 bg-yellow-400 text-white px-4 py-2 rounded w-70% hover:bg-yellow-500">Đặt
-                    hàng</button>
-                  </a>
+                    <form action="{{ route('orders.checkout') }}" method="GET" class="mt-8">
+                        @csrf
+                        <button type="submit" class="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-500 mt-4">Xác nhận đặt hàng</button>
+                    </form>
+                    
                     <button
                         class="col-span-2 md:col-span-1 bg-blue-500 text-white px-4 py-2 rounded w-70% hover:bg-blue-600">Trả
                         góp</button>
