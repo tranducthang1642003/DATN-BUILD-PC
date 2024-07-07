@@ -1,5 +1,5 @@
 .product-slide .slick-next {
-    right: 5px !important;
+    right: 0px !important;
     width: 28px !important;
     height: 44px !important;
     background: #d9d9d9 !important;
@@ -64,7 +64,7 @@
 }
 
 .product-detail__images .slick-next,
-.slick-prev {
+.product-detail__images .slick-prev {
     background: #d9d9d9 !important;
     width: 25px !important;
     height: 44px !important;
