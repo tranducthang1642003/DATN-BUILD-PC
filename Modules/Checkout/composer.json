@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/checkout",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Checkout\\": "",
+            "Modules\\Checkout\\App\\": "app/",
+            "Modules\\Checkout\\Database\\Factories\\": "database/factories/",
+            "Modules\\Checkout\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Checkout\\Tests\\": "tests/"
+        }
+    }
+}
