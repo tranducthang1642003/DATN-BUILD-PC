@@ -8,8 +8,6 @@
                     <li><a href="#" class="text-black hover:text-blue-800">Trang chủ</a></li>
                     <li><span class="mx-2 text-black"> > </span></li>
                     <li><a href="" class="text-black hover:text-blue-800">MÀN HÌNH MÁY TÍNH</a></li>
-                    <li><span class="mx-2 text-black"> > </span></li>
-                    <li><a href="#" class="text-black hover:text-blue-800"></a>CHỌN THEO HÃNG</li>
                     <li><span class="mx-2 text-gray-500"> > </span></li>
                     <li class="text-gray-500">Màn hình Asus</li>
                 </ol>
@@ -257,64 +255,118 @@
                 </div>
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
-            <div class="product__list">
-                <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
-                <div class="flex flex-wrap -mx-2">
-                    @foreach ($similarProducts as $product)
-                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4 h-96">
-                            <a href="{{ route('product.show', $product->slug) }}">
-                                <div class="product-img">
-                                    <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+        <div class="product__list">
+            <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
+            <div class="flex flex-wrap -mx-2">
+                @foreach ($similarProducts as $product)
+                <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                    <div class="bg-white rounded-lg border shadow-md p-4 h-96">
+                        <a href="{{ route('product.show', $product->slug) }}">
+                            <div class="product-img">
+                                <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+                            </div>
+                            <div class="product-info mt-2">
+                                <h3 class="text-sm font-semibold" style="overflow: hidden;
+                                text-overflow: ellipsis;
+                                line-height: 25px;
+                                -webkit-line-clamp: 2;
+                                height: 50px;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;">{{ $product->product_name }}</h3>
+                                <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                <div class="mt-1">
+                                    <span class="text-red-700 font-bold">
+                                        {{ number_format($product->price) }} VND
+                                    </span>
+                                    @if ($product->discount)
+                                    <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                    @endif
                                 </div>
-                                <div class="product-info mt-2">
-                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                    <div class="mt-1">
-                                        <span class="text-red-700 font-bold">
-                                            {{ number_format($product->price) }} VND
-                                        </span>
-                                        @if ($product->discount)
-                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
-                                        @endif
-                                    </div>
+                            </div>
+                            @if ($product->reviews->isNotEmpty())
+                            @php
+                            $averageRating = $product->reviews->avg('rating');
+                            $totalStars = 5;
+                            $fullStars = floor($averageRating);
+                            $emptyStars = $totalStars - $fullStars;
+                            @endphp
+
+                            <div class="rating flex">
+                                <div class="flex items-center pt-1">
+                                    @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                                        </svg>
+                                        @endfor
+                                        @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                            </svg>
+                                            @endfor
                                 </div>
-                            </a>
-                        </div>
+                                <p>({{ $product->reviews->count() }} đánh giá)</p>
+                            </div>
+                            @else
+                            @endif
+                        </a>
                     </div>
-                    @endforeach
                 </div>
+                @endforeach
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
-            <div class="product__list">
-                <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
-                <div class="flex flex-wrap -mx-2">
-                    @foreach ($recentlyViewedProducts as $product)
-                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4 h-96">
-                            <a href="{{ route('product.show', $product->slug) }}">
-                                <div class="product-img">
-                                    <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+        <div class="product__list">
+            <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
+            <div class="flex flex-wrap -mx-2">
+                @foreach ($recentlyViewedProducts as $product)
+                <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                    <div class="bg-white rounded-lg border shadow-md p-4 h-96">
+                        <a href="{{ route('product.show', $product->slug) }}">
+                            <div class="product-img">
+                                <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+                            </div>
+                            <div class="product-info mt-2">
+                                <h3 class="text-sm font-semibold" style="overflow: hidden;
+                                text-overflow: ellipsis;
+                                line-height: 25px;
+                                -webkit-line-clamp: 2;
+                                height: 50px;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;">{{ $product->product_name }}</h3>
+                                <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                <div class="mt-1">
+                                    <span class="text-red-700 font-bold">
+                                        {{ number_format($product->price) }} VND
+                                    </span>
+                                    @if ($product->discount)
+                                    <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                    @endif
                                 </div>
-                                <div class="product-info mt-2">
-                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                    <div class="mt-1">
-                                        <span class="text-red-700 font-bold">
-                                            {{ number_format($product->price) }} VND
-                                        </span>
-                                        @if ($product->discount)
-                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
-                                        @endif
-                                    </div>
+                            </div>
+                            @if ($product->reviews->isNotEmpty())
+                            @php
+                            $averageRating = $product->reviews->avg('rating');
+                            $totalStars = 5;
+                            $fullStars = floor($averageRating);
+                            $emptyStars = $totalStars - $fullStars;
+                            @endphp
+
+                            <div class="rating flex">
+                                <div class="flex items-center pt-1">
+                                    @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                                        </svg>
+                                        @endfor
+                                        @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                            </svg>
+                                            @endfor
                                 </div>
-                            </a>
-                        </div>
+                                <p>({{ $product->reviews->count() }} đánh giá)</p>
+                            </div>
+                            @else
+                            @endif
+                        </a>
                     </div>
-                    @endforeach
                 </div>
+                @endforeach
             </div>
         </div>
         <div class="pt-3 mb-5 text-xs sm:text-base">
