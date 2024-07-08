@@ -218,6 +218,6 @@ document.querySelectorAll('.add-to-cart-button').forEach(button => {
         setTimeout(function() {
             var loadingScreen = document.getElementById('loading-screen');
             loadingScreen.style.display = 'none';
-        }, 3000); // 5000 milliseconds = 5 seconds
+        }, 1000); // 5000 milliseconds = 5 seconds
     });
 </script>
