@@ -30,7 +30,9 @@
 </head>
 
 <body>
-
+    <div class="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50" id="loading-screen">
+        <div class="loader border-t-4 border-b-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
+    </div>
     <section class="site-section w-full">
         <div class="header__banner-news w-full max-w-max one-time">
             <img src="{{ asset('image/banner.webp') }}" alt="">
@@ -210,4 +212,12 @@ document.querySelectorAll('.add-to-cart-button').forEach(button => {
         .catch(error => console.error('Error:', error));
     });
 });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            var loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.display = 'none';
+        }, 3000); // 5000 milliseconds = 5 seconds
+    });
 </script>

@@ -21,14 +21,12 @@
                     <div class="swiper gallery-top">
                         <div class="md:max-w-xl max-w-sm mx-auto slider-for">
                             <div class="">
-                               <img class="w-32 mx-auto md:w-48"
-                                        src="{{ $product->primary_image_path }}">
+                                <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
                             </div>
                             @foreach ($secondary_images as $item)
-                            <div class="">
-                                <img class="w-32 mx-auto md:w-48"
-                                         src="{{ $item->image_path }}">
-                             </div>
+                                <div class="">
+                                    <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -36,33 +34,13 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide thumb-img max-w-lg mx-auto slider-nav">
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                   <img
-                                            class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
+                                    <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
                                 </div>
-
                                 @foreach ($secondary_images as $item)
-                                <div class="">
-                                    <img class="w-32 mx-auto md:w-48"
-                                             src="{{ $item->image_path }}">
-                                 </div>
+                                    <div class="">
+                                        <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                                    </div>
                                 @endforeach
-
-                                {{-- <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577024.png"
-                                        alt="">
-                                </div>
-                                <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577032.png"
-                                        alt="">
-                                </div>
-                                <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577045.png"
-                                        alt="">
-                                </div>
-                                <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img src="https://nguyencongpc.vn/media/product/250-25387-screenshot_1689577053.png"
-                                        alt="">
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -71,10 +49,10 @@
                     <p class="title font-semibold text-lg">Thông số sản phẩm</p>
                     <ul class="list-product-summary list-disc pl-5 mt-2">
                         <li>Mã Sản phẩm: {{ $product->product_code }}</li>
-                        <li>Màu hiển thị : {{ $product->color }}</li>
-                        <li>Độ phân giải : {{ $product->description }}</li>
+                        <li>Màu hiển thị: {{ $product->color }}</li>
+                        <li>Độ phân giải: {{ $product->description }}</li>
                         <li>Model: {{ $product->product_code }}</li>
-                        <li>Âm thanh: {{ $product->specifications }}</li>
+                        <li>Âm thanh: {!! $product->specifications !!}</li>
                     </ul>
                 </div>
             </div>
@@ -97,47 +75,52 @@
                     <p class="price-detail text-xs lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
                         {{ number_format($product->price) }} VND
                     </p>
-                    <span
-                        class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">4.000.000₫</span>
-                    <div
-                        class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
-                        Tiết kiệm 810.000đ</div>
-                    <div
-                        class="bg-red-700 text-red-700 font-bold  rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
-                        -25%</div>
+                    <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">
+                        4.000.000₫
+                    </span>
+                    <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
+                        Tiết kiệm 810.000đ
+                    </div>
+                    <div class="bg-red-700 text-red-700 font-bold rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
+                        -25%
+                    </div>
                 </div>
                 <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
-                    <div class="flex items-center space-x-4 mr-5 md:mr-10 ">
+                    <div class="flex items-center space-x-4 mr-5 md:mr-10">
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
-                           <div class="grid grid-cols-2	">
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <input class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400"
-                                type="number" name="quantity" value="1" min="1">
-                            <button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400"
-                                type="submit">Thêm vào giỏ hàng</button>
-                           </div>
+                            <div class="grid grid-cols-2">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400" type="number" name="quantity" value="1" min="1">
+                                <button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400" type="submit">Thêm vào giỏ hàng</button>
+                            </div>
                         </form>
                     </div>
-
                 </div>
-
+                <div id="cart-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+                    <div class="bg-white rounded-lg p-6 shadow-lg max-w-sm mx-auto">
+                        <h2 class="text-xl font-bold mb-4">Bạn cần phải đăng nhập mới thêm hàng được</h2>
+                        <p><button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400">đăng ký</button></p>
+                        <div class="mt-4 flex justify-end">
+                            <button id="close-modal" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Close</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="detail-buy mt-2 md:mt-5">
-                    <div
-                        class="detail-buy-now border p-2 md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white hover:bg-red-500 hover:text-white text-center">
+                    <div class="detail-buy-now border p-2 md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white hover:bg-red-500 hover:text-white text-center">
                         <a href="" class="w-full">
                             <p class="text-base md:text-lg lg:text-xl font-semibold">ĐẶT MUA NGAY</p>
                             <span>Giao hàng tận nơi nhanh chóng</span>
                         </a>
                     </div>
                     <div class="detail-add-cart grid grid-cols-2 divide-x mt-2 md:mt-5">
-                        <a href=""
-                            class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
-                            <p>TRẢ GÓP QUA HỒ SƠ</p> <span>Chỉ từ 2.665.000₫/ tháng</span>
+                        <a href="" class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
+                            <p>TRẢ GÓP QUA HỒ SƠ</p>
+                            <span>Chỉ từ 2.665.000₫/ tháng</span>
                         </a>
-                        <a href=""
-                            class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
-                            <p>TRẢ GÓP QUA THẺ</p> <span>Chỉ từ 1.332.500₫/ tháng</span>
+                        <a href="" class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
+                            <p>TRẢ GÓP QUA THẺ</p>
+                            <span>Chỉ từ 1.332.500₫/ tháng</span>
                         </a>
                     </div>
                 </div>
@@ -145,37 +128,22 @@
                     <h1 class="font-semibold">YÊN TÂM MUA HÀNG</h1>
                     <div class="list-showroom-detail mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
                         <div class="item">
-
-                            <p> <i class="fa-regular fa-handshake" style="color: #d60000;"></i> Cam kết giá tốt nhất
-                                thị
-                                trường.</p>
+                            <p><i class="fa-regular fa-handshake" style="color: #d60000;"></i> Cam kết giá tốt nhất thị trường.</p>
                         </div>
                         <div class="item">
                             <p><i class="fa-solid fa-award" style="color: #d60000;"></i> Sản phẩm mới 100%.</p>
                         </div>
                         <div class="item">
-
-                            <p><i class="fa-solid fa-repeat" style="color: #d60000;"></i> Lỗi 1 đổi 1 ngay lập tức.
-                            </p>
+                            <p><i class="fa-solid fa-repeat" style="color: #d60000;"></i> Lỗi 1 đổi 1 ngay lập tức.</p>
                         </div>
                         <div class="item">
-                            <p><i class="fa-solid fa-file-invoice-dollar" style="color: #d60000;"></i> Hỗ trợ trả góp
-                                - Thủ tục nhanh gọn.</p>
+                            <p><i class="fa-solid fa-file-invoice-dollar" style="color: #d60000;"></i> Hỗ trợ trả góp - Thủ tục nhanh gọn.</p>
                         </div>
                     </div>
                 </div>
-                <div class="box-product-summary p-3 md:p-5 mt-3 md:mt-5 border rounded-xl lg:hidden block">
-                    <p class="title font-semibold text-lg">Thông số sản phẩm</p>
-                    <ul class="list-product-summary list-disc pl-5 mt-2">
-                        <li>Tấm nền: IPS</li>
-                        <li>Màu hiển thị : 16,7M</li>
-                        <li>Độ phân giải : 1920x1080</li>
-                        <li>Model: TUF Gaming VG249Q3A</li>
-                        <li>Âm thanh: Loa (2Wx2)</li>
-                    </ul>
-                </div>
             </div>
         </div>
+        
         <div class="box-read-product-detail mt-3 md:mt-5 grid gap-1 grid-cols-1 md:grid-cols-2">
             <div class="box-left">
                 <div class="mx-auto rounded-xl border shadow p-3 md:p-5">
@@ -327,21 +295,29 @@
                                                     class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
                                             @endif
                                         </div>
-                                        <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <div
+                                            class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             {{-- like --}}
-                                            <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                            <div
+                                                class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                                 @auth
                                                     @if ($product->isLikedBy(auth()->user()))
-                                                        <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                        <form id="unlike-form"
+                                                            action="{{ route('deletelike', $product->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                            <button type="submit"><i class="fa fa-heart"
+                                                                    style="color:#ff0000"></i></button>
                                                         </form>
                                                     @else
-                                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                        <form id="like-form" action="{{ route('addlike') }}"
+                                                            method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                            <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $product->id }}">
+                                                            <button type="submit"><i
+                                                                    class="fa-solid fa-heart"></i></button>
                                                         </form>
                                                     @endif
                                                 @else
@@ -350,11 +326,12 @@
                                             </div>
                                             {{-- end like --}}
                                             {{-- cart --}}
-                                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                            <div
+                                                class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
                                                 <i class="fa-solid fa-shopping-cart"></i>
                                             </div>
                                             {{-- end cart --}}
-                                        </div>    
+                                        </div>
                                     </div>
                                 </a>
                             </div>
@@ -388,21 +365,29 @@
                                                     class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
                                             @endif
                                         </div>
-                                        <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <div
+                                            class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             {{-- like --}}
-                                            <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                            <div
+                                                class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                                 @auth
                                                     @if ($product->isLikedBy(auth()->user()))
-                                                        <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                        <form id="unlike-form"
+                                                            action="{{ route('deletelike', $product->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                            <button type="submit"><i class="fa fa-heart"
+                                                                    style="color:#ff0000"></i></button>
                                                         </form>
                                                     @else
-                                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                        <form id="like-form" action="{{ route('addlike') }}"
+                                                            method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                            <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $product->id }}">
+                                                            <button type="submit"><i
+                                                                    class="fa-solid fa-heart"></i></button>
                                                         </form>
                                                     @endif
                                                 @else
@@ -411,11 +396,12 @@
                                             </div>
                                             {{-- end like --}}
                                             {{-- cart --}}
-                                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                            <div
+                                                class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
                                                 <i class="fa-solid fa-shopping-cart"></i>
                                             </div>
                                             {{-- end cart --}}
-                                        </div> 
+                                        </div>
                                     </div>
                                 </a>
                             </div>
@@ -484,4 +470,23 @@
     setTimeout(function() {
         document.getElementById('alert').style.display = 'none';
     }, 5000);
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addToCartButton = document.querySelector('form button[type="submit"]');
+        const cartModal = document.getElementById('cart-modal');
+        const closeModalButton = document.getElementById('close-modal');
+        const body = document.body;
+
+        addToCartButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission for demo purposes
+            cartModal.classList.remove('hidden');
+            body.classList.add('blur-background');
+        });
+
+        closeModalButton.addEventListener('click', function() {
+            cartModal.classList.add('hidden');
+            body.classList.remove('blur-background');
+        });
+    });
 </script>
