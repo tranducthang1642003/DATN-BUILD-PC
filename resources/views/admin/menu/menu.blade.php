@@ -47,6 +47,7 @@
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Tên</th>
+                <th class="px-4 py-2">Đường dẫn</th>
                 <th class="px-4 py-2">Last Update</th>
                 <th class="px-4 py-2">...</th>
             </tr>
@@ -57,6 +58,7 @@
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $menu->id }}</td>
                 <td class="px-4 py-2">{{ $menu->name }}</td>
+                <td class="px-4 py-2">{{ $menu->url }}</td>
                 <td class="px-4 py-2">{{ $menu->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
@@ -106,6 +108,12 @@
                                         <input type="text" name="name" id="name" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên ảnh">
                                     </div>
                                 </div>
+                                <div>
+                                    <label for="url" class="block text-sm font-medium leading-6 text-gray-900">Đường dẫn</label>
+                                    <div class="relative mt-2 rounded-md shadow-sm">
+                                        <input type="text" name="url" id="url" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập đường dẫn">
+                                    </div>
+                                </div>
                                 <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
                             </form>
                         </section>
@@ -139,6 +147,12 @@
                                     </div>
                                     <input type="text" class="hidden id_input">
                                 </div>
+                                <div>
+                                    <label for="url" class="block text-sm font-medium leading-6 text-gray-900">Đường dẫn</label>
+                                    <div class="relative mt-2 rounded-md shadow-sm">
+                                        <input type="text" name="url" id="url" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập đường dẫn">
+                                    </div>
+                                </div>
                                 <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
                             </form>
                         </section>
@@ -168,7 +182,7 @@
 
     function form_edit(id) {
         const divElement = document.querySelector('.form_edit');
-        const idInput =document.querySelector('.id_input');
+        const idInput = document.querySelector('.id_input');
         divElement.style.display = 'block';
         idInput.input = id;
     }
