@@ -31,5 +31,5 @@ Route::middleware('auth')->group(function() {
 
 Route::get('orders/checkout', [OrderController1::class, 'checkout'])->name('orders.checkout');
 Route::post('orders/place', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
-
+Route::get('orders/p', [OrderController1::class, 'paymentsuccess'])->name('orders.paymentsuccess');
 });

@@ -70,7 +70,7 @@
   </style>
 </head>
 
-<div class="flex items-center justify-center h-screen">
+<div class="flex items-center justify-center h-screen p-10">
   <div class="text-center">
     <div class="checkmark">
       <svg class="checkmark__circle" viewBox="0 0 166 166">
@@ -83,7 +83,7 @@
     <h2 class="text-2xl font-bold mt-8">Thanh toán thành công!</h2>
     <p class="text-gray-500">Chúng tôi đã nhận được thanh toán của bạn.</p>
     <div class="flex items-center mt-3 justify-center">
-        <a type="submit" href="{{route('home')}}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 mr-5 rounded ">Quay Về Trang Chủ</a>
+      <a type="submit" href="{{route('home')}}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 mr-5 rounded">Quay Về Trang Chủ</a>
     </div>
   </div>
 </div>
