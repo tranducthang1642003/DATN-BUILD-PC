@@ -17,11 +17,13 @@
     </div>
 </section>
 
+
 {{-- GIÁ TỐT SIÊU SALE MỖI NGÀY --}}
 <section class="product px-4 md:px-8 pt-6">
-    <div class="rounded-lg shadow-2xl shadow-white bg-gradient-to-b from-orange-500 to-yellow-400"        style="background: linear-gradient(180deg, #FF3615 0%, #FFCE00 100%);">
-        >
-        
+    <div class="rounded-lg shadow-2xl shadow-white bg-gradient-to-b from-orange-500 to-yellow-400"
+        style="background: linear-gradient(180deg, #FF3615 0%, #FFCE00 100%);">
+
+
         <div class="text grid grid-cols-1 md:grid-cols-3 justify-between items-center pt-2 px-6">
             <div class="text-sale text-xl md:text-2xl font-black text-amber-400">GIÁ TỐT SIÊU SALE MỖI NGÀY</div>
             <div class="text-end-sale text-lg md:text-xl font-bold text-white flex">kết thúc sau:
@@ -37,14 +39,16 @@
                                 <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                                 <a href="{{ route('product.show', $product->slug) }}">
                                     <div class="product-img w-48 mx-auto">
-                                        <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+                                        <img src="{{ $product->primary_image_path }}"
+                                            alt="{{ $product->product_name }}">
                                     </div>
                                 </a>
                                 <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
                                     <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
                                 </div>
                                 <div class="product-info p-3 h-40">
-                                    <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
+                                    <a href="{{ route('product.show', $product->slug) }}"
+                                        class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
                                     <div class="mt-3 inline-flex">
                                         <div>
                                             <p class="product-price line-through text-slate-500">
@@ -55,16 +59,21 @@
                                             {{ $product->stock }}%
                                         </div>
                                     </div>
-                                    <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
+                                    <div class="text-red-700 font-bold text-2xl mt-2">
+                                        {{ number_format($product->price) }} VND</div>
                                 </div>
-                                <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                    <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                <div
+                                    class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div
+                                        class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                         @auth
                                             @if ($product->isLikedBy(auth()->user()))
-                                                <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                <form id="unlike-form" action="{{ route('deletelike', $product->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                    <button type="submit"><i class="fa fa-heart"
+                                                            style="color:#ff0000"></i></button>
                                                 </form>
                                             @else
                                                 <form id="like-form" action="{{ route('addlike') }}" method="POST">
@@ -77,9 +86,18 @@
                                             <i class="fa-solid fa-heart"></i>
                                         @endauth
                                     </div>
-                                    <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
-                                        <i class="fa-solid fa-shopping-cart"></i>
-                                    </div>
+                                    <p>
+                                        <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
+                                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white">
+                                                <i class="fa-solid fa-shopping-cart"></i>
+                                                <!-- Lớp phủ tải -->
+                                                <div class="loading-overlay" style="display: none;"></div>
+                                            </div>
+                                        </button>
+                                        
+                                        
+                                    </p>
+
                                 </div>
                             </div>
                         </div>
@@ -127,24 +145,29 @@
                                 <div class="mt-3 inline-flex">
                                     <div>
                                         <p class="product-price line-through text-slate-500">
-                                            {{number_format ($product->price) }} VND
+                                            {{ number_format($product->price) }} VND
                                         </p>
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3">
                                         {{ $product->discount }}
                                     </div>
                                 </div>
-                                <div class="text-red-700 font-bold text-2xl mt-2">{{number_format ($product->price) }} VND</div>
+                                <div class="text-red-700 font-bold text-2xl mt-2">{{ number_format($product->price) }}
+                                    VND</div>
                             </div>
-                            <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div
+                                class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                 {{-- like --}}
-                                <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                <div
+                                    class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                     @auth
                                         @if ($product->isLikedBy(auth()->user()))
-                                            <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                            <form id="unlike-form" action="{{ route('deletelike', $product->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                <button type="submit"><i class="fa fa-heart"
+                                                        style="color:#ff0000"></i></button>
                                             </form>
                                         @else
                                             <form id="like-form" action="{{ route('addlike') }}" method="POST">
@@ -159,11 +182,12 @@
                                 </div>
                                 {{-- end like --}}
                                 {{-- cart --}}
-                                <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                <div
+                                    class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
                                     <i class="fa-solid fa-shopping-cart"></i>
                                 </div>
                                 {{-- end cart --}}
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -219,14 +243,16 @@
                                     <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                                     <a href="{{ route('product.show', $product->slug) }}">
                                         <div class="product-img w-48 mx-auto">
-                                            <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}">
+                                            <img src="{{ $product->primary_image_path }}"
+                                                alt="{{ $product->name }}">
                                         </div>
                                     </a>
                                     <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 italic">
                                         <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
                                     </div>
                                     <div class="product-info p-3 h-40">
-                                        <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
+                                        <a href="{{ route('product.show', $product->slug) }}"
+                                            class="hover:text-blue-600 text-base h-16 line-clamp-2 text_css">{{ $product->product_name }}</a>
                                         <div class="mt-3 inline-flex">
                                             <div>
                                                 <p class="product-price line-through text-slate-500">
@@ -237,23 +263,29 @@
                                                 {{ $product->discount }}
                                             </div>
                                         </div>
-                                        <div class="text-red-700 font-bold text-2xl mt-2">{{ number_format($product->price) }} VND</div>
+                                        <div class="text-red-700 font-bold text-2xl mt-2">
+                                            {{ number_format($product->price) }} VND</div>
                                     </div>
-                                    
-                                    <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+
+                                    <div
+                                        class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                         {{-- like --}}
-                                        <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                        <div
+                                            class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                             @auth
                                                 @if ($product->isLikedBy(auth()->user()))
-                                                    <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
+                                                    <form id="unlike-form"
+                                                        action="{{ route('deletelike', $product->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                                        <button type="submit"><i class="fa fa-heart"
+                                                                style="color:#ff0000"></i></button>
                                                     </form>
                                                 @else
                                                     <form id="like-form" action="{{ route('addlike') }}" method="POST">
                                                         @csrf
-                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                        <input type="hidden" name="product_id"
+                                                            value="{{ $product->id }}">
                                                         <button type="submit"><i class="fa-solid fa-heart"></i></button>
                                                     </form>
                                                 @endif
@@ -263,11 +295,12 @@
                                         </div>
                                         {{-- end like --}}
                                         {{-- cart --}}
-                                        <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                        <div
+                                            class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
                                             <i class="fa-solid fa-shopping-cart"></i>
                                         </div>
                                         {{-- end cart --}}
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -466,4 +499,136 @@
         display: -webkit-box;
         -webkit-box-orient: vertical;
     }
-</style>
+
+    .loading-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #ffffff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.relative {
+    position: relative;
+}
+
+    }
+
+    </style>
+
+
+    {{-- <script>
+        $('.add-to-cart-btn').click(function(event) {
+            event.preventDefault();
+
+            var productId = $(this).data('product-id');
+
+        $.ajax({
+            url: '{{ route('cart.addToCart') }}',
+            method: 'POST',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'product_id': productId,
+                'quantity': 1 // You can adjust quantity if needed
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#cart-count').text(response.totalQuantity); // Update cart count
+
+                    // Use Toastify to show a floating notification
+                    Toastify({
+                        text: 'Đã thêm sản phẩm vào giỏ hàng.',
+                        duration: 3000, // Duration in milliseconds
+                        close: true,
+                        gravity: 'bottom', // Position: 'top', 'bottom', 'left', 'right'
+                        backgroundColor: '#4CAF50', // Background color
+                        stopOnFocus: true // Stop timeout when the toast is hovered
+                    }).showToast();
+                } else {
+                    alert('Thêm sản phẩm vào giỏ hàng không thành công: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Ajax request failed: ' + error);
+            }
+        });
+    });
+
+    // Update cart count on page load
+    $(document).ready(function() {
+        var cartCount = {{ session('cart_count', 0) }};
+        $('#cart-count').text(cartCount);
+    });
+</script> --}}
+
+
+<script>
+    $(document).ready(function() {
+    $('.add-to-cart-btn').click(function(event) {
+        event.preventDefault();
+
+        var button = $(this);
+        var overlay = button.find('.loading-overlay');
+        var productId = button.data('product-id');
+
+        // Hiển thị lớp phủ tải
+        overlay.show();
+
+        $.ajax({
+            url: '{{ route('cart.addToCart') }}',
+            method: 'POST',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'product_id': productId,
+                'quantity': 1 // You can adjust quantity if needed
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#cart-count').text(response.totalQuantity); // Update cart count
+
+                    // Use Toastify to show a floating notification
+                    Toastify({
+                        text: 'Đã thêm sản phẩm vào giỏ hàng.',
+                        duration: 3000, // Duration in milliseconds
+                        close: true,
+                        gravity: 'bottom', // Position: 'top', 'bottom', 'left', 'right'
+                        backgroundColor: '#4CAF50', // Background color
+                        stopOnFocus: true // Stop timeout when the toast is hovered
+                    }).showToast();
+                } else {
+                    alert('Thêm sản phẩm vào giỏ hàng không thành công: ' + response.message);
+                }
+
+                // Ẩn lớp phủ tải
+                overlay.hide();
+            },
+            error: function(xhr, status, error) {
+                alert('Ajax request failed: ' + error);
+
+                // Ẩn lớp phủ tải
+                overlay.hide();
+            }
+        });
+    });
+
+    // Update cart count on page load
+    var cartCount = {{ session('cart_count', 0) }};
+    $('#cart-count').text(cartCount);
+});
+
+
+</script>

@@ -27,6 +27,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Thêm Toastify -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 </head>
 
 <body>
@@ -72,11 +76,32 @@
                             <i class="fa-solid fa-person-chalkboard text-xl" style="color: #ffffff;"></i>
                             <a href="#">Theo dõi đơn hàng</a>
                         </li>
-                        {{-- <li class="menu__item menu__item--white flex items-center flex-col">
+                        <li class="menu__item menu__item--white flex items-center flex-col relative">
                             <i class="fa-solid fa-cart-shopping text-xl" style="color: #ffffff;"></i>
-                            <a href="#">Giỏ hàng</a>
-                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2">{{ $cartCount }}</span>
-                        </li> --}}
+                            <a href="#" id="cart-dropdown-toggle">Giỏ hàng</a>
+                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2">{{ session('cart_count', 0) }}</span>
+                            <div id="cart-dropdown" class="absolute bg-white border border-gray-200 shadow-md rounded p-2 mt-2 w-64 hidden overflow-auto max-h-64">
+                                <!-- Sản phẩm trong giỏ hàng sẽ được chèn vào đây bởi JavaScript -->
+                                <ul id="cart-items-list"></ul>
+                                <div class="mt-2">
+                                    <a href="{{ route('cart') }}" class="bg-blue-500 text-white rounded px-4 py-2 block text-center">Xem giỏ hàng</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+<style>
+   #cart-dropdown {
+    display: none; /* Đảm bảo dropdown bị ẩn mặc định */
+}
+
+.menu__item--white:hover #cart-dropdown,
+#cart-dropdown-toggle:hover + #cart-dropdown {
+    display: block; /* Hiển thị dropdown khi di chuột vào icon giỏ hàng */
+}
+
+
+    </style>                        
+                        
                         <div class="relative">
                             <button class="menu__item menu__item--white flex items-center flex-col" onclick="toggleDropdown()">
                                 <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
@@ -132,49 +157,57 @@
                 </ul>
             </div>
         </section>
-        {{-- Desktop menu --}}
-        <section class="bg-sky-600">
-            <div class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12" style="overflow-x: auto; white-space: nowrap;">
-                <div class="nav__menu md:flex space-x-6 text-gray-700">
-                    <ul class="flex space-x-6 text-white">
-                        <li class="border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black">
-                            <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
-                            <a href="" class="mr-2">DANH MỤC SẢN PHẨM</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-computer mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">PC GAMING</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-brands fa-windows mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">PC VĂN PHÒNG</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-screwdriver-wrench mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">LINH KIỆN PC</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-desktop mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">MÀN HÌNH</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-laptop mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">LAPTOP</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-chalkboard mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">THIẾT BỊ VĂN PHÒNG</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-brands fa-uncharted mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">PHÍM CHUỘT GHẾ GAMING</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </section>
 
+        
+        {{-- Desktop menu --}}
+       <section class="bg-sky-600">
+        <div class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
+            <div class="nav__menu md:flex space-x-6 text-gray-700">
+                <ul class="flex space-x-6 text-white">
+                    <li class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black hover:bg-gray-100 cursor-pointer">
+                        <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+                        <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
+                        <!-- Dropdown Menu -->
+                        <ul id="dropdownMenu"
+                            class="absolute left-0 top-full mt-2 hidden w-60 bg-white rounded-md shadow-md">
+                            <li class="p-2 hover:bg-gray-100"><a href="#">Sản phẩm 1</a></li>
+                            <li class="p-2 hover:bg-gray-100"><a href="#">Sản phẩm 2</a></li>
+                            <li class="p-2 hover:bg-gray-100"><a href="#">Sản phẩm 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center">
+                        <i class="fa-solid fa-computer mr-2" style="color: #ffffff;"></i>
+                        <a href="#" class="mr-2">PC GAMING</a>
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center">
+                        <i class="fa-brands fa-windows mr-2" style="color: #ffffff;"></i>
+                        <a href="#" class="mr-2">PC VĂN PHÒNG</a>
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center">
+                        <i class="fa-solid fa-screwdriver-wrench mr-2" style="color: #ffffff;"></i>
+                        <a href="#" class="mr-2">LINH KIỆN PC</a>
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center">
+                        <i class="fa-solid fa-desktop mr-2" style="color: #ffffff;"></i>
+                        <a href="#" class="mr-2">MÀN HÌNH</a>
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center">
+                        <i class="fa-solid fa-laptop mr-2" style="color: #ffffff;"></i>
+                        <a href="#" class="mr-2">LAPTOP</a>
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center">
+                        <i class="fa-solid fa-chalkboard mr-2" style="color: #ffffff;"></i>
+                        <a href="#" class="mr-2">THIẾT BỊ VĂN PHÒNG</a>
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center">
+                        <i class="fa-brands fa-uncharted mr-2" style="color: #ffffff;"></i>
+                        <a href="#" class="mr-2">PHÍM CHUỘT GHẾ GAMING</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
         integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA=="
@@ -184,35 +217,7 @@
 </html>
 
 <script src="{{ asset('js/app.js') }}"></script>
-<script>
-document.querySelectorAll('.add-to-cart-button').forEach(button => {
-    button.addEventListener('click', function(event) {
-        event.preventDefault();
 
-        let productId = this.dataset.productId;
-        let quantity = 1; // Hoặc lấy số lượng từ input nếu có
-
-        fetch('/cart/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ product_id: productId, quantity: quantity })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('cart-count').innerText = data.cartCount;
-                alert(data.success);
-            } else {
-                alert(data.error);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    });
-});
-</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
@@ -220,4 +225,40 @@ document.querySelectorAll('.add-to-cart-button').forEach(button => {
             loadingScreen.style.display = 'none';
         }, 1000); // 5000 milliseconds = 5 seconds
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+    $('#cart-dropdown-toggle').hover(function() {
+        // Gửi yêu cầu AJAX để lấy danh sách sản phẩm trong giỏ hàng
+        $.ajax({
+            url: '{{ route('cart.getCartItems') }}',
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    var cartItemsList = $('#cart-items-list');
+                    cartItemsList.empty(); // Xóa sạch danh sách cũ
+                    
+                    response.cartItems.forEach(function(item) {
+                        cartItemsList.append(
+                            '<li class="flex items-center mb-2">' +
+                                '<img src="' + item.primary_image_path + '" alt="' + item.product_name + '" class="w-12 h-12 mr-2">' +
+                                '<div>' +
+                                    '<p>' + item.product_name + '</p>' +
+                                    '<p>' + item.quantity + ' x ' + item.price + '</p>' +
+                                '</div>' +
+                            '</li>'
+                        );
+                    });
+                } else {
+                    alert('Không thể tải danh sách sản phẩm trong giỏ hàng.');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Yêu cầu AJAX thất bại: ' + error);
+            }
+        });
+    });
+});
+
 </script>

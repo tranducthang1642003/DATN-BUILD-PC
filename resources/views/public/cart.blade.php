@@ -10,6 +10,9 @@
         word-break: break-all;
     }
 </style>
+
+
+
 <div class="container mx-auto">
     <div class="px-5 border flex justify-between m-2 p-2">
         <h1>Giỏ hàng của bạn</h1>
@@ -23,6 +26,14 @@
         <a href=""><span>
                 < mua thêm sản phẩm khác</span></a>
     </div>
+
+    @if (session('success_message'))
+        <div id="success_message"
+            class="fixed top-0 right-0 mt-4 mr-4 bg-green-500 text-white px-4 py-2 rounded shadow-md transition-transform transform duration-500 ease-out">
+            {{ session('success_message') }}
+        </div>
+    @endif
+
     <div class="flex flex-wrap px-2 justify-between">
         <div class="w-full lg:w-8/12 table-responsive mb-5" style="max-height: 500px; overflow-y: auto;">
 
@@ -158,3 +169,19 @@
 </script>
 
 @include('public.footer.footer')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var element = document.getElementById('success_message');
+        if (element) {
+            // Di chuyển từ phải sang trái
+            element.style.transform = 'translateX(0)';
+            // Chờ 5 giây sau đó ẩn đi
+            setTimeout(function() {
+                element.style.transform = 'translateX(100%)';
+                setTimeout(function() {
+                    element.remove(); // Xóa phần tử thông báo
+                }, 500); // Thời gian chờ ẩn đi
+            }, 5000); // Thời gian chờ tồn tại
+        }
+    });
+</script>
