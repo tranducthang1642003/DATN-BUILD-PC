@@ -33,10 +33,12 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'url' => 'required|string',
         ]);
 
         $menus = new menu();
         $menus->name = $request->input('name');
+        $menus->url = $request->input('url');
         $menus->save();
 
         return redirect()->route('menu.index')
@@ -51,6 +53,7 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'url' => 'required|string',
         ]);
 
         $menu = menu::findOrFail($id);

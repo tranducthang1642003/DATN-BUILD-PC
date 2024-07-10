@@ -55,17 +55,23 @@
                 <td class="px-4 py-2">{{ $order->payment_method }}</td>
                 <td class="px-4 py-2">
                     <div class="relative">
-                        <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none">
-                            <option value="1" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quết</option>
-                            <option value="2" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
-                            <option value="3" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
-                            <option value="4" {{ $order->status == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
+                        <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none" data-order-id="{{ $order->id }}">
+                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quyết</option>
+                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
+                            <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
+                            <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
                         </select>
                     </div>
                 </td>
                 <td class="px-4 py-2">
                     <button class="bg-indigo-600 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button>
-                    <button class="hidden bg-green-600 text-white px-4 py-2 rounded-md update-btn">Cập nhật</button>
+                    <form class="hidden update-form" method="POST" action="{{ route('admin.orders.update_status', ['order' => $order->id]) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        <input type="text" name="new_status" class="bg-white border border-gray-300 rounded-md p-1 outline-none ">
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md update-btn">Cập nhật</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
@@ -74,40 +80,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const selects = document.querySelectorAll('.status-select');
-
-            selects.forEach(select => {
+            const statusSelects = document.querySelectorAll('.status-select');
+            statusSelects.forEach(select => {
                 select.addEventListener('change', function() {
-                    const orderId = this.closest('tr').querySelector('.order-id').innerText;
+                    const orderId = this.dataset.orderId;
                     const newStatus = this.value;
 
-                    // Gửi yêu cầu cập nhật trạng thái đơn hàng lên server
-                    fetch(`/admin/orders/${orderId}/update-status`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Đảm bảo sử dụng csrf token để bảo vệ chống CSRF attacks
-                            },
-                            body: JSON.stringify({
-                                status: newStatus
-                            })
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                // Xử lý thành công
-                                console.log('Cập nhật thành công');
-                            } else {
-                                // Xử lý lỗi
-                                console.error('Có lỗi xảy ra khi cập nhật');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Lỗi mạng:', error);
-                        });
+                    // Hiển thị form cập nhật và ẩn nút chi tiết
+                    const parentTd = this.parentNode.parentNode;
+                    const detailBtn = document.querySelector('.detail-btn');
+                    const updateForm = document.querySelector('.update-form');
+                    const updateBtn = document.querySelector('.update-btn');
+
+                    // Cập nhật giá trị của input trong form
+                    const statusInput = updateForm.querySelector('input[name="new_status"]');
+                    statusInput.value = newStatus;
+
+                    detailBtn.classList.add('hidden');
+                    updateForm.classList.remove('hidden');
                 });
             });
         });
     </script>
+
+
+
 
     <div class="flex justify-end mr-8">
         <div>
