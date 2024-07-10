@@ -106,5 +106,15 @@ class OrderController extends Controller
         $order->delete();
         return redirect()->route('order')->with('success', 'order deleted successfully!');
     }
-
+    public function updateStatus(Request $request, Orders $order)
+    {
+        $request->validate([
+            'new_status' => 'required|in:pending,processing,cancelled,completed',
+        ]);
+    
+        $order->status = $request->input('new_status');
+        $order->save();
+    
+        return redirect()->back()->with('success', 'Đã cập nhật trạng thái đơn hàng');
+    }
 }

@@ -30,6 +30,7 @@
                 </div>
             </form>
         </div>
+        <a href="{{ route('add_blog') }}"><button class="bg-indigo-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Thêm mới</button></a>
     </div>
     <div class="flex flex-wrap justify-start items-center">
         <span class="text-sm sm:text-base mr-4">0 sản phẩm đã chọn</span>

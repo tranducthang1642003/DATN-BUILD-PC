@@ -65,13 +65,17 @@
                                 <input type="hidden" class="text-lg font-semibold text-gray-800" name="name" value="{{ $setting->name }}">
                                 <div class="flex justify-between items-center mt-4">
                                     <input type="file" class="w-4/12" name="image" id="image_input_banner_{{ $setting->id }}" accept="image/*">
-                                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md ml-2">Lưu</button>
+                                    <div class="flex">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md ml-2">Lưu</button>
+                                        <button type="button" class="bg-gray-400 hover:bg-gray-600 text-white py-2 px-4 rounded-md cancel-btn">Hủy</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
                 @endforeach
+
             </div>
             <hr class="my-8">
             <div class="flex justify-between items-center m-4">
@@ -95,7 +99,10 @@
                                 <input type="text" class="text-lg font-semibold text-gray-800" name="name" value="{{ $settingsBanners->name }}">
                                 <div class="flex justify-between items-center mt-4">
                                     <input type="file" class="w-4/12" name="image" id="image_input_banner_full_{{ $settingsBanners->id }}" accept="image/*">
-                                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md ml-2">Lưu</button>
+                                    <div class="flex">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md ml-2">Lưu</button>
+                                        <button type="button" class="bg-gray-400 hover:bg-gray-600 text-white py-2 px-4 rounded-md  cancel-btn">Hủy</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -121,10 +128,13 @@
                             <form id="edit_form_poster_{{ $settingsPosters->id }}" action="{{ route('settings.update', $settingsPosters->id) }}" method="POST" enctype="multipart/form-data" class="hidden">
                                 @csrf
                                 @method('PUT')
-                                <input type="text" class="text-lg font-semibold text-gray-800" name="name" value="{{ $settingsPosters->name }}">
+                                <input type="text" class="text-lg w-full font-semibold text-gray-800" name="name" value="{{ $settingsPosters->name }}">
                                 <div class="flex justify-between items-center mt-4">
-                                    <input type="file" name="image" class="w-4/12" id="image_input_poster_{{ $settingsPosters->id }}" accept="image/*">
+                                    <input type="file" name="image" class="w-full" id="image_input_poster_{{ $settingsPosters->id }}" accept="image/*">
+                                </div>
+                                <div class="flex justify-between mt-4">
                                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md ml-2">Lưu</button>
+                                    <button type="button" class="bg-gray-400 hover:bg-gray-600 text-white py-2 px-4 rounded-md cancel-btn">Hủy</button>
                                 </div>
                             </form>
                         </div>
@@ -153,7 +163,10 @@
                                 <input type="text" class="text-lg font-semibold text-gray-800" name="name" value="{{ $settingsLogos->name }}">
                                 <div class="flex justify-between items-center mt-4">
                                     <input type="file" class="w-4/12" name="image" id="image_input_logo_{{ $settingsLogos->id }}" accept="image/*">
-                                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md ml-2">Lưu</button>
+                                    <div class="flex">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md ml-2">Lưu</button>
+                                        <button type="button" class="bg-gray-400 hover:bg-gray-600 text-white py-2 px-4 rounded-md  cancel-btn">Hủy</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -250,6 +263,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const editButtons = document.querySelectorAll('.edit-btn');
+        const cancelButtons = document.querySelectorAll('.cancel-btn');
 
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -259,11 +273,19 @@
                 const deleteButton = parentDiv.querySelector('.delete-btn');
                 const nameButton = parentDiv.querySelector('.name-btn');
                 const imageInput = form.querySelector('input[type=file]');
+                const cancelButton = form.querySelector('.cancel-btn');
 
                 form.classList.remove('hidden');
                 nameButton.style.display = 'none';
                 deleteButton.style.display = 'none';
                 this.classList.add('hidden');
+
+                cancelButton.addEventListener('click', function() {
+                    form.classList.add('hidden');
+                    nameButton.style.display = 'block';
+                    deleteButton.style.display = 'inline-block';
+                    button.classList.remove('hidden');
+                });
 
                 imageInput.addEventListener('change', function() {
                     const file = this.files[0];
@@ -279,6 +301,7 @@
         });
     });
 </script>
+
 <script>
     function form_add_new() {
         const divElement = document.querySelector('.form_add_new');

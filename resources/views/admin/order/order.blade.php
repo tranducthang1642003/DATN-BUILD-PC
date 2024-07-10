@@ -40,7 +40,8 @@
                 <th class="px-4 py-2">Tổng tiền</th>
                 <th class="px-4 py-2">Địa chỉ</th>
                 <th class="px-4 py-2">Phương thức TT</th>
-                <th class="px-4 py-2">...</th>
+                <th class="px-4 py-2">Trạng thái</th>
+                <th class="px-4 py-2">Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -53,22 +54,58 @@
                 <td class="px-4 py-2">{{ $order->shipping_address }}</td>
                 <td class="px-4 py-2">{{ $order->payment_method }}</td>
                 <td class="px-4 py-2">
-                    <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
-                        <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
-                        <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <a href="{{ route('edit_order', ['id' => $order->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Edit</a>
-                            <form action="{{ route('delete_order', ['id' => $order->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">Delete</button>
-                            </form>
-                        </div>
+                    <div class="relative">
+                        <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none" data-order-id="{{ $order->id }}">
+                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quyết</option>
+                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
+                            <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
+                            <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
+                        </select>
                     </div>
+                </td>
+                <td class="px-4 py-2">
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button>
+                    <form class="hidden update-form" method="POST" action="{{ route('admin.orders.update_status', ['order' => $order->id]) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        <input type="text" name="new_status" class="bg-white border border-gray-300 rounded-md p-1 outline-none ">
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md update-btn">Cập nhật</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusSelects = document.querySelectorAll('.status-select');
+            statusSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    const orderId = this.dataset.orderId;
+                    const newStatus = this.value;
+
+                    // Hiển thị form cập nhật và ẩn nút chi tiết
+                    const parentTd = this.parentNode.parentNode;
+                    const detailBtn = document.querySelector('.detail-btn');
+                    const updateForm = document.querySelector('.update-form');
+                    const updateBtn = document.querySelector('.update-btn');
+
+                    // Cập nhật giá trị của input trong form
+                    const statusInput = updateForm.querySelector('input[name="new_status"]');
+                    statusInput.value = newStatus;
+
+                    detailBtn.classList.add('hidden');
+                    updateForm.classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+
+
+
+
     <div class="flex justify-end mr-8">
         <div>
             {{ $orders->links() }}
