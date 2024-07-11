@@ -51,7 +51,7 @@ class OrderController1 extends Controller
             ->get();
 
         if ($cartItems->isEmpty()) {
-            return redirect()->route('cart.index')->with('error', 'Giỏ hàng của bạn đang trống.');
+            return redirect()->route('cart')->with('error', 'Giỏ hàng của bạn đang trống.');
         }
 
         $order = Orders::create([
@@ -78,7 +78,7 @@ class OrderController1 extends Controller
         CartItem::where('user_id', $user->id)->delete();
         Mail::to($user->email)->send(new CheckoutEmail($order));
 
-        return redirect()->route('home')->with('success', 'Đặt hàng thành công.');
+        return redirect()->route('orders.paymentsuccess')->with('success', 'Đặt hàng thành công.');
     }
     public function paymentsuccess()
     {

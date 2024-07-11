@@ -8,6 +8,8 @@ use Modules\Brand\Entities\Brand;
 use Modules\Category\Entities\Category;
 use Modules\Cart\Entities\CartItem;
 use Modules\Like\Entities\wishlists;
+use Modules\Product\Entities\Promotion;
+
 class Product extends Model
 {
     protected $table = 'products';
@@ -33,7 +35,7 @@ class Product extends Model
 
     public function promotions()
     {
-        return $this->belongsToMany(promotions::class,'product_promotions');
+        return $this->belongsToMany(Promotion::class, 'product_promotions');
     }
 
     public function brand()
@@ -69,6 +71,10 @@ class Product extends Model
     public function isLikedBy($user)
     {
         return $this->likes()->where('user_id', $user->id)->exists();
+    }
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
     }
     
     public function likes()
