@@ -75,11 +75,13 @@ class OrderController1 extends Controller
                 'price' => $cartItem->product->price,
             ]);
         }
-
         CartItem::where('user_id', $user->id)->delete();
         Mail::to($user->email)->send(new CheckoutEmail($order));
 
         return redirect()->route('home')->with('success', 'Đặt hàng thành công.');
     }
-
+    public function paymentsuccess()
+    {
+        return view('public.paymentsuccess');
+    }
 }
