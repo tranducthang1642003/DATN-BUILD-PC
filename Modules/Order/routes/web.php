@@ -31,6 +31,7 @@ Route::group(['middleware' => 'admin'], function () {
 Route::middleware('auth')->group(function () {
     // routes/web.php
 
-    Route::get('orders/checkout', [OrderController1::class, 'checkout'])->name('orders.checkout');
-    Route::post('orders/place', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
+Route::get('orders/checkout', [OrderController1::class, 'checkout'])->name('orders.checkout');
+Route::post('orders/place', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
+Route::get('orders/p', [OrderController1::class, 'paymentsuccess'])->name('orders.paymentsuccess');
 });
