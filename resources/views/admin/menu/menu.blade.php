@@ -64,7 +64,7 @@
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <button class="block px-4 py-2 text-gray-800 hover:bg-gray-200" onclick="form_edit(`{{ $menu->id }}`)">Sửa</button>
+                            <button class="block px-4 py-2 text-gray-800 hover:bg-gray-200" onclick="form_edit('{{ $menu->id }}', '{{ $menu->name }}', '{{ $menu->url }}')">Sửa</button>
                             <form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -138,14 +138,13 @@
                     <div class="w-full">
                         <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">Sửa menu</h2>
                         <section aria-labelledby="options-heading" class="mt-10">
-                            <form action="{{ route('menu.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('menu.update', 'id') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div>
-                                    <label for="productName" class="block text-sm font-medium leading-6 text-gray-900">Tên menu</label>
+                                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Tên menu</label>
                                     <div class="relative mt-2 rounded-md shadow-sm">
                                         <input type="text" name="name" id="name" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên ảnh">
                                     </div>
-                                    <input type="text" class="hidden id_input">
                                 </div>
                                 <div>
                                     <label for="url" class="block text-sm font-medium leading-6 text-gray-900">Đường dẫn</label>
@@ -163,7 +162,6 @@
     </div>
 </div>
 @include('admin.layout.fotter')
-
 <script>
     setTimeout(function() {
         document.getElementById('alert').style.display = 'none';
@@ -180,12 +178,16 @@
         divElement.style.display = 'none';
     }
 
-    function form_edit(id) {
+    function form_edit(id, name, url) {
         const divElement = document.querySelector('.form_edit');
-        const idInput = document.querySelector('.id_input');
+        const formElement = divElement.querySelector('form');
+        formElement.action = `{{ route('menu.update', '') }}/${id}`;
         divElement.style.display = 'block';
-        idInput.input = id;
+        formElement.querySelector('#name').value = name || '';
+        formElement.querySelector('#url').value = url || '';
     }
+
+
 
     function remove_edit() {
         const divElement = document.querySelector('.form_edit');

@@ -41,7 +41,7 @@
                 <th class="px-4 py-2">Email</th>
                 <th class="px-4 py-2">Số điện thoại</th>
                 <th class="px-4 py-2">Địa chỉ</th>
-                <th class="px-4 py-2">Token</th>
+                <th class="px-4 py-2">Trạng thái</th>
                 <th class="px-4 py-2">Cập nhật lần cuối</th>
                 <th class="px-4 py-2">...</th>
             </tr>
@@ -55,7 +55,7 @@
                 <td class="px-4 py-2">{{ $user->email }}</td>
                 <td class="px-4 py-2">{{ $user->phone }}</td>
                 <td class="px-4 py-2">{{ $user->address }}</td>
-                <td class="px-4 py-2">{{ ($user->remember_token)?($user->remember_token):0 }}</td>
+                <td class="px-4 py-2">{{ $user->is_activated }}</td>
                 <td class="px-4 py-2">{{ $user->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
