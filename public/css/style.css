@@ -112,3 +112,51 @@
 .pagination p {
     display: none;
 }
+/* Tùy chỉnh thanh trượt */
+#price-slider {
+    margin: 20px 0;
+}
+
+/* Thay đổi màu sắc của thanh trượt */
+.ui-slider-range {
+    background: #ffd43b !important; /* Màu vàng cho phần đã chọn */
+}
+
+.ui-slider-handle {
+    background: #ffd43b; /* Màu vàng cho tay cầm của thanh trượt */
+    border: 1px solid #ccc; /* Màu viền tay cầm */
+}
+
+/* Thay đổi kích thước của tay cầm */
+.ui-slider-handle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Thay đổi kích thước của thanh trượt */
+.ui-slider {
+    height: 1px; /* Độ cao của thanh trượt */
+}
+
+/* Thay đổi màu sắc của thanh trượt chưa chọn */
+.ui-slider .ui-slider-range {
+    background: #ddd; /* Màu xám nhạt cho phần chưa chọn */
+}
+.ui-widget.ui-widget-content {
+    height: 5px !important;
+    background-color: #d3d3d3;
+    border: 0px solid #d3d3d3 !important;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 94% !important;
+}
+.ui-corner-all, .ui-slider-handle {
+    border-radius: 10px !important;
+}
+.ui-slider-horizontal .ui-slider-handle {
+    top: -0.4em !important;
+    margin-left: -.6em;
+}
