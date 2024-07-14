@@ -47,6 +47,7 @@
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Tên</th>
+                <th class="px-4 py-2">Hình ảnh</th>
                 <th class="px-4 py-2">Đường dẫn</th>
                 <th class="px-4 py-2">Last Update</th>
                 <th class="px-4 py-2">...</th>
@@ -58,13 +59,14 @@
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $menu->id }}</td>
                 <td class="px-4 py-2">{{ $menu->name }}</td>
+                <td class="px-4 py-2"><img src="{{ asset($menu->image) }}" width="100" alt=""></td>
                 <td class="px-4 py-2">{{ $menu->url }}</td>
                 <td class="px-4 py-2">{{ $menu->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <button class="block px-4 py-2 text-gray-800 hover:bg-gray-200" onclick="form_edit('{{ $menu->id }}', '{{ $menu->name }}', '{{ $menu->url }}')">Sửa</button>
+                            <button class="block px-4 py-2 text-gray-800 hover:bg-gray-200" onclick="form_edit('{{ $menu->id }}', '{{ $menu->name }}', '{{ $menu->url }}', '{{ $menu->image }}')">Sửa</button>
                             <form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -114,6 +116,10 @@
                                         <input type="text" name="url" id="url" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập đường dẫn">
                                     </div>
                                 </div>
+                                <div class="">
+                                    <label for="image" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Hình ảnh</label>
+                                    <input type="file" name="image" id="image" accept="image/*">
+                                </div>
                                 <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
                             </form>
                         </section>
@@ -152,6 +158,11 @@
                                         <input type="text" name="url" id="url" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập đường dẫn">
                                     </div>
                                 </div>
+                                <div class="">
+                                    <label for="image" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Hình ảnh</label>
+                                    <img src="" alt=""  id="image">
+                                    <input type="file" name="image" accept="image/*">
+                                </div>
                                 <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
                             </form>
                         </section>
@@ -178,13 +189,14 @@
         divElement.style.display = 'none';
     }
 
-    function form_edit(id, name, url) {
+    function form_edit(id, name, url, img) {
         const divElement = document.querySelector('.form_edit');
         const formElement = divElement.querySelector('form');
         formElement.action = `{{ route('menu.update', '') }}/${id}`;
         divElement.style.display = 'block';
         formElement.querySelector('#name').value = name || '';
         formElement.querySelector('#url').value = url || '';
+        formElement.querySelector('#image').src = img || '';
     }
 
 
