@@ -32,5 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::get('orders/checkout', [OrderController1::class, 'checkout'])->name('orders.checkout');
     Route::post('orders/place', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
     Route::get('orders/p', [OrderController1::class, 'paymentsuccess'])->name('orders.paymentsuccess');
+
+    Route::get('/order-lookup', [OrderController1::class, 'showLookupForm'])->name('orders.lookup.form');
+    
+    Route::post('/order-lookup', [OrderController1::class, 'lookup'])->name('orders.lookup');
+    
 });
 

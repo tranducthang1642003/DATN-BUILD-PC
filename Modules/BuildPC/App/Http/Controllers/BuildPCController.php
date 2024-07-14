@@ -10,6 +10,8 @@ use Modules\BuildPC\Entities\ConfigurationItem;
 use Modules\BuildPC\Repositories\BuildPCRepositoryInterface;
 use Modules\Cart\Entities\CartItem;
 use Modules\Product\Entities\Product;
+use Modules\Settings\Entities\Menu;
+
 
 class BuildPCController extends Controller
 {
@@ -24,6 +26,8 @@ class BuildPCController extends Controller
     {
         $userId = Auth::id();
         $configurationItems = session()->get('configuration_items', []);
+        $menuItems = Menu::all();
+
 
         // Calculate total price
         $totalPrice = collect($configurationItems)->sum(function ($item) {
@@ -47,7 +51,7 @@ class BuildPCController extends Controller
         $Productandcategory = $this->BuildPCRepository->getFeaturedCategories();
 
         // Pass data to the view
-        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice'));
+        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice','menuItems'));
     }
 
     public function create()
