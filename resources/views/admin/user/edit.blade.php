@@ -46,8 +46,8 @@
                 <div class="mb-4">
                     <label for="is_activated" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Phân quyền</label>
                     <select name="is_activated" id="is_activated" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>
-                        <option value="0" {{ $user->is_activated ? 'selected' : '' }}>Người dùng</option>
-                        <option value="1" {{ !$user->is_activated ? 'selected' : '' }}>Admin</option>
+                        <option value="1" {{ $user->is_activated ? 'selected' : '' }}>Admin</option>
+                        <option value="0" {{ !$user->is_activated ? 'selected' : '' }}>Người dùng</option>
                     </select>
                 </div>
                 <div class="flex justify-end mt-6">

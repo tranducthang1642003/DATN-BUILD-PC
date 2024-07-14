@@ -12,7 +12,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="p-1">
                             <label for="full-name" class="block text-lg font-medium text-gray-700">Họ và tên</label>
-                            <input id="full-name" name="full-name" type="text" class="mt-1 p-2 border border-gray-300 rounded-md w-full" placeholder="Nhập họ và tên" required>
+                            <input id="full-name" name="full_name" type="text" class="mt-1 p-2 border border-gray-300 rounded-md w-full" placeholder="Nhập họ và tên" required>
                         </div>
                         <div class="p-1">
                             <label for="phone-number" class="block text-lg font-medium text-gray-700">Số điện thoại</label>

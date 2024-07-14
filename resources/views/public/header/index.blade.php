@@ -53,6 +53,7 @@
                 <div class="nav__logo">
                     <img src="{{ asset('image/logo.png') }}" alt="Logo" class="h-12">
                 </div>
+
                 <div class="nav__search flex-grow mx-4 md:mx-6 lg:mx-8 xl:mx-10">
                     <form action="{{ route('product.search') }}" method="GET">
                         <div class="search__wrapper relative w-auto">
@@ -64,40 +65,40 @@
 
                     </ul>
                 </div>
+
+
+
                 <div class="nav__menu hidden md:flex space-x-4 lg:space-x-6 text-gray-700">
-                    <ul class="flex space-x-4 lg:space-x-6 text-white">
+                    <ul class="flex space-x-4 lg:space-x-6 text-white items-center text-xs font-bold	">
                         <li class="menu__item menu__item--white flex items-center flex-col">
                             <i class="fa-solid fa-layer-group text-xl" style="color: #ffffff;"></i>
-                            <a href="#">Xây dựng cấu hình</a>
+                            <a href="{{ route('buildpc') }}">Xây dựng cấu hình</a>
                         </li>
                         <li class="menu__item menu__item--white flex items-center flex-col">
                             <i class="fa-solid fa-phone text-xl" style="color: #ffffff;"></i>
-                            <a href="#">Khách hàng liên hệ</a>
+                            <a href="{{ route('contact.index') }}">Khách hàng liên hệ</a>
                         </li>
                         <li class="menu__item menu__item--white flex items-center flex-col">
                             <i class="fa-solid fa-receipt text-xl" style="color: #ffffff;"></i>
-                            <a href="#">Tin tức công nghệ</a>
+                            <a href="{{ route('blog.index') }}">Tin tức công nghệ</a>
                         </li>
                         <li class="menu__item menu__item--white flex items-center flex-col">
                             <i class="fa-solid fa-person-chalkboard text-xl" style="color: #ffffff;"></i>
-                            <a href="#">Theo dõi đơn hàng</a>
+                            <a href="{{ route('orders.lookup.form') }}">Theo dõi đơn hàng</a>
                         </li>
                         <li class="menu__item menu__item--white flex items-center flex-col relative">
                             <i class="fa-solid fa-cart-shopping text-xl" style="color: #ffffff;"></i>
-                            <a href="#" id="cart-dropdown-toggle">Giỏ hàng</a>
+                            <a href="{{ route('cart') }}" id="cart-dropdown-toggle">Giỏ hàng</a>
                             @php
                                 $cartCount = session('cart_count', 0);
                             @endphp
-                            @if ($cartCount > 0)
-                                <span id="cart-count" class="text-white bg-red-500 rounded-full px-2">{{ $cartCount }}</span>
-                            @endif
-                            <div id="cart-dropdown" class="absolute bg-white border border-gray-200 shadow-md rounded p-2 mt-2 w-64 hidden overflow-auto max-h-64">
-                                <!-- Sản phẩm trong giỏ hàng sẽ được chèn vào đây bởi JavaScript -->
-                                <ul id="cart-items-list"></ul>
-                                <div class="mt-2">
-                                    <a href="{{ route('cart') }}" class="bg-blue-500 text-white rounded px-4 py-2 block text-center">Xem giỏ hàng</a>
+                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2" 
+                                  style="display: {{ $cartCount > 0 ? 'inline-block' : 'none' }}">{{ $cartCount }}</span>
+                            <a href="{{ route('cart') }}">
+                                <div id="cart-dropdown" 
+                                     class="absolute bg-white border border-gray-200 shadow-md rounded p-2 mt-2 w-64 hidden overflow-auto max-h-64">
                                 </div>
-                            </div>
+                            </a>
                         </li>
 
                         <style>
@@ -173,7 +174,6 @@
                                 text-decoration: underline;
                             }
                         </style>
-
                         <div class="relative">
                             <button class="menu__item menu__item--white flex items-center flex-col"
                                 onclick="toggleDropdown()">
@@ -213,6 +213,9 @@
 
                     </ul>
                 </div>
+
+
+
                 <div class="md:hidden">
                     <button id="menu-toggle"
                         class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
@@ -246,47 +249,40 @@
             <div
                 class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
                 <div class="nav__menu md:flex space-x-6 text-gray-700">
-                    <ul class="flex space-x-6 text-white">
-                        <li
-                            class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black hover:bg-gray-100 cursor-pointer">
-                            <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
-                            <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
-                            <!-- Dropdown Menu -->
-                            <ul id="dropdownMenu"
-                                class="absolute left-0 top-full mt-2 hidden w-60 bg-white rounded-md shadow-md">
-                                <li class="p-2 hover:bg-gray-100"><a href="#">Sản phẩm 1</a></li>
-                                <li class="p-2 hover:bg-gray-100"><a href="#">Sản phẩm 2</a></li>
-                                <li class="p-2 hover:bg-gray-100"><a href="#">Sản phẩm 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-computer mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">PC GAMING</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-brands fa-windows mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">PC VĂN PHÒNG</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-screwdriver-wrench mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">LINH KIỆN PC</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-desktop mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">MÀN HÌNH</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-laptop mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">LAPTOP</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center">
-                            <i class="fa-solid fa-chalkboard mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">THIẾT BỊ VĂN PHÒNG</a>
-                        </li>
-                        <li class="hover:text-blue-500 flex items-center ">
-                            <i class="fa-brands fa-uncharted mr-2" style="color: #ffffff;"></i>
-                            <a href="#" class="mr-2">PHÍM CHUỘT GHẾ GAMING</a>
-                        </li>
+                    <ul class="flex space-x-6 text-white items-center	">
+                        <li class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer"
+                        style="z-index: 100;" onclick="toggleDropdown()">
+                        <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+                        <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
+                        <!-- Dropdown Menu -->
+                        <ul id="dropdownMenu" class="absolute left-0 top-full mt-2 hidden w-60 bg-white rounded-md shadow-md z-10">
+                            {{-- @foreach ($featuredCategories as $category)
+                                <li class="relative">
+                                    <a href="{{ route('category.show', $category->slug) }}" class="flex items-center justify-between hover:bg-gray-100 rounded-md px-3 py-2">
+                                        <div class="flex items-center space-x-2">
+                                            <img src="{{ $category->image }}" alt="{{ $category->category_name }}" class="w-10 h-10 object-cover rounded-full">
+                                            <span class="truncate">{{ $category->category_name }}</span>
+                                        </div>
+                                        <span class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 12a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 12z" clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </a>
+                                </li>
+                            @endforeach --}}
+                        </ul>                        
+                    </li>
+                    <li class="hover:text-blue-500 flex items-center py-2">
+                        <a href="#" class="mr-2">
+                            @foreach ($menuItems as $menuItem)
+                                <li class="mr-2 text-lg font-bold hover:text-green-700">
+                                    <a href="{{ $menuItem->url }}">{{ $menuItem->name }}</a>
+                                </li>
+                            @endforeach
+                        </a>
+                    </li>
+                    
                     </ul>
                 </div>
             </div>
@@ -294,6 +290,15 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
@@ -320,19 +325,17 @@
                     if (response.success) {
                         var cartItemsList = $('#cart-items-list');
                         cartItemsList.empty(); // Xóa sạch danh sách cũ
-
                         response.cartItems.forEach(function(item) {
                             cartItemsList.append(
                                 '<li class="flex items-center mb-2">' +
                                 '<img src="' + item.primary_image_path +
                                 '" alt="' + item.product_name +
-                                '" class="w-12 h-12 mr-2 " >' +
+                                '" class="w-12 h-12 mr-2">' +
                                 '<div>' +
-                                '<p  style="color: #000000	;">' + item
+                                '<p style="color: #000000;">' + item
                                 .product_name + '</p>' +
-                                '<p style="color: #000000	;">' + item.quantity +
-                                ' x ' + item.price +
-                                '</p>' +
+                                '<p style="color: #000000;">' + item.quantity +
+                                ' x ' + item.price + '</p>' +
                                 '</div>' +
                                 '</li>'
                             );
@@ -341,9 +344,7 @@
                         alert('Không thể tải danh sách sản phẩm trong giỏ hàng.');
                     }
                 },
-                error: function(xhr, status, error) {
-                    alert('Yêu cầu AJAX thất bại: ' + error);
-                }
+
             });
         });
     });
@@ -399,16 +400,9 @@
     });
 </script>
 <script>
-    // Lấy phần tử danh mục sản phẩm và dropdown menu
-    const menuItem = document.querySelector('.border-solid');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    // Thêm sự kiện khi di chuột vào và ra
-    menuItem.addEventListener('mouseenter', function() {
-        dropdownMenu.classList.remove('hidden');
-    });
-
-    menuItem.addEventListener('mouseleave', function() {
-        dropdownMenu.classList.add('hidden');
-    });
+    function toggleDropdown() {
+        var dropdownMenu = document.getElementById('dropdownMenu');
+        dropdownMenu.classList.toggle('hidden'); // Toggle 'hidden' class
+    }
 </script>
+

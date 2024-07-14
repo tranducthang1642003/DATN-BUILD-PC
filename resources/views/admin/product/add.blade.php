@@ -17,7 +17,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
                             <label for="product_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Tên Sản phẩm</label>
-                            <input type="text" name="product_name" id="product_name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            <input type="text" name="product_name" id="product_name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"  placeholder="Nhập tên" required>
                         </div>
                         <div class="mb-4">
                             <label for="color" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Màu sắc</label>
@@ -27,45 +27,43 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
                             <label for="price" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Đơn giá</label>
-                            <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập đơn giá" required>
                         </div>
                         <div class="mb-4">
-                            <label for="stock" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Tồn kho</label>
-                            <input type="number" name="stock" id="stock" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            <label for="sale" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Giảm giá</label>
+                            <input type="number" name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập giá giảm" required>
                         </div>
+
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
                             <label for="quantity" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Số lượng</label>
-                            <input type="number" name="quantity" id="quantity" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            <input type="number" name="quantity" id="quantity" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập số lượng" required>
                         </div>
                         <div class="mb-4">
-                            <label for="category_id" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Danh mục</label>
-                            <select name="category_id" id="category_id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                                @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="stock" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Tồn kho</label>
+                            <input type="number" name="stock" id="stock" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tồn kho" required>
                         </div>
                     </div>
                     <div class="pb-4 my-4">
-                        <label for="brand_id" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Thương hiệu</label>
-                        <select name="brand_id" id="brand_id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                            @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                        <label for="category_id" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Danh mục</label>
+                        <select name="category_id" id="category_id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="pb-4 my-4">
                             <label for="product_code" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Mã Sản phẩm</label>
-                            <input type="text" name="product_code" id="product_code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            <input type="text" name="product_code" id="product_code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mã sản phẩm" required>
                         </div>
                         <div class="pb-4 my-4">
-                            <label for="sale" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Giảm giá</label>
-                            <select name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                                <option value="yes">Có</option>
-                                <option value="no">Không</option>
+                            <label for="brand_id" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Thương hiệu</label>
+                            <select name="brand_id" id="brand_id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                                @foreach($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

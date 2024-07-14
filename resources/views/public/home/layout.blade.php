@@ -287,7 +287,8 @@
                                         </div>
                                         {{-- Cart button --}}
                                         <div class="cart">
-                                            <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
+                                            <button class="add-to-cart-btn relative"
+                                                data-product-id="{{ $product->id }}">
                                                 <div
                                                     class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white">
                                                     <i class="fa-solid fa-shopping-cart"></i>
@@ -569,7 +570,7 @@
             var productId = button.data('product-id');
             overlay.show();
             $.ajax({
-                url: '{{ route('cart.addToCart') }}',
+                url: '{{ route('cart.add') }}',
                 method: 'POST',
                 data: {
                     '_token': '{{ csrf_token() }}',
@@ -596,12 +597,6 @@
 
                     overlay.hide();
                 },
-                error: function(xhr, status, error) {
-                    alert('Ajax request failed: ' + error);
-
-                    // Ẩn lớp phủ tải
-                    overlay.hide();
-                }
             });
         });
 

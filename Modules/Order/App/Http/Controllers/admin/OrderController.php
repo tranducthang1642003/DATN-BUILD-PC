@@ -111,10 +111,32 @@ class OrderController extends Controller
         $request->validate([
             'new_status' => 'required|in:pending,processing,cancelled,completed',
         ]);
-    
-        $order->status = $request->input('new_status');
-        $order->save();
-    
-        return redirect()->back()->with('success', 'Đã cập nhật trạng thái đơn hàng');
+
+        try {
+            $order->status = $request->input('new_status');
+            $order->save();
+
+            return redirect()->route('order')->with('success', 'Đã cập nhật trạng thái đơn hàng');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật trạng thái không thành công: ' . $e->getMessage());
+        }
+    }
+    public function updateMultipleStatus(Request $request)
+    {
+        $request->validate([
+            'orders' => 'required|array',
+            'status' => 'required|array',
+            'status.*' => 'in:pending,processing,cancelled,completed',
+        ]);
+
+        foreach ($request->input('orders') as $orderId) {
+            $order = Orders::find($orderId);
+            if ($order) {
+                $order->status = $request->input('status')[$orderId];
+                $order->save();
+            }
+        }
+
+        return redirect()->back()->with('success', 'Đã cập nhật trạng thái cho các đơn hàng được chọn');
     }
 }

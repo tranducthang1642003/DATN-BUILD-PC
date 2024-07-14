@@ -13,6 +13,9 @@ use Modules\Blog\Entities\Blogs;
 use Modules\Like\Entities\wishlists;
 use Illuminate\Support\Facades\Auth;
 
+use Modules\Settings\Entities\Menu;
+
+
 class HomeController extends Controller
 {
     protected $homeRepository;
@@ -29,8 +32,9 @@ class HomeController extends Controller
         $featuredCategories = $this->homeRepository->getFeaturedCategories();
         $saleproduct = $this->homeRepository->getSaleProducts();
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
+        $menuItems = Menu::all();
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts',));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts','menuItems'));
     }
 
     public function showCategory($slug, Request $request)
@@ -38,6 +42,7 @@ class HomeController extends Controller
 
         $category = $this->homeRepository->getCategoryBySlug($slug);
         $products = $this->homeRepository->getProductByProduct($slug);
+        $menuItems = Menu::all();
 
         $products = $this->applyFilters($products, $request);
         $products = $this->applySorting($products, $request);
@@ -54,6 +59,7 @@ class HomeController extends Controller
         $topProducts->load('reviews');
 
         return view('public.product.product', compact('category', 'brands', 'products', 'topProducts', 'request'));
+        return view('public.product.product', compact('category', 'products','menuItems'));
     }
 
     public function show($slug)
@@ -67,7 +73,8 @@ class HomeController extends Controller
             ->get();
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
-        return view('public.product.detail-product', compact('product'));
+        $menuItems = Menu::all();
+        return view('public.product.detail-product', compact('product','menuItems'));
     }
     public function productShow(Request $request)
     {

@@ -27,7 +27,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($totalRevenueLastMonth) }}VNĐ</span>
-                <span class="text-lime-700">{{ number_format($rateRevenue, 2) }}%</span>
+                <span class=" {{ $rateRevenue > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateRevenue, 2) }}%</span>
             </div>
         </div>
         <div class="col-span-1 card_dashboard" id="newOrdersCard">
@@ -44,7 +44,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($totalOrdersLastMonth) }}</span>
-                <span class="text-red-600">{{ number_format($rateOrders, 2) }}%</span>
+                <span class="{{ $rateOrders > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateOrders, 2) }}%</span>
             </div>
         </div>
         <div class="col-span-1 card_dashboard" id="soldProductsCard">
@@ -61,7 +61,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($totalProductsSoldLastMonth) }}</span>
-                <span class="text-lime-700">{{ number_format($rateProducts, 2) }}%</span>
+                <span class="{{ $rateProducts > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateProducts, 2) }}%</span>
             </div>
         </div>
         <div class="col-span-1 card_dashboard" id="newCustomersCard">
@@ -78,7 +78,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($newUsersCountLastMonth) }}</span>
-                <span class="text-lime-700">{{ number_format($rateUsers, 2) }}%</span>
+                <span class="{{ $rateUsers > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateUsers, 2) }}%</span>
             </div>
         </div>
     </div>
