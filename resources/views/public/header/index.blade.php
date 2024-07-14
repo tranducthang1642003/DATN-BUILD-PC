@@ -49,22 +49,21 @@
             <img src="{{ asset('image/banner.webp') }}" alt="">
         </div>
         <section class="site-nav bg-sky-500 shadow">
-            <div
-                class="nav__container  mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
+            <div class="nav__container  mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
                 <div class="nav__logo">
                     <img src="{{ asset('image/logo.png') }}" alt="Logo" class="h-12">
                 </div>
 
                 <div class="nav__search flex-grow mx-4 md:mx-6 lg:mx-8 xl:mx-10">
-                    <div class="search__wrapper relative w-auto">
-                        <input type="text"
-                            class="search__input w-full p-2 md:p-3 lg:p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-                            placeholder="Search...">
-                        <div
-                            class="search__icon absolute inset-y-0 left-0 pl-2 md:pl-3 lg:pl-4 flex items-center pointer-events-none">
-                            <!-- Search icon can go here -->
+                    <form action="{{ route('product.search') }}" method="GET">
+                        <div class="search__wrapper relative w-auto">
+                            <input type="text" name="query" id="searchInput" class="search__input w-full p-2 md:p-3 lg:p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="Search...">
+                            <button type="submit" class="absolute inset-y-0 right-0 mr-3 hover:text-blue-600"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
                         </div>
-                    </div>
+                    </form>
+                    <ul id="suggestions" class="absolute z-50 bg-white mt-2 rounded-xl shadow-lg list-none p-0 m-0">
+
+                    </ul>
                 </div>
 
 
@@ -101,7 +100,80 @@
                                 </div>
                             </a>
                         </li>
-                        
+
+                        <style>
+
+
+                            #cart-dropdown {
+                                display: none;
+                            }
+
+                            /* Show the dropdown when hovering over the cart icon or link */
+                            .menu__item:hover #cart-dropdown {
+                                display: block;
+                            }
+
+                            /* Basic styling for demonstration */
+                            body {
+                                font-family: Arial, sans-serif;
+                            }
+
+                            .menu__item {
+                                position: relative;
+                                margin: 20px;
+                            }
+
+                            #cart-icon {
+                                font-size: 24px;
+                                cursor: pointer;
+                            }
+
+                            #cart-dropdown {
+                                z-index: 1000;
+                                background-color: #fff;
+                                border: 1px solid #ddd;
+                                padding: 10px;
+                                border-radius: 5px;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                                max-height: 200px;
+                                overflow-y: auto;
+                                width: 300px;
+                            }
+
+                            #cart-count {
+                                background-color: red;
+                                color: white;
+                                border-radius: 50%;
+                                padding: 5px 10px;
+                                font-size: 14px;
+                                position: absolute;
+                                top: -10px;
+                                right: -10px;
+                            }
+
+                            #cart-items-list {
+                                list-style-type: none;
+                                padding: 0;
+                                margin: 0;
+                            }
+
+                            #cart-items-list li {
+                                margin-bottom: 10px;
+                            }
+
+                            #cart-items-list li:last-child {
+                                margin-bottom: 0;
+                            }
+
+                            a {
+                                text-decoration: none;
+                                color: #000;
+                            }
+
+                            a:hover {
+                                text-decoration: underline;
+                            }
+                        </style>
                         <div class="relative">
                             <button class="menu__item menu__item--white flex items-center flex-col"
                                 onclick="toggleDropdown()">
@@ -134,10 +206,10 @@
 
                         <script>
                             function toggleDropdown() {
-                                const dropdown = document.getElementById('dropdown');
-                                dropdown.classList.toggle('hidden');
+                              const dropdown = document.getElementById('dropdown');
+                              dropdown.classList.toggle('hidden');
                             }
-                        </script>
+                          </script>
 
                     </ul>
                 </div>
@@ -237,7 +309,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
     integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset('js/slickside.js') }}"></script>
+<script src="{{ asset('js/slickslide.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
@@ -279,6 +351,56 @@
                 },
 
             });
+        });
+    });
+    $(document).ready(function() {
+        $('#searchInput').on('input', function() {
+            var query = $(this).val().trim();
+            if (query.length === 0) {
+                $('#suggestions').empty().hide();
+                return;
+            }
+            $.ajax({
+                url: '{{ route("search.suggestions") }}',
+                type: 'GET',
+                data: {
+                    query: query
+                },
+                success: function(response) {
+                    var suggestionsList = $('#suggestions');
+                    suggestionsList.empty();
+                    if (response.length > 0) {
+                        $.each(response, function(index, product) {
+                            var imageUrl = product.primary_image_path ? product.primary_image_path : 'default-image.jpg';
+
+                            var suggestionItem = '<li class="flex items-center p-2 cursor-pointer suggestion-item" data-product-slug="' + product.slug + '">' +
+                                '<img src="' + imageUrl + '" class="w-12 h-12 rounded-full mr-3" alt="Product Image">' +
+                                '<span class="text-sm hover:text-blue-500">' + product.product_name + '</span>' +
+                                '</li>';
+
+                            suggestionsList.append(suggestionItem);
+                        });
+
+                        suggestionsList.show();
+                    } else {
+                        suggestionsList.empty().hide();
+                    }
+                },
+                error: function(error) {
+                    console.error('Error fetching suggestions:', error);
+                }
+            });
+        });
+        $(document).on('click', '.suggestion-item', function() {
+            var productId = $(this).data('product-slug');
+
+            if (productId) {
+                window.location.href = '/product/' + productId;
+            } else {
+                console.error('Missing product ID for suggestion:', $(this).text());
+            }
+
+            $('#suggestions').empty().hide();
         });
     });
 </script>
