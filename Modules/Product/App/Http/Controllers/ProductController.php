@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Modules\Product\Entities\Product;
 use Modules\Review\Entities\Review;
+use Modules\Settings\Entities\Menu;
 
 class ProductController extends Controller
 {
@@ -82,10 +83,11 @@ class ProductController extends Controller
             $primaryImage = $similarProduct->images->firstWhere('is_primary', 1);
             $similarProduct->primary_image_path = $primaryImage ? $primaryImage->image_path : null;
         }
-    
+        $menuItems = Menu::all();
+
         $reviews = Review::where('product_id', $product->id)->orderBy('created_at', 'desc')->get();
     
-        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews','secondary_images'));
+        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews','secondary_images','menuItems'));
     }
     
     /**

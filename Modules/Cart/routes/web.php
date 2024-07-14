@@ -28,3 +28,4 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/cart/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
 });
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');

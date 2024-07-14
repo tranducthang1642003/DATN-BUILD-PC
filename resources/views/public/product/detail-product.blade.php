@@ -15,6 +15,10 @@
                 </ol>
             </nav>
         </div>
+        <div id="toast" class="hidden fixed bottom-0 right-0 m-8 p-2 bg-green-500 text-white rounded shadow-md">
+            Thêm sản phẩm vào giỏ hàng thành công.
+        </div>
+
         <div class="product-detail__box-content flex flex-col lg:flex-row">
             <div class="box-left grow mt-3">
                 <div class="product-detail__images">
@@ -75,19 +79,22 @@
                     <p class="price-detail text-xs lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
                         {{ number_format($product->price) }} VND
                     </p>
-                    <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">
+                    <span
+                        class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">
                         4.000.000₫
                     </span>
-                    <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
+                    <div
+                        class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
                         Tiết kiệm 810.000đ
                     </div>
-                    <div class="bg-red-700 text-red-700 font-bold rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
+                    <div
+                        class="bg-red-700 text-red-700 font-bold rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
                         -25%
                     </div>
                 </div>
                 <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
                     <div class="flex items-center space-x-4 mr-5 md:mr-10">
-                        <form action="{{ route('cart.add') }}" method="POST">
+                        <form id="add-to-cart-form" action="{{ route('cart.add') }}" method="POST">
                             @csrf
                             <div class="grid grid-cols-2">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -95,30 +102,27 @@
                                 <button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400" type="submit">Thêm vào giỏ hàng</button>
                             </div>
                         </form>
+                        <span id="cart-count" class="text-white bg-red-500 rounded-full px-2" style="display: none;">{{ session('cart_count', 0) }}</span>
                     </div>
+                    
                 </div>
-                <div id="cart-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
-                    <div class="bg-white rounded-lg p-6 shadow-lg max-w-sm mx-auto">
-                        <h2 class="text-xl font-bold mb-4">Bạn cần phải đăng nhập mới thêm hàng được</h2>
-                        <p><button class="bg-slate-200 text-black px-4 py-2 rounded-full hover:bg-amber-400">đăng ký</button></p>
-                        <div class="mt-4 flex justify-end">
-                            <button id="close-modal" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Close</button>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="detail-buy mt-2 md:mt-5">
-                    <div class="detail-buy-now border p-2 md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white hover:bg-red-500 hover:text-white text-center">
+                    <div
+                        class="detail-buy-now border p-2 md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white hover:bg-red-500 hover:text-white text-center">
                         <a href="" class="w-full">
                             <p class="text-base md:text-lg lg:text-xl font-semibold">ĐẶT MUA NGAY</p>
                             <span>Giao hàng tận nơi nhanh chóng</span>
                         </a>
                     </div>
                     <div class="detail-add-cart grid grid-cols-2 divide-x mt-2 md:mt-5">
-                        <a href="" class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
+                        <a href=""
+                            class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
                             <p>TRẢ GÓP QUA HỒ SƠ</p>
                             <span>Chỉ từ 2.665.000₫/ tháng</span>
                         </a>
-                        <a href="" class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
+                        <a href=""
+                            class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
                             <p>TRẢ GÓP QUA THẺ</p>
                             <span>Chỉ từ 1.332.500₫/ tháng</span>
                         </a>
@@ -128,7 +132,8 @@
                     <h1 class="font-semibold">YÊN TÂM MUA HÀNG</h1>
                     <div class="list-showroom-detail mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
                         <div class="item">
-                            <p><i class="fa-regular fa-handshake" style="color: #d60000;"></i> Cam kết giá tốt nhất thị trường.</p>
+                            <p><i class="fa-regular fa-handshake" style="color: #d60000;"></i> Cam kết giá tốt nhất thị
+                                trường.</p>
                         </div>
                         <div class="item">
                             <p><i class="fa-solid fa-award" style="color: #d60000;"></i> Sản phẩm mới 100%.</p>
@@ -137,13 +142,14 @@
                             <p><i class="fa-solid fa-repeat" style="color: #d60000;"></i> Lỗi 1 đổi 1 ngay lập tức.</p>
                         </div>
                         <div class="item">
-                            <p><i class="fa-solid fa-file-invoice-dollar" style="color: #d60000;"></i> Hỗ trợ trả góp - Thủ tục nhanh gọn.</p>
+                            <p><i class="fa-solid fa-file-invoice-dollar" style="color: #d60000;"></i> Hỗ trợ trả góp -
+                                Thủ tục nhanh gọn.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="box-read-product-detail mt-3 md:mt-5 grid gap-1 grid-cols-1 md:grid-cols-2">
             <div class="box-left">
                 <div class="mx-auto rounded-xl border shadow p-3 md:p-5">
@@ -445,32 +451,7 @@
     </div>
 </div>
 @include('public.footer.footer')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const stars = document.querySelectorAll('.flex .cursor-pointer');
-        const ratingInput = document.querySelector('input[name="rating"]');
 
-        stars.forEach((star, index) => {
-            star.addEventListener('click', function() {
-                const ratingValue = index + 1;
-                ratingInput.value = ratingValue;
-
-                stars.forEach((s, i) => {
-                    if (i <= index) {
-                        s.classList.remove('text-gray-300');
-                        s.classList.add('text-yellow-500');
-                    } else {
-                        s.classList.remove('text-yellow-500');
-                        s.classList.add('text-gray-300');
-                    }
-                });
-            });
-        });
-    });
-    setTimeout(function() {
-        document.getElementById('alert').style.display = 'none';
-    }, 5000);
-</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const addToCartButton = document.querySelector('form button[type="submit"]');
@@ -489,4 +470,58 @@
             body.classList.remove('blur-background');
         });
     });
+   
+
+
+    $(document).ready(function() {
+    $('#add-to-cart-form').submit(function(event) {
+        event.preventDefault(); // Ngăn form submit thông thường
+
+        $.ajax({
+            url: $(this).attr('action'), // Lấy URL từ action của form
+            method: $(this).attr('method'), // Lấy method từ form
+            data: $(this).serialize(), // Lấy dữ liệu từ form
+            success: function(response) {
+                if (response.success) {
+                    // Nhảy số lượng giỏ hàng lên
+                    animateCartCount();
+                    
+                    // Hiển thị Toast notification (nếu cần)
+                    showToast();
+                } else {
+                    alert('Không thể thêm sản phẩm vào giỏ hàng.');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Yêu cầu AJAX thất bại: ' + error);
+            }
+        });
+    });
+
+    function animateCartCount() {
+        var cartCountElement = $('#cart-count');
+        var currentCount = parseInt(cartCountElement.text()) || 0; 
+        var newCount = currentCount + 1; 
+
+        cartCountElement.text(newCount).fadeIn().delay(100).fadeOut().fadeIn();
+    }
+
+    function showToast() {
+        var toast = $('#toast');
+        toast.removeClass('hidden'); 
+        setTimeout(function() {
+            toast.addClass('hidden'); 
+        }, 3000); 
+    }
+
+
+    function updateCartCount(cartCount) {
+        if (cartCount > 0) {
+            $('#cart-count').text(cartCount).show();
+        } else {
+            $('#cart-count').hide();
+        }
+    }
+});
+
 </script>
