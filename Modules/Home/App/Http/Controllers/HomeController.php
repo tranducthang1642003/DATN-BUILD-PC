@@ -9,7 +9,7 @@ use Modules\Product\Entities\ProductImage;
 use Modules\Brand\Entities\Brand;
 use Illuminate\Http\Request;
 use Modules\Category\Entities\Category;
-
+use Modules\Blog\Entities\Blogs;
 use Modules\Like\Entities\wishlists;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,12 +72,10 @@ class HomeController extends Controller
     public function productShow(Request $request)
     {
         $categories = Category::all();
-        $productsQuery = Product::query(); // Sử dụng Builder thay vì Collection
+        $productsQuery = Product::query();
 
-        // Áp dụng bộ lọc
         $productsQuery = $this->applyFilters($productsQuery, $request);
 
-        // Áp dụng sắp xếp
         if ($request->filled('sort')) {
             switch ($request->sort) {
                 case 'price_asc':
@@ -99,23 +97,23 @@ class HomeController extends Controller
             $productsQuery->orderBy('created_at', 'desc');
         }
 
-        // Phân trang và lấy dữ liệu
+        // Phân trang
         $products = $productsQuery->paginate(20);
 
         $minPrice = Product::min('price');
         $maxPrice = Product::max('price');
         $brands = Brand::all();
 
-        $products->load('reviews'); // Tải quan hệ reviews
+        $products->load('reviews');
         $products = $this->loadPrimaryImages($products);
-
+        $featuredBlogs = Blogs::where('featured', 1)->get();
         if ($request->ajax()) {
             return response()->json([
-                'products' => view('public.product.product-list', compact('products'))->render()
+                'products' => view('public.product.product-list', compact('products', ))->render()
             ]);
         }
 
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs'));
     }
     public function showSearch(Request $request)
     {

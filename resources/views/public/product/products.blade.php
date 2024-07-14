@@ -8,7 +8,7 @@
             <li class="text-black hover:text-blue-800">Tất cả sản phẩm </li>
         </ol>
     </nav>
-    <div class="mt-3 slider autoplay w-full max-w-max">
+    <div class="one-time mt-3 w-full max-w-max">
         <div><a href="" class=""> <img class="rounded-lg" src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg" alt=""> </a></div>
         <div><a href="" class=""> <img class="rounded-lg" src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg" alt=""> </a></div>
     </div>
@@ -17,15 +17,15 @@
             <div class="text grid grid-cols-1 justify-between items-center py-3">
                 <div class="text-animation text-xl md:text-2xl font-black">Danh mục sản phẩm </div>
             </div>
-            <div class="Categorys px-8 pt-5 bg-yellow-50">
-                <div class="autoplay-slider flex flex-wrap justify-center">
+            <div class="category px-5 py-3 bg-yellow-50">
+                <div class="justify-center autoplay-slider">
                     @foreach ($categories as $category)
-                    <a href="{{ route('category.show', $category->slug) }}" class="flex flex-col items-center justify-center text-center m-2 md:m-4">
-                        <div class="flex flex-col items-center">
-                            <span class="truncate">{{ $category->category_name }}</span>
+                    <a href="{{ route('category.show', $category->slug) }}" class="flex flex-col items-center justify-center text-center m-2 md:m-4 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
+                        <div class="flex flex-col items-center hover:">
                             <div class="w-10 h-10 mt-2 mb-2 flex items-center justify-center">
                                 <img src="{{ $category->image }}" alt="{{ $category->category_name }}" class="object-contain w-full h-full">
                             </div>
+                            <span class="truncate">{{ $category->category_name }}</span>
                         </div>
                     </a>
                     @endforeach
@@ -34,10 +34,10 @@
         </div>
     </section>
     <div class="flex">
-        <div class="bg-white rounded-lg mr-2 relative border shadow-md w-1/4 p-3 mt-3">
+        <div class="bg-white mr-2 relative w-1/4">
             <form action="{{ route('productShow') }}" method="GET" id="filterForm">
-                <h5 class="font-semibold uppercase">Thương hiệu</h5>
-                <div class="border-b-2 py-3">
+                <div class="border rounded-lg shadow-md p-3 my-3">
+                    <h5 class="font-semibold uppercase">Thương hiệu</h5>
                     @foreach($brands as $brand)
                     <div class="form-check">
                         <input class="form-check-input brand-checkbox rounded mx-2" type="checkbox" name="brands[]" value="{{ $brand->id }}" id="brand{{ $brand->id }}" {{ in_array($brand->id, request()->brands ?? []) ? 'checked' : '' }}>
@@ -47,12 +47,14 @@
                     </div>
                     @endforeach
                 </div>
-                <h5>Price</h5>
+                <div class="border rounded-lg py-3 shadow-md p-3">
+                    <h5 class="font-semibold uppercase"> Giá </h5>
                 <div class="range-slider" id="price-slider"></div>
                 <input class="range-slider__range" type="hidden" id="min-price" name="min_price" value="{{ request()->min_price ?? $minPrice }}">
                 <input class="range-slider__range" type="hidden" id="max-price" name="max_price" value="{{ request()->max_price ?? $maxPrice }}">
                 <div class="mt-2">
                     <span id="price-range"></span>
+                </div>
                 </div>
             </form>
         </div>
@@ -66,6 +68,26 @@
     <div class="pagination">
         {{ $products->links() }}
     </div>
+    <section>
+
+        <div class="container mx-auto py-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">TIN TỨC NỔI BẬT</h2>
+                <a href="#" class="text-blue-500">XEM THÊM</a>
+            </div>
+            <div class="autoplay-sanpham">
+                @foreach($featuredBlogs as $blog)
+                    <div class="px-3">
+                <div class="bg-white px-4 my-3 border rounded-lg shadow-md">
+                    <img src="{{ $blog -> blog_image }}" alt="Promotion 1" class="my-3 rounded" style="width:100%; height: 170px">
+                    <h3 class="text-lg font-bold truncate-2-lines">{{ $blog -> title }}</h3>
+                    <p class="mt-2 text-green-500 truncate-2-lines"></p>
+                </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
     <div class="pt-3 mb-5">
         <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
             <div class="item border rounded-lg">
@@ -99,16 +121,16 @@
         </div>
     </div>
 </div>
+
 @include('public.footer.footer')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
     $(document).ready(function() {
-        var minPrice = {{ $minPrice }};
-        var maxPrice = {{ $maxPrice }};
-        var selectedMinPrice = {{ request()->min_price ?? $minPrice }};
-        var selectedMaxPrice = {{ request()->max_price ?? $maxPrice }};
+        let minPrice = {{$minPrice}};
+        let maxPrice = {{$maxPrice}};
+        let selectedMinPrice = {{request() -> min_price ?? $minPrice}};
+        let selectedMaxPrice = {{request() -> max_price ?? $maxPrice}};
 
         $("#price-slider").slider({
             range: true,

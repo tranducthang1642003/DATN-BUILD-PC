@@ -28,18 +28,19 @@
                             <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
                         </div>
                         <div class="product-info p-3">
-                            <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
+                            <a href="{{ route('product.show', $product->slug) }}" class="truncate-2-lines hover:text-blue-600" style="overflow: hidden;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
                             <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
                             <div class="mt-1 inline-flex text-xs md:text-base">
                                 <div>
                                     <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
                                 </div>
-                                <div class="bg-red-700font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
                                     -25%
                                 </div>
                             </div>
-                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
+                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($product->price) }}
+                                VND</div>
                             @if ($product->reviews->isNotEmpty())
                                 @php
                                     $averageRating = $product->reviews->avg('rating');

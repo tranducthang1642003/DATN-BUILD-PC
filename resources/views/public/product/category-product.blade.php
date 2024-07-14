@@ -9,7 +9,7 @@
         </ol>
     </nav>
     <div class="product__banner">
-        <div class="mt-3 slider autoplay w-full max-w-max">
+        <div class="mt-3 slider one-time w-full max-w-max">
             <div><a href="" class=""> <img class="rounded-lg"
                         src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg"
                         alt=""> </a></div>
@@ -34,7 +34,7 @@
                                     <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
                                 </div>
                                 <div class="product-info p-3">
-                                    <a href="{{ route('product.show', $top->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
+                                    <a href="{{ route('product.show', $top->slug) }}" class="hover:text-blue-600 truncate-2-lines" style="overflow: hidden;
                                         text-overflow: ellipsis;
                                         line-height: 25px;
                                         -webkit-line-clamp: 2;
@@ -177,14 +177,14 @@
                             <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
                         </div>
                         <div class="product-info p-3">
-                            <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
+                            <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-2-lines" style="overflow: hidden;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
                                                     <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
                                                     <div class="mt-1 inline-flex text-xs md:text-base">
                                                         <div>
                                                             <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
                                                         </div>
-                                                        <div class="bg-red-700font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                                        <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
                                                             -25%
                                                         </div>
                                                     </div>
