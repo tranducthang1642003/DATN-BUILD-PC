@@ -22,19 +22,7 @@
 .product-slide .slick-prev:hover {
     background: #d9d9d9;
 }
-.truncate-responsive {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
 
-@media (min-width: 768px) {
-    .truncate-responsive {
-        white-space: normal;
-        overflow: visible;
-        text-overflow: clip;
-    }
-}
 .truncate-2-lines {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -43,14 +31,6 @@
     -webkit-line-clamp: 2;
 }
 
-@media (min-width: 768px) {
-    .truncate-2-lines {
-        -webkit-line-clamp: unset;
-        overflow: visible;
-        text-overflow: clip;
-        display: block;
-    }
-}
 @media (max-width: 767px) {
     .product-detail__images .slick-slide {
         margin-left: 0;
@@ -111,4 +91,47 @@
 }
 .pagination p {
     display: none;
+}
+/* Tùy chỉnh thanh trượt giá*/
+#price-slider {
+    margin: 20px 0;
+}
+
+.ui-slider-range {
+    background: #ffd43b !important;
+}
+
+.ui-slider-handle {
+    background: #ffd43b;
+    border: 1px solid #ccc;
+}
+
+.ui-slider-handle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.ui-slider {
+    height: 1px;
+}
+.ui-slider .ui-slider-range {
+    background: #ddd;
+}
+.ui-widget.ui-widget-content {
+    height: 5px !important;
+    background-color: #d3d3d3;
+    border: 0px solid #d3d3d3 !important;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 94% !important;
+}
+.ui-corner-all, .ui-slider-handle {
+    border-radius: 10px !important;
+}
+.ui-slider-horizontal .ui-slider-handle {
+    top: -0.4em !important;
+    margin-left: -.6em;
 }

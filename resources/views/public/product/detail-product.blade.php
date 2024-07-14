@@ -8,8 +8,6 @@
                     <li><a href="#" class="text-black hover:text-blue-800">Trang chủ</a></li>
                     <li><span class="mx-2 text-black"> > </span></li>
                     <li><a href="" class="text-black hover:text-blue-800">MÀN HÌNH MÁY TÍNH</a></li>
-                    <li><span class="mx-2 text-black"> > </span></li>
-                    <li><a href="#" class="text-black hover:text-blue-800"></a>CHỌN THEO HÃNG</li>
                     <li><span class="mx-2 text-gray-500"> > </span></li>
                     <li class="text-gray-500">Màn hình Asus</li>
                 </ol>
@@ -340,6 +338,29 @@
                                         </div>
                                     </div>
                                 </a>
+                                @if ($product->reviews->isNotEmpty())
+                                    @php
+                                        $averageRating = $product->reviews->avg('rating');
+                                        $totalStars = 5;
+                                        $fullStars = floor($averageRating);
+                                        $emptyStars = $totalStars - $fullStars;
+                                    @endphp
+
+                                    <div class="rating flex">
+                                        <div class="flex items-center pt-1">
+                                            @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                                            </svg>
+                                            @endfor
+                                            @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                            </svg>
+                                            @endfor
+                                        </div>
+                                        <p>({{ $product->reviews->count() }} đánh giá)</p>
+                                    </div>
+                                @else
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -410,6 +431,29 @@
                                         </div>
                                     </div>
                                 </a>
+                                @if ($product->reviews->isNotEmpty())
+                                    @php
+                                        $averageRating = $product->reviews->avg('rating');
+                                        $totalStars = 5;
+                                        $fullStars = floor($averageRating);
+                                        $emptyStars = $totalStars - $fullStars;
+                                    @endphp
+
+                                    <div class="rating flex">
+                                        <div class="flex items-center pt-1">
+                                            @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                                            </svg>
+                                            @endfor
+                                            @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                            </svg>
+                                            @endfor
+                                        </div>
+                                        <p>({{ $product->reviews->count() }} đánh giá)</p>
+                                    </div>
+                                @else
+                                @endif
                             </div>
                         </div>
                     @endforeach
