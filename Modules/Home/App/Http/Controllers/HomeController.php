@@ -53,7 +53,7 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request'));
+        return view('public.product.product', compact('category', 'brands', 'products', 'topProducts', 'request'));
     }
 
     public function show($slug)
@@ -109,7 +109,7 @@ class HomeController extends Controller
         $featuredBlogs = Blogs::where('featured', 1)->get();
         if ($request->ajax()) {
             return response()->json([
-                'products' => view('public.product.product-list', compact('products', ))->render()
+                'products' => view('public.product.product-list', compact('products',))->render()
             ]);
         }
 
@@ -197,5 +197,4 @@ class HomeController extends Controller
 
         return $products;
     }
-
 }
