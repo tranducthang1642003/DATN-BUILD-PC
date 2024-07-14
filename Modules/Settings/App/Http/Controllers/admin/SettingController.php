@@ -95,4 +95,40 @@ class SettingController extends Controller
         return redirect()->route('settings.index')
             ->with('success', 'Setting has been deleted successfully.');
     }
+    public function store_category(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+        $imageType = new ImageType();
+        $imageType->name = $request->input('name');
+        $imageType->save();
+        return redirect()->route('settings.index')
+            ->with('success', 'Setting has been created successfully.');
+    }
+
+    public function update_category(Request $request, $id)
+    {
+        $imageType = ImageType::findOrFail($id);
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+        $imageType->name = $request->input('name');
+        $imageType->save();
+        if ($imageType->save()) {
+            return redirect()->route('settings.index')->with('success', 'Chỉnh sửa thành công!');
+        } else {
+            return redirect()->back()->withInput()->withErrors('errors', 'Chỉnh sửa thất bại!');
+        }
+    }
+
+
+    public function destroy_category($id)
+    {
+        $imageType = ImageType::findOrFail($id);
+        $imageType->delete();
+
+        return redirect()->route('settings.index')
+            ->with('success', 'Setting has been deleted successfully.');
+    }
 }
