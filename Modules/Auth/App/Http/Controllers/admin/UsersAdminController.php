@@ -42,6 +42,7 @@ class UsersAdminController extends Controller
             'address' => 'required|string',
             'is_activated' => 'required|in:1,0',
         ]);
+        // dd($validatedData);
         $user = User::findOrFail($id);
         $user->name = $validatedData['username'];
         $user->password = bcrypt($validatedData['password']);
@@ -52,7 +53,21 @@ class UsersAdminController extends Controller
         $user->save();
         return redirect()->route('user');
     }
-
+    public function update_user_status(Request $request, User $user)
+    {
+        $request->validate([
+            'active_new' => 'required|in:1,0',
+        ]);
+        try {
+            // $users = User::findOrFail($user);
+            $user->is_activated = 1;
+            $user->save();
+            dd($user); 
+            return redirect()->route('user')->with('success', 'Đã cập nhật trạng thái đơn hàng');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật trạng thái không thành công: ' . $e->getMessage());
+        }
+    }
     public function add()
     {
         $user = User::All();

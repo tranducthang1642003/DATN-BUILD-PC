@@ -36,8 +36,9 @@
                 <div id="menu-banner" class="menu-item px-4 py-2 rounded-md mr-4">Banner</div>
                 <div id="menu-poster" class="menu-item px-4 py-2 rounded-md mr-4">Poster</div>
                 <div id="menu-logo" class="menu-item px-4 py-2 rounded-md mr-4">Logo</div>
+                <div id="menu-category" class="menu-item px-4 py-2 rounded-md mr-4">Danh mục ảnh</div>
             </div>
-            <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md" onclick="form_add_new()">Thêm mới</button>
+            <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md" onclick="form_add_new()">Thêm mới ảnh</button>
         </div>
         <hr class="mb-4">
         <!-- Nội dung của từng mục -->
@@ -176,6 +177,45 @@
                 <!-- Các hình ảnh và thông tin khác của Logo -->
             </div>
         </div>
+        <div id="section-category" class="content-section">
+            <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="text-left bg-gray-400">
+                        <th class="px-4 py-2"></th>
+                        <th class="px-4 py-2">ID</th>
+                        <th class="px-4 py-2">Tên</th>
+                        <th class="px-4 py-2">Last Update</th>
+                        <th class="px-4 py-2">...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($imageTypes as $index => $imageType)
+                    <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
+                        <td class="px-4 py-2"><input type="checkbox"></td>
+                        <td class="px-4 py-2">{{ $imageType->id }}</td>
+                        <td class="px-4 py-2">{{ $imageType->name }}</td>
+                        <td class="px-4 py-2">{{ $imageType->updated_at }}</td>
+                        <td class="px-4 py-2">
+                            <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
+                                <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
+                                <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
+                                    <button class="block px-4 py-2 text-gray-800 hover:bg-gray-200" onclick="edit_category('{{ $imageType->id }}', '{{ $imageType->name }}')">Sửa</button>
+                                    <form action="{{ route('settings.category.destroy', ['id' => $imageType->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">Xóa</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="flex justify-between mr-8">
+                <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md" onclick="new_category()">Thêm mới danh mục ảnh</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -230,7 +270,70 @@
         </div>
     </div>
 </div>
-
+<div class="relative z-10 new_category" role="dialog" aria-modal="true" style="display: none;">
+    <div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" aria-hidden="true"></div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+            <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                    <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" onclick="remove_add_new()">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">Thêm danh mục ảnh</h2>
+                        <section aria-labelledby="options-heading" class="mt-10">
+                            <form action="{{ route('settings.category.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div>
+                                    <label for="productName" class="block text-sm font-medium leading-6 text-gray-900">Tên danh mục</label>
+                                    <div class="relative mt-2 rounded-md shadow-sm">
+                                        <input type="text" name="name" id="name" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên ảnh">
+                                    </div>
+                                </div>
+                                <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relative z-10 edit_category" role="dialog" aria-modal="true" style="display: none;">
+    <div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" aria-hidden="true"></div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+            <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                    <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" onclick="remove_edit()">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div class="w-full">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">Sửa danh mục ảnh</h2>
+                        <section aria-labelledby="options-heading" class="mt-10">
+                            <form action="{{ route('settings.category.update', 'id') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div>
+                                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Tên danh mục</label>
+                                    <div class="relative mt-2 rounded-md shadow-sm">
+                                        <input type="text" name="name" id="name" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên ảnh">
+                                    </div>
+                                </div>
+                                <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @if ($errors->any())
 <div class="alert alert-danger">
     <ul>
@@ -325,6 +428,32 @@
         };
 
         reader.readAsDataURL(input.files[0]);
+    }
+</script>
+<script>
+    function new_category() {
+        const divElement = document.querySelector('.new_category');
+        divElement.style.display = 'block';
+    }
+
+    function remove_new_category() {
+        const divElement = document.querySelector('.new_category');
+        divElement.style.display = 'none';
+    }
+
+    function edit_category(id, name) {
+        const divElement = document.querySelector('.edit_category');
+        const formElement = divElement.querySelector('form');
+        formElement.action = `{{ route('settings.category.update', '') }}/${id}`;
+        divElement.style.display = 'block';
+        formElement.querySelector('#name').value = name || '';
+    }
+
+
+
+    function remove_edit_category() {
+        const divElement = document.querySelector('.edit_category');
+        divElement.style.display = 'none';
     }
 </script>
 </div>

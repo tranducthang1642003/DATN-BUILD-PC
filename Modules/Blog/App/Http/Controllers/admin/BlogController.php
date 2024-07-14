@@ -43,7 +43,7 @@ class BlogController extends Controller
             'content' => 'required|string',
             'featured' => 'required|integer',
             'blog_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'user_id' => 'required|numeric',
+            // 'user_id' => 'required|numeric',
             'category_blog_id' => 'required|numeric',
         ]);
         try {
@@ -52,7 +52,7 @@ class BlogController extends Controller
             $blog->slug = Str::slug($request->input('title'), '-');
             $blog->content = $request->input('content');
             $blog->featured = $request->input('featured') === 'yes';
-            $blog->user_id = $request->input('user_id');
+            $blog->user_id = 1;
             $blog->category_blog_id = $request->input('category_blog_id');
             if ($request->hasFile('blog_image')) {
                 if ($blog->blog_image) {
