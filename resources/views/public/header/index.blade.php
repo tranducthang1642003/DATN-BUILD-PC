@@ -202,13 +202,18 @@
                         </ul>                        
                     </li>
                     <li class="hover:text-blue-500 flex items-center py-2">
-                        <a href="#" class="mr-2">
+                        <ul class="flex">
                             @foreach ($menuItems as $menuItem)
-                                <li class="mr-2 text-lg font-bold hover:text-green-700">
-                                    <a href="{{ $menuItem->url }}">{{ $menuItem->name }}</a>
+                            <img src="{{ $menuItem->image }}" alt="" class="w-6 ml-1">
+                                <li class="mr-2 text-lg font-bold hover:text-green-700 flex items-center">
+                                    <a href="{{ $menuItem->url }}" class="flex items-center">
+                                        <span>{{ $menuItem->name }}</span>
+                                       
+                                    </a>
                                 </li>
                             @endforeach
-                        </a>
+                        </ul>
+                        
                     </li>
                     
                     </ul>
