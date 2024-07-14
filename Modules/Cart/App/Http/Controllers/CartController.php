@@ -8,6 +8,8 @@ use Modules\Cart\Entities\CartItem;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Promotion;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use Modules\Settings\Entities\Menu;
 
 
 class CartController extends Controller
@@ -15,6 +17,7 @@ class CartController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $menuItems = Menu::all();
 
         if ($user) {
             $cartItems = CartItem::where('user_id', $user->id)
@@ -40,34 +43,65 @@ class CartController extends Controller
             $cartItem->primary_image_path = $primaryImage ? $primaryImage->image_path : null;
         });
 
-        return view('public.cart', compact('cartItems', 'totalPrice', 'totalDiscount'));
+        return view('public.cart', compact('cartItems', 'totalPrice', 'totalDiscount','menuItems'));
     }
+
+    // public function applyCoupon(Request $request)
+    // {
+    //     $request->validate([
+    //         'coupon_code' => 'required|string',
+    //     ]);
+
+    //     $coupon = Promotion::where('promotion_code', $request->coupon_code)
+    //         ->where('start_date', '<=', now())
+    //         ->where('end_date', '>=', now())
+    //         ->first();
+
+    //     if (!$coupon) {
+    //         return redirect()->back()->withErrors('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+    //     }
+
+    //     session()->put('coupon', [
+    //         'code' => $coupon->promotion_code,
+    //         'discount' => $coupon->discount,
+    //     ]);
+
+    //     return redirect()->route('cart')->with('success_message', 'Đã áp dụng mã giảm giá thành công.');
+    // }
+
 
     public function applyCoupon(Request $request)
-    {
-        $request->validate([
-            'coupon_code' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'coupon_code' => 'required|string',
+    ]);
 
-        $coupon = Promotion::where('promotion_code', $request->coupon_code)
-            ->where('start_date', '<=', now())
-            ->where('end_date', '>=', now())
-            ->first();
+    $coupon = Promotion::where('promotion_code', $request->coupon_code)
+        ->where('start_date', '<=', now())
+        ->where('end_date', '>=', now())
+        ->first();
 
-        if (!$coupon) {
-            return redirect()->back()->withErrors('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
-        }
-
-        session()->put('coupon', [
-            'code' => $coupon->promotion_code,
-            'discount' => $coupon->discount,
-        ]);
-
-        return redirect()->route('cart')->with('success_message', 'Đã áp dụng mã giảm giá thành công.');
+    if (!$coupon) {
+        return redirect()->back()->withErrors('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
     }
+
+    // Ensure the coupon discount is correctly applied
+    $discount = $coupon->discount;
+    session()->put('coupon', [
+        'code' => $coupon->promotion_code,
+        'discount' => $discount,
+    ]);
+
+    return redirect()->route('cart')->with('success_message', 'Đã áp dụng mã giảm giá thành công.');
+}
 
     public function addToCart(Request $request)
     {
+
+        Log::info('addToCart method called');
+        Log::info('Request Data: ', $request->all());
+
+
         $productId = $request->input('product_id');
         $product = Product::find($productId);
 

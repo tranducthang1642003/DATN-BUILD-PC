@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Modules\Blog\App\Http\Controllers\admin\BlogCategoryController;
 use Modules\Blog\App\Http\Controllers\admin\BlogController;
 
+use Modules\Blog\App\Http\Controllers\PostsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,3 +34,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('admin/blog/category/{id}', [BlogCategoryController::class, 'destroy'])->name('delete_blog_category');
 
 });
+
+Route::get('blog/{slug}', [PostsController::class, 'show'])->name('blog.project_show');
+Route::get('blog', [PostsController::class, 'index'])->name('blog.index');
