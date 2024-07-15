@@ -58,8 +58,7 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.product', compact('category', 'brands', 'products', 'topProducts', 'request'));
-        return view('public.product.product', compact('category', 'products','menuItems'));
+        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request','menuItems'));
     }
 
     public function show($slug)
@@ -80,6 +79,7 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $productsQuery = Product::query();
+        $menuItems = Menu::all();
 
         $productsQuery = $this->applyFilters($productsQuery, $request);
 
@@ -120,7 +120,7 @@ class HomeController extends Controller
             ]);
         }
 
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs'));
+        return view('public.product.product', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems'));
     }
     public function showSearch(Request $request)
     {
