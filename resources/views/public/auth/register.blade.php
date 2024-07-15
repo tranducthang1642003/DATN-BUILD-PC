@@ -1,4 +1,5 @@
 @include('public.header.index')
+<br>
 <style>
     .register {
         position: relative;
@@ -95,4 +96,5 @@
             </div>
         </div>
     </div>
+    <br>
     @include('public.footer.footer')
