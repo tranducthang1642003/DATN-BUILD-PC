@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+
 </head>
 <style>
     .slick-prev,
@@ -304,12 +305,13 @@
 
 
 
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
     integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset('js/slickslide.js') }}"></script>
+<script src="{{ asset('js/slickside.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
