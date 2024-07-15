@@ -3,9 +3,20 @@
         background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
         color: white;
     }
+
+    
 </style>
 @include('admin.layout.header')
 <div class="m-4 pt-20">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-error">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="flex justify-between text-sm">
         <div class="flex text-gray-600">
             <form action="{{ route('order') }}" method="GET" class="flex">
@@ -45,15 +56,26 @@
             </tr>
         </thead>
         <tbody>
+            <!-- <form id="update-all-form" method="POST" action="{{ route('admin.orders.update_multiple_status') }}">
+                @csrf
+                @method('POST')
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md">Cập nhật tất cả</button>
+                    </td>
+                </tr> -->
             @foreach($orders as $index => $order)
-            <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
-                <td class="px-4 py-2"><input type="checkbox"></td>
+            <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }} order-row" data-status="{{ $order->status }}">
+                <td class="px-4 py-2">
+                    <input type="checkbox" name="orders[]" value="{{ $order->id }}">
+                </td>
                 <td class="px-4 py-2">{{ $order->id }}</td>
                 <td class="px-4 py-2">{{ $order->order_date }}</td>
                 <td class="px-4 py-2">{{ $order->total_amount }} VND</td>
                 <td class="px-4 py-2">{{ $order->shipping_address }}</td>
                 <td class="px-4 py-2">{{ $order->payment_method }}</td>
-                <td class="px-4 py-2">
+                <td class="px-4 py-2 status-cell flex">
+                    <span class="status-indicator mt-3 {{ $order->status }}" title="{{ ucfirst($order->status) }}"></span>
                     <div class="relative">
                         <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none" data-order-id="{{ $order->id }}">
                             <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quyết</option>
@@ -67,9 +89,9 @@
                     <button class="bg-indigo-600 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button>
                     <form class="hidden update-form" method="POST" action="{{ route('admin.orders.update_status', ['order' => $order->id]) }}">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
                         <input type="hidden" name="order_id" value="{{ $order->id }}">
-                        <input type="text" name="new_status" class="bg-white border border-gray-300 rounded-md p-1 outline-none ">
+                        <input type="hidden" name="new_status" class="bg-white border border-gray-300 rounded-md p-1 outline-none ">
                         <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md update-btn">Cập nhật</button>
                     </form>
                 </td>
@@ -77,7 +99,6 @@
             @endforeach
         </tbody>
     </table>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const statusSelects = document.querySelectorAll('.status-select');
@@ -86,25 +107,29 @@
                     const orderId = this.dataset.orderId;
                     const newStatus = this.value;
 
-                    // Hiển thị form cập nhật và ẩn nút chi tiết
-                    const parentTd = this.parentNode.parentNode;
-                    const detailBtn = document.querySelector('.detail-btn');
-                    const updateForm = document.querySelector('.update-form');
-                    const updateBtn = document.querySelector('.update-btn');
+                    const parentRow = this.closest('tr');
+                    const detailBtn = parentRow.querySelector('.detail-btn');
+                    const updateForm = parentRow.querySelector('.update-form');
 
-                    // Cập nhật giá trị của input trong form
                     const statusInput = updateForm.querySelector('input[name="new_status"]');
                     statusInput.value = newStatus;
 
                     detailBtn.classList.add('hidden');
                     updateForm.classList.remove('hidden');
+
+                    const statusCell = parentRow.querySelector('.status-cell');
+                    const statusIndicator = statusCell.querySelector('.status-indicator');
+
+                    statusIndicator.className = `status-indicator ${newStatus}`;
+                    statusIndicator.title = ucfirst(newStatus);
                 });
             });
+
+            function ucfirst(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
         });
     </script>
-
-
-
 
     <div class="flex justify-end mr-8">
         <div>

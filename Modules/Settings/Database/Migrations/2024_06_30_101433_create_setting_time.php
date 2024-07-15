@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('settings', function (Blueprint $table) {
             $table->timestamps();
+            
         });
     }
 

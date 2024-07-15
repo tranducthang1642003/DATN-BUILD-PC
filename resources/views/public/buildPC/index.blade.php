@@ -1,12 +1,15 @@
 @include('public.header.index')
 
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+    <!-- Breadcrumb Navigation -->
     <nav class="bg-white mt-3 rounded-md w-full hidden md:block">
         <ol class="list-reset flex">
             <li><a href="#" class="text-black hover:text-blue-800">Trang chủ</a></li>
             <li><span class="mx-2 text-black"> > BUILD PC </span></li>
         </ol>
     </nav>
+
+    <!-- Product Banner -->
     <section>
         <div class="product__banner">
             <div class="mt-3 slider autoplay w-full max-w-max">
@@ -25,6 +28,8 @@
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Chọn VGA</button>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Chọn RAM</button>
     </div>
+
+    <!-- Component List Table -->
     <section>
         <div class="shadow-md rounded mb-4 border">
             <table class="min-w-full divide-y divide-gray-200 border-collapse border border-slate-500">
@@ -76,6 +81,7 @@
             </table>
         </div>
 
+        <!-- Modals for Component Selection -->
         @foreach ($Productandcategory as $category)
         <div id="modelConfirm{{ $category->id }}" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 modal">
             <div class="relative top-10 mx-auto shadow-xl rounded-md bg-white w-full lg:w-3/4">
@@ -195,25 +201,13 @@
 </div>
 
 @include('public.footer.footer')
-<script type="text/javascript">
-    window.openModal = function(modalId) {
-        document.getElementById(modalId).style.display = 'block';
-        document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden');
-    }
 
-    window.closeModal = function(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-        document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden');
-    }
+<script>
+function openModal(modalId) {
+    document.getElementById(modalId).classList.remove('hidden');
+}
 
-    document.onkeydown = function(event) {
-        event = event || window.event;
-        if (event.keyCode === 27) {
-            document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden');
-            let modals = document.getElementsByClassName('modal');
-            Array.prototype.slice.call(modals).forEach(i => {
-                i.style.display = 'none';
-            });
-        }
-    };
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+}
 </script>

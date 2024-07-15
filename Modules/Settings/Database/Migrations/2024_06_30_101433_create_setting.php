@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('settings', function (Blueprint $table) {
             $table->unsignedBigInteger('image_type_id')->nullable();
             $table->foreign('image_type_id')->references('id')->on('image_types');
+            // $table->timestamps();
+
         });
     }
 

@@ -9,9 +9,12 @@ use Modules\Product\Entities\ProductImage;
 use Modules\Brand\Entities\Brand;
 use Illuminate\Http\Request;
 use Modules\Category\Entities\Category;
-
+use Modules\Blog\Entities\Blogs;
 use Modules\Like\Entities\wishlists;
 use Illuminate\Support\Facades\Auth;
+
+use Modules\Settings\Entities\Menu;
+
 
 class HomeController extends Controller
 {
@@ -29,8 +32,9 @@ class HomeController extends Controller
         $featuredCategories = $this->homeRepository->getFeaturedCategories();
         $saleproduct = $this->homeRepository->getSaleProducts();
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
+        $menuItems = Menu::all();
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts',));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts','menuItems'));
     }
 
     public function showCategory($slug, Request $request)
@@ -38,6 +42,7 @@ class HomeController extends Controller
 
         $category = $this->homeRepository->getCategoryBySlug($slug);
         $products = $this->homeRepository->getProductByProduct($slug);
+        $menuItems = Menu::all();
 
         $products = $this->applyFilters($products, $request);
         $products = $this->applySorting($products, $request);
@@ -54,6 +59,7 @@ class HomeController extends Controller
         $topProducts->load('reviews');
 
         return view('public.product.product', compact('category', 'brands', 'products', 'topProducts', 'request'));
+        return view('public.product.product', compact('category', 'products','menuItems'));
     }
 
     public function show($slug)
@@ -67,7 +73,54 @@ class HomeController extends Controller
             ->get();
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
-        return view('public.product.detail-product', compact('product', 'category'));
+        $menuItems = Menu::all();
+        return view('public.product.detail-product', compact('product','menuItems'));
+    }
+    public function productShow(Request $request)
+    {
+        $categories = Category::all();
+        $productsQuery = Product::query();
+
+        $productsQuery = $this->applyFilters($productsQuery, $request);
+
+        if ($request->filled('sort')) {
+            switch ($request->sort) {
+                case 'price_asc':
+                    $productsQuery->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $productsQuery->orderBy('price', 'desc');
+                    break;
+                case 'view':
+                    $productsQuery->orderBy('view', 'desc');
+                    break;
+                case 'alphabetical':
+                    $productsQuery->orderBy('product_name', 'asc');
+                    break;
+                default:
+                    $productsQuery->orderBy('created_at', 'desc');
+            }
+        } else {
+            $productsQuery->orderBy('created_at', 'desc');
+        }
+
+        // Phân trang
+        $products = $productsQuery->paginate(20);
+
+        $minPrice = Product::min('price');
+        $maxPrice = Product::max('price');
+        $brands = Brand::all();
+
+        $products->load('reviews');
+        $products = $this->loadPrimaryImages($products);
+        $featuredBlogs = Blogs::where('featured', 1)->get();
+        if ($request->ajax()) {
+            return response()->json([
+                'products' => view('public.product.product-list', compact('products',))->render()
+            ]);
+        }
+
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs'));
     }
     public function showSearch(Request $request)
     {
@@ -107,8 +160,9 @@ class HomeController extends Controller
             $products = $products->where('price', '<=', $request->max_price);
         }
 
-        if ($request->filled('brand')) {
-            $products = $products->where('brand_id', $request->brand);
+        if ($request->filled('brands')) {
+            $brands = $request->input('brands');
+            $products = $products->whereIn('brand_id', $brands);
         }
 
         return $products;

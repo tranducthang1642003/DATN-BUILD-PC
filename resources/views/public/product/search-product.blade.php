@@ -107,7 +107,7 @@
                             <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
                         </div>
                         <div class="product-info p-3">
-                            <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
+                            <a href="{{ route('product_category.show', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
                                 text-overflow: ellipsis;
                                 line-height: 25px;
                                 -webkit-line-clamp: 2;
