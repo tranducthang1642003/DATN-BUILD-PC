@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\VerifyToken;
 use Illuminate\Support\Facades\Mail;
+use Modules\Settings\Entities\Menu;
+
 
 class VerifyTokenController extends Controller
 {
@@ -36,6 +38,7 @@ class VerifyTokenController extends Controller
 
     public function show()
     {
-        return view('auth\verify-token');
+        $menuItems = Menu::all();
+        return view('auth\verify-token',compact('menuItems'));
     }
 }

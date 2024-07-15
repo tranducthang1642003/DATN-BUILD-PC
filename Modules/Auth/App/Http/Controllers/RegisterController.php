@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Modules\Auth\Entities\User;
 use Modules\Auth\Entities\VerifyToken;
 use Modules\Auth\Mail\WelcomeMail;
+use Modules\Settings\Entities\Menu;
 
 class RegisterController extends Controller
 {
@@ -20,7 +21,8 @@ class RegisterController extends Controller
      */
     public function create(): View
     {
-        return view('public.auth.register');
+        $menuItems = Menu::all();
+        return view('public.auth.register',compact('menuItems'));
     }
 
     /**
@@ -60,7 +62,10 @@ class RegisterController extends Controller
 
     public function showVerifyTokenForm()
     {
-        return view('public.auth.verify-token');
+        
+        $menuItems = Menu::all();
+
+        return view('public.auth.verify-token',compact('menuItems'));
     }
 
     public function verifyToken(Request $request)

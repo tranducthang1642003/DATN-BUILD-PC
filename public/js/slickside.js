@@ -172,10 +172,8 @@ $(document).ready(function () {
 
   // Ẩn button .slick-prev và .slick-next
   $(".slick-prev, .slick-next").hide();
-});
 
-// Xử lý toggle menu mobile
-document.addEventListener("DOMContentLoaded", function () {
+  // Xử lý toggle menu mobile
   var menuToggle = document.getElementById("menu-toggle");
   var mobileMenu = document.getElementById("mobile-menu");
   menuToggle.addEventListener("click", function () {
