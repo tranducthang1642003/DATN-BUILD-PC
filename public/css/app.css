@@ -1763,6 +1763,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
+.bg-red-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
+}
 .bg-red-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(127 29 29 / var(--tw-bg-opacity));
@@ -2869,6 +2873,14 @@ select {
     margin-right: 2.5rem;
   }
 
+  .sm\:mr-10 {
+    margin-right: 2.5rem;
+  }
+
+  .sm\:inline {
+    display: inline;
+  }
+
   .sm\:inline {
     display: inline;
   }
@@ -2919,6 +2931,10 @@ select {
 
   .sm\:flex-row {
     flex-direction: row;
+  }
+
+  .sm\:flex-nowrap {
+    flex-wrap: nowrap;
   }
 
   .sm\:flex-nowrap {
@@ -3072,6 +3088,14 @@ select {
 
   .md\:hidden {
     display: none;
+  }
+
+  .md\:h-60 {
+    height: 15rem;
+  }
+
+  .md\:h-96 {
+    height: 24rem;
   }
 
   .md\:h-60 {
