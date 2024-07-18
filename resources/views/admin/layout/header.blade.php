@@ -102,6 +102,11 @@
                     <a class="w-full button-none" id="setting_list" href="{{ route('settings.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Trang chính</button></a>
                     <a class="w-full button-none" id="setting_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Menu</button></a>
                 </div>
+                <div class="mb-4">
+                    <button id="review" class="button_sidebar review_active"><ion-icon class="icon_sidebar" name="pen"></ion-icon>Bình luận</button>
+                    <a class="w-full button-none" id="review_list" href="{{ route('adminreview') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a>
+                    <a class="w-full button-none" id="review_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Menu</button></a>
+                </div>
             </div>
 
             <script>
