@@ -25,54 +25,82 @@
 </head>
 
 <body class="bg-slate-300">
-    <div x-data="{ sidebarOpen: true }" class=" flex text-sm-xs ">
-        <div :class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }" class="p-4 drop-shadow-xl bg-slate-800 min-w-72 top-0 left-0 z-50 transition-transform duration-300 transform min-h-screen">
+    <div x-data="{ sidebarOpen: true }" class="flex text-sm-xs">
+        <div :class="sidebarOpen ? 'block transform transition-all duration-300 translate-x-0' : 'hidden transform transition-all duration-300 -translate-x-full'" class=" p-4 drop-shadow-xl bg-slate-800 min-w-64 top-0 left-0 z-50 min-h-screen">
 
             <div class="flex items-center justify-center mb-12 mt-2">
                 <a href="{{ route('home') }}"><img src="{{ asset('image/logo.svg') }}" width="100" alt=""></a>
             </div>
             <div class="">
-                <div class="mb-4">
-                    <a class="w-full" href="{{ route('admin') }}"><button id="dashboard" class="button_sidebar dashboard_active"><ion-icon class="icon_sidebar" name="logo-microsoft"></ion-icon>Dashboard</button></a>
+                <div class="">
+                    <a class="w-full" href="{{ route('admin') }}">
+                        <button id="dashboard" class="button_sidebar dashboard_active">
+                            <p><ion-icon class="icon_sidebar" name="logo-microsoft"></ion-icon>Dashboard</p>
+                        </button>
+                    </a>
                 </div>
-                <div class="mb-4">
-                    <button id="product" class="button_sidebar product_active"><ion-icon class="icon_sidebar" name="bag"></ion-icon>Sản phẩm</button>
-                    <a class="w-full button-none" id="product_list" href="{{ route('product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="product_add" href="{{ route('add_product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                <div class="">
+                    <button id="product" class="button_sidebar product_active">
+                        <p class=""><ion-icon class="icon_sidebar" name="bag-outline"></ion-icon>Sản phẩm</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="product_list" href="{{ route('product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="product_add" href="{{ route('add_product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
                 </div>
-                <div class="mb-4">
-                    <button id="category" class="button_sidebar category_active"><ion-icon class="icon_sidebar" name="cube"></ion-icon>Loại</button>
-                    <a class="w-full button-none" id="category_list" href="{{ route('category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="category_add" href="{{ route('category.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                <div class="">
+                    <button id="category" class="button_sidebar category_active">
+                        <p><ion-icon class="icon_sidebar" name="cube-outline"></ion-icon>Loại</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="category_list" href="{{ route('category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="category_add" href="{{ route('category.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
                 </div>
-                <div class="mb-4">
-                    <button id="brand" class="button_sidebar brand_active"><ion-icon class="icon_sidebar" name="bookmarks"></ion-icon>Thương hiệu</button>
-                    <a class="w-full button-none" id="brand_list" href="{{ route('brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="brand_add" href="{{ route('brand.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                <div class="">
+                    <button id="brand" class="button_sidebar brand_active">
+                        <p><ion-icon class="icon_sidebar" name="bookmarks-outline"></ion-icon>Thương hiệu</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="brand_list" href="{{ route('brand') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="brand_add" href="{{ route('brand.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
                 </div>
-                <div class="mb-4">
-                    <button id="blog" class="button_sidebar blog_active"><ion-icon class="icon_sidebar" name="create"></ion-icon>Bài viết</button>
-                    <a class="w-full button-none" id="blog_list" href="{{ route('blog') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="blog_add" href="{{ route('blog_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh mục</button></a>
+                <div class="">
+                    <button id="blog" class="button_sidebar blog_active">
+                        <p><ion-icon class="icon_sidebar" name="create-outline"></ion-icon>Bài viết</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="blog_list" href="{{ route('blog') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="blog_add" href="{{ route('blog_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh mục</button></a>
                 </div>
-                <div class="mb-4">
-                    <button id="order" class="button_sidebar order_active"><ion-icon class="icon_sidebar" name="document-text"></ion-icon>Đơn hàng</button>
-                    <a class="w-full button-none" id="order_list" href="{{ route('order') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
+                <div class="">
+                    <button id="order" class="button_sidebar order_active">
+                        <p><ion-icon class="icon_sidebar" name="document-text-outline"></ion-icon>Đơn hàng</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="order_list" href="{{ route('order') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
                 </div>
-                <div class="mb-4">
-                    <button id="user" class="button_sidebar user_active"><ion-icon class="icon_sidebar" name="person"></ion-icon>Người dùng</button>
-                    <a class="w-full button-none" id="user_list" href="{{ route('user') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="user_add" href="{{ route('add_user') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                <div class="">
+                    <button id="user" class="button_sidebar user_active">
+                        <p><ion-icon class="icon_sidebar" name="person-outline"></ion-icon>Người dùng</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="user_list" href="{{ route('user') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="user_add" href="{{ route('add_user') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
                 </div>
-                <div class="mb-4">
-                    <button id="voucher" class="button_sidebar voucher_active"><ion-icon class="icon_sidebar" name="receipt"></ion-icon>Mã giảm giá</button>
-                    <a class="w-full button-none" id="voucher_list" href="{{ route('vouchers.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="voucher_add" href="{{ route('vouchers.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Thêm</button></a>
+                <div class="">
+                    <button id="voucher" class="button_sidebar voucher_active">
+                        <p><ion-icon class="icon_sidebar" name="receipt-outline"></ion-icon>Mã giảm giá</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="voucher_list" href="{{ route('vouchers.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
+                    <a class="w-full button-none" id="voucher_add" href="{{ route('vouchers.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
                 </div>
-                <div class="mb-4">
-                    <button id="setting" class="button_sidebar setting_active"><ion-icon class="icon_sidebar" name="settings"></ion-icon>Cài đặt</button>
-                    <a class="w-full button-none" id="setting_list" href="{{ route('settings.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a>
-                    <a class="w-full button-none" id="setting_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Menu</button></a>
+                <div class="">
+                    <button id="setting" class="button_sidebar setting_active">
+                        <p><ion-icon class="icon_sidebar" name="settings-outline"></ion-icon>Cài đặt</p>
+                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                    </button>
+                    <a class="w-full button-none" id="setting_list" href="{{ route('settings.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Trang chính</button></a>
+                    <a class="w-full button-none" id="setting_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Menu</button></a>
                 </div>
             </div>
 
@@ -86,30 +114,44 @@
                     buttons.forEach(button => {
                         button.addEventListener('click', () => {
                             const buttonId = button.id;
+                            let isActive = false;
                             links.forEach(link => {
                                 if (link.id === `${buttonId}_list` || link.id === `${buttonId}_add`) {
-                                    link.style.display = link.style.display === 'inline-block' ? 'none' : 'inline-block';
+                                    if (link.style.display === 'inline-block') {
+                                        link.style.display = 'none';
+                                    } else {
+                                        link.style.display = 'inline-block';
+                                        isActive = true;
+                                    }
                                 } else {
                                     link.style.display = 'none';
                                 }
                             });
-                            if (document.getElementById(`${buttonId}_list`).style.display === 'inline-block') {
-                                button.classList.add('active');
-                            } else {
-                                button.classList.remove('active');
+                            const icon = button.querySelector('.chevron-icon');
+                            if (icon) {
+                                icon.setAttribute('name', isActive ? 'chevron-down-outline' : 'chevron-forward-outline');
                             }
                             buttons.forEach(otherButton => {
                                 if (otherButton !== button) {
                                     otherButton.classList.remove('active');
+                                    const otherIcon = otherButton.querySelector('.chevron-icon');
+                                    if (otherIcon) {
+                                        otherIcon.setAttribute('name', 'chevron-forward-outline');
+                                    }
+                                } else {
+                                    if (!isActive) {
+                                        button.classList.remove('active');
+                                    }
                                 }
                             });
                         });
                     });
                 });
             </script>
+
         </div>
         <div class="flex-grow">
-            <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed z-30 w-full">
+            <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed z-30 w-screen">
                 <div class="flex justify-between items-center">
                     <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-40 ml-4"><ion-icon name="menu"></ion-icon></button>
                     <div class="flex justify-between items-center z-40">
@@ -155,4 +197,3 @@
                     </div>
                 </div>
             </div>
-           
