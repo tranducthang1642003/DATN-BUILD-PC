@@ -16,11 +16,12 @@ class Promotions extends Model
         'description',
         'discount',
         'product_id',
+        'all',
         'start_date',
         'end_date',
     ];
-    public function promotions()
+    public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }

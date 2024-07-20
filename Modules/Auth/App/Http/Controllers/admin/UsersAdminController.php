@@ -59,11 +59,9 @@ class UsersAdminController extends Controller
             'active_new' => 'required|in:1,0',
         ]);
         try {
-            // $users = User::findOrFail($user);
-            $user->is_activated = 1;
+            $user->is_activated = $request->input('active_new');
             $user->save();
-            dd($user); 
-            return redirect()->route('user')->with('success', 'Đã cập nhật trạng thái đơn hàng');
+            return redirect()->route('user')->with('success', 'Đã cập nhật trạng thái người dùng thành công');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Cập nhật trạng thái không thành công: ' . $e->getMessage());
         }
