@@ -12,7 +12,7 @@
     @endphp
     <h1 class="font-bold text-xl">Tháng này</h1>
     <p>{{ $thirtyDaysAgo->format('d/m/Y') }} - {{ $yesterday->format('d/m/Y') }}</p>
-    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 my-4">
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-6 my-4">
         <div class="col-span-1 card_dashboard" id="revenueCard">
             <div class="h-48 sm:h-36 bg-gradient-to-r from-orange-500 to-orange-300 rounded-t-xl text-white">
                 <div class="p-4">

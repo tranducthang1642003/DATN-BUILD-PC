@@ -97,6 +97,12 @@ class OrderController extends Controller
             return redirect()->back()->withInput()->withErrors('Failed to add order.');
         }
     }
+    public function show($id)
+    {
+        $order = Orders::with('items')->findOrFail($id);
+        return view('admin.order.show', compact('order'));
+    }
+
     public function destroy($id)
     {
         $order = Orders::findOrFail($id);

@@ -86,7 +86,7 @@
                     </div>
                 </td>
                 <td class="px-4 py-2">
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button>
+                    <a href="{{ route('show_order', ['id' => $order->id]) }}"><button class="bg-indigo-600 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button></a>
                     <form class="hidden update-form" method="POST" action="{{ route('admin.orders.update_status', ['order' => $order->id]) }}">
                         @csrf
                         @method('POST')

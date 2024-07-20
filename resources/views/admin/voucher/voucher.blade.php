@@ -38,10 +38,10 @@
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Mã giảm giá</th>
                 <th class="px-4 py-2">Giá giảm</th>
+                <th class="px-4 py-2">Áp dụng</th>
                 <th class="px-4 py-2">Ngày bắt đầu</th>
                 <th class="px-4 py-2">Ngày kết thúc</th>
                 <th class="px-4 py-2">Mô tả</th>
-                <th class="px-4 py-2">Last Update</th>
                 <th class="px-4 py-2">...</th>
             </tr>
         </thead>
@@ -51,11 +51,11 @@
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $voucher->id }}</td>
                 <td class="px-4 py-2">{{ $voucher->promotion_code }}</td>
-                <td class="px-4 py-2">{{ number_format($voucher->discount) }}%</td>
+                <td class="px-4 py-2">{{ number_format($voucher->discount) }} VNĐ</td>
+                <td class="px-4 py-2 product-name">{{ $voucher->product_id !== null ? $voucher->product->product_name : "Tất cả" }}</td>
                 <td class="px-4 py-2">{{ $voucher->start_date }}</td>
                 <td class="px-4 py-2">{{ $voucher->end_date }}</td>
                 <td class="px-4 py-2">{!! ($voucher->description) !!}</td>
-                <td class="px-4 py-2">{{ $voucher->updated_at }}</td>
                 <td class="px-4 py-2">
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
