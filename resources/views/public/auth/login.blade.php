@@ -1,4 +1,5 @@
 @include('public.header.index')
+<br>
 <style>
     .login {
         position: relative;
@@ -58,4 +59,5 @@
         </div>
     </div>
 </div>
+<br>
 @include('public.footer.footer')

@@ -6,6 +6,15 @@
 </style>
 @include('admin.layout.header')
 <div class="m-4 pt-20">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-error">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="flex justify-between text-xs sm:text-sm">
         <div class="flex text-gray-600">
             <form action="{{ route('product') }}" method="GET" class="flex">
@@ -40,13 +49,13 @@
         </div>
         <div class="px-4 border-b-2 py-1">
             <a href="{{ route('product', ['status' => '1']) }}" class="flex {{ request('status') == '1' ? 'selected' : '' }}">
-                <span {{ request('status') == '1' ? 'class=text-yellow-500' : '' }}>Hoạt động</span>
+                <span {{ request('status') == '1' ? 'class=text-yellow-500' : '' }}>Còn hàng</span>
                 <div class="icon_count ml-1">{{ $statusCounts[1] }}</div>
             </a>
         </div>
         <div class="px-4 border-b-2 py-1">
             <a href="{{ route('product', ['status' => '2']) }}" class="flex {{ request('status') == '2' ? 'selected' : '' }}">
-                <span {{ request('status') == '2' ? 'class=text-yellow-500' : '' }}>Nháp</span>
+                <span {{ request('status') == '2' ? 'class=text-yellow-500' : '' }}>Hết hàng</span>
                 <div class="icon_count ml-1">{{ $statusCounts[2] }}</div>
             </a>
         </div>
@@ -84,32 +93,40 @@
         <tbody>
             @foreach($products as $index => $product)
             <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
-                <td class="px-2 py-2"><input type="checkbox"></td>
-                <td class="px-4 py-2 hidden sm:table-cell">{{ $product->id }}</td>
-                <td class="px-4 py-2 flex">
+                <td class="px-2 pt-2"><input type="checkbox"></td>
+                <td class="px-4 pt-2 hidden sm:table-cell">{{ $product->id }}</td>
+                <td class="px-4 pt-2 flex">
                     <img src="{{ asset($product->primary_image_url ?? 'placeholder.jpg') }}" width="50" alt="" class="hidden sm:table-cell">
                     <div class="pl-2">
                         <p class="product-name">{{ $product->product_name }}</p>
                         <span>{{ $product->product_code }}</span>
                     </div>
                 </td>
-                <td class="px-4 py-2 hidden sm:table-cell">{{ Illuminate\Support\Str::limit($product->color, 6) }}</td>
-                <td class="px-4 py-2">{{ $product->brand->brand_name }}</td>
-                <td class="px-4 py-2 hidden sm:table-cell">{{ $product->category->category_name }}</td>
-                <td class="px-4 py-2">{{ number_format($product->price) }} VND</td>
-                <td class="px-4 py-2 hidden sm:table-cell">{{ $product->quantity }}</td>
-                <td class="px-4 py-2">
-                    @php
-                    $statusLabels = [
-                    1 => 'Còn hàng',
-                    2 => 'Hết hàng',
-                    3 => 'Đã xóa'
-                    ];
-                    @endphp
-                    {{ $statusLabels[$product->status] ?? 'Không xác định' }}
+                <td class="px-4 pt-2 hidden sm:table-cell">{{ Illuminate\Support\Str::limit($product->color, 6) }}</td>
+                <td class="px-4 pt-2">{{ $product->brand->brand_name }}</td>
+                <td class="px-4 pt-2 hidden sm:table-cell">{{ $product->category->category_name }}</td>
+                <td class="px-4 pt-2">{{ number_format($product->price) }} VND</td>
+                <td class="px-4 pt-2 hidden sm:table-cell">{{ $product->quantity }}</td>
+                <td class="px-4 pb-4 status-cell flex items-center">
+                    <span class="status-indicator
+                        @if ($product->status == '1')
+                            stocking
+                        @elseif ($product->status == '2')
+                            outOfStock
+                        @else
+                            deleted
+                        @endif" title="{{ ucfirst($product->status) }}">
+                    </span>
+                    <div class="">
+                        <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none pr-8" data-order-id="{{ $product->id }}">
+                            <option value="1" {{ $product->status == '1' ? 'selected' : '' }}>Còn hàng</option>
+                            <option value="2" {{ $product->status == '2' ? 'selected' : '' }}>Hết hàng</option>
+                            <option value="3" {{ $product->status == '3' ? 'selected' : '' }}>Đã xóa</option>
+                        </select>
+                    </div>
                 </td>
-                <td class="px-4 py-2">
-                    <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
+                <td class="px-4 pt-2">
+                    <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false" class="detail-btn">
                         <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
                             <a href="{{ route('edit_product', ['id' => $product->id]) }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Sửa</a>
@@ -120,6 +137,13 @@
                             </form>
                         </div>
                     </div>
+                    <form class="hidden update-form mt-5" method="POST" action="{{ route('update_product_status', ['product' => $product->id]) }}">
+                        @csrf
+                        @method('POST')
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="number" name="status_new" class="bg-white border border-gray-300 rounded-md p-1 outline-none hidden" value="">
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md update-btn">Cập nhật</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
@@ -131,4 +155,41 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusSelects = document.querySelectorAll('.status-select');
+        statusSelects.forEach(select => {
+            select.addEventListener('change', function() {
+                const productId = this.dataset.productId;
+                const newStatus = this.value;
+
+                const parentRow = this.closest('tr');
+                const detailBtn = parentRow.querySelector('.detail-btn');
+                const updateForm = parentRow.querySelector('.update-form');
+
+                const statusInput = updateForm.querySelector('input[name="status_new"]');
+                statusInput.value = newStatus;
+
+                detailBtn.classList.add('hidden');
+                updateForm.classList.remove('hidden');
+
+                const statusCell = parentRow.querySelector('.status-cell');
+                const statusIndicator = statusCell.querySelector('.status-indicator');
+
+                // Update status indicator class and title
+                statusIndicator.className = `status-indicator ${
+                    newStatus == '1' ? 'stocking' :
+                    newStatus == '2' ? 'outOfStock' :
+                    'deleted'
+                }`;
+                statusIndicator.title = ucfirst(newStatus == '1' ? 'Còn hàng' : (newStatus == '2' ? 'Hết hàng' : 'Đã xóa'));
+            });
+        });
+
+        function ucfirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    });
+</script>
+
 @include('admin.layout.fotter')

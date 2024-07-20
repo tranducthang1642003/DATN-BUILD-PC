@@ -12,7 +12,7 @@
     @endphp
     <h1 class="font-bold text-xl">Tháng này</h1>
     <p>{{ $thirtyDaysAgo->format('d/m/Y') }} - {{ $yesterday->format('d/m/Y') }}</p>
-    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 my-4">
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-6 my-4">
         <div class="col-span-1 card_dashboard" id="revenueCard">
             <div class="h-48 sm:h-36 bg-gradient-to-r from-orange-500 to-orange-300 rounded-t-xl text-white">
                 <div class="p-4">
@@ -27,7 +27,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($totalRevenueLastMonth) }}VNĐ</span>
-                <span class="text-lime-700">{{ number_format($rateRevenue, 2) }}%</span>
+                <span class=" {{ $rateRevenue > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateRevenue, 2) }}%</span>
             </div>
         </div>
         <div class="col-span-1 card_dashboard" id="newOrdersCard">
@@ -44,7 +44,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($totalOrdersLastMonth) }}</span>
-                <span class="text-red-600">{{ number_format($rateOrders, 2) }}%</span>
+                <span class="{{ $rateOrders > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateOrders, 2) }}%</span>
             </div>
         </div>
         <div class="col-span-1 card_dashboard" id="soldProductsCard">
@@ -61,7 +61,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($totalProductsSoldLastMonth) }}</span>
-                <span class="text-lime-700">{{ number_format($rateProducts, 2) }}%</span>
+                <span class="{{ $rateProducts > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateProducts, 2) }}%</span>
             </div>
         </div>
         <div class="col-span-1 card_dashboard" id="newCustomersCard">
@@ -78,7 +78,7 @@
             </div>
             <div class="h-12 sm:h-10 flex justify-between px-4 items-center text-xs">
                 <span class="text-gray-700">Tháng trước: {{ number_format($newUsersCountLastMonth) }}</span>
-                <span class="text-lime-700">{{ number_format($rateUsers, 2) }}%</span>
+                <span class="{{ $rateUsers > 0 ? 'text-lime-700' : 'text-red-700' }}">{{ number_format($rateUsers, 2) }}%</span>
             </div>
         </div>
     </div>
@@ -101,6 +101,12 @@
         var soldProductsData = {!! $currentMonthSoldProductsData !!};
         var newCustomersData = {!! $currentMonthNewCustomersData !!};
         var labelsData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
+        function formatLabels(labels) {
+            return labels.map(function(label) {
+            var parts = label.split('-');
+            return parts[2] + '/' + parts[1];
+        });
+}
         var chartOptions = {
             scales: {
                 y: {
@@ -112,7 +118,7 @@
         var revenueChart = new Chart(revenueCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(revenueData.labels),
                 datasets: [{
                     label: 'Doanh thu',
                     data: revenueData.data,
@@ -125,7 +131,7 @@
         var newOrdersChart = new Chart(newOrdersCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(newOrdersData.labels),
                 datasets: [{
                     label: 'Đơn hàng mới',
                     data: newOrdersData.data,
@@ -138,7 +144,7 @@
         var soldProductsChart = new Chart(soldProductsCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(soldProductsData.labels),
                 datasets: [{
                     label: 'Sản phẩm đã bán',
                     data: soldProductsData.data,
@@ -151,7 +157,7 @@
         var newCustomersChart = new Chart(newCustomersCtx, {
             type: 'bar',
             data: {
-                labels: labelsData,
+                labels: formatLabels(newCustomersData.labels),
                 datasets: [{
                     label: 'Khách hàng mới',
                     data: newCustomersData.data,

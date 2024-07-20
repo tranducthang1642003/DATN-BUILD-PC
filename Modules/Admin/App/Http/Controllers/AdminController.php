@@ -19,9 +19,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $lastMonthEnd = Carbon::now()->subDays(30)->startOfDay();// 2024-06-01
-        $currentMonthStart = Carbon::now()->subMonths(1)->endOfMonth(); //2024-06-30
-        $lastMonthStart = Carbon::now()->subDays(60)->startOfDay(); //2024-05-02
+        $lastMonthEnd = Carbon::now()->subDays(30)->startOfDay();
+        $currentMonthStart = Carbon::now()->endOfDay();
+        $lastMonthStart = Carbon::now()->subDays(60)->startOfDay(); 
+        // dd($lastMonthStart,  $currentMonthStart, $lastMonthEnd);
         $totalRevenueCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
             ->sum('total_amount');
         $totalRevenueLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])

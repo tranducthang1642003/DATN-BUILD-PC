@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Order\App\Http\Controllers\admin\OrderController;
+use Modules\Order\App\Http\Controllers\OrderController1;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +24,19 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/order/{id}/edit', [OrderController::class, 'edit'])->name('edit_order');
     Route::put('admin/order/{id}/edit', [OrderController::class, 'update_product'])->name('update_order');
     Route::delete('admin/order/{id}', [OrderController::class, 'destroy'])->name('delete_order');
+    // Route::delete('admin/order/{id}', [OrderController::class, 'OrderController'])->name('delete_order');
+    Route::post('/admin/order/{order}/status',  [OrderController::class, 'updateStatus'])->name('admin.orders.update_status');
+    Route::post('/admin/order/status',  [OrderController::class, 'updateMultipleStatus'])->name('admin.orders.update_multiple_status');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('orders/checkout', [OrderController1::class, 'checkout'])->name('orders.checkout');
+    Route::post('orders/place', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
+    Route::get('orders/p', [OrderController1::class, 'paymentsuccess'])->name('orders.paymentsuccess');
+
+    Route::get('/order-lookup', [OrderController1::class, 'showLookupForm'])->name('orders.lookup.form');
+    
+    Route::post('/order-lookup', [OrderController1::class, 'lookup'])->name('orders.lookup');
+    
+});
+

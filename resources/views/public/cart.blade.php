@@ -10,51 +10,57 @@
         word-break: break-all;
     }
 </style>
-<div class="container mx-auto">
+
+<div class="container mx-auto py-20 p-10">
     <div class="px-5 border flex justify-between m-2 p-2">
         <h1>Giỏ hàng của bạn</h1>
 
         @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
         @endif
 
-        <a href=""><span>
-                < mua thêm sản phẩm khác</span></a>
+        <a href=""><span>Mua thêm sản phẩm khác</span></a>
     </div>
-    <div class="flex flex-wrap px-2 justify-between">
-        <div class="w-full lg:w-8/12 table-responsive mb-5" style="max-height: 500px; overflow-y: auto;">
 
-            <table class="w-full">
-                <thead>
-                    <tr>
-                        <th class="py-2">Hình</th>
-                        <th></th>
-                        <th class="py-2">Số lượng</th>
-                        <th class="py-2">Giá</th>
-                        <th class="py-2">Tổng tiền</th>
-                        <th class="py-2">Chỉnh sữa</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle">
-                    @foreach ($cartItems as $item)
+    @if (session('success_message'))
+    <div id="success_message"
+        class="fixed top-0 right-0 mt-4 mr-4 bg-green-500 text-white px-4 py-2 rounded shadow-md transition-transform transform duration-500 ease-out">
+        {{ session('success_message') }}
+    </div>
+    @endif
+
+    <div class="flex flex-wrap px-2 justify-between">
+        <div class="w-full lg:w-8/12 mb-5">
+            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="py-2">Hình ảnh</th>
+                            <th class="py-2">Tên sản phẩm</th>
+                            <th class="py-2">Đơn giá</th>
+                            <th class="py-2">Số lượng</th>
+                            <th class="py-2">Tổng tiền</th>
+                            <th class="py-2">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($cartItems as $item)
                         <tr class="border">
-                            <td class="py-2 flex items-center justify-center"><img src="{{ $item->primary_image_path }}"
-                                    alt="{{ $item->product->product_name }}" class="w-20 h-20 p-2 text">
+                            <td class="py-2 flex items-center justify-center w-40 p-5">
+                                <img src="{{ $item->primary_image_path }}" alt="{{ $item->product->product_name }}">
                             </td>
                             <td class="py-2 whitespace-normal">
-                                <span>
-                                    <p>{{ $item->product->product_name }}</p>
-                                </span>
-
+                                <p>{{ $item->product->product_name }}</p>
                             </td>
                             <td class="py-2">{{ number_format($item->product->price) }} VND</td>
                             <td class="py-2">
                                 <div class="flex items-center justify-center">
                                     <button class="px-2 py-1 bg-gray-200 text-gray-700 rounded-l"
                                         onclick="updateQuantity({{ $item->id }}, -1)">-</button>
-                                    <input type="number" class="w-12 px-2 py-1 text-center border border-gray-300"
+                                    <input type="number"
+                                        class="w-12 px-2 py-1 text-center border border-gray-300"
                                         value="{{ $item->quantity }}" readonly>
                                     <button class="px-2 py-1 bg-gray-200 text-gray-700 rounded-r"
                                         onclick="updateQuantity({{ $item->id }}, 1)">+</button>
@@ -65,54 +71,60 @@
                                 <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-red-400 hover:bg-red-500 text-white font-bold py-1 px-3 rounded">
+                                    <button type="submit"
+                                        class="bg-red-400 hover:bg-red-500 text-white font-bold py-1 px-3 rounded">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
-                            </div>
-                        </td>
-                            
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="w-full lg:w-3/12">
-            <div class=" mx-auto border-2">
+            <div class="mx-auto border-2 rounded-lg shadow-md">
                 <div class="flex justify-between items-center px-4 py-3 border-b">
-                    <h1 class="text-lg font-bold">
-                        <span class="text-yellow-500">Khuyễn mãi</span>
-                    </h1>
-                    <a href="#" class="text-yellow-500">Xem thêm ></a>
+                    <h1 class="text-lg font-bold text-yellow-500">Khuyến mãi</h1>
+                    <a href="#" class="text-yellow-500 hover:underline">Xem thêm <i
+                            class="fa-solid fa-arrow-right"></i></a>
                 </div>
-                <form class="flex p-5">
-                    <input type="text" placeholder="Nhập coupon"
-                        class=" w-8/12 p-2 border border-gray-300 rounded-l focus:outline-none focus:ring focus:border-yellow-300">
-                    <button type="submit" class=" w-4/12 bg-yellow-500 text-white p-1  hover:bg-yellow-600 ml-1">Apply
-                        Coupon</button>
+                <form action="{{ route('cart.applyCoupon') }}" method="POST" class="px-4 py-3">
+                    @csrf
+                    <div class="flex items-center">
+                        <input type="text" name="coupon_code" placeholder="Nhập mã giảm giá"
+                            class="form-input border-2 border-gray-200 rounded-l-md p-2 w-full focus:outline-none focus:border-blue-500">
+                        <button type="submit"
+                            class="btn btn-primary rounded-r-md px-4 py-2 bg-blue-500 text-white ml-2 hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                            Áp dụng
+                        </button>
+                    </div>
                 </form>
             </div>
-            <h5 class="text-lg font-bold mt-5 mb-5 p-1 border-b"><span class="text-yellow-500 pr-3 bold">Cart
-                    Summary</span></h5>
-            <div class="border p-4">
+
+            <div class="border p-4 mt-5">
                 <div class="flex justify-between p-2 border-b-2">
                     <span>Tổng giá tiền:</span>
-                    <span> {{ number_format($totalPrice) }} VND</span>
+                    <span>{{ number_format($totalPrice) }} VND</span>
                 </div>
                 <div class="flex justify-between p-2 border-b-2">
-                    <span>Shipping:</span>
-                    <span>$5.00</span>
+                    <span>tổng:</span>
+                    <span>{{ number_format($totalPrice) }} VND</span>
+
                 </div>
-                <div class="flex justify-between p-2 border-b-2">
+                {{-- <div class="flex justify-between p-2 border-b-2">
                     <span>Total:</span>
                     <span>$55.00</span>
-                </div>
+                </div> --}}
                 <div class="grid grid-cols-1 gap-4 mt-5">
-                  <a href="checkout">
-                    <button
-                    class="col-span-2 md:col-span-1 bg-yellow-400 text-white px-4 py-2 rounded w-70% hover:bg-yellow-500">Đặt
-                    hàng</button>
-                  </a>
+                    <form action="{{ route('orders.checkout') }}" method="GET" class="mt-8">
+                        @csrf
+                        <button type="submit"
+                            class="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-500 mt-4">Xác nhận
+                            đặt hàng</button>
+                    </form>
+
                     <button
                         class="col-span-2 md:col-span-1 bg-blue-500 text-white px-4 py-2 rounded w-70% hover:bg-blue-600">Trả
                         góp</button>
@@ -121,8 +133,6 @@
         </div>
     </div>
 </div>
-
-
 
 <script>
     function updateQuantity(cartItemId, change) {
@@ -137,7 +147,12 @@
                     change: change
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     location.reload();
@@ -145,7 +160,28 @@
                     alert(data.message);
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating quantity.');
+            });
     }
 </script>
+
 @include('public.footer.footer')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var element = document.getElementById('success_message');
+        if (element) {
+            // Di chuyển từ phải sang trái
+            element.style.transform = 'translateX(0)';
+            // Chờ 5 giây sau đó ẩn đi
+            setTimeout(function() {
+                element.style.transform = 'translateX(100%)';
+                setTimeout(function() {
+                    element.remove(); // Xóa phần tử thông báo
+                }, 500); // Thời gian chờ ẩn đi
+            }, 5000); // Thời gian chờ tồn tại
+        }
+    });
+</script>

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Review\App\Http\Controllers\ReviewController;
-
+use Modules\Review\App\Http\Controllers\admin\AdminReviewController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,12 @@ use Modules\Review\App\Http\Controllers\ReviewController;
 |
 */
 
-Route::group([], function () {
+Route::group([], function ()
+{
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('products.reviews.store');
+});
+Route::group(['middleware' => 'admin'], function ()
+{
+    Route::get('admin/review', [AdminReviewController::class, 'index'])->name('adminreview');
+    Route::delete('admin/review/delete/{id}', [AdminReviewController::class, 'deletereview'])->name('review.destroy');
 });

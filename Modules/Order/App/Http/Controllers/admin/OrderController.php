@@ -97,6 +97,12 @@ class OrderController extends Controller
             return redirect()->back()->withInput()->withErrors('Failed to add order.');
         }
     }
+    public function show($id)
+    {
+        $order = Orders::with('items')->findOrFail($id);
+        return view('admin.order.show', compact('order'));
+    }
+
     public function destroy($id)
     {
         $order = Orders::findOrFail($id);
@@ -105,5 +111,38 @@ class OrderController extends Controller
         }
         $order->delete();
         return redirect()->route('order')->with('success', 'order deleted successfully!');
+    }
+    public function updateStatus(Request $request, Orders $order)
+    {
+        $request->validate([
+            'new_status' => 'required|in:pending,processing,cancelled,completed',
+        ]);
+
+        try {
+            $order->status = $request->input('new_status');
+            $order->save();
+
+            return redirect()->route('order')->with('success', 'Đã cập nhật trạng thái đơn hàng');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật trạng thái không thành công: ' . $e->getMessage());
+        }
+    }
+    public function updateMultipleStatus(Request $request)
+    {
+        $request->validate([
+            'orders' => 'required|array',
+            'status' => 'required|array',
+            'status.*' => 'in:pending,processing,cancelled,completed',
+        ]);
+
+        foreach ($request->input('orders') as $orderId) {
+            $order = Orders::find($orderId);
+            if ($order) {
+                $order->status = $request->input('status')[$orderId];
+                $order->save();
+            }
+        }
+
+        return redirect()->back()->with('success', 'Đã cập nhật trạng thái cho các đơn hàng được chọn');
     }
 }

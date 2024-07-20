@@ -55,7 +55,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-    
 });
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/user', [UsersAdminController::class, 'index'])->name('user');
@@ -63,6 +62,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/user/add', [UsersAdminController::class, 'add_user'])->name('add_user');
     Route::get('admin/user/{id}', [UsersAdminController::class, 'show'])->name('show_user');
     Route::get('admin/user/{id}/edit', [UsersAdminController::class, 'edit'])->name('edit_user');
-    Route::put('admin/user/{id}/edit', [UsersAdminController::class, 'update_user'])->name('update_user');
+    Route::post('admin/user/{id}/edit', [UsersAdminController::class, 'update_user'])->name('update_user');
+    Route::post('admin/user/edit/{user}', [UsersAdminController::class, 'update_user_status'])->name('update_user_status');
     Route::delete('admin/user/{id}', [UsersAdminController::class, 'destroy'])->name('delete_user');
 });

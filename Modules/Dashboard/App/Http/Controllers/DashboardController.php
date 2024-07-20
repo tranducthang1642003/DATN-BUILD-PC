@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Auth\Entities\User;
 use Illuminate\Support\Facades\Auth;
+use Modules\Settings\Entities\Menu;
+
 class DashboardController extends Controller
 {
     /**
@@ -15,8 +17,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $menuItems = Menu::all();
+
         $users=Auth::User();
-        return view('public.dashboard.dashboard',compact('users'));
+        return view('public.dashboard.dashboard',compact('users','menuItems'));
     }
 
     /**

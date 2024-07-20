@@ -1,32 +1,73 @@
 .button_sidebar {
     width: 100%;
-    background-color: rgb(151, 166, 187);
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px rgb(219, 218, 218);
-    font-weight: 500;
+    padding: 15px;
+    font-weight: 400;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    /* border-bottom: 1px solid white; */
 }
+
 .button_sidebar_cl {
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 10px 0 10px 50px;
-    background-color: rgb(182, 193, 209);
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px rgb(219, 218, 218);
+    padding: 10px 0 10px 30px;
     font-size: 14px;
+    color: white;
+    transition: display 0.2s ease;
 }
+
+.button-none {
+    transition: display 0.2s all;
+    opacity: 1;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    /* Sidebar ẩn ban đầu bên ngoài màn hình */
+    width: 250px;
+    height: 100%;
+    --tw-bg-opacity: 1;
+    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+    /* Di chuyển sidebar vào màn hình */
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content {
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
+    /* Đảm bảo nội dung chính ban đầu không bị dịch chuyển */
+}
+
+.sidebar.open+.main-content {
+    margin-left: 250px;
+    /* Khi sidebar mở ra, đẩy nội dung chính sang phải */
+}
+
+
 .button_sidebar_cl:hover {
     color: orange;
-    background-color: aliceblue;
+    /* background-color: gray; */
 }
 
 .button_sidebar:hover {
     color: orange;
-    background-color: aliceblue;
-    transform: translateY(-5px);
+    background-color: gray;
 }
 
 .icon_count {
@@ -59,7 +100,7 @@
 }
 
 .button_selected:hover {
-    transform: translateY(-5px); 
+    transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     color: orange;
@@ -68,7 +109,7 @@
 
 .icon_sidebar {
     font-size: larger;
-    margin: 0 10px 0 20px;
+    margin: 0 10px -3px 10px;
 }
 
 .card_dashboard {
@@ -80,13 +121,13 @@
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    padding-bottom: 0; 
+    padding-bottom: 0;
 }
 
 .card_dashboard:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    cursor: pointer; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 
@@ -100,27 +141,32 @@
     overflow-y: auto;
     min-height: 200px;
 }
+
 .product-name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 @media screen and (max-width: 2840px) {
     .product-name {
         max-width: 30ch;
     }
 }
+
 @media screen and (max-width: 1640px) {
     .product-name {
         max-width: 24ch;
     }
 }
+
 @media screen and (max-width: 1240px) {
     .product-name {
         max-width: 20ch;
     }
 }
-@media screen and (max-width: 1168px) {  
+
+@media screen and (max-width: 1168px) {
     .product-name {
         max-width: 14ch;
     }
@@ -131,7 +177,88 @@
         max-width: 8ch;
     }
 }
+
 canvas {
     width: 300px;
     height: auto;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    transition: opacity 0.5s ease;
+}
+
+.alert-success {
+    background-color: #4caf50;
+    color: white;
+}
+
+.alert-error {
+    background-color: #f44336;
+    color: white;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-indicator.pending {
+    background-color: orange;
+}
+
+.status-indicator.processing {
+    background-color: blue;
+}
+
+.status-indicator.cancelled {
+    background-color: red;
+}
+
+.status-indicator.completed {
+    background-color: green;
+}
+
+.status-indicator.inactive {
+    background-color: red;
+}
+
+.status-indicator.active {
+    background-color: green;
+}
+
+.status-indicator.stocking {
+    background-color: green;
+}
+
+.status-indicator.outOfStock {
+    background-color: orange;
+}
+
+.status-indicator.deleted {
+    background-color: red;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

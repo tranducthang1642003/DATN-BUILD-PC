@@ -21,31 +21,16 @@ var __webpack_exports__ = {};
   !*** ./resources/js/slickside.js ***!
   \***********************************/
 __webpack_require__.r(__webpack_exports__);
-$(".one-time").slick({
-  dots: false,
-  infinite: true,
-  speed: 300,
-  slidesToShow: 1,
-  adaptiveHeight: true,
-  autoplay: true,
-  autoplaySpeed: 8000
-});
-document.addEventListener("DOMContentLoaded", function () {
-  var menuToggle = document.getElementById("menu-toggle");
-  var mobileMenu = document.getElementById("mobile-menu");
-  menuToggle.addEventListener("click", function () {
-    mobileMenu.classList.toggle("hidden");
-  });
-});
 $(document).ready(function () {
-  $(".autoplay").slick({
+  // Khởi tạo các slider và áp dụng CSS ẩn button
+  $(".one-time").slick({
+    infinite: true,
+    speed: 300,
     slidesToShow: 1,
-    slidesToScroll: 1,
+    adaptiveHeight: true,
     autoplay: true,
-    autoplaySpeed: 2000
+    autoplaySpeed: 8000
   });
-});
-$(document).ready(function () {
   $(".autoplay-slider").slick({
     infinite: true,
     speed: 300,
@@ -72,8 +57,32 @@ $(document).ready(function () {
       }
     }]
   });
-});
-$(document).ready(function () {
+  $(".autoplay-sanpham").slick({
+    infinite: true,
+    speed: 300,
+    slidesToShow: 4,
+    adaptiveHeight: true,
+    responsive: [{
+      breakpoint: 1280,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        infinite: true
+      }
+    }, {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1
+      }
+    }, {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    }]
+  });
   $(".slider-for").slick({
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -89,13 +98,7 @@ $(document).ready(function () {
     centerMode: true,
     focusOnSelect: true
   });
-});
-$(document).ready(function () {
   $(".autoplay-sliderr").slick({
-    // slidesToShow: 5,
-    // slidesToScroll: 1,
-    // autoplay: true,
-    // autoplaySpeed: 2000,
     infinite: true,
     speed: 300,
     slidesToShow: 4,
@@ -127,25 +130,13 @@ $(document).ready(function () {
       }
     }]
   });
-});
-$(document).ready(function () {
   $(".autoplay-sliderrsre").slick({
-    // slidesToShow: 5,
-    // slidesToScroll: 1,
-    // autoplay: true,
-    // autoplaySpeed: 2000,
     infinite: true,
     speed: 300,
     slidesToShow: 10,
     adaptiveHeight: true
   });
-});
-$(document).ready(function () {
   $(".autoplay-evaluate").slick({
-    // slidesToShow: 5,
-    // slidesToScroll: 1,
-    // autoplay: true,
-    // autoplaySpeed: 2000,
     dots: true,
     infinite: true,
     speed: 300,
@@ -177,6 +168,16 @@ $(document).ready(function () {
         slidesToScroll: 1
       }
     }]
+  });
+
+  // Ẩn button .slick-prev và .slick-next
+  $(".slick-prev, .slick-next").hide();
+
+  // Xử lý toggle menu mobile
+  var menuToggle = document.getElementById("menu-toggle");
+  var mobileMenu = document.getElementById("mobile-menu");
+  menuToggle.addEventListener("click", function () {
+    mobileMenu.classList.toggle("hidden");
   });
 });
 /******/ })()

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Modules\Admin\App\Http\Models\Brands;
-use Modules\Admin\App\Http\Models\Users;
+use Modules\Auth\Entities\User;
 
 class UsersAdminController extends Controller
 {
@@ -17,7 +17,7 @@ class UsersAdminController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
-        $usersQuery = Users::query();
+        $usersQuery = User::query();
         if ($startDate && $endDate) {
             $usersQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
@@ -29,31 +29,46 @@ class UsersAdminController extends Controller
     }
     public function edit($id)
     {
-        $user = Users::All()->findOrFail($id);
+        $user = User::findOrFail($id);
         return view('admin.user.edit', compact('user'));
     }
     public function update_user(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string',
-            'slug' => 'required|string',
-            'description' => 'required|string',
+            'username' => 'required|string',
+            'password' => 'required|string',
+            'email' => 'required|string',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+            'is_activated' => 'required|in:1,0',
         ]);
-        $user = Users::findOrFail($id);
-        $user->name = $validatedData['name'];
-        $user->slug = $validatedData['slug'];
-        $user->description = $validatedData['description'];
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('user_images', 'public');
-            $user->image = $imagePath;
-        }
+        // dd($validatedData);
+        $user = User::findOrFail($id);
+        $user->name = $validatedData['username'];
+        $user->password = bcrypt($validatedData['password']);
+        $user->email = $validatedData['email'];
+        $user->phone = $validatedData['phone'];
+        $user->address = $validatedData['address'];
+        $user->is_activated = $validatedData['is_activated'];
         $user->save();
         return redirect()->route('user');
     }
-
+    public function update_user_status(Request $request, User $user)
+    {
+        $request->validate([
+            'active_new' => 'required|in:1,0',
+        ]);
+        try {
+            $user->is_activated = $request->input('active_new');
+            $user->save();
+            return redirect()->route('user')->with('success', 'Đã cập nhật trạng thái người dùng thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật trạng thái không thành công: ' . $e->getMessage());
+        }
+    }
     public function add()
     {
-        $user = Users::All();
+        $user = User::All();
         return view('admin.user.add', compact('user'));
     }
     public function add_user(Request $request)
@@ -64,17 +79,15 @@ class UsersAdminController extends Controller
             'email' => 'required|string',
             'phone' => 'required|string',
             'address' => 'required|string',
-            'is_activated' => 'required|in:1,2,3',
-            'remember_token' => 'required|numeric',
+            'is_activated' => 'required|in:1,0',
         ]);
-        $user = new Users();
-        $user->username = $validatedData['username'];
-        $user->password = $validatedData['password'];
+        $user = new User();
+        $user->name = $validatedData['username'];
+        $user->password = bcrypt($validatedData['password']);
         $user->email = $validatedData['email'];
         $user->phone = $validatedData['phone'];
         $user->address = $validatedData['address'];
         $user->is_activated = $validatedData['is_activated'];
-        $user->remember_token = $validatedData['remember_token'];
         if ($user->save()) {
             return redirect()->route('user')->with('success', 'user added successfully!');
         } else {
@@ -83,7 +96,7 @@ class UsersAdminController extends Controller
     }
     public function destroy($id)
     {
-        $user = Users::findOrFail($id);
+        $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('user')->with('success', 'user deleted successfully!');
     }
