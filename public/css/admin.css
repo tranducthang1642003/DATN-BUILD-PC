@@ -18,11 +18,47 @@
     padding: 10px 0 10px 30px;
     font-size: 14px;
     color: white;
+    transition: display 0.2s ease;
 }
 
-.sidebar-admin:changed {
-    transition: block 2s ease-in;
+.button-none {
+    transition: display 0.2s all;
+    opacity: 1;
 }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    /* Sidebar ẩn ban đầu bên ngoài màn hình */
+    width: 250px;
+    height: 100%;
+    --tw-bg-opacity: 1;
+    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+    /* Di chuyển sidebar vào màn hình */
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content {
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
+    /* Đảm bảo nội dung chính ban đầu không bị dịch chuyển */
+}
+
+.sidebar.open+.main-content {
+    margin-left: 250px;
+    /* Khi sidebar mở ra, đẩy nội dung chính sang phải */
+}
+
 
 .button_sidebar_cl:hover {
     color: orange;
@@ -163,19 +199,17 @@ canvas {
     background-color: #f44336;
     color: white;
 }
+
 .status-indicator {
     display: inline-block;
     width: 12px;
-    /* Đường kính của nút */
     height: 12px;
     border-radius: 50%;
-    /* Hình tròn */
     margin-right: 5px;
-    /* Khoảng cách với văn bản */
 }
 
 .status-indicator.pending {
-    background-color: yellow;
+    background-color: orange;
 }
 
 .status-indicator.processing {
@@ -189,10 +223,42 @@ canvas {
 .status-indicator.completed {
     background-color: green;
 }
+
 .status-indicator.inactive {
     background-color: red;
 }
 
 .status-indicator.active {
     background-color: green;
+}
+
+.status-indicator.stocking {
+    background-color: green;
+}
+
+.status-indicator.outOfStock {
+    background-color: orange;
+}
+
+.status-indicator.deleted {
+    background-color: red;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

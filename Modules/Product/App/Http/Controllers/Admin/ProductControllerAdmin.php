@@ -39,6 +39,10 @@ class ProductControllerAdmin extends Controller
         $products = $productsQuery->paginate(10);
         $products_images = [];
         foreach ($products as $product) {
+            if ($product->quantity === 0 && $product->status === 1) {
+                $product->status = 2;
+                $product->save();
+            }
             $primary_image = ProductImage::where('product_id', $product->id)
                 ->where('is_primary', 1)
                 ->first();
@@ -46,6 +50,7 @@ class ProductControllerAdmin extends Controller
             $secondary_images = ProductImage::where('product_id', $product->id)
                 ->where('is_primary', 0)
                 ->get();
+
             $products_images[$product->id] = [
                 'primary_image' => $primary_image,
                 'secondary_images' => $secondary_images,
@@ -53,6 +58,7 @@ class ProductControllerAdmin extends Controller
         }
         return view('admin.product.product', compact('products', 'statusCounts', 'products_images'));
     }
+
     public function edit($id)
     {
         $brands = Brand::all();
@@ -73,7 +79,7 @@ class ProductControllerAdmin extends Controller
             'color' => 'required|string',
             'quantity' => 'required|numeric',
             'stock' => 'required|numeric',
-            'sale' => 'required|numeric',
+            'sale' => 'required|in:0,1',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -97,7 +103,7 @@ class ProductControllerAdmin extends Controller
             $product->color = $request->input('color');
             $product->quantity = $request->input('quantity');
             $product->stock = $request->input('stock');
-            $product->sale = $request->input('sale') === 'yes';
+            $product->sale = $request->input('sale');
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');
             $product->category_id = $request->input('category_id');
@@ -177,7 +183,7 @@ class ProductControllerAdmin extends Controller
             'color' => 'required|string',
             'quantity' => 'required|numeric',
             'stock' => 'required|numeric',
-            'sale' => 'required|numeric',
+            'sale' => 'required|in:0,1',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -215,7 +221,7 @@ class ProductControllerAdmin extends Controller
             $product->color = $request->input('color');
             $product->quantity = $request->input('quantity');
             $product->stock = $request->input('stock');
-            $product->sale = $request->input('sale') === 'yes';
+            $product->sale = $request->input('sale');
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');
             $product->category_id = $request->input('category_id');
@@ -245,24 +251,35 @@ class ProductControllerAdmin extends Controller
             return redirect()->back()->withInput()->withErrors('Thêm sản phẩm thất bại.');
         }
     }
+    public function update_product_status(Request $request, Product $product)
+    {
+        $request->validate([
+            'status_new' => 'required|in:1,2,3',
+        ]);
+        try {
+            $newStatus = $request->input('status_new');
+            if ($newStatus == 2) {
+                $product->quantity = 0;
+            }
+            $product->status = $newStatus;
+            $product->save();
+            return redirect()->route('product')->with('success', 'Đã cập nhật trạng thái sản phẩm thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật trạng thái sản phẩm không thành công: ' . $e->getMessage());
+        }
+    }
 
 
     public function destroy($id)
     {
         try {
             $product = Product::findOrFail($id);
-            if ($product->primaryImage) {
-                Storage::disk('public')->delete($product->primaryImage->image_path);
-                $product->primaryImage->delete();
-            }
-            foreach ($product->additionalImages as $image) {
-                Storage::disk('public')->delete($image->image_path);
-                $image->delete();
-            }
-            $product->delete();
-            return redirect()->route('product.index')->with('success', 'Product deleted successfully!');
+            $product->status = 3;
+            $product->quantity = 0;
+            $product->save();
+            return redirect()->route('product')->with('success', 'Trạng thái của sản phẩm được đặt thành công "Đã xóa"!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors('Failed to delete product.');
+            return redirect()->back()->withErrors('Failed to update product status: ' . $e->getMessage());
         }
     }
 }

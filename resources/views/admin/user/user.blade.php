@@ -64,7 +64,7 @@
                 <td class="px-4 py-2">{{ $user->email }}</td>
                 <td class="px-4 py-2">{{ $user->phone }}</td>
                 <td class="px-4 py-2">{{ $user->address }}</td>
-                <td class="px-4 py-2 status-cell flex">
+                <td class="px-4 py-2 status-cell flex items-center mt-2">
                     <span class="status-indicator {{ $user->is_activated == '1' ? 'active' : 'inactive' }}" title="{{ ucfirst($user->is_activated) }}"></span>
                     <div class="relative">
                         <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none" data-order-id="{{ $user->id }}">
@@ -91,7 +91,7 @@
                         @method('POST')
                         <input type="hidden" name="user_id" value="{{ $user->id }}">
                         <input type="number" name="active_new" class="bg-white border border-gray-300 rounded-md p-1 outline-none hidden" value="">
-                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md update-btn">Cập nhật</button>
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-2 rounded-md update-btn">Cập nhật</button>
                     </form>
                 </td>
             </tr>
@@ -126,7 +126,10 @@
                 const statusCell = parentRow.querySelector('.status-cell');
                 const statusIndicator = statusCell.querySelector('.status-indicator');
 
-                statusIndicator.className = `status-indicator ${newStatus}`;
+                statusIndicator.className = `status-indicator ${
+                    newStatus == '1' ? 'active' :
+                    'inactive'
+                }`;
                 statusIndicator.title = ucfirst(newStatus == "1" ? 'active' : 'inactive');
             });
         });

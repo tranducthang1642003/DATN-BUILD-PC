@@ -20,9 +20,9 @@
                             <input type="text" name="promotion_code" id="promotion_code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mã giảm" required>
                         </div>
                         <div class="mb-4">
-                            <label for="price" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Giá giảm (%)</label>
-                            <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0 đến 100" required>
-                            <div id="discount-error" class="text-red-600 text-sm mt-1 hidden">Giá trị giảm giá phải là một số từ 0 đến 100.</div>
+                            <label for="price" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Giá giảm</label>
+                            <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="nhập giá giảm" required>
+                            <div id="discount-error" class="text-red-600 text-sm mt-1 hidden">Giá trị giảm giá phải là một số từ 1 đến 1000000000.</div>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
@@ -36,9 +36,9 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label for="product_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Sản phẩm áp dụng:</label>
+                        <label for="product_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Áp dụng:</label>
                         <select name="product_id" id="product_id" class="w-full" required>
-                            <option value="">Chọn sản phẩm</option>
+                            <option value="0">Tất cả</option>
                             @foreach($products as $product)
                             <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>{{ $product->product_name }}</option>
                             @endforeach
@@ -67,7 +67,7 @@
         discountInput.addEventListener('input', function() {
             let discountValue = parseInt(discountInput.value);
 
-            if (isNaN(discountValue) || discountValue < 0 || discountValue > 100) {
+            if (isNaN(discountValue) || discountValue < 0 || discountValue > 1000000000) {
                 discountInput.classList.add('border-red-500');
                 discountError.classList.remove('hidden');
             } else {

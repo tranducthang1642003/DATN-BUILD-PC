@@ -20,6 +20,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/product/{id}', [ProductControllerAdmin::class, 'show'])->name('show');
     Route::get('admin/product/{id}/edit', [ProductControllerAdmin::class, 'edit'])->name('edit_product');
     Route::put('admin/product/{id}/edit', [ProductControllerAdmin::class, 'update_product'])->name('update_product');
+    Route::post('admin/product/edit/{product}', [ProductControllerAdmin::class, 'update_product_status'])->name('update_product_status');
     Route::delete('admin/product/{id}', [ProductControllerAdmin::class, 'destroy'])->name('delete_product');
 });
 

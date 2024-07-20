@@ -22,11 +22,15 @@
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="bg-slate-300">
-    <div x-data="{ sidebarOpen: true }" class="flex text-sm-xs">
-        <div :class="sidebarOpen ? 'block transform transition-all duration-300 translate-x-0' : 'hidden transform transition-all duration-300 -translate-x-full'" class=" p-4 drop-shadow-xl bg-slate-800 min-w-64 top-0 left-0 z-50 min-h-screen">
+    <div id="loader" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white z-50 opacity-75">
+        <div class="loader"></div>
+    </div>
+    <div x-data="{ sidebarOpen: true }" class="flex">
+        <div :class="{ 'sidebar open': sidebarOpen, 'sidebar': !sidebarOpen }" class="p-4 bg-slate-800 min-w-64 top-0 left-0 z-50 min-h-screen">
 
             <div class="flex items-center justify-center mb-12 mt-2">
                 <a href="{{ route('home') }}"><img src="{{ asset('image/logo.svg') }}" width="100" alt=""></a>
@@ -69,7 +73,7 @@
                         <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
                     </button>
                     <a class="w-full button-none" id="blog_list" href="{{ route('blog') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="blog_add" href="{{ route('blog_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh mục</button></a>
+                    <a class="w-full button-none" id="blog_add" href="{{ route('blog_category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>D.mục</button></a>
                 </div>
                 <div class="">
                     <button id="order" class="button_sidebar order_active">
@@ -95,17 +99,22 @@
                     <a class="w-full button-none" id="voucher_add" href="{{ route('vouchers.create') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
                 </div>
                 <div class="">
+                    <a href="{{ route('adminreview') }}">
+                        <button id="review" class="button_sidebar review_active">
+                            <p><ion-icon class="icon_sidebar" name="chatbox-outline"></ion-icon>Bình luận</p>
+                            <ion-icon name="-forward-outline" class="chevron-icon"></ion-icon>
+                        </button>
+                    </a>
+                    <!-- <a class="w-full button-none" id="review_list" href="{{ route('adminreview') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a> -->
+                    <!-- <a class="w-full button-none" id="review_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Menu</button></a> -->
+                </div>
+                <div class="">
                     <button id="setting" class="button_sidebar setting_active">
                         <p><ion-icon class="icon_sidebar" name="settings-outline"></ion-icon>Cài đặt</p>
                         <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
                     </button>
-                    <a class="w-full button-none" id="setting_list" href="{{ route('settings.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Trang chính</button></a>
+                    <a class="w-full button-none" id="setting_list" href="{{ route('settings.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Banner</button></a>
                     <a class="w-full button-none" id="setting_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Menu</button></a>
-                </div>
-                <div class="mb-4">
-                    <button id="review" class="button_sidebar review_active"><ion-icon class="icon_sidebar" name="pen"></ion-icon>Bình luận</button>
-                    <a class="w-full button-none" id="review_list" href="{{ route('adminreview') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a>
-                    <a class="w-full button-none" id="review_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Menu</button></a>
                 </div>
             </div>
 
@@ -155,7 +164,7 @@
             </script>
 
         </div>
-        <div class="flex-grow">
+        <div class="main-content flex-grow transition-all" :class="{ 'ml-64': sidebarOpen, 'ml-0': !sidebarOpen }">
             <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed z-30 w-screen">
                 <div class="flex justify-between items-center">
                     <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-40 ml-4"><ion-icon name="menu"></ion-icon></button>

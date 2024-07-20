@@ -42,18 +42,21 @@ class PromotionController extends Controller
             'discount' => 'required|numeric|min:0',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'product_id' => 'required|exists:products,id',
+            'product_id' => 'required|numeric',
             'description' => 'required|string',
         ]);
-
+        // dd($validatedData);
         $promotion = new Promotions();
+        if($validatedData['product_id'] === 0) {
+            $promotion->all = 1;
+        };
         $promotion->promotion_code = $validatedData['promotion_code'];
         $promotion->discount = $validatedData['discount'];
         $promotion->start_date = $validatedData['start_date'];
         $promotion->end_date = $validatedData['end_date'];
-        $promotion->product_id = $validatedData['product_id'];
+        // $promotion->product_id = $validatedData['product_id'];
         $promotion->description = $validatedData['description'];
-
+        // dd($promotion);
         if ($promotion->save()) {
             return redirect()->route('vouchers.index')->with('success', 'Đã thêm mã giảm giá thành công!');
         } else {
