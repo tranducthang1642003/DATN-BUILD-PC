@@ -120,7 +120,7 @@ class HomeController extends Controller
             ]);
         }
 
-        return view('public.product.product', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems'));
     }
     public function showSearch(Request $request)
     {
