@@ -71,8 +71,9 @@ class PromotionController extends Controller
 
     public function edit($id)
     {
-        $voucher = Promotions::All()->findOrFail($id);
-        return view('admin.voucher.edit', compact('voucher'));
+        $products = Product::All();
+        $voucher = Promotions::findOrFail($id);
+        return view('admin.voucher.edit', compact('voucher', 'products'));
     }
     public function update(Request $request, $id): RedirectResponse
     {

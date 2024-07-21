@@ -4,112 +4,80 @@
         color: white;
     }
 </style>
-<script>
-        tinymce.init({
-            selector: 'textarea#default',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [{
-                    value: 'First.Name',
-                    title: 'First Name'
-                },
-                {
-                    value: 'Email',
-                    title: 'Email'
-                },
-            ],
-            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-        });
-    </script>
+
 @include('admin.layout.header')
-<div class="m-4 pt-20">
-    <form action="{{ route('update_product', ['id' => $product->id]) }}" method="POST" enctype="multipart/form-data">
+
+<div class="mx-8 pt-20 font-sans antialiased w-full flex justify-center">
+    <form class="w-3/5 " action="{{ route('vouchers.update', ['id' => $voucher->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
-        <div class="min-h-screen bg-gray-100 flex justify-center items-center">
-            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-8">Edit Product</h2>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="mb-4">
-                        <label for="name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Name</label>
-                        <input type="text" name="name" id="name" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $product->name }}" required>
+        <div class="">
+            <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-white mb-8">Sửa mã giảm giá</h2>
+            <div class="bg-main p-8 rounded-lg shadow-lg">
+                <div class="p-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+                        <div class="mb-4">
+                            <label for="product_name" class="block text-sm font-medium leading-6  mb-2">Mã giảm giá</label>
+                            <input type="text" name="promotion_code" id="promotion_code" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{$voucher->promotion_code}}" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="price" class="block text-sm font-medium leading-6  mb-2">Giá giảm</label>
+                            <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{$voucher->discount}}" required>
+                            <div id="discount-error" class="text-red-600 text-sm mt-1 hidden">Giá trị giảm giá phải là một số từ 1 đến 1000000000.</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+                        <div class="mb-4">
+                            <label for="start_date" class="block text-sm font-medium leading-6 mb-2">Ngày bắt đầu</label>
+                            <input type="date" name="start_date" id="start_date" class="block w-full rounded-md border-0 py-1.5 bg-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ old('start_date', $voucher->start_date) }}" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="end_date" class="block text-sm font-medium leading-6 mb-2">Ngày kết thúc</label>
+                            <input type="date" name="end_date" id="end_date" class="block w-full rounded-md border-0 py-1.5 bg-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ old('end_date', $voucher->end_date) }}" required>
+                        </div>
                     </div>
                     <div class="mb-4">
-                        <label for="color" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Color</label>
-                        <input type="text" name="color" id="color" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $product->color }}" required>
+                        <label for="product_id" class="block text-sm font-medium leading-6 mb-2">Áp dụng:</label>
+                        <select name="product_id" id="product_id" class="w-full bg-main" required>
+                            <option value="0">Tất cả</option>
+                            @foreach($products as $product)
+                            <option class="bg-main" value="{{ $product->id }}" {{ old('product_id', $voucher->product_id) == $product->id ? 'selected' : '' }}>
+                                {!! Illuminate\Support\Str::limit($product->product_name, 60) !!}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <label for="price" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Price</label>
-                    <input type="number" name="price" id="price" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $product->price }}" required>
-                </div>
-                <div class="mb-4">
-                    <label for="discount" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Discount</label>
-                    <input type="number" name="discount" id="discount" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter discount amount" value="{{ $product->discount }}" required>
-                </div>
-                <div class="mb-4">
-                    <label for="sale" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Sale</label>
-                    <input type="number" name="sale" id="sale" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $product->discount }}" required>
-                </div>
-                <div class="mb-4">
-                    <label for="quantity" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Quantity</label>
-                    <input type="number" name="quantity" id="quantity" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" value="{{ $product->quantity }}" required>
-                </div>
-
-                <div class="mb-4">
-                    <label for="Category" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Category</label>
-                    <select name="id_category" id="id_category" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
-                        @foreach($categories as $id_category)
-                        <option value="{{ $id_category->id }}" {{ $product->category->id == $id_category->id ? 'selected' : '' }}>{{ $id_category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="brand" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Brand</label>
-                    <select name="id_brand" id="id_brand" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
-                        @foreach($brands as $id_brand)
-                        <option value="{{ $id_brand->id }}" {{ $product->brand->id == $id_brand->id ? 'selected' : '' }}>{{ $id_brand->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
-                <div class="mb-4">
-                    <label for="image" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Product Image</label>
-                    <input type="file" name="image" id="image" class="border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500">
-                </div>
-                <div class="mb-4">
-                    <label for="short_description" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Short Description</label>
-                    <textarea name="short_description" id="short_description" rows="2" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>{{ $product->short_description }}</textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="long_description" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Long Description</label>
-                    <textarea name="long_description" id="long_description" rows="4" class=" border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>{{ $product->long_description }}</textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="featured" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Featured</label>
-                    <select name="featured" id="featured" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" required>
-                        <option value="yes" {{ $product->featured ? 'selected' : '' }}>Yes</option>
-                        <option value="no" {{ !$product->featured ? 'selected' : '' }}>No</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="slug" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Slug</label>
-                    <input type="text" name="slug" id="slug" class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter product slug" value="{{ $product->slug }}" required>
-                </div>
-
-                <div class="mb-4">
-                    <label for="product_code" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Product Code</label>
-                    <input type="text" name="product_code" id="product_code" class=" border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter product code" value="{{ $product->product_code }}" required>
-                </div>
-                <div class="flex justify-end mt-6">
-                    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Update Product</button>
+                    <div class="gap-4">
+                        <div class="mb-4">
+                            <label for="description" class="block text-sm font-medium leading-6  mb-2">Mô tả</label>
+                            <input id="description" type="hidden" name="description">
+                            <trix-editor class="trix-content" input="description" value="{!! $voucher->description !!}"></trix-editor>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-6">
+                        <button type="submit" class="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600">Lưu</button>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const discountInput = document.getElementById('discount');
+        const discountError = document.getElementById('discount-error');
+
+        discountInput.addEventListener('input', function() {
+            let discountValue = parseInt(discountInput.value);
+
+            if (isNaN(discountValue) || discountValue < 0 || discountValue > 1000000000) {
+                discountInput.classList.add('border-red-500');
+                discountError.classList.remove('hidden');
+            } else {
+                discountInput.classList.remove('border-red-500');
+                discountError.classList.add('hidden');
+            }
+        });
+    });
+</script>
 
 @include('admin.layout.fotter')

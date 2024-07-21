@@ -3,11 +3,9 @@
         background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
         color: white;
     }
-
-    
 </style>
 @include('admin.layout.header')
-<div class="m-4 pt-20">
+<div class="mx-8 pt-20 w-full">
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -18,33 +16,33 @@
     </div>
     @endif
     <div class="flex justify-between text-sm">
-        <div class="flex text-gray-600">
-            <form action="{{ route('order') }}" method="GET" class="flex">
-                <div>
-                    <label for="startDate">From</label>
-                    <input class="p-2 rounded-lg ml-2" type="date" id="startDate" name="start_date">
+        <div class="flex text-white">
+            <form action="{{ route('product') }}" method="GET" class="flex">
+                <div class="ml-2 sm:ml-4 flex">
+                    <label for="startDate" class="block text-gray-500 mt-1">Từ ngày</label>
+                    <input class="p-1.5 sm:p-2 rounded-lg ml-2 bg-main text-gray-500 text-sm" type="date" id="startDate" name="start_date">
                 </div>
-                <div class="ml-4">
-                    <label for="endDate">To</label>
-                    <input class="p-2 rounded-lg ml-2" type="date" id="endDate" name="end_date">
+                <div class="ml-2 sm:ml-4 flex">
+                    <label for="endDate" class="block text-gray-500 mt-1">Đến ngày</label>
+                    <input class="p-1.5 sm:p-2 rounded-lg ml-2 bg-main text-gray-500 text-sm" type="date" id="endDate" name="end_date">
                 </div>
-                <div class="ml-6">
+                <div class="ml-2 sm:ml-6">
                     <div class="relative rounded-md shadow-sm">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                            <span class="text-gray-500 sm:text-sm"><ion-icon name="search-outline"></ion-icon></span>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
+                            <ion-icon class="text-white sm:text-sm" name="search-outline"></ion-icon>
                         </div>
-                        <input type="text" name="keyword" id="keyword" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Search">
+                        <input type="text" name="keyword" id="keyword" class="block w-full bg-main rounded-md border-0 py-1.5 sm:py-2 pl-5 pr-16 text-white ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Tìm kiếm">
                     </div>
                 </div>
-                <div class="ml-6">
-                    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">Search</button>
+                <div class="ml-2 sm:ml-6">
+                    <button type="submit" class="bg-main text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
                 </div>
             </form>
         </div>
     </div>
-    <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
+    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm">
         <thead>
-            <tr class="text-left bg-gray-400">
+            <tr class="text-left bg-main">
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Ngày tạo</th>
@@ -65,7 +63,7 @@
                     </td>
                 </tr> -->
             @foreach($orders as $index => $order)
-            <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }} order-row" data-status="{{ $order->status }}">
+            <tr class="{{ $index % 2 == 0 ? 'bg-darks' : 'bg-main' }} order-row" data-status="{{ $order->status }}">
                 <td class="px-4 py-2">
                     <input type="checkbox" name="orders[]" value="{{ $order->id }}">
                 </td>
@@ -77,16 +75,16 @@
                 <td class="px-4 py-2 status-cell flex">
                     <span class="status-indicator mt-3 {{ $order->status }}" title="{{ ucfirst($order->status) }}"></span>
                     <div class="relative">
-                        <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none" data-order-id="{{ $order->id }}">
-                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quyết</option>
-                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
-                            <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
-                            <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
+                        <select class="status-select bg-main rounded-md p-1" data-order-id="{{ $order->id }}">
+                            <option class="p-2" value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quyết</option>
+                            <option class="p-2" value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
+                            <option class="p-2" value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
+                            <option class="p-2" value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
                         </select>
                     </div>
                 </td>
                 <td class="px-4 py-2">
-                    <a href="{{ route('show_order', ['id' => $order->id]) }}"><button class="bg-indigo-600 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button></a>
+                    <a href="{{ route('show_order', ['id' => $order->id]) }}"><button class="bg-gray-500 hover:bg-slate-400 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button></a>
                     <form class="hidden update-form" method="POST" action="{{ route('admin.orders.update_status', ['order' => $order->id]) }}">
                         @csrf
                         @method('POST')

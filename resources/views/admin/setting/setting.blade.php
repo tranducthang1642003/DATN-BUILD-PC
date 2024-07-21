@@ -14,7 +14,7 @@
     }
 
     .menu-item.active {
-        background-color: #edf2f7;
+        background-color: #414755;
         font-weight: bold;
     }
 
@@ -28,9 +28,9 @@
 </style>
 
 @include('admin.layout.header')
-<div class="m-4 pt-16">
+<div class="mx-8 pt-16 w-full">
     <h1 class="text-2xl font-semibold mb-4">Quản lý hình ảnh</h1>
-    <div class="w-full mx-auto p-4 bg-white min-h-screen">
+    <div class="w-full mx-auto p-4 min-h-screen">
         <div class="flex mb-6 justify-between items-center">
             <div class="flex">
                 <div id="menu-banner" class="menu-item px-4 py-2 rounded-md mr-4">Banner</div>
@@ -38,21 +38,21 @@
                 <div id="menu-logo" class="menu-item px-4 py-2 rounded-md mr-4">Logo</div>
                 <div id="menu-category" class="menu-item px-4 py-2 rounded-md mr-4">Danh mục ảnh</div>
             </div>
-            <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md" onclick="form_add_new()">Thêm mới ảnh</button>
+            <button class="bg-slate-500 hover:bg-slate-400 text-white py-2 px-4 rounded-md" onclick="form_add_new()">Thêm mới ảnh</button>
         </div>
         <hr class="mb-4">
         <!-- Nội dung của từng mục -->
         <div id="section-banner" class="content-section">
             <div class="flex justify-between items-center m-4">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner top header</h2>
+                <h2 class="text-xl font-semibold text-white mb-4">Banner top header</h2>
 
             </div>
             <div class="">
                 @foreach ($settingsBannerHorizontal as $setting)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="bg-main shadow-md rounded-lg overflow-hidden">
                     <img id="image_banner_{{ $setting->id }}" src="{{ asset($setting->images_url) }}" alt="{{ $setting->name }}" class="w-full max-h-48" width="">
                     <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800 name-btn">{{ $setting->name }}</h2>
+                        <h2 class="text-lg font-semibold text-white name-btn">{{ $setting->name }}</h2>
                         <div class="mt-4">
                             <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md edit-btn">Chỉnh sửa</button>
                             <form action="{{ route('settings.destroy', $setting->id) }}" method="POST" class="inline">
@@ -63,7 +63,7 @@
                             <form id="edit_form_banner_{{ $setting->id }}" action="{{ route('settings.update', $setting->id) }}" method="POST" enctype="multipart/form-data" class="hidden">
                                 @csrf
                                 @method('PUT')
-                                <input type="hidden" class="text-lg font-semibold text-gray-800" name="name" value="{{ $setting->name }}">
+                                <input type="hidden" class="text-lg font-semibold text-white" name="name" value="{{ $setting->name }}">
                                 <div class="flex justify-between items-center mt-4">
                                     <input type="file" class="w-4/12" name="image" id="image_input_banner_{{ $setting->id }}" accept="image/*">
                                     <div class="flex">
@@ -80,15 +80,15 @@
             </div>
             <hr class="my-8">
             <div class="flex justify-between items-center m-4">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Banner</h2>
+                <h2 class="text-xl font-semibold text-white mb-4">Banner</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Thêm hình ảnh và thông tin cho mục Banner -->
                 @foreach ($settingsBanner as $settingsBanners)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden h-min">
+                <div class="bg-main shadow-md rounded-lg overflow-hidden h-min">
                     <img id="image_banner_full_{{ $settingsBanners->id }}" src="{{ asset($settingsBanners->images_url) }}" alt="Banner" class="w-full">
                     <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800 name-btn">{{ $settingsBanners->name }}</h2>
+                        <h2 class="text-lg font-semibold text-white name-btn">{{ $settingsBanners->name }}</h2>
                         <div class="mt-4">
                             <div class="flex justify-between content-center mt-4">
                                 <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md edit-btn">Chỉnh sửa</button>
@@ -97,7 +97,7 @@
                             <form id="edit_form_banner_full_{{ $settingsBanners->id }}" action="{{ route('settings.update', $settingsBanners->id) }}" method="POST" enctype="multipart/form-data" class="hidden">
                                 @csrf
                                 @method('PUT')
-                                <input type="text" class="text-lg font-semibold text-gray-800" name="name" value="{{ $settingsBanners->name }}">
+                                <input type="text" class="text-lg font-semibold text-white" name="name" value="{{ $settingsBanners->name }}">
                                 <div class="flex justify-between items-center mt-4">
                                     <input type="file" class="w-4/12" name="image" id="image_input_banner_full_{{ $settingsBanners->id }}" accept="image/*">
                                     <div class="flex">
@@ -114,22 +114,22 @@
         </div>
         <div id="section-poster" class="content-section">
             <div class="flex justify-between items-center m-4">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Poster</h2>
+                <h2 class="text-xl font-semibold text-white mb-4">Poster</h2>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
                 <!-- Thêm hình ảnh và thông tin cho mục Poster -->
                 @foreach ($settingsPoster as $settingsPosters)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="bg-main shadow-md rounded-lg overflow-hidden">
                     <img id="image_poster_{{ $settingsPosters->id }}" src="{{ asset($settingsPosters->images_url) }}" alt="Poster" width="" class="w-full">
                     <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800 name-btn">{{ $settingsPosters->name }}</h2>
+                        <h2 class="text-lg font-semibold text-white name-btn">{{ $settingsPosters->name }}</h2>
                         <div class="mt-4">
                             <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md edit-btn">Chỉnh sửa</button>
                             <a href="{{ route('settings.destroy', $settingsPosters->id  ) }}"><button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2 delete-btn">Xóa</button></a>
                             <form id="edit_form_poster_{{ $settingsPosters->id }}" action="{{ route('settings.update', $settingsPosters->id) }}" method="POST" enctype="multipart/form-data" class="hidden">
                                 @csrf
                                 @method('PUT')
-                                <input type="text" class="text-lg w-full font-semibold text-gray-800" name="name" value="{{ $settingsPosters->name }}">
+                                <input type="text" class="text-lg w-full font-semibold text-white" name="name" value="{{ $settingsPosters->name }}">
                                 <div class="flex justify-between items-center mt-4">
                                     <input type="file" name="image" class="w-full" id="image_input_poster_{{ $settingsPosters->id }}" accept="image/*">
                                 </div>
@@ -146,22 +146,22 @@
         </div>
         <div id="section-logo" class="content-section">
             <div class="flex justify-between items-center m-4">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Logo</h2>
+                <h2 class="text-xl font-semibold text-white mb-4">Logo</h2>
             </div>
             <div class="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-6">
                 <!-- Thêm hình ảnh và thông tin cho mục Logo -->
                 @foreach ($settingsLogo as $settingsLogos)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="bg-main shadow-md rounded-lg overflow-hidden">
                     <img id="image_logo_{{ $settingsLogos->id }}" src="{{ asset($settingsLogos->images_url) }}" alt="Logo" class="w-full" width="">
                     <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800 name-btn">{{ $settingsLogos->name }}</h2>
+                        <h2 class="text-lg font-semibold text-white name-btn">{{ $settingsLogos->name }}</h2>
                         <div class="mt-4">
                             <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md edit-btn">Chỉnh sửa</button>
                             <a href="{{ route('settings.destroy', $settingsLogos->id  ) }}"><button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md ml-2 delete-btn">Xóa</button></a>
                             <form id="edit_form_logo_{{ $settingsLogos->id }}" action="{{ route('settings.update', $settingsLogos->id) }}" method="POST" enctype="multipart/form-data" class="hidden">
                                 @csrf
                                 @method('PUT')
-                                <input type="text" class="text-lg font-semibold text-gray-800" name="name" value="{{ $settingsLogos->name }}">
+                                <input type="text" class="text-lg font-semibold text-white" name="name" value="{{ $settingsLogos->name }}">
                                 <div class="flex justify-between items-center mt-4">
                                     <input type="file" class="w-4/12" name="image" id="image_input_logo_{{ $settingsLogos->id }}" accept="image/*">
                                     <div class="flex">
@@ -180,30 +180,30 @@
         <div id="section-category" class="content-section">
             <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
                 <thead>
-                    <tr class="text-left bg-gray-400">
+                    <tr class="text-left bg-main">
                         <th class="px-4 py-2"></th>
                         <th class="px-4 py-2">ID</th>
                         <th class="px-4 py-2">Tên</th>
                         <th class="px-4 py-2">Last Update</th>
-                        <th class="px-4 py-2">...</th>
+                        <th class="px-4 py-2"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($imageTypes as $index => $imageType)
-                    <tr class="{{ $index % 2 == 0 ? 'bg-gray-200' : 'bg-gray-100' }}">
+                    <tr class="{{ $index % 2 == 0 ? 'bg-darks' : 'bg-main' }}">
                         <td class="px-4 py-2"><input type="checkbox"></td>
                         <td class="px-4 py-2">{{ $imageType->id }}</td>
                         <td class="px-4 py-2">{{ $imageType->name }}</td>
                         <td class="px-4 py-2">{{ $imageType->updated_at }}</td>
                         <td class="px-4 py-2">
-                            <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false">
-                                <button @click="isOpen = !isOpen" class="text-gray-700 px-4 py-2 rounded-md focus:outline-none focus:bg-gray-300 hover:bg-gray-300 text-2xl">...</button>
-                                <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10" @click="isOpen = false">
-                                    <button class="block px-4 py-2 text-gray-800 hover:bg-gray-200" onclick="edit_category('{{ $imageType->id }}', '{{ $imageType->name }}')">Sửa</button>
+                            <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false" class="detail-btn">
+                                <button @click="isOpen = !isOpen" class="text-white pl-4 pt-2 focus:outline-none text-2xl">...</button>
+                                <div x-show="isOpen" class="absolute right-40 mt-2 w-20 bg-main border rounded-md shadow-lg z-10" @click="isOpen = false">
+                                    <a href="{{ route('settings.category.update', ['id' => $imageType->id]) }}" class="block pl-4 py-2 text-white hover:bg-gray-800">Sửa</a>
                                     <form action="{{ route('settings.category.destroy', ['id' => $imageType->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">Xóa</button>
+                                        <button type="submit" class="block w-full text-left pl-4 py-2 text-red-400 hover:bg-gray-800 hover:text-red-500">Xóa</button>
                                     </form>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
                 </tbody>
             </table>
             <div class="flex justify-between mr-8">
-                <button class="bg-slate-500 hover:bg-slate-600 text-white py-2 px-4 rounded-md" onclick="new_category()">Thêm mới danh mục ảnh</button>
+                <button class="bg-main hover:bg-slate-600 text-white py-2 px-4 rounded-md" onclick="new_category()">Thêm mới danh mục ảnh</button>
             </div>
         </div>
     </div>
@@ -224,7 +224,7 @@
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
             <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                <div class="relative flex w-full items-center overflow-hidden bg-main px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                     <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" onclick="remove_add_new()">
                         <span class="sr-only">Close</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -275,7 +275,7 @@
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
             <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                <div class="relative flex w-full items-center overflow-hidden bg-main px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                     <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" onclick="remove_add_new()">
                         <span class="sr-only">Close</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -307,7 +307,7 @@
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
             <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                <div class="relative flex w-full items-center overflow-hidden bg-main px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                     <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" onclick="remove_edit()">
                         <span class="sr-only">Close</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -370,7 +370,7 @@
 
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
-                const parentDiv = this.closest('.bg-white');
+                const parentDiv = this.closest('.bg-main');
                 const image = parentDiv.querySelector('img');
                 const form = parentDiv.querySelector('form');
                 const deleteButton = parentDiv.querySelector('.delete-btn');

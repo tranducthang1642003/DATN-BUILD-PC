@@ -7,46 +7,46 @@
 
 @include('admin.layout.header')
 
-<div class="m-4 pt-20 font-sans antialiased w-full flex justify-center">
+<div class="mx-8 pt-20 font-sans antialiased w-full flex justify-center">
     <form class="w-3/5 " action="{{ route('vouchers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="">
-            <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 mb-8">Thêm mã giảm giá</h2>
-            <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-white mb-8">Thêm mã giảm giá</h2>
+            <div class="bg-main p-8 rounded-lg shadow-lg">
                 <div class="p-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
-                            <label for="product_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Mã giảm giá</label>
-                            <input type="text" name="promotion_code" id="promotion_code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mã giảm" required>
+                            <label for="product_name" class="block text-sm font-medium leading-6  mb-2">Mã giảm giá</label>
+                            <input type="text" name="promotion_code" id="promotion_code" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mã giảm" required>
                         </div>
                         <div class="mb-4">
-                            <label for="price" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Giá giảm</label>
-                            <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="nhập giá giảm" required>
+                            <label for="price" class="block text-sm font-medium leading-6  mb-2">Giá giảm</label>
+                            <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="nhập giá giảm" required>
                             <div id="discount-error" class="text-red-600 text-sm mt-1 hidden">Giá trị giảm giá phải là một số từ 1 đến 1000000000.</div>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
-                            <label for="product_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Ngày bắt đầu</label>
-                            <input type="date" name="start_date" id="start_date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            <label for="product_name" class="block text-sm font-medium leading-6  mb-2">Ngày bắt đầu</label>
+                            <input type="date" name="start_date" id="start_date" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                         </div>
                         <div class="mb-4">
-                            <label for="product_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Ngày kết thúc</label>
-                            <input type="date" name="end_date" id="end_date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                            <label for="product_name" class="block text-sm font-medium leading-6  mb-2">Ngày kết thúc</label>
+                            <input type="date" name="end_date" id="end_date" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label for="product_name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Áp dụng:</label>
-                        <select name="product_id" id="product_id" class="w-full" required>
-                            <option value="0">Tất cả</option>
+                        <label for="product_name" class="block  text-sm font-medium leading-6  mb-2">Áp dụng:</label>
+                        <select name="product_id" id="product_id" class="w-full bg-main" required>
+                            <option value="0" >Tất cả</option>
                             @foreach($products as $product)
-                            <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>{{ $product->product_name }}</option>
+                            <option class="bg-main" value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>{!! Illuminate\Support\Str::limit($product->product_name, 60) !!}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="gap-4">
                         <div class="mb-4">
-                            <label for="description" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Mô tả</label>
+                            <label for="description" class="block text-sm font-medium leading-6  mb-2">Mô tả</label>
                             <input id="description" type="hidden" name="description">
                             <trix-editor class="trix-content" input="description"></trix-editor>
                         </div>

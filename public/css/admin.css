@@ -1,5 +1,37 @@
+body {
+    color: white;
+    font-size: 13px;
+}
+.bg-dark {
+    background-color: #313640;
+}
+.bg-darks {
+    background-color: #465161;
+}
+
+.bg-main {
+    background-color: #414755;
+}
+
+.revenue {
+    --tw-gradient-from: #f7941d var(--tw-gradient-from-position);   
+    --tw-gradient-to: #fdba74 var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.order {
+    --tw-gradient-from: #2962FF  var(--tw-gradient-from-position);
+    --tw-gradient-to: #5985fe  var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.user {
+    --tw-gradient-from: #7460ee var(--tw-gradient-from-position);
+    --tw-gradient-to: #a195ef  var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .button_sidebar {
     width: 100%;
+    font-size: 13px;
     display: flex;
     align-items: center;
     padding: 15px;
@@ -16,7 +48,7 @@
     display: flex;
     align-items: center;
     padding: 10px 0 10px 30px;
-    font-size: 14px;
+    font-size: 12px;
     color: white;
     transition: display 0.2s ease;
 }
@@ -34,7 +66,7 @@
     width: 250px;
     height: 100%;
     --tw-bg-opacity: 1;
-    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+    background-color: #414755;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transition: transform 0.3s ease;
@@ -51,18 +83,15 @@
 .main-content {
     transition: margin-left 0.3s ease;
     margin-left: 0;
-    /* Đảm bảo nội dung chính ban đầu không bị dịch chuyển */
 }
 
 .sidebar.open+.main-content {
     margin-left: 250px;
-    /* Khi sidebar mở ra, đẩy nội dung chính sang phải */
 }
 
 
 .button_sidebar_cl:hover {
     color: orange;
-    /* background-color: gray; */
 }
 
 .button_sidebar:hover {
@@ -113,9 +142,8 @@
 }
 
 .card_dashboard {
-    height: 120px;
+    height: 80px;
     border-radius: 12px;
-    box-shadow: 4px 4px 4px gray;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     display: flex;
     flex-direction: column;
@@ -221,7 +249,7 @@ canvas {
 }
 
 .status-indicator.completed {
-    background-color: green;
+    background-color: #4caf50;
 }
 
 .status-indicator.inactive {
@@ -229,11 +257,11 @@ canvas {
 }
 
 .status-indicator.active {
-    background-color: green;
+    background-color: #4caf50;
 }
 
 .status-indicator.stocking {
-    background-color: green;
+    background-color: #4caf50;
 }
 
 .status-indicator.outOfStock {

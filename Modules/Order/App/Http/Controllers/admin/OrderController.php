@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Modules\Order\App\Emails\OrderStatusUpdated;
 use Modules\Order\Entities\Orders;
 
 class OrderController extends Controller
@@ -24,7 +26,7 @@ class OrderController extends Controller
         if ($keyword) {
             $ordersQuery->where('name', 'like', '%' . $keyword . '%');
         }
-        $orders = $ordersQuery->with('items')->paginate(10);
+        $orders = $ordersQuery->with('items')->paginate(13);
         return view('admin.order.order', compact('orders'));
     }
     public function edit($id)
@@ -119,10 +121,17 @@ class OrderController extends Controller
         ]);
 
         try {
-            $order->status = $request->input('new_status');
+            $oldStatus = $order->status;
+            $newStatus = $request->input('new_status');
+
+            $order->status = $newStatus;
             $order->save();
 
-            return redirect()->route('order')->with('success', 'Đã cập nhật trạng thái đơn hàng');
+            $order->customer_email = "trunghieuuazz@gmail.com";
+
+            Mail::to($order->customer_email)->send(new OrderStatusUpdated($order, $oldStatus, $newStatus));
+
+            return redirect()->route('order')->with('success', 'Đã cập nhật trạng thái đơn hàng và gửi email thông báo');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Cập nhật trạng thái không thành công: ' . $e->getMessage());
         }

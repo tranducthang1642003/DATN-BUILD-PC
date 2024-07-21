@@ -23,14 +23,17 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
 </head>
 
-<body class="bg-slate-300">
-    <div id="loader" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white z-50 opacity-75">
-        <div class="loader"></div>
-    </div>
-    <div x-data="{ sidebarOpen: true }" class="flex">
-        <div :class="{ 'sidebar open': sidebarOpen, 'sidebar': !sidebarOpen }" class="p-4 bg-slate-800 min-w-64 top-0 left-0 z-50 min-h-screen">
+<div id="loader" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black z-50 opacity-90">
+    <div class="loader"></div>
+</div>
+
+<body class="bg-dark">
+    <div x-data="{ sidebarOpen: true }" class="flex w-full">
+        <div :class="{ 'sidebar open': sidebarOpen, 'sidebar': !sidebarOpen }" class="p-4 bg-main min-w-64 top-0 left-0 z-40 min-h-screen">
 
             <div class="flex items-center justify-center mb-12 mt-2">
                 <a href="{{ route('home') }}"><img src="{{ asset('image/logo.svg') }}" width="100" alt=""></a>
@@ -164,10 +167,10 @@
             </script>
 
         </div>
-        <div class="main-content flex-grow transition-all" :class="{ 'ml-64': sidebarOpen, 'ml-0': !sidebarOpen }">
-            <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed z-30 w-screen">
+        <div class="main-content relative flex transition-all w-full" :class="{ 'ml-64': sidebarOpen, 'ml-0': !sidebarOpen }">
+            <div class="min-h-16 bg-main flex justify-between items-center fixed z-20 w-screen">
                 <div class="flex justify-between items-center">
-                    <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-40 ml-4"><ion-icon name="menu"></ion-icon></button>
+                    <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-30 ml-4"><ion-icon name="menu"></ion-icon></button>
                     <div class="flex justify-between items-center z-40">
                         <h1 class="mx-8 text-white">WELCOME</h1>
                         <div class="hidden md:block">

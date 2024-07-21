@@ -24,7 +24,7 @@ class BlogController extends Controller
         if ($keyword) {
             $blogsQuery->where('blog_name', 'like', '%' . $keyword . '%');
         }
-        $blogs = $blogsQuery->paginate(10);
+        $blogs = $blogsQuery->paginate(5);
 
         return view('admin.blog.blog', compact('blogs'));
     }
