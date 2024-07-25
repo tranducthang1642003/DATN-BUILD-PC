@@ -7,6 +7,15 @@
 
 @include('admin.layout.header')
 <div class="mx-8 pt-20  w-full">
+    <div class="text-base flex items-center mb-8 text-slate-400">
+        <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Manage</span>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('user') }}"><span>Người dùng</span></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('user') }}"><span>Danh sách</span></a>
+    </div>
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -36,14 +45,14 @@
                     </div>
                 </div>
                 <div class="ml-2 sm:ml-6">
-                    <button type="submit" class="bg-main text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-slate-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
                 </div>
             </form>
         </div>
     </div>
-    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm">
+    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm text-slate-700">
         <thead>
-            <tr class="text-left bg-main">
+            <tr class="text-left bg-primary">
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Tên</th>
@@ -57,7 +66,7 @@
         </thead>
         <tbody>
             @foreach($users as $index => $user)
-            <tr class="{{ $index % 2 == 0 ? 'bg-darks' : 'bg-main' }}">
+            <tr class="{{ $index % 2 == 0 ? 'bg-secondary' : 'bg-pale-dark' }}">
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $user->id }}</td>
                 <td class="px-4 py-2">{{ $user->name }}</td>
@@ -67,8 +76,8 @@
                 <td class="px-4 py-2 status-cell flex items-center mt-2">
                     <span class="status-indicator {{ $user->is_activated == '1' ? 'active' : 'inactive' }}" title="{{ ucfirst($user->is_activated) }}"></span>
                     <div class="relative">
-                        <select class="status-select bg-main text-sm rounded-md p-1 pr-12 outline-none" data-order-id="{{ $user->id }}">
-                            <option value="0" {{ $user->is_activated == '0' ? 'selected' : '' }}>Không hoạt động</option>
+                        <select class="status-select bg-primary border-0 text-sm rounded-md p-1 pr-10 outline-none" data-order-id="{{ $user->id }}">
+                            <option value="0" {{ $user->is_activated == '0' ? 'selected' : '' }}>Đã chặn</option>
                             <option value="1" {{ $user->is_activated == '1' ? 'selected' : '' }}>Kích hoạt</option>
                         </select>
                     </div>

@@ -6,7 +6,24 @@
 </style>
 @include('admin.layout.header')
 <div class="mx-8 pt-20 w-full">
-    <h1 class="text-2xl font-bold  mb-4">Danh mục bài viết</h1>
+    <div class="text-base flex items-center mb-8 text-slate-400">
+        <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Manage</span>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('blog_category') }}"><span>Danh mục bài viết</span></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Danh sách</span>
+    </div>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-error">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="flex justify-between text-xs sm:text-sm">
         <div class="flex text-white">
             <form action="{{ route('product') }}" method="GET" class="flex">
@@ -27,16 +44,16 @@
                     </div>
                 </div>
                 <div class="ml-2 sm:ml-6">
-                    <button type="submit" class="bg-main text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
                 </div>
             </form>
         </div>
-        <a href="{{ route('add_blog_category') }}"><button class="bg-indigo-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Thêm mới</button></a>
+        
     </div>
 
-    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm">
+    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm text-slate-700">
         <thead>
-            <tr class="text-left bg-main">
+            <tr class="text-left bg-primary">
                 <th class="px-4 py-2"></th>
                 <th class="px-2 py-2 hidden sm:table-cell">ID</th>
                 <th class="px-4 py-2">Tên</th>
@@ -46,7 +63,7 @@
         </thead>
         <tbody>
             @foreach($blog_category as $index => $item)
-            <tr class="{{ $index % 2 == 0 ? 'bg-darks' : 'bg-main' }}">
+            <tr class="{{ $index % 2 == 0 ? 'bg-secondary' : 'bg-pale-dark' }}">
                 <td class="px-2 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2 hidden sm:table-cell">{{ $item->id }}</td>
                 <td class="px-4 py-2 product-name">{{ $item->name }}</td>
@@ -55,11 +72,11 @@
                     <div x-data="{ isOpen: false }" x-init="() => { isOpen = false }" @click.away="isOpen = false" class="detail-btn">
                         <button @click="isOpen = !isOpen" class="text-white pl-4 pt-2 focus:outline-none text-2xl">...</button>
                         <div x-show="isOpen" class="absolute right-40 mt-2 w-20 bg-main border rounded-md shadow-lg z-10" @click="isOpen = false">
-                            <a href="{{ route('edit_blog_category', ['id' => $item->id]) }}" class="block pl-4 py-2 text-white hover:bg-gray-800">Sửa</a>
+                            <button onclick="form_edit('{{ $item->id }}', '{{ $item->name }}')" class="block w-full py-2 text-white hover:bg-gray-800">Sửa</button>
                             <form action="{{ route('delete_blog_category', ['id' => $item->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="block w-full text-left pl-4 py-2 text-red-400 hover:bg-gray-800 hover:text-red-500">Xóa</button>
+                                <button type="submit" class="block w-full text-center py-2 text-red-400 hover:bg-gray-800 hover:text-red-500">Xóa</button>
                             </form>
                         </div>
                     </div>
@@ -68,7 +85,107 @@
             @endforeach
         </tbody>
     </table>
+    <button class="bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 rounded-md" onclick="form_add_new()">Thêm mới</button>
+    <div class="relative z-10 form_add_new" role="dialog" aria-modal="true" style="display: none;">
+        <div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+                <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                    <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                        <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" onclick="remove_add_new()">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        <div class="w-full">
+                            <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">Thêm menu</h2>
+                            <section aria-labelledby="options-heading" class="mt-10">
+                                <form action="{{ route('add_blog_category') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div>
+                                        <label for="productName" class="block text-sm font-medium leading-6 text-gray-900">Tên menu</label>
+                                        <div class="relative mt-2 rounded-md shadow-sm">
+                                            <input type="text" name="name" id="name" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên ảnh">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="relative z-10 form_edit" role="dialog" aria-modal="true" style="display: none;">
+        <div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+                <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                    <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                        <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" onclick="remove_edit()">
+                            <span class="sr-only">Đóng</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        <div class="w-full">
+                            <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">Sửa menu</h2>
+                            <section aria-labelledby="options-heading" class="mt-10">
+                                <form id="editForm" action="{{ route('update_blog_category', '') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
 
+                                    <input type="hidden" id="menu_id" name="menu_id">
+
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Tên menu</label>
+                                        <div class="relative mt-2 rounded-md shadow-sm">
+                                            <input type="text" name="name" id="name" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-700 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên ảnh">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Lưu</button>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
+<script>
+    setTimeout(function() {
+        document.getElementById('alert').style.display = 'none';
+    }, 3000);
+</script>
+<script>
+    function form_add_new() {
+        const divElement = document.querySelector('.form_add_new');
+        divElement.style.display = 'block';
+    }
+
+    function remove_add_new() {
+        const divElement = document.querySelector('.form_add_new');
+        divElement.style.display = 'none';
+    }
+
+    function form_edit(id, name) {
+        const divElement = document.querySelector('.form_edit');
+        const formElement = divElement.querySelector('#editForm');
+        formElement.action = `{{ route('menu.update', '') }}/${id}`;
+        divElement.style.display = 'block';
+        formElement.querySelector('#menu_id').value = id;
+        formElement.querySelector('#name').value = name || '';
+    }
+
+
+
+    function remove_edit() {
+        const divElement = document.querySelector('.form_edit');
+        divElement.style.display = 'none';
+    }
+</script>
 @include('admin.layout.fotter')

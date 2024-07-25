@@ -25,7 +25,6 @@ class BlogController extends Controller
             $blogsQuery->where('blog_name', 'like', '%' . $keyword . '%');
         }
         $blogs = $blogsQuery->paginate(5);
-
         return view('admin.blog.blog', compact('blogs'));
     }
     public function edit($id)
@@ -34,8 +33,6 @@ class BlogController extends Controller
         $blog = blogs::with('category_blog')->findOrFail($id);
         return view('admin.blog.edit', compact('blog', 'category_blog'));
     }
-
-
     public function update_blog(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -43,7 +40,7 @@ class BlogController extends Controller
             'content' => 'required|string',
             'featured' => 'required|integer',
             'blog_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'user_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
             'category_blog_id' => 'required|numeric',
         ]);
         try {
@@ -52,7 +49,7 @@ class BlogController extends Controller
             $blog->slug = Str::slug($request->input('title'), '-');
             $blog->content = $request->input('content');
             $blog->featured = $request->input('featured') === 'yes';
-            $blog->user_id = 1;
+            $blog->user_id = $request->input('user_id');
             $blog->category_blog_id = $request->input('category_blog_id');
             if ($request->hasFile('blog_image')) {
                 if ($blog->blog_image) {

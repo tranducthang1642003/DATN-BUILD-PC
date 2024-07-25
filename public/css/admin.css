@@ -1,10 +1,17 @@
 body {
     color: white;
     font-size: 13px;
+    font-weight: 500;
 }
+
+table {
+    font-weight: 500;
+}
+
 .bg-dark {
     background-color: #313640;
 }
+
 .bg-darks {
     background-color: #465161;
 }
@@ -13,19 +20,47 @@ body {
     background-color: #414755;
 }
 
+.bg-secondary {
+    background-color: #e4e7ea;
+}
+
+.bg-pale-dark {
+    background-color: #c8c8c8;
+}
+
+.bg-primary {
+    background-color: #eddcd5;
+}
+
+.bg-light-blue {
+    background-color: #7599ff;
+}
+
+.bg-brown {
+    background-color: #8d6658;
+}
+
 .revenue {
-    --tw-gradient-from: #f7941d var(--tw-gradient-from-position);   
+    --tw-gradient-from: #f7941d var(--tw-gradient-from-position);
     --tw-gradient-to: #fdba74 var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+
 .order {
-    --tw-gradient-from: #2962FF  var(--tw-gradient-from-position);
-    --tw-gradient-to: #5985fe  var(--tw-gradient-to-position);
+    --tw-gradient-from: #e83e8c var(--tw-gradient-from-position);
+    --tw-gradient-to: #e472a7 var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+
+.product {
+    --tw-gradient-from: #8d6658 var(--tw-gradient-from-position);
+    --tw-gradient-to: #ba9a8e var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .user {
     --tw-gradient-from: #7460ee var(--tw-gradient-from-position);
-    --tw-gradient-to: #a195ef  var(--tw-gradient-to-position);
+    --tw-gradient-to: #a195ef var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -97,10 +132,11 @@ body {
 .button_sidebar:hover {
     color: orange;
     background-color: gray;
+    transition: background-color 0.5s linear;
 }
 
 .icon_count {
-    background-color: rgb(228, 183, 88);
+    background-color: orange;
     color: aliceblue;
     font-size: x-small;
     border-radius: 3px;

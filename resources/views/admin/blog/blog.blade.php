@@ -6,6 +6,24 @@
 </style>
 @include('admin.layout.header')
 <div class="mx-8 pt-20 w-full">
+    <div class="text-base flex items-center mb-8 text-slate-400">
+        <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Manage</span>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('blog') }}"><span>Bài viết</span></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Danh sách</span>
+    </div>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-error">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="flex justify-between text-xs sm:text-sm">
         <div class="flex text-white">
             <form action="{{ route('product') }}" method="GET" class="flex">
@@ -26,15 +44,15 @@
                     </div>
                 </div>
                 <div class="ml-2 sm:ml-6">
-                    <button type="submit" class="bg-main text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
                 </div>
             </form>
         </div>
-        <a href="{{ route('add_blog') }}"><button class="bg-indigo-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Thêm mới</button></a>
+        <a href="{{ route('add_blog') }}"><button class="bg-blue-500 hover:bg-blue-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Thêm mới</button></a>
     </div>
-    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm">
+    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm text-slate-700">
         <thead>
-            <tr class="text-left bg-main">
+            <tr class="text-left bg-primary">
                 <th class="px-2 py-2 hidden sm:table-cell">ID</th>
                 <th class="px-4 py-2">Tiêu đề</th>
                 <th class="px-4 py-2 hidden sm:table-cell">Hình ảnh</th>
@@ -45,9 +63,9 @@
         </thead>
         <tbody>
             @foreach($blogs as $index => $blog)
-            <tr class="{{ $index % 2 == 0 ? 'bg-darks' : 'bg-main' }}">
+            <tr class="{{ $index % 2 == 0 ? 'bg-secondary' : 'bg-pale-dark' }}">
                 <td class="px-4 py-2 hidden sm:table-cell">{{ $blog->id }}</td>
-                <td class="px-4 py-2 product-name">{{ Illuminate\Support\Str::limit($blog->title, 20) }}</td>
+                <td class="px-4 py-2 product-name">{{ Illuminate\Support\Str::limit($blog->title, 100) }}</td>
                 <td class="px-4 py-2"><img src="{{ asset($blog->blog_image) }}" alt="" width="100"></td>
                 <td class="px-4 py-2">{{ $blog->category_blog->name }}</td>
                 <td class="px-4 py-2 hidden sm:table-cell max-w-80 max-h-20">{!! Illuminate\Support\Str::limit($blog->content, 400) !!}</td>

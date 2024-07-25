@@ -10,9 +10,6 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $startDate = $request->input('start_date');
@@ -28,22 +25,13 @@ class CategoryController extends Controller
         $categories = $categoriesQuery->paginate(10);
         return view('admin.category.category', compact('categories'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $category = Category::All();
         return view('admin.category.add', compact('category'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
         $validatedData = $request->validate([
             'category_name' => 'required|string',
             'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
@@ -61,43 +49,28 @@ class CategoryController extends Controller
         $category->build_pc = $validatedData['build_pc'] === 'yes';
         $category->status = $validatedData['status'];
         $category->description = $validatedData['description'];
-
         if ($image = $request->file('image')) {
             $fileName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('image'), $fileName);
             $category->image = 'image/' . $fileName;
         }
-
         if ($category->save()) {
             return redirect()->route('category')->with('success', 'Đã thêm danh mục thành công!');
         } else {
-            return redirect()->back()->withInput()->with('errors', 'Thêm danh mục thất bại.');
+            return redirect()->back()->withInput()->with('error', 'Thêm danh mục thất bại.');
         }
     }
-
-    /**
-     * Show the specified resource.
-     */
     public function show($id)
     {
         return view('category::show');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $category = category::findOrFail($id);
         return view('admin.category.edit', compact('category'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-        //
         $validatedData = $request->validate([
             'category_name' => 'required|string',
             'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
@@ -126,10 +99,6 @@ class CategoryController extends Controller
             return redirect()->back()->withInput()->with('errors', 'Chỉnh sửa danh mục thất bại!');
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $category = category::findOrFail($id);

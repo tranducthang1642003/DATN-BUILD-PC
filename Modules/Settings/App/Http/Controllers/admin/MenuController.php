@@ -25,10 +25,6 @@ class MenuController extends Controller
         return view('admin.menu.menu', compact('menus'));
     }
 
-    public function create()
-    {
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -36,7 +32,6 @@ class MenuController extends Controller
             'url' => 'required|string',
             'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
         ]);
-
         $menus = new menu();
         if ($image = $request->file('image')) {
             $fileName = time() . '_' . $image->getClientOriginalName();
@@ -46,13 +41,8 @@ class MenuController extends Controller
         $menus->name = $request->input('name');
         $menus->url = $request->input('url');
         $menus->save();
-
         return redirect()->route('menu.index')
             ->with('success', 'menu đã được tạo thành công!.');
-    }
-
-    public function edit($id)
-    {
     }
 
     public function update(Request $request, $id)
@@ -62,7 +52,6 @@ class MenuController extends Controller
             'url' => 'required|string',
             'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
         ]);
-
         $menu = menu::findOrFail($id);
         if ($image = $request->file('image')) {
             $fileName = time() . '_' . $image->getClientOriginalName();
@@ -72,17 +61,15 @@ class MenuController extends Controller
         $menu->name = $request->input('name');
         $menu->url = $request->input('url');
         $menu->save();
-
         return redirect()->route('menu.index')
-            ->with('success', 'menu has been updated successfully.');
+            ->with('success', 'menu đã được cập nhật thành công!.');
     }
 
     public function destroy($id)
     {
         $menu = menu::findOrFail($id);
         $menu->delete();
-
         return redirect()->route('menu.index')
-            ->with('success', 'menu has been deleted successfully.');
+            ->with('success', 'menu đã được xóa thành công!');
     }
 }

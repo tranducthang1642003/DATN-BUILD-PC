@@ -7,51 +7,69 @@
 
 @include('admin.layout.header')
 
-<div class="m-4 pt-20 w-full">
+<div class="mx-8 pt-20 w-full text-slate-700">
+    <div class="text-base flex items-center mb-8 text-slate-400">
+        <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Manage</span>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('user') }}"><span>Người dùng</span></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('add_user') }}"><span>Thêm mới</span></a>
+    </div>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-error">
+        {{ session('error') }}
+    </div>
+    @endif
     <form action="{{ route('add_user') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
         @csrf
-        <div class="min-h-screen bg-main flex justify-center items-center flex-col px-6 pb-12 lg:px-8">
-            <h2 class="mb-10 text-center text-2xl font-bold leading-9 tracking-tight ">Thêm thành viên</h2>
-            <div class="  w-full max-w-2xl">
+        <div class="bg-slate-200 px-6 pb-12 lg:px-8 min-h-screen flex justify-center">
+            <div class="w-full max-w-6xl">
+                <h2 class="my-10 text-center text-2xl font-bold leading-9 tracking-tight ">Thêm thành viên</h2>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="mb-4">
                         <label for="username" class="block text-sm font-medium leading-6  mb-2">Tên</label>
-                        <input type="text" name="username" id="username" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên" required>
+                        <input type="text" name="username" id="username" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tên" required>
                     </div>
                     <div class="mb-4">
                         <label for="phone" class="block text-sm font-medium leading-6  mb-2">Số điện thoại</label>
-                        <input type="text" name="phone" id="phone" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập số điện thoại" required>
+                        <input type="text" name="phone" id="phone" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập số điện thoại" required>
                         <span id="phone-error" class="text-red-500 text-sm"></span>
                     </div>
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium leading-6  mb-2">Email</label>
-                    <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập email" required>
+                    <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập email" required>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium leading-6  mb-2">Mật khẩu</label>
-                        <input type="password" name="password" id="password" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mật khẩu" required>
+                        <input type="password" name="password" id="password" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mật khẩu" required>
                     </div>
                     <div class="mb-4">
                         <label for="password_confirmation" class="block text-sm font-medium leading-6  mb-2">Xác nhận mật khẩu</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mật khẩu" required>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mật khẩu" required>
                         <span id="password-error" class="text-red-500 text-sm"></span>
                     </div>
                 </div>
                 <div class="mb-4">
                     <label for="address" class="block text-sm font-medium leading-6  mb-2">Địa chỉ</label>
-                    <input type="text" name="address" id="address" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập địa chỉ" required>
+                    <input type="text" name="address" id="address" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập địa chỉ" required>
                 </div>
                 <div class="mb-4">
                     <label for="is_activated" class="block text-sm font-medium leading-6  mb-2">Phân quyền</label>
-                    <select name="is_activated" id="is_activated" class="block w-full rounded-md border-0 py-1.5 bg-gray-600  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                    <select name="is_activated" id="is_activated" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                         <option value="0">Người dùng</option>
                         <option value="1">Admin</option>
                     </select>
                 </div>
                 <div class="flex justify-end mt-6">
-                    <button type="submit" class="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600">Lưu</button>
+                    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Lưu</button>
                 </div>
             </div>
         </div>

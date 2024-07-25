@@ -6,6 +6,15 @@
 </style>
 @include('admin.layout.header')
 <div class="mx-8 pt-20 w-full">
+    <div class="text-base flex items-center mb-8 text-slate-400">
+        <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Manage</span>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('order') }}"><span>Đơn hàng</span></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Danh sách</span>
+    </div>
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -35,14 +44,14 @@
                     </div>
                 </div>
                 <div class="ml-2 sm:ml-6">
-                    <button type="submit" class="bg-main text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-500 hover:text-black text-slate-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
                 </div>
             </form>
         </div>
     </div>
-    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm">
+    <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm text-slate-700 font-medium">
         <thead>
-            <tr class="text-left bg-main">
+            <tr class="text-left bg-primary">
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Ngày tạo</th>
@@ -63,7 +72,7 @@
                     </td>
                 </tr> -->
             @foreach($orders as $index => $order)
-            <tr class="{{ $index % 2 == 0 ? 'bg-darks' : 'bg-main' }} order-row" data-status="{{ $order->status }}">
+            <tr class="{{ $index % 2 == 0 ? 'bg-secondary' : 'bg-pale-dark' }} order-row" data-status="{{ $order->status }}">
                 <td class="px-4 py-2">
                     <input type="checkbox" name="orders[]" value="{{ $order->id }}">
                 </td>
@@ -75,7 +84,7 @@
                 <td class="px-4 py-2 status-cell flex">
                     <span class="status-indicator mt-3 {{ $order->status }}" title="{{ ucfirst($order->status) }}"></span>
                     <div class="relative">
-                        <select class="status-select bg-main rounded-md p-1" data-order-id="{{ $order->id }}">
+                        <select class="status-select bg-primary border-0 rounded-md p-1" data-order-id="{{ $order->id }}">
                             <option class="p-2" value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quyết</option>
                             <option class="p-2" value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
                             <option class="p-2" value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
@@ -84,7 +93,7 @@
                     </div>
                 </td>
                 <td class="px-4 py-2">
-                    <a href="{{ route('show_order', ['id' => $order->id]) }}"><button class="bg-gray-500 hover:bg-slate-400 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button></a>
+                    <a href="{{ route('show_order', ['id' => $order->id]) }}"><button class="bg-brown hover:bg-blue-500 text-white px-4 py-2 rounded-md detail-btn">Chi tiết</button></a>
                     <form class="hidden update-form" method="POST" action="{{ route('admin.orders.update_status', ['order' => $order->id]) }}">
                         @csrf
                         @method('POST')

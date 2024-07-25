@@ -47,7 +47,7 @@
             </div> -->
         </div>
         <div class="col-span-1 card_dashboard" id="soldProductsCard">
-            <div class="product h-48 sm:h-36 bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-t-xl text-white">
+            <div class="product h-48 sm:h-36 bg-gradient-to-r rounded-t-xl text-white">
                 <div class="p-4 flex justify-between items-center">
                     <div>
                         <span class="text-sm sm:text-base">Sản phẩm đã bán</span>
@@ -77,10 +77,10 @@
             </div> -->
         </div>
     </div>
-    <canvas id="revenueCanvas" class="h-20 sm:h-20 bg-gray-300 rounded-lg" width="300" height="150"></canvas>
-    <canvas id="newOrdersCanvas" class="h-20 sm:h-20 bg-gray-300 rounded-lg"></canvas>
-    <canvas id="soldProductsCanvas" class="h-20 sm:h-20 bg-gray-300 rounded-lg"></canvas>
-    <canvas id="newCustomersCanvas" class="h-20 sm:h-20 bg-gray-300 rounded-lg"></canvas>
+    <canvas id="revenueCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg" width="300" height="150"></canvas>
+    <canvas id="newOrdersCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg"></canvas>
+    <canvas id="soldProductsCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg"></canvas>
+    <canvas id="newCustomersCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg"></canvas>
     <div class="w-full bg-main h-60 mt-4">
 
     </div>
@@ -142,7 +142,7 @@
                 datasets: [{
                     label: 'Doanh thu',
                     data: revenueData.data,
-                    backgroundColor: '#f7941d',
+                    backgroundColor: '#f67f08',
                 }]
             },
             options: chartOptions
@@ -155,7 +155,7 @@
                 datasets: [{
                     label: 'Đơn hàng mới',
                     data: newOrdersData.data,
-                    backgroundColor: '#2962FF',
+                    backgroundColor: '#e83e8c',
                 }]
             },
             options: chartOptions
@@ -168,7 +168,7 @@
                 datasets: [{
                     label: 'Sản phẩm đã bán',
                     data: soldProductsData.data,
-                    backgroundColor: '#4fc3f7',
+                    backgroundColor: '#8d6658',
                 }]
             },
             options: chartOptions

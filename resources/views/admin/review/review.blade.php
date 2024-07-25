@@ -24,7 +24,25 @@
 </style>
 </style>
 @include('admin.layout.header')
-<div class="m-4 pt-20 w-full">
+<div class="mx-8 pt-20 w-full">
+  <div class="text-base flex items-center mb-8 text-slate-400">
+    <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
+    <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+    <span>Others</span>
+    <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+    <span>Cài đặt</span>
+    <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+    <a class="hover:text-slate-50" href="{{ route('adminreview') }}"><span>Bình luận</span></a>
+  </div>
+  @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-error">
+        {{ session('error') }}
+    </div>
+    @endif
   <div class="flex justify-between text-sm">
     <div class="flex text-white">
       <form action="{{ route('product') }}" method="GET" class="flex">
@@ -45,7 +63,7 @@
           </div>
         </div>
         <div class="ml-2 sm:ml-6">
-          <button type="submit" class="bg-main text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
+          <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-slate-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md">Tìm kiếm</button>
         </div>
       </form>
     </div>
@@ -59,9 +77,9 @@
     </div>
     @endif
   </div>
-  <table class="table-auto w-full my-6 rounded-lg overflow-hidden">
+  <table class="table-auto w-full my-6 rounded-lg overflow-hidden text-sm text-slate-700">
     <thead>
-      <tr class="text-left bg-main">
+      <tr class="text-left bg-primary">
         <th class="px-4 py-2"></th>
         <th class="px-2 py-2 hidden sm:table-cell">ID</th>
         <th class="px-4 py-2">người đánh giá</th>
@@ -75,7 +93,7 @@
     </thead>
     <tbody>
       @foreach($reviews as $index => $review)
-      <tr class="{{ $index % 2 == 0 ? 'bg-darks' : 'bg-main' }}">
+      <tr class="{{ $index % 2 == 0 ? 'bg-secondary' : 'bg-pale-dark' }}">
         <td class="px-2 py-2"><input type="checkbox"></td>
         <td class="px-4 py-2 hidden sm:table-cell">{{ $review->id }}</td>
         <td class="px-4 py-2 ">{{ $review->user->name}}</td>
