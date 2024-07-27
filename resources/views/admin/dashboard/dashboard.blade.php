@@ -6,6 +6,10 @@
     element.style {
         width: 500px;
     }
+    .chart-container {
+        width: 80%;
+        margin: 0 auto;
+    }
 </style>
 @include('admin.layout.header')
 <div class="pt-20 text-slate-200 w-4/6 mx-8">
@@ -77,34 +81,52 @@
             </div> -->
         </div>
     </div>
-    <canvas id="revenueCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg" width="300" height="150"></canvas>
-    <canvas id="newOrdersCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg"></canvas>
-    <canvas id="soldProductsCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg"></canvas>
-    <canvas id="newCustomersCanvas" class="h-20 sm:h-20 bg-pale-dark rounded-lg"></canvas>
-    <div class="w-full bg-main h-60 mt-4">
-
+    <canvas id="revenueCanvas" class="h-20 sm:h-20 bg-white rounded-lg" width="300" height="150"></canvas>
+    <canvas id="newOrdersCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
+    <canvas id="soldProductsCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
+    <canvas id="newCustomersCanvas" class="h-20 sm:h-20 bg-white rounded-lg"></canvas>
+    <div class="w-full my-4 grid grid-cols-2 gap-4">
+        <div class="col-span-1 bg-main">
+            <h1 class="text-center text-lg m-4">Top 5 sản phẩm bán chạy</h1>
+            @foreach($topProductDetailsByQuantity as $topQuantity)
+                <div class="relative text-slate-300">
+                    <hr>
+                    <div class="flex">
+                        <div class="m-4">
+                            <img src="{{ asset($topQuantity->primaryImage->image_path ?? 'placeholder.jpg') }}" alt="" width="50" height="50" class="rounded-full">
+                        </div>
+                        <div class="mt-5">
+                            <p>{{ Illuminate\Support\Str::limit($topQuantity->product_name, 40) }}</p>
+                            <span class="text-slate-400">{{ Illuminate\Support\Str::limit($topQuantity->product_code, 60) }}</span>
+                        </div>
+                    </div>
+                    <div class="bg-red-500 w-max absolute top-4 right-4">{{ $topQuantity->sold_quantity }} lượt bán</div>
+                </div>
+            @endforeach
+        </div>
+        <div class="col-span-1 bg-main">
+            <h1 class="text-center text-lg m-4">Top 5 sản phẩm có doanh thu cao nhất</h1>
+            @foreach($topProductDetailsByRevenue as $topRevenue)
+                <div class="relative text-slate-300">
+                    <hr>
+                    <div class="flex">
+                        <div class="m-4">
+                            <img src="{{ asset($topRevenue->primaryImage->image_path ?? 'placeholder.jpg') }}" alt="" width="50" height="50" class="rounded-full">
+                        </div>
+                        <div class="mt-5">
+                            <p>{{ Illuminate\Support\Str::limit($topRevenue->product_name, 40) }}</p>
+                            <span class="text-slate-400">{{ Illuminate\Support\Str::limit($topRevenue->product_code, 60) }}</span>
+                        </div>
+                    </div>
+                    <div class="bg-red-500 w-max absolute top-4 right-4">{{ number_format($topRevenue->total_revenue) }} VND</div>
+                </div>
+            @endforeach
+        </div>
     </div>
 </div>
 <div class="w-2/6 h-screen bg-dark mt-36">
-    <div class="h-1/3 bg-main mr-4 mb-4 flex">
-        <div class="w-full">
-            <h1 class="flex justify-center my-4 text-xl">Thống kê đơn hàng</h1>
-            <div class="flex">
-                <div class="m-4"><div id="chart1" class=""></div></div>
-                <div class="">
-                    <p class="mt-4"><ion-icon name="radio-button-on" style="color: orange;" ></ion-icon>Chưa giải quyết</p>
-                    <p class="mt-4"><ion-icon name="radio-button-on" style="color: blue;"></ion-icon>Đang xử lý</p>
-                    <p class="mt-4"><ion-icon name="radio-button-on" style="color: #4caf50;"></ion-icon>Đã hoàn thành</p>
-                    <p class="mt-4"><ion-icon name="radio-button-on" style="color: red;"></ion-icon>Đã hủy</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="h-1/3 bg-main mr-4 flex" >
-    <div class="w-full">
-            <h1 class="flex justify-center my-4 text-xl">Lượng người truy cập</h1>
-            <div id="chart2" class="m-4"></div>
-        </div>
+    <div class="w-full" style="height: 450px;">
+        <div id="statusChart" style="width: 30px; height: 30px;">
     </div>
 </div>
 <script>
@@ -220,122 +242,36 @@
     }
 </script>
 <script>
-    // Biểu đồ tròn (Pie Chart)
-    const dataPie = [30, 20, 30, 20]; // Dữ liệu ví dụ
+    // bieu do tron
+    document.addEventListener('DOMContentLoaded', function() {
+    // Dữ liệu từ PHP
+    const statuses = {!! json_encode($statuses) !!};
 
-    const widthPie = 200;
-    const heightPie = 200;
-    const radiusPie = Math.min(widthPie, heightPie) / 2;
+    // Chuyển đổi dữ liệu thành định dạng mà Plotly yêu cầu
+    const labels = Object.keys(statuses);
+    const values = Object.values(statuses);
 
-    const colorPie = d3.scaleOrdinal()
-        .domain(["A", "B", "C", "D"]) // Các nhóm dữ liệu
-        .range(["#98abc5", "#8a89a6", "#7b6888", "#4caf50"]); // Màu sắc tương ứng
+    // Dữ liệu cho biểu đồ tròn
+    const data = [{
+        values: values,
+        labels: labels,
+        type: 'pie',
+        marker: {
+            colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+        }
+    }];
 
-    const pie = d3.pie()
-        .sort(null)
-        .value(d => d);
+    // Tùy chọn cho biểu đồ
+    const layout = {
+        title: 'Tình trạng đơn hàng',
+        height: 450,
+        width: 500,
+    };
 
-    const arc = d3.arc()
-        .innerRadius(0)
-        .outerRadius(radiusPie);
+    // Vẽ biểu đồ
+    Plotly.newPlot('statusChart', data, layout);
+});
 
-    const svgPie = d3.select("#chart1")
-        .append("svg")
-        .attr("width", widthPie)
-        .attr("height", heightPie)
-        .append("g")
-        .attr("transform", `translate(${widthPie / 2},${heightPie / 2})`);
-
-    const gPie = svgPie.selectAll(".arc")
-        .data(pie(dataPie))
-        .enter().append("g")
-        .attr("class", "arc");
-
-    gPie.append("path")
-        .attr("d", arc)
-        .style("fill", d => colorPie(d.data));
-
-    // Biểu đồ sóng (Wave Chart)
-    const dataWave = [10, 20, 15, 30, 25, 20, 18]; // Dữ liệu cho 7 ngày, ví dụ
-    const dates = ["07-15", "07-16", "07-17", "07-18", "07-19", "07-20", "07-21"]; // Ngày tháng tương ứng với dữ liệu
-
-    const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-    const widthWave = 400 - margin.left - margin.right;
-    const heightWave = 200 - margin.top - margin.bottom;
-
-    const xWave = d3.scaleBand()
-        .domain(dates)
-        .range([0, widthWave])
-        .padding(0.1);
-
-    const yWave = d3.scaleLinear()
-        .domain([0, d3.max(dataWave)])
-        .nice()
-        .range([heightWave, 0]);
-
-    const line = d3.line()
-        .x((d, i) => xWave(dates[i]) + xWave.bandwidth() / 2)
-        .y(d => yWave(d))
-        .curve(d3.curveCardinal);
-
-    const svgWave = d3.select("#chart2")
-        .append("svg")
-        .attr("width", widthWave + margin.left + margin.right)
-        .attr("height", heightWave + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-
-    svgWave.append("path")
-        .datum(dataWave)
-        .attr("class", "line")
-        .attr("d", line)
-        .attr("fill", "none")
-        .attr("stroke", "#ffcc00")
-        .attr("stroke-width", 2);
-
-    // Thêm trục x
-    svgWave.append("g")
-        .attr("transform", `translate(0, ${heightWave})`)
-        .call(d3.axisBottom(xWave));
-
-    // Thêm trục y
-    svgWave.append("g")
-        .call(d3.axisLeft(yWave));
-
-    // Thêm nhãn (label) cho từng điểm dữ liệu
-    svgWave.selectAll(".dot")
-        .data(dataWave)
-        .enter().append("circle")
-        .attr("class", "dot")
-        .attr("cx", (d, i) => xWave(dates[i]) + xWave.bandwidth() / 2)
-        .attr("cy", d => yWave(d))
-        .attr("r", 3)
-        .attr("fill", "#ffcc00");
-
-    // Thêm nhãn số cho từng điểm dữ liệu
-    svgWave.selectAll(".text")
-        .data(dataWave)
-        .enter().append("text")
-        .attr("class", "text")
-        .attr("x", (d, i) => xWave(dates[i]) + xWave.bandwidth() / 2)
-        .attr("y", d => yWave(d) - 8)
-        .attr("text-anchor", "middle")
-        .text(d => d)
-        .style("font-size", "10px")
-        .style("fill", "#ffffff");
-
-    // Thêm nhãn cho trục x
-    svgWave.append("text")
-        .attr("transform", `translate(${widthWave / 2},${heightWave + margin.top + 10})`)
-        .style("text-anchor", "middle");
-
-    // Thêm nhãn cho trục y
-    svgWave.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - (heightWave / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle");
-</script>
+    </script>
 </div>
 @include('admin.layout.fotter')
