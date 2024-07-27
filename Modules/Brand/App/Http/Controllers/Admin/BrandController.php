@@ -11,9 +11,6 @@ use Illuminate\Support\Str;
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $startDate = $request->input('start_date');
@@ -29,19 +26,11 @@ class BrandController extends Controller
         $brands = $brandsQuery->paginate(10);
         return view('admin.brand.brand', compact('brands'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $brand = Brand::All();
         return view('admin.brand.add', compact('brand'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -60,30 +49,18 @@ class BrandController extends Controller
         if ($brand->save()) {
             return redirect()->route('brand')->with('success', 'Thêm thương hiệu thành công!');
         } else {
-            return redirect()->back()->withInput()->with('errors', 'Thêm thương hiệu thất bại!');
+            return redirect()->back()->withInput()->with('error', 'Thêm thương hiệu thất bại!');
         }
     }
-
-    /**
-     * Show the specified resource.
-     */
     public function show($id)
     {
         return view('brand::show');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $brand = Brand::findOrFail($id);
         return view('admin.brand.edit', compact('brand'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -93,7 +70,6 @@ class BrandController extends Controller
             'status' => 'required|in:1,2,3',
             'description' => 'required|string',
         ]);
-
         $brand = Brand::findOrFail($id);
         $brand->brand_name = $validatedData['brand_name'];
         $brand->slug = $validatedData['slug'];
@@ -103,13 +79,9 @@ class BrandController extends Controller
         if ($brand->save()) {
             return redirect()->route('brand')->with('success', 'Chỉnh sửa thương hiệu thành công!');
         } else {
-            return redirect()->back()->withInput()->with('errors', 'Chỉnh sửa thương hiệu thất bại!');
+            return redirect()->back()->withInput()->with('error', 'Chỉnh sửa thương hiệu thất bại!');
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $brand = Brand::findOrFail($id);

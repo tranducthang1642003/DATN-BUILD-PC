@@ -27,7 +27,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     // category blog routes
     Route::get('admin/blog/category', [BlogCategoryController::class, 'index'])->name('blog_category');
-    Route::get('admin/blog/category/add', [BlogCategoryController::class, 'add'])->name('add_blog_category');
+    Route::get('admin/blog/category/add', [BlogCategoryController::class, 'add'])->name('add');
     Route::post('admin/blog/category/add', [BlogCategoryController::class, 'add_blog_category'])->name('add_blog_category');
     Route::get('admin/blog/category/{id}/edit', [BlogCategoryController::class, 'edit'])->name('edit_blog_category');
     Route::post('admin/blog/category/{id}/edit', [BlogCategoryController::class, 'update_blog_category'])->name('update_blog_category');

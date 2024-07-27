@@ -42,16 +42,19 @@ class UsersAdminController extends Controller
             'address' => 'required|string',
             'is_activated' => 'required|in:1,0',
         ]);
-        // dd($validatedData);
-        $user = User::findOrFail($id);
-        $user->name = $validatedData['username'];
-        $user->password = bcrypt($validatedData['password']);
-        $user->email = $validatedData['email'];
-        $user->phone = $validatedData['phone'];
-        $user->address = $validatedData['address'];
-        $user->is_activated = $validatedData['is_activated'];
-        $user->save();
-        return redirect()->route('user');
+        try {
+            $user = User::findOrFail($id);
+            $user->name = $validatedData['username'];
+            $user->password = bcrypt($validatedData['password']);
+            $user->email = $validatedData['email'];
+            $user->phone = $validatedData['phone'];
+            $user->address = $validatedData['address'];
+            $user->is_activated = $validatedData['is_activated'];
+            $user->save();
+            return redirect()->route('user')->with('success', 'Đã cập nhật người dùng thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật người dùng không thành công: ' . $e->getMessage());
+        }
     }
     public function update_user_status(Request $request, User $user)
     {
@@ -89,15 +92,15 @@ class UsersAdminController extends Controller
         $user->address = $validatedData['address'];
         $user->is_activated = $validatedData['is_activated'];
         if ($user->save()) {
-            return redirect()->route('user')->with('success', 'user added successfully!');
+            return redirect()->route('user')->with('success', 'Người dùng đã được tạo thành công!');
         } else {
-            return redirect()->back()->withInput()->withErrors('Failed to add user.');
+            return redirect()->back()->withInput()->with('error', 'Thêm người dùng thất bại.');
         }
     }
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('user')->with('success', 'user deleted successfully!');
+        return redirect()->route('user')->with('success', 'Xóa người dùng thành công!');
     }
 }

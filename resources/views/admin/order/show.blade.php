@@ -7,10 +7,28 @@
 
 @include('admin.layout.header')
 
-<div class="m-4 pt-20">
-    <div class="p-10 bg-white">
+<div class="mx-8 pt-20 w-full text-gray-900">
+    <div class="text-base flex items-center mb-8 text-slate-400">
+        <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Manage</span>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <a class="hover:text-slate-50" href="{{ route('order') }}"><span>Đơn hàng</span></a>
+        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
+        <span>Chi tiết đơn hàng</span>
+    </div>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-error">
+        {{ session('error') }}
+    </div>
+    @endif
+    <div class="p-10 bg-slate-200">
         <div class="px-4 sm:px-0">
-            <h3 class="text-base font-semibold leading-7 text-gray-900">Chi tiết đơn hàng #{{ $order->id }}</h3>
+            <h3 class="text-base font-semibold leading-7 ">Chi tiết đơn hàng #{{ $order->id }}</h3>
             <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
             <p><strong>Mã đơn hàng:</strong> {{ $order->order_code }}</p>
             </p>
@@ -18,43 +36,43 @@
         <div class="mt-6 border-t border-gray-100">
             <dl class="divide-y divide-gray-100">
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Tên khách hàng</dt>
+                    <dt class="text-sm font-medium leading-6 ">Tên khách hàng</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $order->full_name }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Số điện thoại</dt>
+                    <dt class="text-sm font-medium leading-6 ">Số điện thoại</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $order->phone_number }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Email</dt>
+                    <dt class="text-sm font-medium leading-6 ">Email</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $order->email }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Địa chỉ giao hàng</dt>
+                    <dt class="text-sm font-medium leading-6 ">Địa chỉ giao hàng</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $order->shipping_address }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Thành phố</dt>
+                    <dt class="text-sm font-medium leading-6 ">Thành phố</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $order->city }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Ngày đặt hàng</dt>
+                    <dt class="text-sm font-medium leading-6 ">Ngày đặt hàng</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $order->order_date }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Phương thức thanh toán</dt>
+                    <dt class="text-sm font-medium leading-6 ">Phương thức thanh toán</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $order->payment_method }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Tổng tiền</dt>
+                    <dt class="text-sm font-medium leading-6 ">Tổng tiền</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ number_format($order->total_amount) }} VNĐ</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Trạng thái đơn hàng</dt>
+                    <dt class="text-sm font-medium leading-6 ">Trạng thái đơn hàng</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex">
                         <span class="status-indicator mt-3 {{ $order->status }}" title="{{ ucfirst($order->status) }}"></span>
                         <div class="relative">
-                            <select class="status-select bg-white border border-gray-300 rounded-md p-1 outline-none" data-order-id="{{ $order->id }}">
+                            <select class="status-select bg-secondary border border-gray-300 rounded-md p-1 outline-none" data-order-id="{{ $order->id }}">
                                 <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Chưa giải quyết</option>
                                 <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
                                 <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy bỏ</option>
@@ -64,12 +82,12 @@
                     </dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Ghi chú</dt>
+                    <dt class="text-sm font-medium leading-6 ">Ghi chú</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Chi tiết đơn hàng</dt>
-                    <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    <dt class="text-sm font-medium leading-6 ">Chi tiết đơn hàng</dt>
+                    <dd class="mt-2 text-sm  sm:col-span-2 sm:mt-0">
                         <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
                             @foreach ($order->items as $item)
                             <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
