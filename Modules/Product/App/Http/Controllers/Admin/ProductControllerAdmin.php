@@ -50,7 +50,6 @@ class ProductControllerAdmin extends Controller
             $secondary_images = ProductImage::where('product_id', $product->id)
                 ->where('is_primary', 0)
                 ->get();
-
             $products_images[$product->id] = [
                 'primary_image' => $primary_image,
                 'secondary_images' => $secondary_images,
@@ -90,11 +89,9 @@ class ProductControllerAdmin extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,bmp|max:2048',
             'additional_images.*' => 'nullable|image|mimes:jpg,jpeg,png,bmp|max:2048',
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
         try {
             $product = Product::findOrFail($id);
             $product->product_name = $request->input('product_name');
@@ -112,13 +109,11 @@ class ProductControllerAdmin extends Controller
             $product->description = $request->input('description');
             $product->specifications = $request->input('specifications');
             $product->save();
-
             if ($request->hasFile('image')) {
                 $imagePrimary = $request->file('image');
                 $imagePrimaryName = time() . '_' . $imagePrimary->getClientOriginalName();
                 $imagePrimary->move(public_path('images'), $imagePrimaryName);
                 $imagePrimaryPath = 'images/' . $imagePrimaryName;
-
                 if ($product->primaryImage) {
                     Storage::disk('public')->delete($product->primaryImage->image_path);
                     $product->primaryImage->image_path = $imagePrimaryPath;
@@ -131,7 +126,6 @@ class ProductControllerAdmin extends Controller
                     $productImage->save();
                 }
             }
-
             $imageSecondaryPaths = [];
             if ($request->hasFile('additional_images')) {
                 foreach ($request->file('additional_images') as $image) {
@@ -154,20 +148,12 @@ class ProductControllerAdmin extends Controller
                     }
                 }
             }
-
-
-
             return redirect()->route('product')->with('success', 'Cập nhật sản phẩm thành công!');
         } catch (\Exception $e) {
             dd($e->getMessage());
-            return redirect()->back()->withInput()->withErrors('Cập nhật sản phẩm thất bại.');
+            return redirect()->back()->withInput()->withErrors('error', 'Cập nhật sản phẩm thất bại.');
         }
     }
-
-
-
-
-
     public function add()
     {
         $brands = Brand::All();
@@ -194,7 +180,6 @@ class ProductControllerAdmin extends Controller
             'image_primary' => 'nullable|image|mimes:jpg,jpeg,png,bmp|max:2048',
             'image_secondary.*' => 'nullable|image|mimes:jpg,jpeg,png,bmp|max:2048',
         ]);
-        // dd($validator);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -212,7 +197,6 @@ class ProductControllerAdmin extends Controller
                 $imageSecondaryPaths[] = 'images/' . $imageSecondaryName;
             }
         }
-
         try {
             $product = new Product();
             $product->product_name = $request->input('product_name');
@@ -230,13 +214,11 @@ class ProductControllerAdmin extends Controller
             $product->description = $request->input('description');
             $product->specifications = $request->input('specifications');
             $product->save();
-
             $primaryImage = new ProductImage();
             $primaryImage->product_id = $product->id;
             $primaryImage->image_path = $imagePrimaryPath;
             $primaryImage->is_primary = true;
             $primaryImage->save();
-
             foreach ($imageSecondaryPaths as $imageSecondaryPath) {
                 $secondaryImage = new ProductImage();
                 $secondaryImage->product_id = $product->id;
@@ -244,11 +226,10 @@ class ProductControllerAdmin extends Controller
                 $secondaryImage->is_primary = false;
                 $secondaryImage->save();
             }
-
             return redirect()->route('product')->with('success', 'Thêm sản phẩm thành công!');
         } catch (\Exception $e) {
             dd($e->getMessage());
-            return redirect()->back()->withInput()->withErrors('Thêm sản phẩm thất bại.');
+            return redirect()->back()->withInput()->withErrors('error', 'Thêm sản phẩm thất bại.');
         }
     }
     public function update_product_status(Request $request, Product $product)
@@ -268,8 +249,6 @@ class ProductControllerAdmin extends Controller
             return redirect()->back()->with('error', 'Cập nhật trạng thái sản phẩm không thành công: ' . $e->getMessage());
         }
     }
-
-
     public function destroy($id)
     {
         try {
@@ -279,7 +258,7 @@ class ProductControllerAdmin extends Controller
             $product->save();
             return redirect()->route('product')->with('success', 'Trạng thái của sản phẩm được đặt thành công "Đã xóa"!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors('Failed to update product status: ' . $e->getMessage());
+            return redirect()->back()->withErrors('error', 'Failed to update product status: ' . $e->getMessage());
         }
     }
 }

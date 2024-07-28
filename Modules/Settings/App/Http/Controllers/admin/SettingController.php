@@ -17,15 +17,7 @@ class SettingController extends Controller
         $settingsLogo = Settings::with('imageType')->ofType('Logo')->get();
         $settingsPoster = Settings::with('imageType')->ofType('Poster')->get();
         $settingsBannerHorizontal = Settings::with('imageType')->ofType('banner_horizontal')->get();
-        // dd($settingsBanner);
         return view('admin.setting.setting', compact('settingsBanner', 'settingsLogo', 'settingsPoster', 'settingsBannerHorizontal', 'imageTypes'));
-    }
-
-    public function create()
-    {
-        // Hiển thị form để thêm setting mới
-        $imageTypes = ImageType::all();
-        return view('settings.create', compact('imageTypes'));
     }
 
     public function store(Request $request)
@@ -49,14 +41,7 @@ class SettingController extends Controller
         $setting->name = $request->input('name');
         $setting->save();
         return redirect()->route('settings.index')
-            ->with('success', 'Setting has been created successfully.');
-    }
-    public function edit($id)
-    {
-        // Hiển thị form để chỉnh sửa setting
-        $setting = Settings::findOrFail($id);
-        $imageTypes = ImageType::all();
-        return view('settings.edit', compact('setting', 'imageTypes'));
+            ->with('success', 'Ảnh đã được thêm thành công!.');
     }
 
     public function update(Request $request, $id)
@@ -79,9 +64,9 @@ class SettingController extends Controller
         $setting->name = $request->input('name');
         $setting->save();
         if ($setting->save()) {
-            return redirect()->route('settings.index')->with('success', 'Chỉnh sửa thành công!');
+            return redirect()->route('settings.index')->with('success', 'CẬp nhật ảnh thành công!');
         } else {
-            return redirect()->back()->withInput()->withErrors('errors', 'Chỉnh sửa thất bại!');
+            return redirect()->back()->withInput()->withErrors('errors', 'Cập nhật ảnh thất bại!');
         }
     }
 
@@ -93,7 +78,7 @@ class SettingController extends Controller
         $setting->delete();
 
         return redirect()->route('settings.index')
-            ->with('success', 'Setting has been deleted successfully.');
+            ->with('success', 'Ảnh đã được xóa!');
     }
     public function store_category(Request $request)
     {
@@ -104,7 +89,7 @@ class SettingController extends Controller
         $imageType->name = $request->input('name');
         $imageType->save();
         return redirect()->route('settings.index')
-            ->with('success', 'Setting has been created successfully.');
+            ->with('success', 'Danh mục ảnh được tạo thành công!');
     }
 
     public function update_category(Request $request, $id)
@@ -116,9 +101,9 @@ class SettingController extends Controller
         $imageType->name = $request->input('name');
         $imageType->save();
         if ($imageType->save()) {
-            return redirect()->route('settings.index')->with('success', 'Chỉnh sửa thành công!');
+            return redirect()->route('settings.index')->with('success', 'Cập nhật danh mục ảnh thành công!');
         } else {
-            return redirect()->back()->withInput()->withErrors('errors', 'Chỉnh sửa thất bại!');
+            return redirect()->back()->withInput()->withErrors('errors', 'Cập nhật danh mục ảnh thất bại!');
         }
     }
 
@@ -129,6 +114,6 @@ class SettingController extends Controller
         $imageType->delete();
 
         return redirect()->route('settings.index')
-            ->with('success', 'Setting has been deleted successfully.');
+            ->with('success', 'Đã xóa danh mục ảnh!');
     }
 }

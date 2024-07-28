@@ -11,6 +11,8 @@ use Modules\Auth\Entities\User;
 use Modules\Order\Entities\Order_items;
 use Modules\Order\Entities\Orders;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Modules\Product\Entities\Product;
 
 class AdminController extends Controller
 {
@@ -21,7 +23,7 @@ class AdminController extends Controller
     {
         $lastMonthEnd = Carbon::now()->subDays(30)->startOfDay();
         $currentMonthStart = Carbon::now()->endOfDay();
-        $lastMonthStart = Carbon::now()->subDays(60)->startOfDay(); 
+        $lastMonthStart = Carbon::now()->subDays(60)->startOfDay();
         // dd($lastMonthStart,  $currentMonthStart, $lastMonthEnd);
         $totalRevenueCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
             ->sum('total_amount');
@@ -65,6 +67,88 @@ class AdminController extends Controller
         $lastMonthOrdersData = $this->getChartData('new_orders', $lastMonthStart, $lastMonthEnd);
         $lastMonthSoldProductsData = $this->getChartData('sold_products', $lastMonthStart, $lastMonthEnd);
         $lastMonthNewCustomersData = $this->getChartData('new_customers', $lastMonthStart, $lastMonthEnd);
+
+        //================================================
+
+        $orders = Orders::with('items.product')->get();
+        $order = Orders::All();
+
+        // Tạo mảng để tính tổng số lượng và tổng tiền bán được của từng sản phẩm
+        $productQuantities = [];
+        $productRevenues = [];
+
+        foreach ($orders as $order) {
+            foreach ($order->items as $item) {
+                $productId = $item->product_id;
+                $quantity = $item->quantity;
+                $price = $item->price;
+
+                if (isset($productQuantities[$productId])) {
+                    $productQuantities[$productId] += $quantity;
+                } else {
+                    $productQuantities[$productId] = $quantity;
+                }
+
+                $revenue = $quantity * $price;
+                if (isset($productRevenues[$productId])) {
+                    $productRevenues[$productId] += $revenue;
+                } else {
+                    $productRevenues[$productId] = $revenue;
+                }
+            }
+        }
+
+        // Sắp xếp mảng theo số lượng bán và lấy top 5 sản phẩm bán chạy
+        arsort($productQuantities);
+        $topProductsByQuantity = array_slice($productQuantities, 0, 5, true);
+
+        // Sắp xếp mảng theo doanh thu và lấy top 5 sản phẩm doanh thu cao nhất
+        arsort($productRevenues);
+        $topProductsByRevenue = array_slice($productRevenues, 0, 5, true);
+
+        // Lấy thông tin chi tiết của các sản phẩm trong top 5 bán chạy nhất
+        $topProductIdsByQuantity = array_keys($topProductsByQuantity);
+        $topProductDetailsByQuantity = Product::with('primaryImage')
+            ->whereIn('id', $topProductIdsByQuantity)
+            ->select('id', 'product_name', 'product_code')
+            ->get();
+
+        // Lấy thông tin chi tiết của các sản phẩm trong top 5 doanh thu cao nhất
+        $topProductIdsByRevenue = array_keys($topProductsByRevenue);
+        $topProductDetailsByRevenue = Product::with('primaryImage')
+            ->whereIn('id', $topProductIdsByRevenue)
+            ->select('id', 'product_name', 'product_code')
+            ->get();
+
+        // Lấy số lượng đã bán và tổng tiền bán được của từng sản phẩm trong top 5 bán chạy nhất
+        foreach ($topProductDetailsByQuantity as $product) {
+            $productId = $product->id;
+            $product->sold_quantity = $topProductsByQuantity[$productId];
+            $product->total_revenue = $product->sold_quantity * $productRevenues[$productId];
+        }
+
+        // Sắp xếp lại mảng $topProductDetailsByQuantity theo số lượng đã bán giảm dần
+        $topProductDetailsByQuantity = $topProductDetailsByQuantity->sortByDesc(function ($product) {
+            return $product->sold_quantity;
+        })->values()->all();
+
+        // Lấy số lượng đã bán và tổng tiền bán được của từng sản phẩm trong top 5 doanh thu cao nhất
+        foreach ($topProductDetailsByRevenue as $product) {
+            $productId = $product->id;
+            $product->sold_quantity = $productQuantities[$productId];
+            $product->total_revenue = $product->sold_quantity * $topProductsByRevenue[$productId];
+        }
+
+        // Sắp xếp lại mảng $topProductDetailsByRevenue theo tổng tiền bán giảm dần
+        $topProductDetailsByRevenue = $topProductDetailsByRevenue->sortByDesc(function ($product) {
+            return $product->total_revenue;
+        })->values()->all();
+
+        $statuses = Orders::selectRaw('status, count(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+        // dd($statuses);
         return view('admin.dashboard.dashboard', compact(
             'totalRevenueCurrentMonth',
             'totalOrdersCurrentMonth',
@@ -85,11 +169,11 @@ class AdminController extends Controller
             'lastMonthRevenueData',
             'lastMonthOrdersData',
             'lastMonthSoldProductsData',
-            'lastMonthNewCustomersData'
+            'topProductDetailsByQuantity',
+            'topProductDetailsByRevenue',
+            'statuses'
         ));
     }
-
-
 
     private function getChartData($type, $startDate, $endDate)
     {

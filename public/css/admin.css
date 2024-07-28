@@ -1,5 +1,72 @@
+body {
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+table {
+    font-weight: 500;
+}
+
+.bg-dark {
+    background-color: #313640;
+}
+
+.bg-darks {
+    background-color: #465161;
+}
+
+.bg-main {
+    background-color: #414755;
+}
+
+.bg-secondary {
+    background-color: #e4e7ea;
+}
+
+.bg-pale-dark {
+    background-color: #c8c8c8;
+}
+
+.bg-primary {
+    background-color: #eddcd5;
+}
+
+.bg-light-blue {
+    background-color: #7599ff;
+}
+
+.bg-brown {
+    background-color: #8d6658;
+}
+
+.revenue {
+    --tw-gradient-from: #f7941d var(--tw-gradient-from-position);
+    --tw-gradient-to: #fdba74 var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.order {
+    --tw-gradient-from: #e83e8c var(--tw-gradient-from-position);
+    --tw-gradient-to: #e472a7 var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.product {
+    --tw-gradient-from: #8d6658 var(--tw-gradient-from-position);
+    --tw-gradient-to: #ba9a8e var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.user {
+    --tw-gradient-from: #7460ee var(--tw-gradient-from-position);
+    --tw-gradient-to: #a195ef var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .button_sidebar {
     width: 100%;
+    font-size: 13px;
     display: flex;
     align-items: center;
     padding: 15px;
@@ -16,7 +83,7 @@
     display: flex;
     align-items: center;
     padding: 10px 0 10px 30px;
-    font-size: 14px;
+    font-size: 12px;
     color: white;
     transition: display 0.2s ease;
 }
@@ -34,7 +101,7 @@
     width: 250px;
     height: 100%;
     --tw-bg-opacity: 1;
-    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+    background-color: #414755;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transition: transform 0.3s ease;
@@ -51,27 +118,25 @@
 .main-content {
     transition: margin-left 0.3s ease;
     margin-left: 0;
-    /* Đảm bảo nội dung chính ban đầu không bị dịch chuyển */
 }
 
 .sidebar.open+.main-content {
     margin-left: 250px;
-    /* Khi sidebar mở ra, đẩy nội dung chính sang phải */
 }
 
 
 .button_sidebar_cl:hover {
     color: orange;
-    /* background-color: gray; */
 }
 
 .button_sidebar:hover {
     color: orange;
     background-color: gray;
+    transition: background-color 0.5s linear;
 }
 
 .icon_count {
-    background-color: rgb(228, 183, 88);
+    background-color: orange;
     color: aliceblue;
     font-size: x-small;
     border-radius: 3px;
@@ -113,9 +178,8 @@
 }
 
 .card_dashboard {
-    height: 120px;
+    height: 80px;
     border-radius: 12px;
-    box-shadow: 4px 4px 4px gray;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     display: flex;
     flex-direction: column;
@@ -221,7 +285,7 @@ canvas {
 }
 
 .status-indicator.completed {
-    background-color: green;
+    background-color: #4caf50;
 }
 
 .status-indicator.inactive {
@@ -229,11 +293,11 @@ canvas {
 }
 
 .status-indicator.active {
-    background-color: green;
+    background-color: #4caf50;
 }
 
 .status-indicator.stocking {
-    background-color: green;
+    background-color: #4caf50;
 }
 
 .status-indicator.outOfStock {

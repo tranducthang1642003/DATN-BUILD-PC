@@ -19,6 +19,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/vouchers/create', [PromotionController::class, 'create'])->name('vouchers.create');
     Route::post('admin/vouchers', [PromotionController::class, 'store'])->name('vouchers.store');
     Route::get('admin/vouchers/{id}/edit', [PromotionController::class, 'edit'])->name('vouchers.edit');
-    Route::put('admin/vouchers/{id}', [PromotionController::class, 'update'])->name('vouchers.update');
+    Route::post('admin/vouchers/{id}', [PromotionController::class, 'update'])->name('vouchers.update');
     Route::delete('admin/vouchers/delete/{id}', [PromotionController::class, 'destroy'])->name('vouchers.destroy');
 });

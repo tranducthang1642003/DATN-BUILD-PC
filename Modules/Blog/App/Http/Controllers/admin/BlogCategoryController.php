@@ -24,7 +24,6 @@ class BlogCategoryController extends Controller
         if ($keyword) {
             $blog_category->where('blog_name', 'like', '%' . $keyword . '%');
         }
-        // dd($blog_category);
         return view('admin.blog.Blog_category', compact('blog_category'));
     }
     public function edit($id)
@@ -33,8 +32,6 @@ class BlogCategoryController extends Controller
         $blog = blogs::with('category_blog')->findOrFail($id);
         return view('admin.blog.edit', compact('blog', 'category_blog'));
     }
-
-
     public function update_blog_category(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -66,14 +63,12 @@ class BlogCategoryController extends Controller
                 $blog->blog_image = 'image/' . $fileName;
             }
             $blog->save();
-            return redirect()->route('blog')->with('success', 'Cập nhật sản phẩm thành công!');
+            return redirect()->route('blog')->with('success', 'Cập nhật danh mục bài viết thành công!');
         } catch (\Exception $e) {
             dd($e->getMessage());
-            return redirect()->back()->withInput()->withErrors('Cập nhật sản phẩm thất bại.');
+            return redirect()->back()->withInput()->with('error', 'Cập nhật danh mục bài viết thất bại.');
         }
     }
-
-
     public function add()
     {
         return view('admin.blog.add_category');
@@ -83,23 +78,20 @@ class BlogCategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
         ]);
-
         $blog_category = new CategoryBlog();
         $blog_category->name = $request->input('name');
         $blog_category->save();
-
         return redirect()->route('blog_category')
-            ->with('success', 'menu has been created successfully.');
+            ->with('success', 'Danh mục bài viết đã được tạo thành công.');
     }
-
     public function destroy($id)
     {
         try {
             $blog = blogs::findOrFail($id);
             $blog->delete();
-            return redirect()->route('blog.index')->with('success', 'blog deleted successfully!');
+            return redirect()->route('blog.index')->with('success', 'Danh mục bài viết đã được xóa!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors('Failed to delete blog.');
+            return redirect()->back()->with('error', 'Xóa danh mục bài viết thất bại.');
         }
     }
 }

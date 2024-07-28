@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
@@ -23,19 +24,23 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
 </head>
 
-<body class="bg-slate-300">
-    <div id="loader" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white z-50 opacity-75">
-        <div class="loader"></div>
-    </div>
-    <div x-data="{ sidebarOpen: true }" class="flex">
-        <div :class="{ 'sidebar open': sidebarOpen, 'sidebar': !sidebarOpen }" class="p-4 bg-slate-800 min-w-64 top-0 left-0 z-50 min-h-screen">
+<div id="loader" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black z-50 opacity-90">
+    <div class="loader"></div>
+</div>
+
+<body class="bg-dark">
+    <div x-data="{ sidebarOpen: true }" class="flex w-full">
+        <div :class="{ 'sidebar open': sidebarOpen, 'sidebar': !sidebarOpen }" class="p-4 bg-main min-w-64 top-0 left-0 z-40 min-h-screen">
 
             <div class="flex items-center justify-center mb-12 mt-2">
                 <a href="{{ route('home') }}"><img src="{{ asset('image/logo.svg') }}" width="100" alt=""></a>
             </div>
             <div class="">
+                <h1 class="text-xl text-slate-500 mb-4 tracking-wide">DASHBOARD</h1>
                 <div class="">
                     <a class="w-full" href="{{ route('admin') }}">
                         <button id="dashboard" class="button_sidebar dashboard_active">
@@ -43,6 +48,7 @@
                         </button>
                     </a>
                 </div>
+                <h1 class="text-xl text-slate-500 my-4 tracking-wider">MANAGE</h1>
                 <div class="">
                     <button id="product" class="button_sidebar product_active">
                         <p class=""><ion-icon class="icon_sidebar" name="bag-outline"></ion-icon>Sản phẩm</p>
@@ -53,7 +59,7 @@
                 </div>
                 <div class="">
                     <button id="category" class="button_sidebar category_active">
-                        <p><ion-icon class="icon_sidebar" name="cube-outline"></ion-icon>Loại</p>
+                        <p><ion-icon class="icon_sidebar" name="cube-outline"></ion-icon>Danh mục</p>
                         <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
                     </button>
                     <a class="w-full button-none" id="category_list" href="{{ route('category') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
@@ -108,6 +114,7 @@
                     <!-- <a class="w-full button-none" id="review_list" href="{{ route('adminreview') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a> -->
                     <!-- <a class="w-full button-none" id="review_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Menu</button></a> -->
                 </div>
+                <h1 class="text-lg text-slate-500 my-4">OTHERS</h1>
                 <div class="">
                     <button id="setting" class="button_sidebar setting_active">
                         <p><ion-icon class="icon_sidebar" name="settings-outline"></ion-icon>Cài đặt</p>
@@ -164,10 +171,10 @@
             </script>
 
         </div>
-        <div class="main-content flex-grow transition-all" :class="{ 'ml-64': sidebarOpen, 'ml-0': !sidebarOpen }">
-            <div class="min-h-16 bg-slate-800 flex justify-between items-center fixed z-30 w-screen">
+        <div class="main-content relative flex transition-all w-full" :class="{ 'ml-64': sidebarOpen, 'ml-0': !sidebarOpen }">
+            <div class="min-h-16 bg-main flex justify-between items-center fixed z-20 w-screen">
                 <div class="flex justify-between items-center">
-                    <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-40 ml-4"><ion-icon name="menu"></ion-icon></button>
+                    <button @click="sidebarOpen = !sidebarOpen" class="text-3xl text-white z-30 ml-4"><ion-icon name="menu"></ion-icon></button>
                     <div class="flex justify-between items-center z-40">
                         <h1 class="mx-8 text-white">WELCOME</h1>
                         <div class="hidden md:block">
@@ -177,16 +184,30 @@
                                         <button type="button" @click="open = !open" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                             <span class="absolute -inset-1.5"></span>
                                             <span class="sr-only">Open user menu</span>
+                                            @auth 
                                             <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            <!-- <img class="h-8 w-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"> -->
+                                            @else
+                                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            @endauth
                                         </button>
                                     </div>
                                     <div x-show="open" @click.away="open = false" class="absolute z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" style="left: 50%; transform: translateX(-50%);" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Thông tin tài khoản</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Cài đặt</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Đăng xuất</a>
+                                        @auth
+                                        <div href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">{{ Auth::user()->name }}</div>
+                                        <a href="#" class="block px-4 py-2 text-sm hover:bg-blue-400 text-gray-700" role="menuitem">Cài đặt</a>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="block px-4 py-2 text-sm hover:bg-blue-400 w-full text-left text-gray-700" role="menuitem">Đăng xuất</button>
+                                        </form>
+                                        @else
+                                        <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Đăng nhập</a>
+                                        <a href="{{ route('register') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Đăng ký</a>
+                                        @endauth
                                     </div>
                                 </div>
-                                <button type="button" id="notificationButton" class="relative ml-8 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+
+                                <button type="button" id="notificationButton" class="relative ml-8 rounded-full bg-primary p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                     <span class="absolute -inset-1.5"></span>
                                     <span class="sr-only">View notifications</span>
                                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
