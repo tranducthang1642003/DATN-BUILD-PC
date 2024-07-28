@@ -14,6 +14,8 @@ use Modules\Like\Entities\wishlists;
 use Illuminate\Support\Facades\Auth;
 
 use Modules\Settings\Entities\Menu;
+use Modules\Settings\Entities\Settings;
+use Modules\Settings\Entities\ImageType;
 
 
 class HomeController extends Controller
@@ -33,8 +35,11 @@ class HomeController extends Controller
         $saleproduct = $this->homeRepository->getSaleProducts();
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
         $menuItems = Menu::all();
+        $logoImageType = ImageType::where('name', 'Logo')->first();
+        $logos = $logoImageType ? Settings::where('image_type_id', $logoImageType->id)->get() : collect();
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts','menuItems'));
+        // dd($logos);
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'logos'));
     }
 
     public function showCategory($slug, Request $request)

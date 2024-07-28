@@ -31,12 +31,11 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('orders/checkout', [OrderController1::class, 'checkout'])->name('orders.checkout');
-    Route::post('orders/place', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
+    Route::post('/orders/placeOrder', [OrderController1::class, 'placeOrder'])->name('orders.placeOrder');
     Route::get('orders/p', [OrderController1::class, 'paymentsuccess'])->name('orders.paymentsuccess');
-
     Route::get('/order-lookup', [OrderController1::class, 'showLookupForm'])->name('orders.lookup.form');
-    
     Route::post('/order-lookup', [OrderController1::class, 'lookup'])->name('orders.lookup');
-    
+    Route::get('/orders/vnpay/payment', [OrderController1::class, 'vnPayPayment'])->name('orders.vnpay.payment.get');
+Route::post('/orders/vnpay/payment', [OrderController1::class, 'vnPayPaymentGet'])->name('orders.vnpay.payment.post');
+Route::get('/orders/vnpay/callback', [OrderController1::class, 'vnPayCallback'])->name('orders.vnpay.callback');
 });
-

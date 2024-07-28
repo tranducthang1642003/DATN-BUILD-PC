@@ -2,21 +2,23 @@
 
 <section class="banner">
     <div class="banner max-w-full pt-1  one-time">
-        <img src="{{ asset('image/bannre-pc.jpg') }}" alt="" class="w-full h-auto">
-        <img src="{{ asset('image/bannre-pc.jpg') }}" alt="" class="w-full h-auto">
+        @if($banners->isNotEmpty())
+            @foreach($banners as $banner)
+                <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="w-full h-auto">
+            @endforeach
+        @endif
     </div>
-    <div class="post-ter px-4 md:px-8 pt-6 flex flex-wrap justify-between">
-        <div class="post w-full md:w-1/2 mb-4 md:mb-0 p-2">
-            <img src="https://anphat.com.vn/media/banner/31_May251c443c69dfa5f4548f1a206f5447f8.png" alt=""
-                class="w-full h-48  md:h-60">
-        </div>
-        <div class="post w-full md:w-1/2  p-2 ">
-            <img src="https://anphat.com.vn/media/banner/31_May251c443c69dfa5f4548f1a206f5447f8.png" alt=""
-                class="w-full h-48 md:h-60">
-        </div>
-    </div>
-</section>
 
+
+    <div class="post-ter px-4 md:px-8 pt-6 flex flex-wrap justify-between">
+        @foreach($banners_top->take(2) as $banner)
+            <div class="post w-full md:w-1/2 mb-4 md:mb-0 p-2">
+                <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="w-full h-48 md:h-60 rounded-lg	">
+            </div>
+        @endforeach
+    </div>
+
+</section>
 
 {{-- GIÁ TỐT SIÊU SALE MỖI NGÀY --}}
 
@@ -52,26 +54,25 @@
                                     class="hover:text-blue-600 text-lg font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                                 <div class="flex items-center mt-2">
                                     <div class="text-sm text-slate-500 line-through">
-                                        {{ number_format($product->price) }}</div>
+                                        {{ number_format($product->price) }}
+                                    </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
                                         {{ $product->stock }}%
                                     </div>
                                 </div>
                                 <div class="text-red-700 font-bold text-lg mt-2">
-                                    {{ number_format($product->price) }} VND</div>
+                                    {{ number_format($product->price) }} VND
+                                </div>
                             </div>
                             <div
                                 class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                <div
-                                    class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                     @auth
                                         @if ($product->isLikedBy(auth()->user()))
-                                            <form id="unlike-form" action="{{ route('deletelike', $product->id) }}"
-                                                method="POST">
+                                            <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"><i class="fa fa-heart"
-                                                        style="color:#ff0000"></i></button>
+                                                <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
                                             </form>
                                         @else
                                             <form id="like-form" action="{{ route('addlike') }}" method="POST">
@@ -115,8 +116,15 @@
         <div class="flex flex-wrap">
             <div class="banner-product w-full md:w-1/3">
                 <div class="banner pt-5 p-3">
-                    <img src="https://nguyencongpc.vn/media/banner/14_Jun052d89a09e37a950cb80b6ef2e6a4ea4.webp"
-                        alt="" class="rounded-lg h-auto md:h-96 w-full">
+                    <!-- <img src="https://nguyencongpc.vn/media/banner/14_Jun052d89a09e37a950cb80b6ef2e6a4ea4.webp" alt=""
+                        class="rounded-lg h-auto md:h-96 w-full"> -->
+                    @foreach($poster_product->take(1) as $poster)
+                        <img src="{{ $poster->images_url }}" alt="{{ $poster->alt_text }}"
+                            class="rounded-lg h-auto md:h-96 w-full">
+                    @endforeach
+
+
+
                 </div>
             </div>
             <div class="autoplay-sanpham p-5 w-full md:w-2/3">
@@ -139,25 +147,25 @@
                                 <div class="flex items-center mt-2">
                                     <div class="text-sm text-slate-500 line-through">
                                         {{ number_format($product->price) }}
-                                        VND</div>
+                                        VND
+                                    </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                        {{ $product->discount }}</div>
+                                        {{ $product->discount }}
+                                    </div>
                                 </div>
                                 <div class="text-red-700 font-bold text-lg mt-2">
-                                    {{ number_format($product->price) }} VND</div>
+                                    {{ number_format($product->price) }} VND
+                                </div>
                             </div>
                             <div
                                 class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                <div
-                                    class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                     @auth
                                         @if ($product->isLikedBy(auth()->user()))
-                                            <form id="unlike-form" action="{{ route('deletelike', $product->id) }}"
-                                                method="POST">
+                                            <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"><i class="fa fa-heart"
-                                                        style="color:#ff0000"></i></button>
+                                                <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
                                             </form>
                                         @else
                                             <form id="like-form" action="{{ route('addlike') }}" method="POST">
@@ -235,8 +243,7 @@
                             <div class="product__item">
                                 <div class="bg-white rounded-lg mr-2 md:mr-4 mb-4 md:mb-0 h-auto relative group">
                                     <!-- Hot tag -->
-                                    <span
-                                        class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0">Hot</span>
+                                    <span class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0">Hot</span>
                                     <a href="{{ route('product.show', $product->slug) }}">
                                         <div class="product-img overflow-hidden">
                                             <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}"
@@ -251,13 +258,15 @@
                                             class="hover:text-blue-600 text-lg font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                                         <div class="flex items-center mt-2">
                                             <div class="text-sm text-slate-500 line-through">
-                                                {{ number_format($product->price) }} VND</div>
+                                                {{ number_format($product->price) }} VND
+                                            </div>
                                             <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
                                                 {{ $product->discount }}%
                                             </div>
                                         </div>
                                         <div class="text-red-700 font-bold text-lg mt-2">
-                                            {{ number_format($product->price) }} VND</div>
+                                            {{ number_format($product->price) }} VND
+                                        </div>
                                     </div>
                                     <div
                                         class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -266,18 +275,16 @@
                                             class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                             @auth
                                                 @if ($product->isLikedBy(auth()->user()))
-                                                    <form id="unlike-form"
-                                                        action="{{ route('deletelike', $product->id) }}" method="POST">
+                                                    <form id="unlike-form" action="{{ route('deletelike', $product->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"><i class="fa fa-heart"
-                                                                style="color:#ff0000"></i></button>
+                                                        <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
                                                     </form>
                                                 @else
                                                     <form id="like-form" action="{{ route('addlike') }}" method="POST">
                                                         @csrf
-                                                        <input type="hidden" name="product_id"
-                                                            value="{{ $product->id }}">
+                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                         <button type="submit"><i class="fa-solid fa-heart"></i></button>
                                                     </form>
                                                 @endif
@@ -287,8 +294,7 @@
                                         </div>
                                         {{-- Cart button --}}
                                         <div class="cart">
-                                            <button class="add-to-cart-btn relative"
-                                                data-product-id="{{ $product->id }}">
+                                            <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
                                                 <div
                                                     class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white">
                                                     <i class="fa-solid fa-shopping-cart"></i>
@@ -562,8 +568,8 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('.add-to-cart-btn').click(function(event) {
+    $(document).ready(function () {
+        $('.add-to-cart-btn').click(function (event) {
             event.preventDefault();
             var button = $(this);
             var overlay = button.find('.loading-overlay');
@@ -577,7 +583,7 @@
                     'product_id': productId,
                     'quantity': 1
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         $('#cart-count').text(response.totalQuantity);
 
