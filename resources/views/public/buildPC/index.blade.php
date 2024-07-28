@@ -12,10 +12,11 @@
     <!-- Product Banner -->
     <section>
         <div class="product__banner">
-            <div class="mt-3 slider autoplay w-full max-w-max">
-                <div><a href="" class=""> <img class="rounded-lg" src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg" alt=""> </a></div>
-                <div><a href="" class=""> <img class="rounded-lg" src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg" alt=""> </a></div>
-            </div>
+        <div class="one-time mt-3 w-full max-w-max ">
+    @foreach($banners_top as $banner)
+                <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="h-64">
+        @endforeach
+    </div>
         </div>
     </section>
     <div class="text-center p-5">
