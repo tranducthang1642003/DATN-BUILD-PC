@@ -7,8 +7,8 @@
                 <div class="border-b-2 p-2 mb-4 border-yellow-500">
                     <h1 class="text-3xl font-bold text-orange-600">Thông tin khách hàng</h1>
                 </div>
-                <form action="{{ route('orders.placeOrder') }}" method="POST" class="mt-8">
-                    @csrf
+                <form id="order-form" action="{{ route('orders.placeOrder') }}" method="POST" class="mt-8">
+                @csrf
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="p-1">
                             <label for="full-name" class="block text-lg font-medium text-gray-700">Họ và tên</label>
@@ -52,7 +52,8 @@
                             <span class="ml-2 text-lg font-medium text-gray-700">Thanh toán bằng MoMo</span>
                         </label>
                         <label class="inline-flex items-center mb-2">
-                            <input type="radio" name="payment-method" value="vnpay" class="form-radio h-4 w-4 lg:h-5 lg:w-5 text-yellow-500" required>
+                            
+                            <input type="radio" id="payment_url" name="payment-method" value="pay" class="form-radio h-4 w-4 lg:h-5 lg:w-5 text-yellow-500" required>
                             <span class="ml-2 text-lg font-medium text-gray-700">Thanh toán bằng VNPay</span>
                         </label>
                     </div>
@@ -92,3 +93,25 @@
 </div>
 
 @include('public.footer.footer')
+
+
+
+<script>
+document.querySelector('#order-form').addEventListener('submit', function(event) {
+    var paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+    var form = event.target;
+    
+    if (paymentMethod === 'pay') {
+        event.preventDefault(); 
+        
+       
+        console.log("Form Data:", new FormData(form));
+        
+        var paymentUrl = "{{ route('orders.vnpay.payment.get') }}"; 
+        form.action = paymentUrl;
+        form.submit();
+    }
+});
+
+
+</script>

@@ -1,5 +1,4 @@
 @include('public.header.index')
-
 <div class="product-detail__page max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
     <div class="detail-product__container">
         <div class="">

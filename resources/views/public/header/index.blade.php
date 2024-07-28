@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 <style>
@@ -46,20 +47,39 @@
     </div>
     <section class="site-section w-full">
         <div class="header__banner-news w-full max-w-max one-time">
-            <img src="{{ asset('image/banner.webp') }}" alt="">
-            <img src="{{ asset('image/banner.webp') }}" alt="">
+
+
+
+            @if($banners_top_header->isNotEmpty())
+                @foreach($banners_top_header as $banner)
+                    <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}">
+                @endforeach
+            @endif
+
         </div>
+
         <section class="site-nav bg-sky-500 shadow">
-            <div class="nav__container  mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
-                <div class="nav__logo">
-                    <img src="{{ asset('image/logo.png') }}" alt="Logo" class="h-12">
+            <div
+                class="nav__container  mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
+                <div class="nav__logo " style="width:8%;">
+                    @if($logos->isNotEmpty())
+                        @foreach($logos as $logo)
+                            <p>{{ $logo->url }}</p> <!-- Print the URL for debugging -->
+                            <img src="{{ $logo->images_url }}" alt="{{ $logo->alt_text }}">
+                        @endforeach
+                    @else
+                        <p>No logos available.</p>
+                    @endif
                 </div>
 
                 <div class="nav__search flex-grow mx-4 md:mx-6 lg:mx-8 xl:mx-10">
                     <form action="{{ route('product.search') }}" method="GET">
                         <div class="search__wrapper relative w-auto">
-                            <input type="text" name="query" id="searchInput" class="search__input w-full p-2 md:p-3 lg:p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="Search...">
-                            <button type="submit" class="absolute inset-y-0 right-0 mr-3 hover:text-blue-600"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
+                            <input type="text" name="query" id="searchInput"
+                                class="search__input w-full p-2 md:p-3 lg:p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                                placeholder="Search...">
+                            <button type="submit" class="absolute inset-y-0 right-0 mr-3 hover:text-blue-600"><i
+                                    class="fa-solid fa-magnifying-glass fa-lg"></i></button>
                         </div>
                     </form>
                     <ul id="suggestions" class="absolute z-50 bg-white mt-2 rounded-xl shadow-lg list-none p-0 m-0">
@@ -93,18 +113,16 @@
                             @php
                                 $cartCount = session('cart_count', 0);
                             @endphp
-                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2" 
-                                  style="display: {{ $cartCount > 0 ? 'inline-block' : 'none' }}">{{ $cartCount }}</span>
+                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2"
+                                style="display: {{ $cartCount > 0 ? 'inline-block' : 'none' }}">{{ $cartCount }}</span>
                             <a href="{{ route('cart') }}">
-                                <div id="cart-dropdown" 
-                                     class="absolute bg-white border border-gray-200 shadow-md rounded p-2 mt-2 w-64 hidden overflow-auto max-h-64">
+                                <div id="cart-dropdown"
+                                    class="absolute bg-white border border-gray-200 shadow-md rounded p-2 mt-2 w-64 hidden overflow-auto max-h-64">
                                 </div>
                             </a>
                         </li>
 
                         <style>
-
-
                             #cart-dropdown {
                                 display: none;
                             }
@@ -179,7 +197,15 @@
                             <button class="menu__item menu__item--white flex items-center flex-col"
                                 onclick="toggleDropdown()">
                                 <i class="fa-solid fa-user text-xl" style="color: #ffffff;"></i>
-                                <a href="#">Tài khoản</a>
+                                @if(Auth::check())
+                                                                @php
+                                                                    $email = Auth::user()->email;
+                                                                    $username = substr($email, 0, strpos($email, '@'));
+                                                                @endphp
+                                                                <span><i class="fa-solid fa-hand-wave"></i> Chào, {{ $username }}</span>
+                                @else
+                                    <a href="{{ route('login') }}">Tài khoản</a>
+                                @endif
                             </button>
                             <ul id="dropdown" class="absolute hidden mt-2 bg-white border border-gray-300 rounded-md">
                                 @if (!Auth::check())
@@ -190,11 +216,9 @@
                                         <li class="px-7 py-1 hover:bg-gray-100 text-black">Register</li>
                                     </a>
                                 @else
-                                    @if (Auth::check())
-                                        <a href="{{ route('dashboard') }}">
-                                            <li class="px-7 py-1 hover:bg-gray-100 text-black">Tài khoản</li>
-                                        </a>
-                                    @endif
+                                    <a href="{{ route('dashboard') }}">
+                                        <li class="px-7 py-1 hover:bg-gray-100 text-black">Tài khoản</li>
+                                    </a>
                                     <li class="px-7 py-1 hover:bg-gray-100 text-black">
                                         <form method="POST" action="/logout">
                                             @csrf
@@ -207,10 +231,19 @@
 
                         <script>
                             function toggleDropdown() {
-                              const dropdown = document.getElementById('dropdown');
-                              dropdown.classList.toggle('hidden');
+                                var dropdown = document.getElementById('dropdown');
+                                dropdown.classList.toggle('hidden');
                             }
-                          </script>
+                        </script>
+
+
+                        <script>
+                            function toggleDropdown() {
+                                var dropdown = document.getElementById('dropdown');
+                                dropdown.classList.toggle('hidden');
+                            }
+                        </script>
+
 
                     </ul>
                 </div>
@@ -218,8 +251,7 @@
 
 
                 <div class="md:hidden">
-                    <button id="menu-toggle"
-                        class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <button id="menu-toggle" class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -252,43 +284,49 @@
                 <div class="nav__menu md:flex space-x-6 text-gray-700">
                     <ul class="flex space-x-6 text-white items-center	">
                         <li class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer"
-                        style="z-index: 100;" onclick="toggleDropdown()">
-                        <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
-                        <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
-                        <!-- Dropdown Menu -->
-                        <ul id="dropdownMenu" class="absolute left-0 top-full mt-2 hidden w-60 bg-white rounded-md shadow-md z-10">
-                            {{-- @foreach ($featuredCategories as $category)
+                            style="z-index: 100;" onclick="toggleDropdown()">
+                            <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+                            <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
+                            <!-- Dropdown Menu -->
+                            <ul id="dropdownMenu"
+                                class="absolute left-0 top-full mt-2 hidden w-60 bg-white rounded-md shadow-md z-10">
+                                {{-- @foreach ($featuredCategories as $category)
                                 <li class="relative">
-                                    <a href="{{ route('category.show', $category->slug) }}" class="flex items-center justify-between hover:bg-gray-100 rounded-md px-3 py-2">
+                                    <a href="{{ route('category.show', $category->slug) }}"
+                                        class="flex items-center justify-between hover:bg-gray-100 rounded-md px-3 py-2">
                                         <div class="flex items-center space-x-2">
-                                            <img src="{{ $category->image }}" alt="{{ $category->category_name }}" class="w-10 h-10 object-cover rounded-full">
+                                            <img src="{{ $category->image }}" alt="{{ $category->category_name }}"
+                                                class="w-10 h-10 object-cover rounded-full">
                                             <span class="truncate">{{ $category->category_name }}</span>
                                         </div>
                                         <span class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 12a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 12z" clip-rule="evenodd" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 12a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 12z"
+                                                    clip-rule="evenodd" />
                                             </svg>
                                         </span>
                                     </a>
                                 </li>
-                            @endforeach --}}
-                        </ul>                        
-                    </li>
-                    <li class="hover:text-blue-500 flex items-center py-2">
-                        <ul class="flex">
-                            @foreach ($menuItems as $menuItem)
-                            <img src="{{ $menuItem->image }}" alt="" class="w-6 ml-1">
-                                <li class="mr-2 text-lg font-bold hover:text-green-700 flex items-center">
-                                    <a href="{{ $menuItem->url }}" class="flex items-center">
-                                        <span>{{ $menuItem->name }}</span>
-                                       
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                        
-                    </li>
-                    
+                                @endforeach --}}
+                            </ul>
+                        </li>
+                        <li class="hover:text-blue-500 flex items-center py-2">
+                            <ul class="flex">
+                                @foreach ($menuItems as $menuItem)
+                                    <img src="{{ $menuItem->image }}" alt="" class="w-6 ml-1">
+                                    <li class="mr-2 text-lg font-bold hover:text-green-700 flex items-center">
+                                        <a href="{{ $menuItem->url }}" class="flex items-center">
+                                            <span>{{ $menuItem->name }}</span>
+
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -313,8 +351,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('js/slickside.js') }}"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() {
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
             var loadingScreen = document.getElementById('loading-screen');
             loadingScreen.style.display = 'none';
         }, 1000); // 5000 milliseconds = 5 seconds
@@ -322,17 +360,17 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#cart-dropdown-toggle').hover(function() {
+    $(document).ready(function () {
+        $('#cart-dropdown-toggle').hover(function () {
             // Gửi yêu cầu AJAX để lấy danh sách sản phẩm trong giỏ hàng
             $.ajax({
                 url: '{{ route('cart.getCartItems') }}',
                 method: 'GET',
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         var cartItemsList = $('#cart-items-list');
                         cartItemsList.empty(); // Xóa sạch danh sách cũ
-                        response.cartItems.forEach(function(item) {
+                        response.cartItems.forEach(function (item) {
                             cartItemsList.append(
                                 '<li class="flex items-center mb-2">' +
                                 '<img src="' + item.primary_image_path +
@@ -340,7 +378,7 @@
                                 '" class="w-12 h-12 mr-2">' +
                                 '<div>' +
                                 '<p style="color: #000000;">' + item
-                                .product_name + '</p>' +
+                                    .product_name + '</p>' +
                                 '<p style="color: #000000;">' + item.quantity +
                                 ' x ' + item.price + '</p>' +
                                 '</div>' +
@@ -355,8 +393,8 @@
             });
         });
     });
-    $(document).ready(function() {
-        $('#searchInput').on('input', function() {
+    $(document).ready(function () {
+        $('#searchInput').on('input', function () {
             var query = $(this).val().trim();
             if (query.length === 0) {
                 $('#suggestions').empty().hide();
@@ -368,11 +406,11 @@
                 data: {
                     query: query
                 },
-                success: function(response) {
+                success: function (response) {
                     var suggestionsList = $('#suggestions');
                     suggestionsList.empty();
                     if (response.length > 0) {
-                        $.each(response, function(index, product) {
+                        $.each(response, function (index, product) {
                             var imageUrl = product.primary_image_path ? product.primary_image_path : 'default-image.jpg';
 
                             var suggestionItem = '<li class="flex items-center p-2 cursor-pointer suggestion-item" data-product-slug="' + product.slug + '">' +
@@ -388,12 +426,12 @@
                         suggestionsList.empty().hide();
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error('Error fetching suggestions:', error);
                 }
             });
         });
-        $(document).on('click', '.suggestion-item', function() {
+        $(document).on('click', '.suggestion-item', function () {
             var productId = $(this).data('product-slug');
 
             if (productId) {
@@ -412,4 +450,3 @@
         dropdownMenu.classList.toggle('hidden'); // Toggle 'hidden' class
     }
 </script>
-

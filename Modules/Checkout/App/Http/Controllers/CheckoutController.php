@@ -12,10 +12,10 @@ class CheckoutController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('public.checkout');
-    }
+    // public function index()
+    // {
+    //     return view('public.checkout');
+    // }
 
     /**
      * Show the form for creating a new resource.
