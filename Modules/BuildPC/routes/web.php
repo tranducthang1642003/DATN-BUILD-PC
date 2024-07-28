@@ -21,6 +21,9 @@ Route::group([], function () {
     Route::delete('/buildpc/remove/{index}', 'BuildPCController@removeItemFromConfiguration')
     ->name('buildpc.remove');
     Route::post('/cart/add-multiple', [BuildPCController::class, 'addToCartMultiple'])->name('cart.add-multiple');
-
+    Route::get('/buildpc/view/{id}', [BuildPCController::class, 'viewConfiguration'])->name('buildpc.view');
+    Route::get('/configuration/download-image/{id}', [BuildPCController::class, 'downloadImage'])->name('configuration.download-image');
+    
+    Route::get('/buildpc/filter', 'BuildPCController@filter');
 
 });
