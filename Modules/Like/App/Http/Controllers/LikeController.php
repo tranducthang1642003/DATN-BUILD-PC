@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Modules\Product\Entities\Product;
 use Modules\Like\Entities\wishlists;
+use Modules\Settings\Entities\Menu;
 class LikeController extends Controller
 {
     /**
@@ -17,12 +18,13 @@ class LikeController extends Controller
     public function index()
     {
         $user=Auth::User();
+        $menuItems = Menu::all();
         $likeItem = wishlists::where('user_id', $user->id)->with('product')->get();
         $likeItem->each(function ($likeItem) {
             $primary_image = $likeItem->product->images->firstWhere('is_primary', 1);
             $likeItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
         });
-        return view('public.dashboard.like',compact('likeItem'));
+        return view('public.dashboard.like',compact('likeItem','menuItems'));
     }
     public function addlike(Product $product,Request $request)
     {
@@ -57,7 +59,7 @@ public function deletelike(string $id)
     $likeItem = wishlists::find($id);
     if ($likeItem) {
         $likeItem->delete();
-        return back()->with('ssmsg', 'Thêm sản phẩm yêu thích thành công');
+        return back()->with('success_message','xóa sản phẩm yêu thích thành công');
     }else
     {
         return redirect()->route('like');
