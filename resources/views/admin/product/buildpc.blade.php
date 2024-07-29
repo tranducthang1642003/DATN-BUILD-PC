@@ -6,15 +6,15 @@
 </style>
 @include('admin.layout.header')
 <div class="mx-8 pt-20 w-full">
-    <!-- <div class="text-base flex items-center mb-8 text-slate-400">
+    <div class="text-base flex items-center mb-8 text-slate-400">
         <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
         <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
         <span>Manage</span>
         <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
-        <a class="hover:text-slate-50" href="{{ route('brand') }}"><span>Thương hiệu</span></a>
+        <a class="hover:text-slate-50" href="{{ route('product') }}"><span>Sản phẩm</span></a>
         <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
-        <span>Danh sách</span>
-    </div> -->
+        <span>Build PC</span>
+    </div>
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -63,11 +63,12 @@
             <tr class="text-left bg-primary">
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Tên</th>
-                <th class="px-4 py-2">Nổi bật</th>
-                <th class="px-4 py-2">Số lượng</th>
+                <th class="px-4 py-2">Hình Ảnh</th>
+                <th class="px-4 py-2">Tên Sản Phẩm</th>
+                <th class="px-4 py-2">Nổi Bật</th>
+                <th class="px-4 py-2">Số Lượng</th>
                 <th class="px-4 py-2">Giá</th>
-                <th class="px-4 py-2">Loại linh kiện</th>
+                <th class="px-4 py-2">Loại Linh Kiện</th>
                 <th class="px-4 py-2">...</th>
             </tr>
         </thead>
@@ -76,6 +77,7 @@
             <tr class="{{ $index % 2 == 0 ? 'bg-secondary' : 'bg-pale-dark' }}">
                 <td class="px-4 py-2"><input type="checkbox"></td>
                 <td class="px-4 py-2">{{ $product ->id }}</td>
+                <td class="px-4 py-2"><img src="{{ asset($product->primary_image_url ?? 'placeholder.jpg') }}" width="50" alt="" class="hidden sm:table-cell"></td>
                 <td class="px-4 py-2 product-name">{{ $product ->product_name }}</td>
                 <td class="px-4 py-2">
                     @php

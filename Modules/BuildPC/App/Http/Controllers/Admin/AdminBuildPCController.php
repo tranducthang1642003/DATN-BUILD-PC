@@ -32,15 +32,32 @@ class AdminBuildPCController extends Controller
         }
 
         $products = $productsQuery->paginate(10);
-
-        return view('admin.buildpc.show', compact('products'));
+        $products_images = [];
+        foreach ($products as $product) {
+            if ($product->quantity === 0 && $product->status === 1) {
+                $product->status = 2;
+                $product->save();
+            }
+            $primary_image = ProductImage::where('product_id', $product->id)
+                ->where('is_primary', 1)
+                ->first();
+            $product->primary_image_url = $primary_image ? $primary_image->image_path : null;
+            $secondary_images = ProductImage::where('product_id', $product->id)
+                ->where('is_primary', 0)
+                ->get();
+            $products_images[$product->id] = [
+                'primary_image' => $primary_image,
+                'secondary_images' => $secondary_images,
+            ];
+        }
+        return view('admin.product.buildpc', compact('products', 'products_images'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('admin.buildpc.show');
+        return view('admin.product.buildpc');
     }
 
     /**
