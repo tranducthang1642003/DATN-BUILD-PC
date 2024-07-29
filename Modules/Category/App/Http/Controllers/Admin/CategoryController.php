@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Modules\Category\Entities\Category;
 use Illuminate\Support\Str;
+use Modules\Product\Entities\Product;
 
 class CategoryController extends Controller
 {
@@ -102,6 +103,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = category::findOrFail($id);
+        Product::where('category_id', $category->id)->delete();
         $category->delete();
         return redirect()->route('category')->with('success', 'Xóa danh mục thành công!');
     }
