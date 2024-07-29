@@ -25,9 +25,9 @@
                                 <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
                             </div>
                             @foreach ($secondary_images as $item)
-                                <div class="">
-                                    <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
-                                </div>
+                            <div class="">
+                                <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -38,9 +38,9 @@
                                     <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
                                 </div>
                                 @foreach ($secondary_images as $item)
-                                    <div class="">
-                                        <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
-                                    </div>
+                                <div class="">
+                                    <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                                </div>
                                 @endforeach
                             </div>
                         </div>
@@ -76,16 +76,13 @@
                     <p class="price-detail text-xs lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
                         {{ number_format($product->price) }} VND
                     </p>
-                    <span
-                        class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">
+                    <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">
                         4.000.000₫
                     </span>
-                    <div
-                        class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
+                    <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
                         Tiết kiệm 810.000đ
                     </div>
-                    <div
-                        class="bg-red-700 text-red-700 font-bold rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
+                    <div class="bg-red-700 text-red-700 font-bold rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
                         -25%
                     </div>
                 </div>
@@ -101,25 +98,22 @@
                         </form>
                         <span id="cart-count" class="text-white bg-red-500 rounded-full px-2" style="display: none;">{{ session('cart_count', 0) }}</span>
                     </div>
-                    
+
                 </div>
 
                 <div class="detail-buy mt-2 md:mt-5">
-                    <div
-                        class="detail-buy-now border p-2 md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white hover:bg-red-500 hover:text-white text-center">
+                    <div class="detail-buy-now border p-2 md:p-3 rounded-xl pr-5 pl-5 bg-red-600 text-white hover:bg-red-500 hover:text-white text-center">
                         <a href="" class="w-full">
                             <p class="text-base md:text-lg lg:text-xl font-semibold">ĐẶT MUA NGAY</p>
                             <span>Giao hàng tận nơi nhanh chóng</span>
                         </a>
                     </div>
                     <div class="detail-add-cart grid grid-cols-2 divide-x mt-2 md:mt-5">
-                        <a href=""
-                            class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
+                        <a href="" class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
                             <p>TRẢ GÓP QUA HỒ SƠ</p>
                             <span>Chỉ từ 2.665.000₫/ tháng</span>
                         </a>
-                        <a href=""
-                            class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
+                        <a href="" class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
                             <p>TRẢ GÓP QUA THẺ</p>
                             <span>Chỉ từ 1.332.500₫/ tháng</span>
                         </a>
@@ -151,127 +145,92 @@
             <div class="box-left">
                 <div class="mx-auto rounded-xl border shadow p-3 md:p-5">
                     <h1 class="text-xl font-bold mb-4">Đánh giá sản phẩm</h1>
-                    <form action="{{ route('products.reviews.store', ['product' => $product->id]) }}" method="POST"
-                        class="bg-white">
+                    <form action="{{ route('products.reviews.store', ['product' => $product->id]) }}" method="POST" class="bg-white">
                         @csrf
 
                         @if (!auth()->check())
-                            <div class="mb-2">
-                                <label for="name" class="block text-gray-700 font-bold mb-1">Tên bạn</label>
-                                <input type="text" id="name" name="name"
-                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="">
-                            </div>
-                            <div class="mb-2">
-                                <label for="email" class="block text-gray-700 font-bold mb-1">Email</label>
-                                <input type="email" id="email" name="email"
-                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="">
-                            </div>
+                        <div class="mb-2">
+                            <label for="name" class="block text-gray-700 font-bold mb-1">Tên bạn</label>
+                            <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="">
+                        </div>
+                        <div class="mb-2">
+                            <label for="email" class="block text-gray-700 font-bold mb-1">Email</label>
+                            <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="">
+                        </div>
                         @endif
 
                         <div class="mb-2">
                             <label for="rating" class="block text-gray-700 font-bold mb-1">Đánh giá</label>
                             <div class="flex items-center">
-                                <input type="radio" id="star1" name="rating" value="1"
-                                    class="hidden" />
-                                <label for="star1"
-                                    class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
-                                <input type="radio" id="star2" name="rating" value="2"
-                                    class="hidden" />
-                                <label for="star2"
-                                    class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
-                                <input type="radio" id="star3" name="rating" value="3"
-                                    class="hidden" />
-                                <label for="star3"
-                                    class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
-                                <input type="radio" id="star4" name="rating" value="4"
-                                    class="hidden" />
-                                <label for="star4"
-                                    class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
-                                <input type="radio" id="star5" name="rating" value="5"
-                                    class="hidden" />
-                                <label for="star5"
-                                    class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
+                                <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+                                <label for="star1" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
+                                <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+                                <label for="star2" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
+                                <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+                                <label for="star3" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
+                                <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+                                <label for="star4" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
+                                <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+                                <label for="star5" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-500">★</label>
                             </div>
                         </div>
 
                         <div class="mb-2">
-                            <textarea id="comment" name="comment" rows="4"
-                                class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-400 resize-none"
-                                placeholder="Mời bạn để lại đánh giá"></textarea>
+                            <textarea id="comment" name="comment" rows="4" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-400 resize-none" placeholder="Mời bạn để lại đánh giá"></textarea>
                         </div>
 
                         <div class="mb-2">
-                            <button type="submit"
-                                class="w-full bg-amber-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-400 focus:ring-opacity-50">
+                            <button type="submit" class="w-full bg-amber-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-400 focus:ring-opacity-50">
                                 Gửi đánh giá
                             </button>
                         </div>
                     </form>
                     @if (session('success'))
-                        <div id="alert" class="border-t-4 border-teal-500 rounded-b px-4 py-3 shadow-md"
-                            style="background-color: #4CAF50; color: #fff" role="alert">
-                            <p class="font-bold">{{ session('success') }}</p>
-                        </div>
+                    <div id="alert" class="border-t-4 border-teal-500 rounded-b px-4 py-3 shadow-md" style="background-color: #4CAF50; color: #fff" role="alert">
+                        <p class="font-bold">{{ session('success') }}</p>
+                    </div>
                     @elseif (session('error'))
-                        <div id="alert" class="border-t-4 border-red-500 rounded-b px-4 py-3 shadow-md"
-                            style="background-color: #f44336; color: #fff" role="alert">
-                            <p class="font-bold">{{ session('error') }}</p>
-                        </div>
+                    <div id="alert" class="border-t-4 border-red-500 rounded-b px-4 py-3 shadow-md" style="background-color: #f44336; color: #fff" role="alert">
+                        <p class="font-bold">{{ session('error') }}</p>
+                    </div>
                     @endif
                 </div>
                 <div class="mt-3">
                     <div class="bg-white p-4 rounded-xl border shadow mb-4">
                         @forelse ($reviews as $review)
 
-                            <div class="flex justify-between mt-3 pb-3" style="border-bottom: 1px ridge;">
-                                <div class="flex space-x-2">
-                                    <img src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg"
-                                        alt="" class="w-10 h-10 rounded-full object-cover">
-                                    <div class="items-center space-x-1 ml-3">
-                                        <span
-                                            class="text-gray-700 font-bold">{{ $review->user->name ?? 'Người dùng ẩn danh' }}</span>
-                                        <div class="flex mt-2">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                @if ($i <= $review->rating)
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-5 w-5 text-amber-400" viewBox="0 0 20 20"
-                                                        fill="currentColor">
-                                                        <polygon
-                                                            points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-miterlimit="10" fill="#FFD700"></polygon>
-                                                    </svg>
-                                                @else
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-5 w-5 text-gray-300" viewBox="0 0 20 20"
-                                                        fill="currentColor">
-                                                        <polygon
-                                                            points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-miterlimit="10"></polygon>
-                                                    </svg>
-                                                @endif
+                        <div class="flex justify-between mt-3 pb-3" style="border-bottom: 1px ridge;">
+                            <div class="flex space-x-2">
+                                <img src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
+                                <div class="items-center space-x-1 ml-3">
+                                    <span class="text-gray-700 font-bold">{{ $review->user->name ?? 'Người dùng ẩn danh' }}</span>
+                                    <div class="flex mt-2">
+                                        @for ($i = 1; $i <= 5; $i++) @if ($i <=$review->rating)
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                                            </svg>
+                                            @else
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                            </svg>
+                                            @endif
                                             @endfor
-                                        </div>
-                                        <p class="mt-2 text-gray-800">{{ $review->comment }}</p>
                                     </div>
+                                    <p class="mt-2 text-gray-800">{{ $review->comment }}</p>
                                 </div>
-                                <span class="text-gray-500 text-sm">{{ $review->created_at->diffForHumans() }}</span>
                             </div>
+                            <span class="text-gray-500 text-sm">{{ $review->created_at->diffForHumans() }}</span>
+                        </div>
                         @empty
-                            <p class="text-gray-600">Chưa có đánh giá nào cho sản phẩm này.</p>
+                        <p class="text-gray-600">Chưa có đánh giá nào cho sản phẩm này.</p>
                         @endforelse
                     </div>
                 </div>
             </div>
             <div class="box-right">
                 <div class="banner ml-3">
-                    <img src="https://nguyencongpc.vn/media/banner/03_Jun02e5bf3d96bd8a662973c555f5c9036f.webp"
-                        alt="" class="rounded-lg w-full">
-                    <img src="https://nguyencongpc.vn/media/banner/03_Jun7b279ff5b996fdf294b2bf0ffbc78e52.webp"
-                        alt="" class="rounded-lg w-full mt-3">
+                    <img src="https://nguyencongpc.vn/media/banner/03_Jun02e5bf3d96bd8a662973c555f5c9036f.webp" alt="" class="rounded-lg w-full">
+                    <img src="https://nguyencongpc.vn/media/banner/03_Jun7b279ff5b996fdf294b2bf0ffbc78e52.webp" alt="" class="rounded-lg w-full mt-3">
                 </div>
             </div>
         </div>
@@ -280,88 +239,78 @@
                 <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($similarProducts as $product)
-                        <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                            <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
-                                <a href="{{ route('product.show', $product->slug) }}">
-                                    <div class="product-img">
-                                        <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                        <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
+                            <a href="{{ route('product.show', $product->slug) }}">
+                                <div class="product-img">
+                                    <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+                                </div>
+                                <div class="product-info mt-2">
+                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
+                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                    <div class="mt-1">
+                                        <span class="text-red-700 font-bold">
+                                            {{ number_format($product->price) }} VND
+                                        </span>
+                                        @if ($product->discount)
+                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                        @endif
                                     </div>
-                                    <div class="product-info mt-2">
-                                        <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                        <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                        <div class="mt-1">
-                                            <span class="text-red-700 font-bold">
-                                                {{ number_format($product->price) }} VND
-                                            </span>
-                                            @if ($product->discount)
-                                                <span
-                                                    class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                    <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        {{-- like --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                            @auth
+                                            @if ($product->isLikedBy(auth()->user()))
+                                            <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                            </form>
+                                            @else
+                                            <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                            </form>
                                             @endif
+                                            @else
+                                            <i class="fa-solid fa-heart"></i>
+                                            @endauth
                                         </div>
-                                        <div
-                                            class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                            {{-- like --}}
-                                            <div
-                                                class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                                @auth
-                                                    @if ($product->isLikedBy(auth()->user()))
-                                                        <form id="unlike-form"
-                                                            action="{{ route('deletelike', $product->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"><i class="fa fa-heart"
-                                                                    style="color:#ff0000"></i></button>
-                                                        </form>
-                                                    @else
-                                                        <form id="like-form" action="{{ route('addlike') }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="product_id"
-                                                                value="{{ $product->id }}">
-                                                            <button type="submit"><i
-                                                                    class="fa-solid fa-heart"></i></button>
-                                                        </form>
-                                                    @endif
-                                                @else
-                                                    <i class="fa-solid fa-heart"></i>
-                                                @endauth
-                                            </div>
-                                            {{-- end like --}}
-                                            {{-- cart --}}
-                                            <div
-                                                class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
-                                                <i class="fa-solid fa-shopping-cart"></i>
-                                            </div>
-                                            {{-- end cart --}}
+                                        {{-- end like --}}
+                                        {{-- cart --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                            <i class="fa-solid fa-shopping-cart"></i>
                                         </div>
+                                        {{-- end cart --}}
                                     </div>
-                                </a>
-                                @if ($product->reviews->isNotEmpty())
-                                    @php
-                                        $averageRating = $product->reviews->avg('rating');
-                                        $totalStars = 5;
-                                        $fullStars = floor($averageRating);
-                                        $emptyStars = $totalStars - $fullStars;
-                                    @endphp
+                                </div>
+                            </a>
+                            @if ($product->reviews->isNotEmpty())
+                            @php
+                            $averageRating = $product->reviews->avg('rating');
+                            $totalStars = 5;
+                            $fullStars = floor($averageRating);
+                            $emptyStars = $totalStars - $fullStars;
+                            @endphp
 
-                                    <div class="rating flex">
-                                        <div class="flex items-center pt-1">
-                                            @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                            <div class="rating flex">
+                                <div class="flex items-center pt-1">
+                                    @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                                        </svg>
+                                        @endfor
+                                        @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
                                             </svg>
                                             @endfor
-                                            @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
-                                            </svg>
-                                            @endfor
-                                        </div>
-                                        <p>({{ $product->reviews->count() }} đánh giá)</p>
-                                    </div>
-                                @else
-                                @endif
+                                </div>
+                                <p>({{ $product->reviews->count() }} đánh giá)</p>
                             </div>
+                            @else
+                            @endif
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -371,90 +320,78 @@
                 <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($recentlyViewedProducts as $product)
-                        <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                            <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
-                                <a href="{{ route('product.show', $product->slug) }}">
-                                    <div class="product-img">
-                                        <img class="w-full h-48 object-cover"
-                                            src="{{ $product->primary_image_path }}"
-                                            alt="{{ $product->product_name }}">
+                    <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
+                        <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
+                            <a href="{{ route('product.show', $product->slug) }}">
+                                <div class="product-img">
+                                    <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+                                </div>
+                                <div class="product-info mt-2">
+                                    <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
+                                    <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
+                                    <div class="mt-1">
+                                        <span class="text-red-700 font-bold">
+                                            {{ number_format($product->price) }} VND
+                                        </span>
+                                        @if ($product->discount)
+                                        <span class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                        @endif
                                     </div>
-                                    <div class="product-info mt-2">
-                                        <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
-                                        <p class="text-gray-500 text-xs">{{ $product->short_description }}</p>
-                                        <div class="mt-1">
-                                            <span class="text-red-700 font-bold">
-                                                {{ number_format($product->price) }} VND
-                                            </span>
-                                            @if ($product->discount)
-                                                <span
-                                                    class="text-gray-500 line-through ml-2">{{ $product->discount }}</span>
+                                    <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        {{-- like --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                            @auth
+                                            @if ($product->isLikedBy(auth()->user()))
+                                            <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                            </form>
+                                            @else
+                                            <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                            </form>
                                             @endif
+                                            @else
+                                            <i class="fa-solid fa-heart"></i>
+                                            @endauth
                                         </div>
-                                        <div
-                                            class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                            {{-- like --}}
-                                            <div
-                                                class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                                @auth
-                                                    @if ($product->isLikedBy(auth()->user()))
-                                                        <form id="unlike-form"
-                                                            action="{{ route('deletelike', $product->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"><i class="fa fa-heart"
-                                                                    style="color:#ff0000"></i></button>
-                                                        </form>
-                                                    @else
-                                                        <form id="like-form" action="{{ route('addlike') }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="product_id"
-                                                                value="{{ $product->id }}">
-                                                            <button type="submit"><i
-                                                                    class="fa-solid fa-heart"></i></button>
-                                                        </form>
-                                                    @endif
-                                                @else
-                                                    <i class="fa-solid fa-heart"></i>
-                                                @endauth
-                                            </div>
-                                            {{-- end like --}}
-                                            {{-- cart --}}
-                                            <div
-                                                class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
-                                                <i class="fa-solid fa-shopping-cart"></i>
-                                            </div>
-                                            {{-- end cart --}}
+                                        {{-- end like --}}
+                                        {{-- cart --}}
+                                        <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
+                                            <i class="fa-solid fa-shopping-cart"></i>
                                         </div>
+                                        {{-- end cart --}}
                                     </div>
-                                </a>
-                                @if ($product->reviews->isNotEmpty())
-                                    @php
-                                        $averageRating = $product->reviews->avg('rating');
-                                        $totalStars = 5;
-                                        $fullStars = floor($averageRating);
-                                        $emptyStars = $totalStars - $fullStars;
-                                    @endphp
+                                </div>
+                            </a>
+                            @if ($product->reviews->isNotEmpty())
+                            @php
+                            $averageRating = $product->reviews->avg('rating');
+                            $totalStars = 5;
+                            $fullStars = floor($averageRating);
+                            $emptyStars = $totalStars - $fullStars;
+                            @endphp
 
-                                    <div class="rating flex">
-                                        <div class="flex items-center pt-1">
-                                            @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                            <div class="rating flex">
+                                <div class="flex items-center pt-1">
+                                    @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                                        </svg>
+                                        @endfor
+                                        @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
                                             </svg>
                                             @endfor
-                                            @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                                <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
-                                            </svg>
-                                            @endfor
-                                        </div>
-                                        <p>({{ $product->reviews->count() }} đánh giá)</p>
-                                    </div>
-                                @else
-                                @endif
+                                </div>
+                                <p>({{ $product->reviews->count() }} đánh giá)</p>
                             </div>
+                            @else
+                            @endif
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -513,58 +450,81 @@
             body.classList.remove('blur-background');
         });
     });
-   
+
 
 
     $(document).ready(function() {
-    $('#add-to-cart-form').submit(function(event) {
-        event.preventDefault(); // Ngăn form submit thông thường
+        $('#add-to-cart-form').submit(function(event) {
+            event.preventDefault(); // Ngăn form submit thông thường
 
-        $.ajax({
-            url: $(this).attr('action'), // Lấy URL từ action của form
-            method: $(this).attr('method'), // Lấy method từ form
-            data: $(this).serialize(), // Lấy dữ liệu từ form
-            success: function(response) {
-                if (response.success) {
-                    // Nhảy số lượng giỏ hàng lên
-                    animateCartCount();
-                    
-                    // Hiển thị Toast notification (nếu cần)
-                    showToast();
-                } else {
-                    alert('Không thể thêm sản phẩm vào giỏ hàng.');
+            $.ajax({
+                url: $(this).attr('action'), // Lấy URL từ action của form
+                method: $(this).attr('method'), // Lấy method từ form
+                data: $(this).serialize(), // Lấy dữ liệu từ form
+                success: function(response) {
+                    if (response.success) {
+                        // Nhảy số lượng giỏ hàng lên
+                        animateCartCount();
+
+                        // Hiển thị Toast notification (nếu cần)
+                        showToast();
+                    } else {
+                        alert('Không thể thêm sản phẩm vào giỏ hàng.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Yêu cầu AJAX thất bại: ' + error);
                 }
-            },
-            error: function(xhr, status, error) {
-                alert('Yêu cầu AJAX thất bại: ' + error);
+            });
+        });
+
+        function animateCartCount() {
+            var cartCountElement = $('#cart-count');
+            var currentCount = parseInt(cartCountElement.text()) || 0;
+            var newCount = currentCount + 1;
+
+            cartCountElement.text(newCount).fadeIn().delay(100).fadeOut().fadeIn();
+        }
+
+        function showToast() {
+            var toast = $('#toast');
+            toast.removeClass('hidden');
+            setTimeout(function() {
+                toast.addClass('hidden');
+            }, 3000);
+        }
+
+
+        function updateCartCount(cartCount) {
+            if (cartCount > 0) {
+                $('#cart-count').text(cartCount).show();
+            } else {
+                $('#cart-count').hide();
             }
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.flex .cursor-pointer');
+        const ratingInput = document.querySelector('input[name="rating"]');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', function() {
+                const ratingValue = index + 1;
+                ratingInput.value = ratingValue;
+
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.remove('text-gray-300');
+                        s.classList.add('text-yellow-500');
+                    } else {
+                        s.classList.remove('text-yellow-500');
+                        s.classList.add('text-gray-300');
+                    }
+                });
+            });
         });
     });
-
-    function animateCartCount() {
-        var cartCountElement = $('#cart-count');
-        var currentCount = parseInt(cartCountElement.text()) || 0; 
-        var newCount = currentCount + 1; 
-
-        cartCountElement.text(newCount).fadeIn().delay(100).fadeOut().fadeIn();
-    }
-
-    function showToast() {
-        var toast = $('#toast');
-        toast.removeClass('hidden'); 
-        setTimeout(function() {
-            toast.addClass('hidden'); 
-        }, 3000); 
-    }
-
-
-    function updateCartCount(cartCount) {
-        if (cartCount > 0) {
-            $('#cart-count').text(cartCount).show();
-        } else {
-            $('#cart-count').hide();
-        }
-    }
-});
-
+    setTimeout(function() {
+        document.getElementById('alert').style.display = 'none';
+    }, 5000);
 </script>
