@@ -522,23 +522,24 @@
 </style>
 
 
+
 <script>
-    $(document).ready(function() {
-        $('.add-to-cart-btn').click(function(event) {
+    $(document).ready(function () {
+        $('.add-to-cart-btn').click(function (event) {
             event.preventDefault();
             var button = $(this);
             var overlay = button.find('.loading-overlay');
             var productId = button.data('product-id');
             overlay.show();
             $.ajax({
-                url: '{{ route("cart.add") }}',
+                url: '{{ route('cart.add') }}',
                 method: 'POST',
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'product_id': productId,
                     'quantity': 1
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         $('#cart-count').text(response.totalQuantity);
 
@@ -564,11 +565,7 @@
 
 
 
-        var cartCount = {
-            {
-                session('cart_count', 0)
-            }
-        };
+        var cartCount = {{ session('cart_count', 0) }};
         $('#cart-count').text(cartCount);
     });
 </script>
