@@ -1,5 +1,17 @@
 @include('public.header.index')
 
+@if (session('success'))
+            <div class="bg-green-500 text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="bg-red-500 text-white p-4 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
     <!-- Breadcrumb Navigation -->
     <nav class="bg-white mt-3 rounded-md w-full hidden md:block">
@@ -12,9 +24,9 @@
     <!-- Product Banner -->
     <section>
         <div class="product__banner">
-            <div class="one-time mt-3 w-full max-w-max ">
+            <div class="one-time mt-3 w-full max-w-max h-96 ">
                 @foreach($banners_top as $banner)
-                    <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="h-64">
+                    <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="h-96">
                 @endforeach
             </div>
         </div>
@@ -25,14 +37,6 @@
         <h1 class="text-2xl font-semibold">Build PC - Xây dựng cấu hình máy tính mạnh - giá rẻ nhất</h1>
         <p class="italic">( Vui lòng chọn linh kiện bạn cần để xây dựng cấu hình máy tính riêng cho bạn )</p>
     </div>
-
-    <div class="text-end">
-            <form action="{{ route('cart.add-multiple') }}" method="POST" style="float: end;">
-                @csrf
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm
-                    vào giỏ hàng</button>
-            </form>
-        </div>
 
 
         <!-- Include this script at the bottom of your blade file -->
@@ -101,7 +105,7 @@
                                                     <li>{{ $category->category_name }}</li>
                                                 </ol>
                                             </td>
-                                            <td class="py-3 px-6 text-right flex justify-between ">
+                                            <td class="py-3 px-6 text-right flex justify-between " style="align-items: center;">
                                                 @php
                                                     $hasProduct = false;
                                                 @endphp
@@ -131,9 +135,9 @@
 
                                                             </form>
                                                             <button
-                                                                class="bg-red-500 text-white rounded-md px-4 py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 duration-300 flex"
+                                                                class="bg-blue-500 hover:bg-red-600 text-white px-3 py-1 rounded flex h-8"
                                                                 onclick="openModal('modelConfirm{{ $category->id }}')">
-                                                                chọn lại
+                                                              <i class="fas fa-wrench fa-spin"></i>
                                                             </button>
                                                         @endif
                                                     @endforeach
@@ -183,6 +187,8 @@
                                         </div>
                                     </div>
                                 </form>
+
+                                
                             </div>
                             <div class="w-3/4 p-4 overflow-y-auto">
                                 @if ($category->products->isEmpty())
@@ -194,7 +200,7 @@
                                                 @csrf
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                 <input type="hidden" name="category_id" value="{{ $category->id }}">
-                                                <div class="border border-gray-300 rounded p-4">
+                                                <div class="border border-gray-300 rounded p-4 h-5/6">
                                                     <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}"
                                                         class="w-full h-48 object-cover mb-2">
                                                     <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
@@ -204,7 +210,7 @@
                                                         <input type="number" id="quantity" name="quantity" value="1"
                                                             class="w-20 border-gray-300 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                                         <button type="submit"
-                                                            class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2 font-semibold transition duration-300">Thêm
+                                                            class="bg-blue-500 hover:bg-blue-600 text-white rounded px-3 py-2 font-semibold transition duration-300">Thêm
                                                             vào linh kiện</button>
                                                     </div>
                                                 </div>
@@ -227,8 +233,32 @@
                 VND</span>
         </div>
 
-
-
+        <div class="text-end">
+            <form action="{{ route('cart.add-multiple') }}" method="POST" style="float: end;">
+                @csrf
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm
+                    vào giỏ hàng</button>
+            </form>
+        </div>
+        <section>
+        <div class="container mx-auto py-6 p-10">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">TIN KHUYẾN MÃI MỚI</h2>
+                <a href="{{ route('blog.index') }}" class="text-blue-500">XEM THÊM</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($blogs as $blog)
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                    <img src="{{ $blog->blog_image }}" alt="{{ $blog->title }}" class="mb-4 rounded">
+                    <h3 class="text-lg font-bold">{{ $blog->title }}</h3>
+                        <p class="mt-2 text-green-500">{{ Str::limit($blog->excerpt, 50) }}</p>
+                        <a href="{{ route('blog.project_show', $blog->slug) }}" class="text-blue-500 mt-2 inline-block">Đọc thêm</a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    
         <div class="pt-3 mb-5">
             <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
                 <div class="item border rounded-lg">
@@ -262,6 +292,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+  
 
     @include('public.footer.footer')
 
