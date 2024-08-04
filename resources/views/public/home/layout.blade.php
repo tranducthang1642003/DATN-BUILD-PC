@@ -293,69 +293,49 @@
 
 
 <section>
-
-    <div class="container mx-auto py-6 p-10">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">TIN KHUYẾN MÃI MỚI</h2>
-            <a href="#" class="text-blue-500">XEM THÊM</a>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <img src="https://via.placeholder.com/300x150" alt="Promotion 1" class="mb-4 rounded">
-                <h3 class="text-lg font-bold">Giảm giá cực hot khi Build PC tại An Phát</h3>
-                <p class="mt-2 text-green-500">Giảm giá lên tới 30.000K</p>
+        <div class="container mx-auto py-6 p-10">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">TIN KHUYẾN MÃI MỚI</h2>
+                <a href="{{ route('blog.index') }}" class="text-blue-500">XEM THÊM</a>
             </div>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <img src="https://via.placeholder.com/300x150" alt="Promotion 2" class="mb-4 rounded">
-                <h3 class="text-lg font-bold">ĐẠI HỘI KHUYẾN MÃI LINH KIỆN MÁY TÍNH ASUS</h3>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <img src="https://via.placeholder.com/300x150" alt="Promotion 3" class="mb-4 rounded">
-                <h3 class="text-lg font-bold">Bảo Hành Plus Lâu Hơn - Yên Tâm Hơn</h3>
-                <p class="mt-2 text-blue-500">+1 NĂM Bảo hành chính hãng</p>
-                <p class="mt-1 text-blue-500">1000 GÓI Trị giá 2 TỶ đồng</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <img src="https://via.placeholder.com/300x150" alt="Promotion 4" class="mb-4 rounded">
-                <h3 class="text-lg font-bold">Quét VNPAY - Giảm Liền Tay</h3>
-                <p class="mt-2 text-yellow-500">Giảm giá lên tới 200K</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($blogs as $blog)
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                    <img src="{{ $blog->blog_image }}" alt="{{ $blog->title }}" class="mb-4 rounded">
+                    <h3 class="text-lg font-bold">{{ $blog->title }}</h3>
+                        <p class="mt-2 text-green-500">{{ Str::limit($blog->excerpt, 50) }}</p>
+                        <a href="{{ route('blog.project_show', $blog->slug) }}" class="text-blue-500 mt-2 inline-block">Đọc thêm</a>
+                    </div>
+                @endforeach
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
+    <section class="product px-8 pt-6">
+    @foreach($bestsellingProducts as $product)
+        <div class="product-item mb-8">
+            <h2 class="text-xl font-bold">{{ $product->name }}</h2>
 
-<section class="produtc px-8 pt-6">
-    <div class="bg-white rounded-lg shadow-2xl shadow-white">
-        <div class="autoplay-evaluate text-center">
-            <div class="text-sale text-2xl md:text-2xl text-black max-w-4xl">
-                <div class="text-evaluate">ĐÁNH GIÁ TỪ KHÁCH HÀNG</div>
-                <div class="text-description  text-xl">
-                    <p> Nguyễn Văn linh</p>
-                    <img src="https://nguyencongpc.vn/media/news/0709_tienlinh.jpg" alt="" class="w-36 mx-auto	px-8 rounded-r-3xl	">
-                    Tôi rất hài lòng với sản phẩm máy xay sinh tố XYZ và dịch vụ của cửa hàng. Đây là một lựa chọn
-                    tốt
-                    cho những ai đang tìm kiếm một máy xay chất lượng với giá cả phải chăng. Tôi chắc chắn sẽ giới
-                    thiệu
-                    sản phẩm này cho bạn bè và người thân.
-                </div>
-            </div>
-            <div class="text-sale text-2xl md:text-2xl text-black max-w-4xl">
-                <div class="text-evaluate">ĐÁNH GIÁ TỪ KHÁCH HÀNG</div>
-                <div class="text-description  text-xl">
-                    <p> Nguyễn Văn linh</p>
-                    <img src="https://nguyencongpc.vn/media/news/0709_tienlinh.jpg" alt="" class="w-36 mx-auto	px-8 rounded-r-3xl	">
-                    Tôi rất hài lòng với sản phẩm máy xay sinh tố XYZ và dịch vụ của cửa hàng. Đây là một lựa chọn
-                    tốt
-                    cho những ai đang tìm kiếm một máy xay chất lượng với giá cả phải chăng. Tôi chắc chắn sẽ giới
-                    thiệu
-                    sản phẩm này cho bạn bè và người thân.
-                </div>
-            </div>
-
+            <ul class="mt-4">
+                @foreach($reviews->where('product_id', $product->id) as $review)
+                    <li class="mt-2 p-2 border-b border-gray-200 flex items-center">
+                    @if($review->user->profile_image)
+                                        <img src="{{ $review->user->profile_image }}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                                    @else
+                                        <i class="fas fa-users text-gray-500 text-3xl mr-4" ></i> 
+                                    @endif
+                        <div>
+                            <p><strong>{{ $review->user->name ?? 'Khách' }}:</strong></p>
+                            <p class="text-sm text-gray-600">{{ $review->created_at->format('d/m/Y') }}</p>
+                            <p class="mt-1">{{ $review->comment }}</p>
+                            <p class="mt-1 text-yellow-500">{{ $review->getStars() }}</p>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
         </div>
-    </div>
+    @endforeach
 </section>
 
 <section>
@@ -542,23 +522,24 @@
 </style>
 
 
+
 <script>
-    $(document).ready(function() {
-        $('.add-to-cart-btn').click(function(event) {
+    $(document).ready(function () {
+        $('.add-to-cart-btn').click(function (event) {
             event.preventDefault();
             var button = $(this);
             var overlay = button.find('.loading-overlay');
             var productId = button.data('product-id');
             overlay.show();
             $.ajax({
-                url: '{{ route("cart.add") }}',
+                url: '{{ route('cart.add') }}',
                 method: 'POST',
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'product_id': productId,
                     'quantity': 1
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         $('#cart-count').text(response.totalQuantity);
 
@@ -584,11 +565,7 @@
 
 
 
-        var cartCount = {
-            {
-                session('cart_count', 0)
-            }
-        };
+        var cartCount = {{ session('cart_count', 0) }};
         $('#cart-count').text(cartCount);
     });
 </script>

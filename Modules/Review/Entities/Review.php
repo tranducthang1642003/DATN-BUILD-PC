@@ -19,4 +19,12 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+
+    // Thêm phương thức để lấy số sao nếu cần
+    public function getStars(): string
+    {
+        return str_repeat('⭐', $this->rating);
+    }
 }

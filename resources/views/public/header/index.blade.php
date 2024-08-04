@@ -271,28 +271,25 @@
             <div class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
                 <div class="nav__menu md:flex space-x-6 text-gray-700">
                     <ul class="flex space-x-6 text-white items-center	">
-                        <li class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer" style="z-index: 100;" onclick="toggleDropdown()">
-                            <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
-                            <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
-                            <!-- Dropdown Menu -->
-                            <ul id="dropdownMenu" class="absolute left-0 top-full mt-2 hidden w-60 bg-white rounded-md shadow-md z-10">
-                                {{-- @foreach ($featuredCategories as $category)
-                                <li class="relative">
-                                    <a href="{{ route('category.show', $category->slug) }}" class="flex items-center justify-between hover:bg-gray-100 rounded-md px-3 py-2">
-                                <div class="flex items-center space-x-2">
-                                    <img src="{{ $category->image }}" alt="{{ $category->category_name }}" class="w-10 h-10 object-cover rounded-full">
-                                    <span class="truncate">{{ $category->category_name }}</span>
-                                </div>
-                                <span class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 12a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 12z" clip-rule="evenodd" />
-                                    </svg>
-                                </span>
-                                </a>
-                        </li>
-                        @endforeach --}}
-                    </ul>
-                    </li>
+                    <li class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer" style="z-index: 100;" onclick="toggleDropdown()">
+    <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+    <a href="#" onclick="toggleDropdown()" class="mr-2">DANH MỤC SẢN PHẨM</a>
+                   
+    <!-- Dropdown Menu -->
+
+<ul id="dropdownMenu" class="absolute left-0 top-full mt-2 w-full bg-white rounded-md shadow-md z-10  grid-cols-1 gap-2 p-2 hidden group-hover:block">
+    @foreach ($featuredCategories as $category)
+        <li class="relative">
+            <a href="{{ route('category.show', $category->slug) }}" class="flex items-center justify-between hover:bg-gray-100 rounded-md px-3 py-2">
+                <div class="flex items-center space-x-2">
+                    <img src="{{ $category->image }}" alt="{{ $category->category_name }}" class="w-10 h-10 object-cover rounded-full">
+                    <span class="truncate">{{ $category->category_name }}</span>
+                </div>
+            </a>
+        </li>
+    @endforeach 
+</ul>
+</li>
                     <li class="flex items-center">
                         <ul class="navbar-menu flex">
                             @foreach ($menuItems as $menuItem)

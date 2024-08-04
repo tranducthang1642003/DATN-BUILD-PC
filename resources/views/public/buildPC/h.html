@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiệu ứng đường viền đa màu CSS</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 4px solid transparent;
+            border-top-color: red;
+            border-left-color: blue;
+            animation: border-rotate 3s linear infinite;
+        }
+
+        @keyframes border-rotate {
+            0% {
+                transform: rotate(0deg);
+                border-top-color: red;
+                border-right-color: yellow;
+                border-bottom-color: green;
+                border-left-color: blue;
+            }
+            25% {
+                border-top-color: yellow;
+                border-right-color: green;
+                border-bottom-color: blue;
+                border-left-color: red;
+            }
+            50% {
+                border-top-color: green;
+                border-right-color: blue;
+                border-bottom-color: red;
+                border-left-color: yellow;
+            }
+            75% {
+                border-top-color: blue;
+                border-right-color: red;
+                border-bottom-color: yellow;
+                border-left-color: green;
+            }
+            100% {
+                transform: rotate(360deg);
+                border-top-color: red;
+                border-right-color: yellow;
+                border-bottom-color: green;
+                border-left-color: blue;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="button">Hover Me</button>
+</body>
+</html>
