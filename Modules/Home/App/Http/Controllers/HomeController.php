@@ -12,10 +12,8 @@ use Modules\Category\Entities\Category;
 use Modules\Blog\Entities\Blogs;
 use Modules\Like\Entities\wishlists;
 use Illuminate\Support\Facades\Auth;
-
 use Modules\Settings\Entities\Menu;
-use Modules\Settings\Entities\Settings;
-use Modules\Settings\Entities\ImageType;
+use Modules\Review\Entities\Review; // Import Review
 
 
 class HomeController extends Controller
@@ -27,19 +25,28 @@ class HomeController extends Controller
         $this->homeRepository = $homeRepository;
     }
 
+    
     public function index()
     {
-
         $categories = $this->homeRepository->getAllProducts();
         $featuredCategories = $this->homeRepository->getFeaturedCategories();
         $saleproduct = $this->homeRepository->getSaleProducts();
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
         $menuItems = Menu::all();
-        $logoImageType = ImageType::where('name', 'Logo')->first();
-        $logos = $logoImageType ? Settings::where('image_type_id', $logoImageType->id)->get() : collect();
-        $user=Auth::User();
-        $likeItem = wishlists::where('user_id', auth()->id())->get();
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'logos','likeItem'));
+        $blogs = Blogs::latest()->take(4)->get(); 
+
+        // Lấy tất cả bình luận cho các sản phẩm
+        $productIds = $bestsellingProducts->pluck('id'); // Lấy danh sách ID sản phẩm
+        $reviews = Review::whereIn('product_id', $productIds)->with('user')->get(); // Eager load user
+
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews'));
+    }
+    public function showByCategory($slug)
+    {
+        $category = Category::where('slug', $slug)->firstOrFail();
+        $products = Product::where('category_id', $category->id)->get();
+
+        return view('public.home.layout', compact('category', 'products'));
     }
 
     public function showCategory($slug, Request $request)

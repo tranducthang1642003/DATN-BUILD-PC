@@ -5,6 +5,8 @@ namespace App\Http\View\Composers;
 use Illuminate\View\View;
 use Modules\Settings\Entities\ImageType;
 use Modules\Settings\Entities\Settings;
+use Modules\Category\Entities\Category;
+use Modules\Settings\Entities\Menu;
 
 class LogoComposer
 {
@@ -13,6 +15,8 @@ class LogoComposer
     protected $banners;
     protected $banners_top;
     protected $poster_product;
+    protected $categories; // Add this line to hold categories
+    protected $menuItems; // Add this line to hold menu items
 
     public function __construct()
     {
@@ -25,8 +29,14 @@ class LogoComposer
         $this->logos = $logoImageType ? Settings::where('image_type_id', $logoImageType->id)->get() : collect();
         $this->banners_top_header = $bannerTopHeaderImageType ? Settings::where('image_type_id', $bannerTopHeaderImageType->id)->get() : collect();
         $this->banners = $bannerImageType ? Settings::where('image_type_id', $bannerImageType->id)->get() : collect();
-        $this->banners_top = $bannerTopImageType ? Settings::where('image_type_id', $bannerTopImageType->id)->orderBy('created_at', 'desc')->get() : collect();
-        $this->poster_product = $posterProductImageType ? Settings::where('image_type_id', $posterProductImageType->id)->orderBy('created_at', 'desc')->get() : collect();
+        $this->banners_top = $bannerTopImageType ? Settings::where('image_type_id', $bannerTopImageType->id)->get() : collect();
+        $this->poster_product = $posterProductImageType ? Settings::where('image_type_id', $posterProductImageType->id)->get() : collect();
+
+        // Fetch featured categories
+        $this->categories = Category::where('featured', true)->get(); // Adjust query if needed
+
+        // Fetch menu items
+        $this->menuItems = Menu::all(); // Fetch all menu items
     }
 
     public function compose(View $view)
@@ -36,5 +46,7 @@ class LogoComposer
         $view->with('banners', $this->banners);
         $view->with('banners_top', $this->banners_top);
         $view->with('poster_product', $this->poster_product);
+        $view->with('featuredCategories', $this->categories); // Pass featured categories to view
+        $view->with('menuItems', $this->menuItems); // Pass menu items to view
     }
 }
