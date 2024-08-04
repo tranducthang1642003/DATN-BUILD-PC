@@ -183,7 +183,7 @@ class BuildPCController extends Controller
     
         // Kiểm tra nếu có các mục cấu hình để thêm vào giỏ hàng
         if (empty($configurationItems)) {
-            return redirect()->route('cart.index')->with('error', 'Không có sản phẩm nào để thêm vào giỏ hàng.');
+            return redirect()->route('cart')->with('error', 'Không có sản phẩm nào để thêm vào giỏ hàng.');
         }
     
         try {
@@ -204,12 +204,12 @@ class BuildPCController extends Controller
             session()->forget('configuration_items');
     
             // Redirect với thông báo thành công
-            return redirect()->route('cart.index')->with('success', 'Đã thêm các linh kiện vào giỏ hàng thành công.');
+            return redirect()->route('cart')->with('success', 'Đã thêm các linh kiện vào giỏ hàng thành công.');
     
         } catch (\Exception $e) {
             // Ghi lại lỗi và redirect với thông báo lỗi
             \Log::error($e->getMessage());
-            return redirect()->route('cart.index')->with('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+            return redirect()->route('cart')->with('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
         }
     }
     
