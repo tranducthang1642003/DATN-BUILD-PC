@@ -47,7 +47,7 @@
                         <form action="{{route('deletelike',$item)}}" method="POST">
                             @csrf
                             @method('DELETE') 
-                            <button class="btn btn-danger border p-2 bg-blue-200 rounded-xl btn-sm" onclick="return confirm('mày có chắc muốn xóa ko')" ><i class="fa fa-heart" style="color:#ff0000" ></i></button>
+                            <button class="btn btn-danger border p-2 bg-blue-200 rounded-xl btn-sm" onclick="return confirm('ban có chắc muốn xóa ko')" ><i class="fa fa-heart" style="color:#ff0000" ></i></button>
                         </form> 
                     </td>
                 </tr>

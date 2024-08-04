@@ -37,9 +37,9 @@ class HomeController extends Controller
         $menuItems = Menu::all();
         $logoImageType = ImageType::where('name', 'Logo')->first();
         $logos = $logoImageType ? Settings::where('image_type_id', $logoImageType->id)->get() : collect();
-
-        // dd($logos);
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'logos'));
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'logos','likeItem'));
     }
 
     public function showCategory($slug, Request $request)
@@ -68,6 +68,8 @@ class HomeController extends Controller
 
     public function show($slug)
     {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $product = Product::where('slug', $slug)->firstOrFail();
         $primary_image = ProductImage::where('product_id', $product->id)
             ->where('is_primary', 1)
@@ -78,10 +80,12 @@ class HomeController extends Controller
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
         $menuItems = Menu::all();
-        return view('public.product.detail-product', compact('product','menuItems'));
+        return view('public.product.detail-product', compact('product','menuItems','likeItem'));
     }
     public function productShow(Request $request)
     {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $categories = Category::all();
         $productsQuery = Product::query();
         $menuItems = Menu::all();
@@ -125,10 +129,12 @@ class HomeController extends Controller
             ]);
         }
 
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems','likeItem'));
     }
     public function showSearch(Request $request)
     {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $query = $request->input('query');
 
         $products = Product::where(function ($q) use ($query) {
@@ -144,7 +150,7 @@ class HomeController extends Controller
 
         $brands = Brand::whereIn('id', $products->pluck('brand_id'))->get();
         $products->load('reviews');
-        return view('public.product.search-product', compact('products', 'query', 'brands', 'request'));
+        return view('public.product.search-product', compact('products', 'query', 'brands', 'request','likeItem'));
     }
     public function suggestions(Request $request)
     {

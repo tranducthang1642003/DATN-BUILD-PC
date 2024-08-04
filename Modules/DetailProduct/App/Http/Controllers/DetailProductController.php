@@ -15,6 +15,7 @@ class DetailProductController extends Controller
      */
     public function index()
     {
+        
         return view('public.product.detail-product');
     }
 
@@ -39,6 +40,7 @@ class DetailProductController extends Controller
      */
     public function show($id)
     {
+        
         $product = DB::table('products')->get();
         $products = DB::table('products')->where('id', $id)->first();
         return view('public.product.detail-product', ['id' => $id, 'products' => $products, 'product' => $product]);
