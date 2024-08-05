@@ -34,12 +34,12 @@ class HomeController extends Controller
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
         $menuItems = Menu::all();
         $blogs = Blogs::latest()->take(4)->get(); 
-
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         // Lấy tất cả bình luận cho các sản phẩm
         $productIds = $bestsellingProducts->pluck('id'); // Lấy danh sách ID sản phẩm
         $reviews = Review::whereIn('product_id', $productIds)->with('user')->get(); // Eager load user
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews'));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews','likeItem'));
     }
     public function showByCategory($slug)
     {
@@ -55,7 +55,7 @@ class HomeController extends Controller
         $category = $this->homeRepository->getCategoryBySlug($slug);
         $products = $this->homeRepository->getProductByProduct($slug);
         $menuItems = Menu::all();
-
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $products = $this->applyFilters($products, $request);
         $products = $this->applySorting($products, $request);
 
@@ -70,7 +70,7 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request','menuItems'));
+        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request','menuItems','likeItem'));
     }
 
     public function show($slug)
