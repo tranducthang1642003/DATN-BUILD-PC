@@ -1,5 +1,4 @@
 @include('public.header.index')
-
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
     <nav class="bg-white mt-3 rounded-md w-full hidden md:block">
         <ol class="list-reset flex">

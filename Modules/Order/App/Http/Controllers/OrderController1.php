@@ -90,9 +90,11 @@ class OrderController1 extends Controller
 
         CartItem::where('user_id', $user->id)->delete();
         Mail::to($user->email)->send(new CheckoutEmail($order));
-
-        if ($paymentMethod === 'vnpay') {
-            return redirect()->route('orders.vnpay.payment.get', ['order_code' => $orderCode]);
+        if ($paymentMethod === 'momo') {
+            return redirect()->route('momo', ['order_code' => $orderCode]);
+        } elseif ($paymentMethod === 'momo')
+        {
+            return redirect()->route('momo', ['order_code' => $orderCode]);
         }
 
         return redirect()->route('orders.paymentsuccess')->with('success', 'Đặt hàng thành công.');
@@ -168,10 +170,9 @@ class OrderController1 extends Controller
         ];
 
        
-ksort($inputData);
-$query = http_build_query($inputData);
-$vnp_SecureHash = md5($vnp_HashSecret . $query);
-
+        ksort($inputData);
+        $query = http_build_query($inputData);
+        $vnp_SecureHash = md5($vnp_HashSecret . $query);
         Log::info('VNPAY Request Data:', [
             'vnp_Url' => $vnp_Url,
             'query' => $query,
@@ -220,5 +221,6 @@ $vnp_SecureHash = md5($vnp_HashSecret . $query);
             return redirect()->route('orders.checkout')->with('error', 'Thanh toán không hợp lệ.');
         }
     }
+    
 
 }
