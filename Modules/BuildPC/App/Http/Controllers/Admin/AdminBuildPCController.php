@@ -35,7 +35,6 @@ class AdminBuildPCController extends Controller
     {
         $configuration = Configuration::with('items.product')->findOrFail($id);
         $configurationItems = $configuration->items;
-        $totalPrice = $configuration->total_price;
 
         foreach ($configurationItems as $item) {
             $primaryImage = $item->product->images()->where('is_primary', true)->first();
