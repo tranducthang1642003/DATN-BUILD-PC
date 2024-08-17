@@ -40,7 +40,7 @@
                         <div class="mb-4">
                             <label for="price" class="block text-sm font-medium leading-6  mb-2">Giá giảm</label>
                             <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{$voucher->discount}}" required>
-                            <div id="discount-error" class="text-red-600 text-sm mt-1 hidden">Giá trị giảm giá phải là một số từ 1 đến 1000000000.</div>
+                            <span id="discount-error" class="text-red-500 text-sm"></span>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
@@ -83,16 +83,22 @@
     document.addEventListener('DOMContentLoaded', function() {
         const discountInput = document.getElementById('discount');
         const discountError = document.getElementById('discount-error');
-
-        discountInput.addEventListener('input', function() {
-            let discountValue = parseInt(discountInput.value);
-
-            if (isNaN(discountValue) || discountValue < 0 || discountValue > 1000000000) {
+        function validateDiscount() {
+            const value = parseFloat(discountInput.value);
+            if (isNaN(value) || value < 0) {
+                discountError.textContent = 'Giá giảm phải là một số dương.';
                 discountInput.classList.add('border-red-500');
-                discountError.classList.remove('hidden');
+                return false;
             } else {
+                discountError.textContent = '';
                 discountInput.classList.remove('border-red-500');
-                discountError.classList.add('hidden');
+                return true;
+            }
+        }
+        discountInput.addEventListener('input', validateDiscount);
+        document.getElementById('voucher-form').addEventListener('submit', function(event) {
+            if (!validateDiscount()) {
+                event.preventDefault();
             }
         });
     });

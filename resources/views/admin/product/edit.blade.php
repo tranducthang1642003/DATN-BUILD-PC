@@ -46,17 +46,19 @@
                         <div class="mb-4">
                             <label for="price" class="block text-sm font-medium leading-6  mb-2">Đơn giá</label>
                             <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->price }}" required>
+                            <span id="price-error" class="text-red-500 text-sm"></span>
                         </div>
                         <div class="mb-4">
                             <label for="sale" class="block text-sm font-medium leading-6  mb-2">Giảm giá</label>
                             <input type="number" name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->sale }}" required>
+                            <span id="sale-error" class="text-red-500 text-sm"></span>
                         </div>
-
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
                             <label for="quantity" class="block text-sm font-medium leading-6  mb-2">Số lượng</label>
                             <input type="number" name="quantity" id="quantity" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->quantity }}" required>
+                            <span id="quantity-error" class="text-red-500 text-sm"></span>
                         </div>
                         <div class="mb-4">
                             <label for="category_id" class="block text-sm font-medium leading-6  mb-2">Danh mục</label>
@@ -83,6 +85,7 @@
                         <div class="pb-4 my-4">
                             <label for="stock" class="block text-sm font-medium leading-6  mb-2">Tồn kho</label>
                             <input type="number" name="stock" id="stock" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->stock }}" required>
+                            <span id="stock-error" class="text-red-500 text-sm"></span>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
@@ -158,4 +161,45 @@
     </ul>
 </div>
 @endif
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const priceInput = document.getElementById('price');
+        const saleInput = document.getElementById('sale');
+        const quantityInput = document.getElementById('quantity');
+        const stockInput = document.getElementById('stock');
+        const priceError = document.getElementById('price-error');
+        const saleError = document.getElementById('sale-error');
+        const quantityError = document.getElementById('quantity-error');
+        const stockError = document.getElementById('stock-error');
+        function validateInput(input, errorElement, validationFn) {
+            if (!validationFn(input.value)) {
+                errorElement.textContent = 'Giá trị không hợp lệ.';
+                input.classList.add('border-red-500');
+                return false;
+            } else {
+                errorElement.textContent = '';
+                input.classList.remove('border-red-500');
+                return true;
+            }
+        }
+        function validateForm() {
+            let valid = true;
+            valid = validateInput(priceInput, priceError, value => value > 0);
+            valid = validateInput(saleInput, saleError, value => value >= 0) && valid;
+            valid = validateInput(quantityInput, quantityError, value => value >= 0) && valid;
+            valid = validateInput(stockInput, stockError, value => value >= 0) && valid;
+            return valid;
+        }
+        priceInput.addEventListener('input', () => validateInput(priceInput, priceError, value => value > 0));
+        saleInput.addEventListener('input', () => validateInput(saleInput, saleError, value => value >= 0));
+        quantityInput.addEventListener('input', () => validateInput(quantityInput, quantityError, value => value >= 0));
+        stockInput.addEventListener('input', () => validateInput(stockInput, stockError, value => value >= 0));
+        form.addEventListener('submit', function(event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 @include('admin.layout.fotter')

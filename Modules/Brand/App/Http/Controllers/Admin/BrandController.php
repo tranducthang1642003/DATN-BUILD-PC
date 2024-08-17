@@ -13,6 +13,7 @@ class BrandController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Thương hiệu';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -24,12 +25,13 @@ class BrandController extends Controller
             $brandsQuery->where('name', 'like', '%' . $keyword . '%');
         }
         $brands = $brandsQuery->paginate(10);
-        return view('admin.brand.brand', compact('brands'));
+        return view('admin.brand.brand', compact('brands', 'title'));
     }
     public function create()
     {
+        $title = 'Admin - Thương hiệu - Thêm mới';
         $brand = Brand::All();
-        return view('admin.brand.add', compact('brand'));
+        return view('admin.brand.add', compact('brand', 'title'));
     }
     public function store(Request $request)
     {
@@ -58,8 +60,9 @@ class BrandController extends Controller
     }
     public function edit($id)
     {
+        $title = 'Admin - Thương hiệu - Chỉnh sửa';
         $brand = Brand::findOrFail($id);
-        return view('admin.brand.edit', compact('brand'));
+        return view('admin.brand.edit', compact('brand', 'title'));
     }
     public function update(Request $request, $id)
     {

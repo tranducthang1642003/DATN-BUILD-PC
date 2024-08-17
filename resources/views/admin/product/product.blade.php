@@ -108,7 +108,7 @@
                     <div class="flex">
                         <img src="{{ asset($product->primary_image_url ?? 'placeholder.jpg') }}" width="50" alt="" class="hidden sm:table-cell">
                         <div class="pl-2">
-                            <p class="product-name">{{ $product->product_name }}</p>
+                            <p class="w-80">{{ $product->product_name }}</p>
                             <span>{{ $product->product_code }}</span>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 <style>
-    .brand_active {
+    .buildpc_active {
         background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
         color: white;
     }
@@ -10,8 +10,6 @@
         <a class="hover:text-slate-50" href="{{ route('admin') }}"><ion-icon name="home"></ion-icon></a>
         <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
         <span>Manage</span>
-        <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
-        <a class="hover:text-slate-50" href="{{ route('product') }}"><span>Sản phẩm</span></a>
         <ion-icon class="mx-4 text-sm" name="chevron-forward"></ion-icon>
         <span>Build PC</span>
     </div>
