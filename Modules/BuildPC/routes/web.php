@@ -30,5 +30,5 @@ Route::group([], function () {
 });
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/buildpc', [AdminBuildPCController::class, 'index'])->name('admin.buildpc');
-    Route::delete('admin/buildpc/{id}', [AdminBuildPCController::class, 'destroy'])->name('delete.buildpc');
+    Route::get('admin/buildpc/{id}', [AdminBuildPCController::class, 'show'])->name('show.buildpc');
 });

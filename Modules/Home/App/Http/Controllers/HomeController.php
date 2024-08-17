@@ -34,12 +34,12 @@ class HomeController extends Controller
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
         $menuItems = Menu::all();
         $blogs = Blogs::latest()->take(4)->get(); 
-
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         // Lấy tất cả bình luận cho các sản phẩm
         $productIds = $bestsellingProducts->pluck('id'); // Lấy danh sách ID sản phẩm
         $reviews = Review::whereIn('product_id', $productIds)->with('user')->get(); // Eager load user
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews'));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews','likeItem'));
     }
     public function showByCategory($slug)
     {
@@ -55,7 +55,7 @@ class HomeController extends Controller
         $category = $this->homeRepository->getCategoryBySlug($slug);
         $products = $this->homeRepository->getProductByProduct($slug);
         $menuItems = Menu::all();
-
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $products = $this->applyFilters($products, $request);
         $products = $this->applySorting($products, $request);
 
@@ -70,11 +70,13 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request','menuItems'));
+        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request','menuItems','likeItem'));
     }
 
     public function show($slug)
     {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $product = Product::where('slug', $slug)->firstOrFail();
         $primary_image = ProductImage::where('product_id', $product->id)
             ->where('is_primary', 1)
@@ -85,10 +87,12 @@ class HomeController extends Controller
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
         $menuItems = Menu::all();
-        return view('public.product.detail-product', compact('product','menuItems'));
+        return view('public.product.detail-product', compact('product','menuItems','likeItem'));
     }
     public function productShow(Request $request)
     {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $categories = Category::all();
         $productsQuery = Product::query();
         $menuItems = Menu::all();
@@ -132,10 +136,12 @@ class HomeController extends Controller
             ]);
         }
 
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems','likeItem'));
     }
     public function showSearch(Request $request)
     {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $query = $request->input('query');
 
         $products = Product::where(function ($q) use ($query) {
@@ -151,7 +157,7 @@ class HomeController extends Controller
 
         $brands = Brand::whereIn('id', $products->pluck('brand_id'))->get();
         $products->load('reviews');
-        return view('public.product.search-product', compact('products', 'query', 'brands', 'request'));
+        return view('public.product.search-product', compact('products', 'query', 'brands', 'request','likeItem'));
     }
     public function suggestions(Request $request)
     {
