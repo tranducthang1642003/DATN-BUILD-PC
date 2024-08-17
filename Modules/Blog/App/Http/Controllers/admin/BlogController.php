@@ -14,6 +14,7 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Bài viết';
         $blogsQuery = blogs::with('category_blog');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -25,13 +26,14 @@ class BlogController extends Controller
             $blogsQuery->where('blog_name', 'like', '%' . $keyword . '%');
         }
         $blogs = $blogsQuery->paginate(5);
-        return view('admin.blog.blog', compact('blogs'));
+        return view('admin.blog.blog', compact('blogs', 'title'));
     }
     public function edit($id)
     {
+        $title = 'Admin - Bài viết - Chỉnh sửa';
         $category_blog = CategoryBlog::all();
         $blog = blogs::with('category_blog')->findOrFail($id);
-        return view('admin.blog.edit', compact('blog', 'category_blog'));
+        return view('admin.blog.edit', compact('blog', 'category_blog, title'));
     }
     public function update_blog(Request $request, $id)
     {
@@ -74,9 +76,10 @@ class BlogController extends Controller
 
     public function add()
     {
+        $title = 'Admin - Bài viết - Thêm mới';
         $category_blog = CategoryBlog::all();
         $blog = blogs::with('category_blog');
-        return view('admin.blog.add', compact('blog', 'category_blog'));
+        return view('admin.blog.add', compact('blog', 'category_blog', 'title'));
     }
     public function add_blog(Request $request)
     {

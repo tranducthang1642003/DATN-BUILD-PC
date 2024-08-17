@@ -11,6 +11,7 @@ class MenuController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Cài đặt banner';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -22,7 +23,7 @@ class MenuController extends Controller
             $menusQuery->where('name', 'like', '%' . $keyword . '%');
         }
         $menus = $menusQuery->paginate(10);
-        return view('admin.menu.menu', compact('menus'));
+        return view('admin.menu.menu', compact('menus', 'title'));
     }
 
     public function store(Request $request)

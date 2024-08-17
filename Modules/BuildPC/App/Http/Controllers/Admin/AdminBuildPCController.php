@@ -14,6 +14,7 @@ class AdminBuildPCController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Build PC';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -50,7 +51,7 @@ class AdminBuildPCController extends Controller
                 'secondary_images' => $secondary_images,
             ];
         }
-        return view('admin.product.buildpc', compact('products', 'products_images'));
+        return view('admin.product.buildpc', compact('products', 'products_images', 'title'));
     }
     /**
      * Show the form for creating a new resource.

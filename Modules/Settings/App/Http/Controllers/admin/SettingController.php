@@ -12,12 +12,13 @@ class SettingController extends Controller
 {
     public function index()
     {
+        $title = 'Admin - Cài đặt banner';
         $imageTypes = ImageType::all();
         $settingsBanner = Settings::with('imageType')->ofType('Banner')->get();
         $settingsLogo = Settings::with('imageType')->ofType('Logo')->get();
         $settingsPoster = Settings::with('imageType')->ofType('Poster')->get();
         $settingsBannerHorizontal = Settings::with('imageType')->ofType('banner_horizontal')->get();
-        return view('admin.setting.setting', compact('settingsBanner', 'settingsLogo', 'settingsPoster', 'settingsBannerHorizontal', 'imageTypes'));
+        return view('admin.setting.setting', compact('settingsBanner', 'settingsLogo', 'settingsPoster', 'settingsBannerHorizontal', 'imageTypes', 'title'));
     }
 
     public function store(Request $request)

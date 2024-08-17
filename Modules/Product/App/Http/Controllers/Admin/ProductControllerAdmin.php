@@ -16,6 +16,7 @@ class ProductControllerAdmin extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Sản phẩm';
         $statusCounts = [
             '1' => Product::where('status', 1)->count(),
             '2' => Product::where('status', 2)->count(),
@@ -55,18 +56,19 @@ class ProductControllerAdmin extends Controller
                 'secondary_images' => $secondary_images,
             ];
         }
-        return view('admin.product.product', compact('products', 'statusCounts', 'products_images'));
+        return view('admin.product.product', compact('products', 'statusCounts', 'products_images', 'title'));
     }
 
     public function edit($id)
     {
+        $title = 'Admin - Sản phẩm - Chỉnh sửa';
         $brands = Brand::all();
         $categories = Category::all();
         $product = Product::with('brand', 'category')->findOrFail($id);
         $productImages = $product->productImages()->orderBy('is_primary', 'desc')->get();
         $primaryImage = $productImages->where('is_primary', true)->first();
         $secondaryImages = $productImages->where('is_primary', false);
-        return view('admin.product.edit', compact('product', 'brands', 'categories', 'primaryImage', 'secondaryImages'));
+        return view('admin.product.edit', compact('product', 'brands', 'categories', 'primaryImage', 'secondaryImages', 'title'));
     }
 
 
@@ -156,10 +158,11 @@ class ProductControllerAdmin extends Controller
     }
     public function add()
     {
+        $title = 'Admin - Sản phẩm - Thêm mới';
         $brands = Brand::All();
         $categories = Category::all();
         $product = Product::with('brand', 'category', 'image');
-        return view('admin.product.add', compact('product', 'brands', 'categories'));
+        return view('admin.product.add', compact('product', 'brands', 'categories', 'title'));
     }
     public function add_product(Request $request)
     {

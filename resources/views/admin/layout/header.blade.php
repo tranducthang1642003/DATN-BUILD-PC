@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ $title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -55,8 +55,18 @@
                         <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
                     </button>
                     <a class="w-full button-none" id="product_list" href="{{ route('product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
-                    <a class="w-full button-none" id="product_list" href="{{ route('admin.buildpc') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Build PC</button></a>
+                    <!-- <a class="w-full button-none" id="product_list" href="{{ route('admin.buildpc') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Build PC</button></a> -->
                     <a class="w-full button-none" id="product_add" href="{{ route('add_product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
+                </div>
+                <div class="">
+                    <a href="{{ route('admin.buildpc') }}">
+                        <button id="buildPC" class="button_sidebar buildPC_active">
+                            <p><ion-icon class="icon_sidebar" name="chatbox-outline"></ion-icon>Build PC</p>
+                            <ion-icon name="-forward-outline" class="chevron-icon"></ion-icon>
+                        </button>
+                    </a>
+                    <!-- <a class="w-full button-none" id="review_list" href="{{ route('adminreview') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Trang chính</button></a> -->
+                    <!-- <a class="w-full button-none" id="review_add" href="{{ route('menu.index') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class=""></ion-icon>Menu</button></a> -->
                 </div>
                 <div class="">
                     <button id="category" class="button_sidebar category_active">

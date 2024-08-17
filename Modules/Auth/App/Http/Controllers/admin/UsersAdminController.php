@@ -14,6 +14,7 @@ class UsersAdminController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Người dùng';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -25,15 +26,17 @@ class UsersAdminController extends Controller
             $usersQuery->where('name', 'like', '%' . $keyword . '%');
         }
         $users = $usersQuery->paginate(10);
-        return view('admin.user.user', compact('users'));
+        return view('admin.user.user', compact('users', 'title'));
     }
     public function edit($id)
     {
+        $title = 'Admin - Người dùng - Chỉnh sửa';
         $user = User::findOrFail($id);
-        return view('admin.user.edit', compact('user'));
+        return view('admin.user.edit', compact('user', 'title'));
     }
     public function update_user(Request $request, $id)
     {
+       
         $validatedData = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -71,8 +74,9 @@ class UsersAdminController extends Controller
     }
     public function add()
     {
+        $title = 'Admin - Người dùng - Thêm mới';
         $user = User::All();
-        return view('admin.user.add', compact('user'));
+        return view('admin.user.add', compact('user', 'title'));
     }
     public function add_user(Request $request)
     {
