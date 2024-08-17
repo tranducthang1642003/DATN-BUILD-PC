@@ -58,11 +58,11 @@
                     <a class="w-full button-none" id="product_add" href="{{ route('add_product') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Thêm</button></a>
                 </div>
                 <div class="">
-                    <button id="buildpc" class="button_sidebar buildpc_active">
-                        <p class=""><ion-icon class="icon_sidebar" name="bag-outline"></ion-icon>Build PC</p>
-                        <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
-                    </button>
-                    <a class="w-full button-none" id="buildpc_list" href="{{ route('admin.buildpc') }}"><button class="button_sidebar_cl "><ion-icon name="caret-forward-outline" class="mr-3"></ion-icon>Danh sách</button></a>
+                    <a href="{{ route('admin.buildpc') }}">
+                        <button id="buildpc" class="button_sidebar buildpc_active">
+                            <p class=""><ion-icon class="icon_sidebar" name="desktop-outline"></ion-icon>Build PC</p>
+                        </button>
+                    </a>
                 </div>
                 <div class="">
                     <button id="category" class="button_sidebar category_active">

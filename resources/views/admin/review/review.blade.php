@@ -1,5 +1,5 @@
 <style>
-  .product_active {
+  .review_active {
     background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
     color: white;
   }

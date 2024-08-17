@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Modules\blog\Entities\Blogs;
+use Modules\Blog\Entities\Blogs;
 use Modules\Blog\Entities\CategoryBlog;
 
 class BlogController extends Controller

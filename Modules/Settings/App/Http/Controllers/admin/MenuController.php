@@ -4,7 +4,7 @@ namespace Modules\Settings\App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\settings\Entities\menu;
+use Modules\Settings\Entities\menu;
 use Modules\settings\Entities\ImageType;
 
 class MenuController extends Controller
