@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Product\Entities\Product;
 use Modules\Promotions\Entities\Promotions;
 
-class PromotionController extends Controller
+class promotionControllerAdmin extends Controller
 {
     public function index(Request $request)
     {
