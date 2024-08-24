@@ -10,7 +10,7 @@
     </nav>
     <div class="one-time mt-3 w-full max-w-max ">
     @foreach($banners_top as $banner)
-                <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="h-64">
+                <img src="{{ asset($banner->images_url) }}" alt="{{ $banner->alt_text }}" class="h-64">
         @endforeach
     </div>
     <section class="product pt-6">
@@ -74,15 +74,15 @@
         <div class="container mx-auto py-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">TIN TỨC NỔI BẬT</h2>
-                <a href="#" class="text-blue-500">XEM THÊM</a>
+                <a href="{{ route('blog.index') }}" class="text-blue-500">XEM THÊM</a>
             </div>
             <div class="autoplay-sanpham">
                 @foreach($featuredBlogs as $blog)
                     <div class="px-3">
                 <div class="bg-white px-4 my-3 border rounded-lg shadow-md">
                     <img src="{{ $blog -> blog_image }}" alt="Promotion 1" class="my-3 rounded" style="width:100%; height: 170px">
-                    <h3 class="text-lg font-bold truncate-2-lines">{{ $blog -> title }}</h3>
-                    <p class="mt-2 text-green-500 truncate-2-lines"></p>
+                    <h3 class="text-lg font-bold truncate-2-lines uppercase">{{ $blog -> title }}</h3>
+                    <a href="{{ route('blog.project_show', $blog->slug) }}" class="text-blue-500 mt-2 mb-2 inline-block">Đọc thêm</a>
                 </div>
                     </div>
                 @endforeach
@@ -126,33 +126,36 @@
 @include('public.footer.footer')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 <script>
-    $(document).ready(function() {
-        let minPrice = {{$minPrice}};
-        let maxPrice = {{$maxPrice}};
-        let selectedMinPrice = {{request() -> min_price ?? $minPrice}};
-        let selectedMaxPrice = {{request() -> max_price ?? $maxPrice}};
+$(document).ready(function() {
+    let minPrice = {{ $minPrice }};
+    let maxPrice = {{ $maxPrice }};
+    let selectedMinPrice = {{ request()->min_price ?? $minPrice }};
+    let selectedMaxPrice = {{ request()->max_price ?? $maxPrice }};
 
-        $("#price-slider").slider({
-            range: true,
-            min: minPrice,
-            max: maxPrice,
-            values: [selectedMinPrice, selectedMaxPrice],
-            slide: function(event, ui) {
-                $("#min-price").val(ui.values[0]);
-                $("#max-price").val(ui.values[1]);
-                $("#price-range").text("$" + ui.values[0] + " - $" + ui.values[1]);
-                fetchProducts();
-            }
-        });
-
-        $("#price-range").text("$" + selectedMinPrice + " - $" + selectedMaxPrice);
-
-        $(".brand-checkbox").change(function() {
+    $("#price-slider").slider({
+        range: true,
+        min: minPrice,
+        max: maxPrice,
+        values: [selectedMinPrice, selectedMaxPrice],
+        slide: function(event, ui) {
+            $("#min-price").val(ui.values[0]);
+            $("#max-price").val(ui.values[1]);
+            $("#price-range").text(ui.values[0].toLocaleString('en-US') + " VND - " + ui.values[1].toLocaleString('en-US') + " VND");
             fetchProducts();
-        });
+        }
+    });
 
-        function fetchProducts() {
+    $("#price-range").text(selectedMinPrice.toLocaleString('en-US') + " VNĐ - " + selectedMaxPrice.toLocaleString('en-US') + " VND");
+
+    $(".brand-checkbox").change(function() {
+        fetchProducts();
+    });
+
+    function fetchProducts() {
+        $("#loading-screen").show();
+        setTimeout(function() {
             $.ajax({
                 url: "{{ route('productShow') }}",
                 method: "GET",
@@ -166,8 +169,19 @@
                 },
                 error: function(xhr) {
                     console.error('AJAX Error:', xhr.responseText);
+                },
+                complete: function() {
+                    // Ẩn màn hình loading sau khi lọc xong sản phẩm
+                    $("#loading-screen").hide();
                 }
             });
-        }
+        }, 5000);
+    }
+
+    // Gọi hàm fetchProducts() khi cần thiết (ví dụ khi thay đổi bộ lọc)
+    $(".brand-checkbox").change(function() {
+        fetchProducts();
     });
+});
+
 </script>

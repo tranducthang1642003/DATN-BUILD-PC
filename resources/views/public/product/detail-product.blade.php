@@ -140,7 +140,6 @@
                 </div>
             </div>
         </div>
-
         <div class="box-read-product-detail mt-3 md:mt-5 grid gap-1 grid-cols-1 md:grid-cols-2">
             <div class="box-left">
                 <div class="mx-auto rounded-xl border shadow p-3 md:p-5">
@@ -234,13 +233,13 @@
                 </div>
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+        <div class="product__container">
             <div class="product__list">
                 <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($similarProducts as $product)
                     <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
+                        <div class="bg-white rounded-lg border shadow-md p-4 h-full relative group">
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img">
                                     <img src="{{ $product->primary_image_path }}" alt="Primary Image">
@@ -315,13 +314,13 @@
                 </div>
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+        <div class="product__container">
             <div class="product__list">
                 <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($recentlyViewedProducts as $product)
                     <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
+                        <div class="bg-white rounded-lg border shadow-md p-4 h-full relative group">
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img">
                                     <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">

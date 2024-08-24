@@ -25,7 +25,7 @@ class HomeController extends Controller
         $this->homeRepository = $homeRepository;
     }
 
-    
+
     public function index()
     {
         $categories = $this->homeRepository->getAllProducts();
@@ -33,7 +33,7 @@ class HomeController extends Controller
         $saleproduct = $this->homeRepository->getSaleProducts();
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
         $menuItems = Menu::all();
-        $blogs = Blogs::latest()->take(4)->get(); 
+        $blogs = Blogs::latest()->take(4)->get();
 
         // Lấy tất cả bình luận cho các sản phẩm
         $productIds = $bestsellingProducts->pluck('id'); // Lấy danh sách ID sản phẩm
@@ -70,7 +70,7 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request','menuItems'));
+        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request', 'menuItems'));
     }
 
     public function show($slug)
@@ -85,7 +85,7 @@ class HomeController extends Controller
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
         $menuItems = Menu::all();
-        return view('public.product.detail-product', compact('product','menuItems'));
+        return view('public.product.detail-product', compact('product', 'menuItems'));
     }
     public function productShow(Request $request)
     {
@@ -122,7 +122,7 @@ class HomeController extends Controller
         $minPrice = Product::min('price');
         $maxPrice = Product::max('price');
         $brands = Brand::all();
-
+        $blogs = Blogs::latest()->take(4)->get();
         $products->load('reviews');
         $products = $this->loadPrimaryImages($products);
         $featuredBlogs = Blogs::where('featured', 1)->get();
@@ -132,7 +132,7 @@ class HomeController extends Controller
             ]);
         }
 
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'blogs'));
     }
     public function showSearch(Request $request)
     {
