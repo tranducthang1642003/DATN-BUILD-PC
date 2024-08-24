@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Modules\Product\Entities\Product;
 use Modules\Review\Entities\Review;
 use Modules\Settings\Entities\Menu;
-
+use Illuminate\Support\Facades\Auth;
+use Modules\Like\Entities\wishlists;
 class ProductController extends Controller
 {
     /**
@@ -40,6 +41,8 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
         $product = Product::with(['images' => function ($query) {
             $query->orderBy('is_primary', 'desc');
         }])->where('slug', $slug)->firstOrFail();
@@ -87,7 +90,7 @@ class ProductController extends Controller
 
         $reviews = Review::where('product_id', $product->id)->orderBy('created_at', 'desc')->get();
     
-        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews','secondary_images','menuItems'));
+        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews','secondary_images','menuItems','likeItem'));
     }
     
     /**

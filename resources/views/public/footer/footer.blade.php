@@ -135,3 +135,22 @@
     </div>
     </div>
     </footer>
+    @if(Session::has('success'))
+    <script>
+        swal("Success", "{{ Session::get('success') }}", 'success', {
+            button:false,
+        
+            timer:2000,
+            dangerMode:true,
+        });
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        swal("warning", "{{ Session::get('error') }}", 'warning', {
+            button: false,
+            timer: 2000,
+            dangerMode: true,
+        });
+    </script>
+@endif

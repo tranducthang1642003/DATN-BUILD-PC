@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Modules\blog\Entities\Blogs;
+use Modules\Blog\Entities\Blogs;
 use Modules\Blog\Entities\CategoryBlog;
 
 class BlogCategoryController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Danh mục bài viết';
         $blog_category = CategoryBlog::all();
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -24,13 +25,14 @@ class BlogCategoryController extends Controller
         if ($keyword) {
             $blog_category->where('blog_name', 'like', '%' . $keyword . '%');
         }
-        return view('admin.blog.Blog_category', compact('blog_category'));
+        return view('admin.blog.Blog_category', compact('blog_category', 'title'));
     }
     public function edit($id)
     {
+        $title = 'Admin - Danh mục bài viết - Edit';
         $category_blog = CategoryBlog::all();
         $blog = blogs::with('category_blog')->findOrFail($id);
-        return view('admin.blog.edit', compact('blog', 'category_blog'));
+        return view('admin.blog.edit', compact('blog', 'category_blog', 'title'));
     }
     public function update_blog_category(Request $request, $id)
     {
@@ -71,7 +73,8 @@ class BlogCategoryController extends Controller
     }
     public function add()
     {
-        return view('admin.blog.add_category');
+        $title = 'Admin - Danh mục bài viết - Add';
+        return view('admin.blog.add_category', compact('title'));
     }
     public function add_blog_category(Request $request)
     {

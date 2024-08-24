@@ -63,23 +63,27 @@
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                @auth
-                                @if ($product->isLikedBy(auth()->user()))
-                                <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
-                                </form>
-                                @else
-                                <form id="like-form" action="{{ route('addlike') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
-                                </form>
-                                @endif
-                                @else
-                                <i class="fa-solid fa-heart"></i>
-                                @endauth
+                                
+                                    @if ($likeItem && $likeItem->contains('product_id', $product->id))
+                                        <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-dark btn-square">
+                                                <i class="fa fa-heart" style="color:#ff0000"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit">
+                                                <i class="fa-solid fa-heart"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                
+                                    
+                             
                             </div>
                             <p>
                                 <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
@@ -146,23 +150,23 @@
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                @auth
-                                @if ($product->isLikedBy(auth()->user()))
-                                <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
+                                @if ($likeItem && $likeItem->contains('product_id', $product->id))
+                                <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                    <button type="submit" class="btn btn-outline-dark btn-square">
+                                        <i class="fa fa-heart" style="color:#ff0000"></i>
+                                    </button>
                                 </form>
-                                @else
+                            @else
                                 <form id="like-form" action="{{ route('addlike') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                    <button type="submit">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
                                 </form>
-                                @endif
-                                @else
-                                <i class="fa-solid fa-heart"></i>
-                                @endauth
+                            @endif
                             </div>
                             <div class="cart">
                                 <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
@@ -252,23 +256,23 @@
                             <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                 {{-- Like button --}}
                                 <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                    @auth
-                                    @if ($product->isLikedBy(auth()->user()))
-                                    <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
-                                    </form>
+                                    @if ($likeItem && $likeItem->contains('product_id', $product->id))
+                                        <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-dark btn-square">
+                                                <i class="fa fa-heart" style="color:#ff0000"></i>
+                                            </button>
+                                        </form>
                                     @else
-                                    <form id="like-form" action="{{ route('addlike') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <button type="submit"><i class="fa-solid fa-heart"></i></button>
-                                    </form>
+                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit">
+                                                <i class="fa-solid fa-heart"></i>
+                                            </button>
+                                        </form>
                                     @endif
-                                    @else
-                                    <i class="fa-solid fa-heart"></i>
-                                    @endauth
                                 </div>
                                 {{-- Cart button --}}
                                 <div class="cart">

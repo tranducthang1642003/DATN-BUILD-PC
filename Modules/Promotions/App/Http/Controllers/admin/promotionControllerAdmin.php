@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Product\Entities\Product;
 use Modules\Promotions\Entities\Promotions;
 
-class PromotionController extends Controller
+class promotionControllerAdmin extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Mã giảm giá';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -25,13 +26,14 @@ class PromotionController extends Controller
             $vouchersQuery->where('name', 'like', '%' . $keyword . '%');
         }
         $vouchers = $vouchersQuery->paginate(10);
-        return view('admin.voucher.voucher', compact('vouchers'));
+        return view('admin.voucher.voucher', compact('vouchers', 'title'));
     }
 
     public function create()
     {
+        $title = 'Admin - Mã giảm giá - Thêm mới';
         $products = Product::All();
-        return view('admin.voucher.add', compact('products'));
+        return view('admin.voucher.add', compact('products', 'title'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -73,9 +75,10 @@ class PromotionController extends Controller
 
     public function edit($id)
     {
+        $title = 'Admin - Mã giảm giá - Chỉnh sửa';
         $products = Product::All();
         $voucher = Promotions::findOrFail($id);
-        return view('admin.voucher.edit', compact('voucher', 'products'));
+        return view('admin.voucher.edit', compact('voucher', 'products', 'title'));
     }
     public function update(Request $request, $id): RedirectResponse
     {

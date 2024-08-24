@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Order\App\Http\Controllers\admin\OrderController;
 use Modules\Order\App\Http\Controllers\OrderController1;
-
+use Modules\Order\App\Http\Controllers\Momocontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/vnpay/payment', [OrderController1::class, 'vnPayPayment'])->name('orders.vnpay.payment.get');
 Route::post('/orders/vnpay/payment', [OrderController1::class, 'vnPayPaymentGet'])->name('orders.vnpay.payment.post');
 Route::get('/orders/vnpay/callback', [OrderController1::class, 'vnPayCallback'])->name('orders.vnpay.callback');
+
 });
+Route::post('/orders/momopay',[Momocontroller::class,'momo'])->name('momo');

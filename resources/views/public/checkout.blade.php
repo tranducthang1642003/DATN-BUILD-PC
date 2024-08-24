@@ -48,7 +48,8 @@
                             <span class="ml-2 text-lg font-medium text-gray-700">Thanh toán bằng tiền mặt</span>
                         </label>
                         <label class="inline-flex items-center mb-2">
-                            <input type="radio" name="payment-method" value="momo" class="form-radio h-4 w-4 lg:h-5 lg:w-5 text-yellow-500" required>
+                            <input type="radio" id="payment_url" name="payment-method" value="momo" class="form-radio h-4 w-4 lg:h-5 lg:w-5 text-yellow-500" required>
+                            <input type="hidden" name="total" value="{{$total}}">
                             <span class="ml-2 text-lg font-medium text-gray-700">Thanh toán bằng MoMo</span>
                         </label>
                         <label class="inline-flex items-center mb-2">
@@ -60,6 +61,7 @@
                     <div class="mt-8">
                         <button type="submit" class="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-500">Xác nhận đặt hàng</button>
                     </div>
+                    
                 </form>
             </div>
         </div>
@@ -101,13 +103,13 @@ document.querySelector('#order-form').addEventListener('submit', function(event)
     var paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
     var form = event.target;
     
-    if (paymentMethod === 'pay') {
+    if (paymentMethod === 'momo') {
         event.preventDefault(); 
         
        
         console.log("Form Data:", new FormData(form));
         
-        var paymentUrl = "{{ route('orders.vnpay.payment.get') }}"; 
+        var paymentUrl = "{{ route('momo') }}"; 
         form.action = paymentUrl;
         form.submit();
     }

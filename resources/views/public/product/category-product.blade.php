@@ -168,7 +168,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 m-2">
                 @foreach ($products as $product)
                 <div class="product__item mb-2">
-                    <div class="bg-white rounded-lg mr-2 relative border shadow-lg h-full">
+                    <div class="bg-white rounded-lg mr-2 relative border shadow-lg h-full relative group">
                         <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
                         <div class="product-img">
                             <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
@@ -212,40 +212,44 @@
                             </div>
                             @else
                             @endif
-                        </div>
-                        <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                            {{-- like --}}
-                            <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                @auth
-                                @if ($product->isLikedBy(auth()->user()))
-                                <form id="unlike-form" action="{{ route('deletelike',$product->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
-                                </form>
-                                @else
-                                <form id="like-form" action="{{ route('addlike') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
-                                </form>
-                                @endif
-                                @else
-                                <i class="fa-solid fa-heart"></i>
-                                @endauth
-                            </div>
-                            {{-- end like --}}
-                            {{-- cart --}}
-                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white mt-2">
-                                <i class="fa-solid fa-shopping-cart"></i>
-                            </div>
-                            {{-- end cart --}}
-                        </div>
-                    </div>
-                </div>
-                </a>
-                @endforeach
-            </div>
+                                                </div>
+                                                <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                    {{-- Like button --}}
+                                                    <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                                        @if ($likeItem && $likeItem->contains('product_id', $product->id))
+                                                            <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-outline-dark btn-square">
+                                                                    <i class="fa fa-heart" style="color:#ff0000"></i>
+                                                                </button>
+                                                            </form>
+                                                        @else
+                                                            <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                                <button type="submit">
+                                                                    <i class="fa-solid fa-heart"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                    </div>
+                                                    {{-- Cart button --}}
+                                                    <div class="cart">
+                                                        <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
+                                                            <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white">
+                                                                <i class="fa-solid fa-shopping-cart"></i>
+                                                                <!-- Lớp phủ tải -->
+                                                                <div class="loading-overlay" style="display: none;"></div>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    @endforeach
+                                </div>
         </div>
     </div>
     <div class="pt-3 mb-5">

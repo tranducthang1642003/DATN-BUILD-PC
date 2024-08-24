@@ -12,6 +12,7 @@ class AdminBuildPCController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Build PC';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -28,11 +29,12 @@ class AdminBuildPCController extends Controller
 
         $configurations = $configurationQuery->with('user')->paginate(13);
 
-        return view('admin.buildpc.buildpc', compact('configurations'));
+        return view('admin.buildpc.buildpc', compact('configurations', 'title'));
     }
 
     public function show($id)
     {
+        $title = 'Admin - Build PC - Chi tiết';
         $configuration = Configuration::with('items.product')->findOrFail($id);
         $configurationItems = $configuration->items;
 
@@ -45,7 +47,7 @@ class AdminBuildPCController extends Controller
                 $item->image_path = asset('images/default-product-image.jpg');
             }
         }
-        return view('admin.buildpc.show', compact('configurationItems', 'configuration'));
+        return view('admin.buildpc.show', compact('configurationItems', 'configuration', 'title'));
     }
 
     /**

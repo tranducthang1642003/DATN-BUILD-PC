@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Settings\App\Http\Controllers\Admin\MenuController;
-use Modules\Settings\App\Http\Controllers\Admin\SettingController;
+use Modules\Settings\App\Http\Controllers\admin\MenuController;
+use Modules\Settings\App\Http\Controllers\admin\SettingController;
 
 /*
 |--------------------------------------------------------------------------

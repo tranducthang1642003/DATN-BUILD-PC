@@ -13,6 +13,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Danh mục sản phẩm';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -24,12 +25,13 @@ class CategoryController extends Controller
             $categoriesQuery->where('name', 'like', '%' . $keyword . '%');
         }
         $categories = $categoriesQuery->paginate(10);
-        return view('admin.category.category', compact('categories'));
+        return view('admin.category.category', compact('categories', 'title'));
     }
     public function create()
     {
+        $title = 'Admin - Danh mục sản phẩm - Thêm mới';
         $category = Category::All();
-        return view('admin.category.add', compact('category'));
+        return view('admin.category.add', compact('category', 'title'));
     }
     public function store(Request $request)
     {
@@ -67,8 +69,9 @@ class CategoryController extends Controller
     }
     public function edit($id)
     {
+        $title = 'Admin - Danh mục sản phẩm - Chỉnh sửa';
         $category = category::findOrFail($id);
-        return view('admin.category.edit', compact('category'));
+        return view('admin.category.edit', compact('category', 'title'));
     }
     public function update(Request $request, $id)
     {
