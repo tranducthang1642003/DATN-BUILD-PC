@@ -1,17 +1,4 @@
 @include('public.header.index')
-
-@if (session('success'))
-            <div class="bg-green-500 text-white p-4 rounded mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="bg-red-500 text-white p-4 rounded mb-4">
-                {{ session('error') }}
-            </div>
-        @endif
-
-
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
     <!-- Breadcrumb Navigation -->
     <nav class="bg-white mt-3 rounded-md w-full hidden md:block">
