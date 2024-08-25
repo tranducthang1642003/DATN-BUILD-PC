@@ -146,7 +146,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#price-range").text(selectedMinPrice.toLocaleString('en-US') + " VNĐ - " + selectedMaxPrice.toLocaleString('en-US') + " VND");
+    $("#price-range").text(selectedMinPrice.toLocaleString('en-US') + " VND - " + selectedMaxPrice.toLocaleString('en-US') + " VND");
 
     $(".brand-checkbox").change(function() {
         fetchProducts();
@@ -162,25 +162,20 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.products) {
                         $("#product-list").html(response.products);
+                        $("#pagination").html(response.pagination); // Cập nhật phân trang
                     } else {
                         console.error('No products found in response.');
                     }
                 },
                 error: function(xhr) {
                     console.error('AJAX Error:', xhr.responseText);
+                    console.log(xhr);
                 },
                 complete: function() {
-                    // Ẩn màn hình loading sau khi lọc xong sản phẩm
                     $("#loading-screen").hide();
                 }
             });
-        }, 5000);
-    }
-
-    // Gọi hàm fetchProducts() khi cần thiết (ví dụ khi thay đổi bộ lọc)
-    $(".brand-checkbox").change(function() {
-        fetchProducts();
-    });
+        }, 5000);}
 });
 
 </script>

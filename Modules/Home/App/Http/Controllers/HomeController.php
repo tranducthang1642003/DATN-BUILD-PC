@@ -132,10 +132,10 @@ class HomeController extends Controller
         $featuredBlogs = Blogs::where('featured', 1)->get();
         if ($request->ajax()) {
             return response()->json([
-                'products' => view('public.product.product-list', compact('products',))->render()
+                'products' => view('public.product.product-list', compact('products', 'likeItem'))->render(),
+                'pagination' => (string) $products->links()
             ]);
         }
-
         return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems','likeItem'));
     }
     public function showSearch(Request $request)

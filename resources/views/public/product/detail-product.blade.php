@@ -72,6 +72,10 @@
                         <span class="ml-3 text-teal-400">Còn hàng</span>
                     </div>
                 </div>
+                <div class="item-basic">
+                    Mã màu:
+                    <span class="ml-3 text-red-400">{{ $product->color }}</span>
+                </div>
                 <div class="box-price-detail flex mt-3 border-2 rounded-2xl p-1 md:p-3">
                     <p class="price-detail text-xs lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
                         {{ number_format($product->price) }} VND
@@ -106,16 +110,6 @@
                         <a href="" class="w-full">
                             <p class="text-base md:text-lg lg:text-xl font-semibold">ĐẶT MUA NGAY</p>
                             <span>Giao hàng tận nơi nhanh chóng</span>
-                        </a>
-                    </div>
-                    <div class="detail-add-cart grid grid-cols-2 divide-x mt-2 md:mt-5">
-                        <a href="" class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
-                            <p>TRẢ GÓP QUA HỒ SƠ</p>
-                            <span>Chỉ từ 2.665.000₫/ tháng</span>
-                        </a>
-                        <a href="" class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
-                            <p>TRẢ GÓP QUA THẺ</p>
-                            <span>Chỉ từ 1.332.500₫/ tháng</span>
                         </a>
                     </div>
                 </div>
