@@ -54,6 +54,7 @@
             <tr class="text-left bg-primary">
                 <th class="px-4 py-2"></th>
                 <th class="px-4 py-2">ID</th>
+                <th class="px-4 py-2">Mã đơn hàng</th>
                 <th class="px-4 py-2">Ngày tạo</th>
                 <th class="px-4 py-2">Tổng tiền</th>
                 <th class="px-4 py-2">Địa chỉ</th>
@@ -63,21 +64,14 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <form id="update-all-form" method="POST" action="{{ route('admin.orders.update_multiple_status') }}">
-                @csrf
-                @method('POST')
-                <tr>
-                    <td colspan="8" class="text-right">
-                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md">Cập nhật tất cả</button>
-                    </td>
-                </tr> -->
             @foreach($orders as $index => $order)
             <tr class="{{ $index % 2 == 0 ? 'bg-secondary' : 'bg-pale-dark' }} order-row" data-status="{{ $order->status }}">
                 <td class="px-4 py-2">
                     <input type="checkbox" name="orders[]" value="{{ $order->id }}">
                 </td>
                 <td class="px-4 py-2">{{ $order->id }}</td>
-                <td class="px-4 py-2">{{ $order->order_date }}</td>
+                <td class="px-4 py-2">{{ $order->order_code }}</td>
+                <td class="px-4 py-2">{{ date('d/m/Y', strtotime($order->order_date)) }}</td>
                 <td class="px-4 py-2">{{ $order->total_amount }} VND</td>
                 <td class="px-4 py-2">{{ $order->shipping_address }}</td>
                 <td class="px-4 py-2">{{ $order->payment_method }}</td>
