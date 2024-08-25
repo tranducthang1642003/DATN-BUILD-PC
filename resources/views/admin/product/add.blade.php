@@ -141,7 +141,8 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-6">
-                        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Lưu</button>
+                        <button type="submit" id="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Cập nhật Sản phẩm</button>
+                        <button id="valid_submit" type="button" class="bg-yellow-400 text-white px-6 py-2 rounded-md hover:bg-red-600 focus:outline-none">Cập nhật Sản phẩm</button>
                     </div>
                 </div>
             </div>
@@ -161,13 +162,15 @@
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         const priceInput = document.getElementById('price');
-        const saleInput = document.getElementById('sale');
+        const saleInput = document.getElementById('price_sale');
         const quantityInput = document.getElementById('quantity');
         const stockInput = document.getElementById('stock');
         const priceError = document.getElementById('price-error');
-        const saleError = document.getElementById('sale-error');
+        const saleError = document.getElementById('price_sale-error');
         const quantityError = document.getElementById('quantity-error');
         const stockError = document.getElementById('stock-error');
+        const submitButton = document.getElementById('submit');
+        const validSubmitButton = document.getElementById('valid_submit');
 
         function validateInput(input, errorElement, validationFn) {
             if (!validationFn(input.value)) {
@@ -189,15 +192,28 @@
             valid = validateInput(stockInput, stockError, value => value >= 0) && valid;
             return valid;
         }
+
+        function updateButtons() {
+            if (validateForm()) {
+                submitButton.style.display = 'block';
+                validSubmitButton.style.display = 'none'; 
+            } else {
+                submitButton.style.display = 'none'; 
+                validSubmitButton.style.display = 'block'; 
+            }
+        }
+
         priceInput.addEventListener('input', () => validateInput(priceInput, priceError, value => value > 0));
         saleInput.addEventListener('input', () => validateInput(saleInput, saleError, value => value >= 0));
         quantityInput.addEventListener('input', () => validateInput(quantityInput, quantityError, value => value >= 0));
         stockInput.addEventListener('input', () => validateInput(stockInput, stockError, value => value >= 0));
+
         form.addEventListener('submit', function(event) {
             if (!validateForm()) {
                 event.preventDefault();
             }
         });
+        updateButtons();
     });
 </script>
 

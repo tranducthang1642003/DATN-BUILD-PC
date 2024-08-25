@@ -45,12 +45,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
                             <label for="price" class="block text-sm font-medium leading-6  mb-2">Giá gốc</label>
-                            <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ number_format($product->price) }} VND }}" required>
+                            <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->price }}" required>
                             <span id="price-error" class="text-red-500 text-sm"></span>
                         </div>
                         <div class="mb-4">
                             <label for="price_sale" class="block text-sm font-medium leading-6  mb-2">Giá giảm</label>
-                            <input type="number" name="price_sale" id="price_sale" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ number_format($product->price_sale) }} VND }}" required>
+                            <input type="number" name="price_sale" id="price_sale" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ $product->price_sale }}" required>
                             <span id="price_sale-error" class="text-red-500 text-sm"></span>
                         </div>
                     </div>
@@ -63,8 +63,8 @@
                         <div class="mb-4">
                             <label for="sale" class="block text-sm font-medium leading-6  mb-2">Sale</label>
                             <select name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5  shadow-sm  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                                <option value="yes" {{ $product->featured ? 'selected' : '' }}>Có</option>
-                                <option value="no" {{ !$product->featured ? 'selected' : '' }}>Không</option>
+                                <option value="1" {{ $product->featured ? 'selected' : '' }}>Có</option>
+                                <option value="0" {{ !$product->featured ? 'selected' : '' }}>Không</option>
                             </select>
                         </div>
                     </div>
@@ -152,7 +152,8 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-6">
-                        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Cập nhật Sản phẩm</button>
+                        <button type="submit" id="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Cập nhật Sản phẩm</button>
+                        <button id="valid_submit" type="button" class="bg-yellow-400 text-white px-6 py-2 rounded-md hover:bg-red-600 focus:outline-none">Cập nhật Sản phẩm</button>
                     </div>
                 </div>
             </div>
@@ -174,13 +175,15 @@
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         const priceInput = document.getElementById('price');
-        const saleInput = document.getElementById('sale');
+        const saleInput = document.getElementById('price_sale');
         const quantityInput = document.getElementById('quantity');
         const stockInput = document.getElementById('stock');
         const priceError = document.getElementById('price-error');
-        const saleError = document.getElementById('sale-error');
+        const saleError = document.getElementById('price_sale-error');
         const quantityError = document.getElementById('quantity-error');
         const stockError = document.getElementById('stock-error');
+        const submitButton = document.getElementById('submit');
+        const validSubmitButton = document.getElementById('valid_submit');
 
         function validateInput(input, errorElement, validationFn) {
             if (!validationFn(input.value)) {
@@ -202,15 +205,31 @@
             valid = validateInput(stockInput, stockError, value => value >= 0) && valid;
             return valid;
         }
+
+        function updateButtons() {
+            if (validateForm()) {
+                submitButton.style.display = 'block';
+                validSubmitButton.style.display = 'none'; 
+            } else {
+                submitButton.style.display = 'none'; 
+                validSubmitButton.style.display = 'block'; 
+            }
+        }
+
         priceInput.addEventListener('input', () => validateInput(priceInput, priceError, value => value > 0));
         saleInput.addEventListener('input', () => validateInput(saleInput, saleError, value => value >= 0));
         quantityInput.addEventListener('input', () => validateInput(quantityInput, quantityError, value => value >= 0));
         stockInput.addEventListener('input', () => validateInput(stockInput, stockError, value => value >= 0));
+
         form.addEventListener('submit', function(event) {
             if (!validateForm()) {
                 event.preventDefault();
             }
         });
+
+        // Initial check when the page loads
+        updateButtons();
     });
 </script>
+
 @include('admin.layout.fotter')
