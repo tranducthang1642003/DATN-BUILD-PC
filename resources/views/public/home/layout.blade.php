@@ -38,25 +38,23 @@
                 @foreach ($saleproduct as $product)
                 <div class="product__item">
                     <div class="bg-white rounded-lg mr-2 relative group">
-                    @if($product->created_at->diffInDays(now()) <= 30)
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                    @endif
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0">Hot</span>
                         <a href="{{ route('product.show', $product->slug) }}">
                             <div class="product-img overflow-hidden">
                                 <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-full h-auto object-cover">
                             </div>
                         </a>
-                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 p-1 italic">
-                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
+                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 italic">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
                         </div>
                         <div class="product-info p-3">
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg hover:no-underline font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                             <div class="flex items-center mt-2">
                                 <div class="text-sm text-slate-500 line-through">
-                                {{ number_format($product->price_sale, 2) }}
+                                    {{ number_format($product->price) }}
                                 </div>
                                 <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                {{ $product->discount_percentage }}%
+                                    {{ $product->stock }}%
                                 </div>
                             </div>
                             <div class="text-red-700 font-bold text-lg mt-2">
@@ -65,24 +63,23 @@
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                
-                                    @if ($likeItem && $likeItem->contains('product_id', $product->id))
-                                        <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-dark btn-square">
-                                                <i class="fa fa-heart" style="color:#ff0000"></i>
-                                            </button>
-                                        </form>
-                                    @else
-                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <button type="submit">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </button>
-                                        </form>
-                                    @endif
+                                @auth
+                                @if ($product->isLikedBy(auth()->user()))
+                                <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                </form>
+                                @else
+                                <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                </form>
+                                @endif
+                                @else
+                                <i class="fa-solid fa-heart"></i>
+                                @endauth
                             </div>
                             <p>
                                 <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
@@ -102,6 +99,7 @@
     </div>
 </section>
 
+
 {{-- SẢN PHẨM BÁN CHẠY --}}
 
 <section class="product px-8 pt-6">
@@ -113,63 +111,58 @@
         <div class="flex flex-wrap">
             <div class="banner-product w-full md:w-1/3">
                 <div class="banner pt-5 p-3">
-                <div class="post-ter px-4 md:px-8 pt-6 flex flex-wrap justify-between">
-        @foreach($banners_top->take(1) as $banner)
-        
-            <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="rounded-lg h-auto md:h-96 w-full">
-        
-        @endforeach
-    </div>
+                    @foreach($poster_product->take(1) as $poster)
+                    <img src="{{ asset($poster->images_url) }}" alt="{{ $poster->alt_text }}" class="rounded-lg h-auto md:h-96 w-full">
+                    @endforeach
                 </div>
             </div>
             <div class="autoplay-sanpham p-5 w-full md:w-2/3">
                 @foreach ($bestsellingProducts as $product)
                 <div class="product__item mb-4 md:mb-0 md:mr-4 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-1 md:h-96 ">
                     <div class="bg-white rounded-lg relative group">
-                    @if($product->created_at->diffInDays(now()) <= 30)
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                    @endif
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute top-0 left-0">Hot</span>
                         <a href="{{ route('product.show', $product->slug) }}">
                             <div class="product-img">
                                 <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-full h-52 object-cover">
                             </div>
                         </a>
-                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 p-1 italic">
-                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
+                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 italic">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
                         </div>
                         <div class="product-info p-4">
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg font-semibold leading-tight line-clamp-2">{{ $product->product_name }}</a>
                             <div class="flex items-center mt-2">
-                            <div class="text-sm text-slate-500 line-through">
-                                    {{ number_format($product->price) }} VND
+                                <div class="text-sm text-slate-500 line-through">
+                                    {{ number_format($product->price) }}
+                                    VND
                                 </div>
                                 <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                    {{ $product->discount_percentage }}%
+                                    {{ $product->discount }}
                                 </div>
                             </div>
                             <div class="text-red-700 font-bold text-lg mt-2">
-                                {{ number_format($product->price_sale) }} VND
+                                {{ number_format($product->price) }} VND
                             </div>
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                @if ($likeItem && $likeItem->contains('product_id', $product->id))
-                                <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
+                                @auth
+                                @if ($product->isLikedBy(auth()->user()))
+                                <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-dark btn-square">
-                                        <i class="fa fa-heart" style="color:#ff0000"></i>
-                                    </button>
+                                    <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
                                 </form>
-                            @else
+                                @else
                                 <form id="like-form" action="{{ route('addlike') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button type="submit">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </button>
+                                    <button type="submit"><i class="fa-solid fa-heart"></i></button>
                                 </form>
-                            @endif
+                                @endif
+                                @else
+                                <i class="fa-solid fa-heart"></i>
+                                @endauth
                             </div>
                             <div class="cart">
                                 <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
@@ -233,17 +226,15 @@
                     <div class="product__item">
                         <div class="bg-white rounded-lg mr-2 md:mr-4 mb-4 md:mb-0 h-auto relative group">
                             <!-- Hot tag -->
-                            @if($product->created_at->diffInDays(now()) <= 30)
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
-                    @endif
+                            <span class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0">Hot</span>
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img overflow-hidden">
                                     <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}" class="w-full h-auto object-cover">
                                 </div>
                             </a>
-                            <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
-                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
-                        </div>
+                            <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 italic">
+                                <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                            </div>
                             <div class="product-info p-3">
                                 <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                                 <div class="flex items-center mt-2">
@@ -251,33 +242,33 @@
                                         {{ number_format($product->price) }} VND
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                        {{ $product->discount_percentage }}%
+                                        {{ $product->discount }}%
                                     </div>
                                 </div>
                                 <div class="text-red-700 font-bold text-lg mt-2">
-                                    {{ number_format($product->price_sale) }} VND
+                                    {{ number_format($product->price) }} VND
                                 </div>
                             </div>
                             <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                 {{-- Like button --}}
                                 <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                    @if ($likeItem && $likeItem->contains('product_id', $product->id))
-                                        <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-dark btn-square">
-                                                <i class="fa fa-heart" style="color:#ff0000"></i>
-                                            </button>
-                                        </form>
+                                    @auth
+                                    @if ($product->isLikedBy(auth()->user()))
+                                    <form id="unlike-form" action="{{ route('deletelike', $product->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"><i class="fa fa-heart" style="color:#ff0000"></i></button>
+                                    </form>
                                     @else
-                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <button type="submit">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </button>
-                                        </form>
+                                    <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button type="submit"><i class="fa-solid fa-heart"></i></button>
+                                    </form>
                                     @endif
+                                    @else
+                                    <i class="fa-solid fa-heart"></i>
+                                    @endauth
                                 </div>
                                 {{-- Cart button --}}
                                 <div class="cart">
