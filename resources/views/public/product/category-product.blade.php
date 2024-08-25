@@ -50,7 +50,7 @@
                                             -25%
                                         </div>
                                     </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $top->price }}</div>
+                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($top->price) }} VND</div>
                                     @if ($top->reviews->isNotEmpty())
                                     @php
                                     $averageRating = $top->reviews->avg('rating');
@@ -179,37 +179,37 @@
                         <div class="product-info p-3">
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-2-lines" style="overflow: hidden;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
-                                                    <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                                                    <div class="mt-1 inline-flex text-xs md:text-base">
-                                                        <div>
-                                                            <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
-                                                        </div>
-                                                        <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                                            -25%
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
+                            <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
+                            <div class="mt-1 inline-flex text-xs md:text-base">
+                                <div>
+                                    <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
+                                </div>
+                                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
+                                    -25%
+                                </div>
+                            </div>
+                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($product->price) }} VND</div>
                             @if ($product->reviews->isNotEmpty())
-                                @php
-                                    $averageRating = $product->reviews->avg('rating');
-                                    $totalStars = 5;
-                                    $fullStars = floor($averageRating);
-                                    $emptyStars = $totalStars - $fullStars;
-                                @endphp
+                            @php
+                            $averageRating = $product->reviews->avg('rating');
+                            $totalStars = 5;
+                            $fullStars = floor($averageRating);
+                            $emptyStars = $totalStars - $fullStars;
+                            @endphp
 
-                                <div class="rating flex">
-                                    <div class="flex items-center pt-1">
-                                        @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
+                            <div class="rating flex">
+                                <div class="flex items-center pt-1">
+                                    @for ($i = 0; $i < $fullStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#FFD700"></polygon>
                                         </svg>
                                         @endfor
                                         @for ($i = 0; $i < $emptyStars; $i++) <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
                                             <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
-                                        </svg>
-                                        @endfor
-                                    </div>
-                                    <p>({{ $product->reviews->count() }} đánh giá)</p>
+                                            </svg>
+                                            @endfor
                                 </div>
+                                <p>({{ $product->reviews->count() }} đánh giá)</p>
+                            </div>
                             @else
                             @endif
                                                 </div>
@@ -252,37 +252,37 @@
                                 </div>
         </div>
     </div>
-<div class="pt-3 mb-5">
-    <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-truck"></i>
-                <b>CHÍNH SÁCH GIAO HÀNG</b><br>
-                <span>Nhận Hàng Và Thanh Toán Tại Nhà</span>
-            </p>
-        </div>
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-repeat"></i>
-                <b>ĐỔI TRẢ DỄ DÀNG</b><br>
-                <span>1 Đổi 1 Trong 15 Ngày</span>
-            </p>
-        </div>
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-money-bill-wave"></i>
-                <b>THANH TOÁN TIỆN LỢI</b><br>
-                <span>Tiền Mặt, CK, Trả Góp 0%</span>
-            </p>
-        </div>
-        <div class="item border rounded-lg">
-            <p class="text-center p-5 ">
-                <i class="fa-solid fa-headphones"></i>
-                <b>HỖ TRỢ NHIỆT TÌNH</b><br>
-                <span>Tư Vấn, Giải Đáp Mọi Thắc Mắc</span>
-            </p>
+    <div class="pt-3 mb-5">
+        <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-truck"></i>
+                    <b>CHÍNH SÁCH GIAO HÀNG</b><br>
+                    <span>Nhận Hàng Và Thanh Toán Tại Nhà</span>
+                </p>
+            </div>
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-repeat"></i>
+                    <b>ĐỔI TRẢ DỄ DÀNG</b><br>
+                    <span>1 Đổi 1 Trong 15 Ngày</span>
+                </p>
+            </div>
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <b>THANH TOÁN TIỆN LỢI</b><br>
+                    <span>Tiền Mặt, CK, Trả Góp 0%</span>
+                </p>
+            </div>
+            <div class="item border rounded-lg">
+                <p class="text-center p-5 ">
+                    <i class="fa-solid fa-headphones"></i>
+                    <b>HỖ TRỢ NHIỆT TÌNH</b><br>
+                    <span>Tư Vấn, Giải Đáp Mọi Thắc Mắc</span>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 </div>
 @include('public.footer.footer')
