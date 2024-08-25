@@ -38,7 +38,9 @@
                 @foreach ($saleproduct as $product)
                 <div class="product__item">
                     <div class="bg-white rounded-lg mr-2 relative group">
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0">Hot</span>
+                    @if($product->created_at->diffInDays(now()) <= 30)
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                         <a href="{{ route('product.show', $product->slug) }}">
                             <div class="product-img overflow-hidden">
                                 <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-full h-auto object-cover">
@@ -124,7 +126,9 @@
                 @foreach ($bestsellingProducts as $product)
                 <div class="product__item mb-4 md:mb-0 md:mr-4 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-1 md:h-96 ">
                     <div class="bg-white rounded-lg relative group">
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute top-0 left-0">Hot</span>
+                    @if($product->created_at->diffInDays(now()) <= 30)
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                         <a href="{{ route('product.show', $product->slug) }}">
                             <div class="product-img">
                                 <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-full h-52 object-cover">
@@ -230,7 +234,9 @@
                     <div class="product__item">
                         <div class="bg-white rounded-lg mr-2 md:mr-4 mb-4 md:mb-0 h-auto relative group">
                             <!-- Hot tag -->
-                            <span class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0">Hot</span>
+                            @if($product->created_at->diffInDays(now()) <= 30)
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img overflow-hidden">
                                     <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}" class="w-full h-auto object-cover">

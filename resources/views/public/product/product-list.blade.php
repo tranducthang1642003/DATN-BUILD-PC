@@ -20,7 +20,9 @@
             @foreach ($products as $product)
                 <div class="product__item mb-2">
                     <div class="bg-white rounded-lg mr-2 relative border shadow-lg h-full relative group">
+                    @if($product->created_at->diffInDays(now()) <= 30)
                         <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                         <div class="product-img">
                             <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
                         </div>

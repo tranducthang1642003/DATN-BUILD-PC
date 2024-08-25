@@ -22,11 +22,11 @@
                     <div class="swiper gallery-top">
                         <div class="md:max-w-xl max-w-sm mx-auto slider-for">
                             <div class="">
-                                <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
+                                <img class="w-32 mx-auto md:w-48" src="{{ asset($product->primary_image_path) }}">
                             </div>
                             @foreach ($secondary_images as $item)
                             <div class="">
-                                <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                                <img class="w-32 mx-auto md:w-48" src="{{ asset($item->image_path) }}">
                             </div>
                             @endforeach
                         </div>
@@ -35,11 +35,11 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide thumb-img max-w-lg mx-auto slider-nav">
                                 <div class="rounded-lg w-48 h-auto mr-3">
-                                    <img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}">
+                                    <img class="w-32 mx-auto md:w-48" src="{{ asset($product->primary_image_path) }}">
                                 </div>
                                 @foreach ($secondary_images as $item)
                                 <div class="">
-                                    <img class="w-32 mx-auto md:w-48" src="{{ $item->image_path }}">
+                                    <img class="w-32 mx-auto md:w-48" src="{{ asset($item->image_path) }}">
                                 </div>
                                 @endforeach
                             </div>
@@ -236,7 +236,7 @@
                         <div class="bg-white rounded-lg border shadow-md p-4 h-full relative group">
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img">
-                                    <img src="{{ $product->primary_image_path }}" alt="Primary Image">
+                                    <img src="{{ asset($product->primary_image_path) }}" alt="Primary Image">
                                 </div>
                                 <div class="product-info mt-2">
                                     <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
@@ -317,7 +317,7 @@
                         <div class="bg-white rounded-lg border shadow-md p-4 h-full relative group">
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img">
-                                    <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">
+                                    <img class="w-full h-48 object-cover" src="{{ asset($product->primary_image_path) }}" alt="{{ $product->product_name }}">
                                 </div>
                                 <div class="product-info mt-2">
                                     <h3 class="text-sm font-semibold">{{ $product->product_name }}</h3>
