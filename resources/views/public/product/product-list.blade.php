@@ -20,7 +20,9 @@
             @foreach ($products as $product)
                 <div class="product__item mb-2">
                     <div class="bg-white rounded-lg mr-2 relative border shadow-lg h-full relative group">
+                    @if($product->created_at->diffInDays(now()) <= 30)
                         <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                         <div class="product-img">
                             <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
                         </div>
@@ -63,16 +65,18 @@
                             <a href="{{ route('product.show', $product->slug) }}" class="truncate-2-lines hover:text-blue-600" style="overflow: hidden;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
                             <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                            <div class="mt-1 inline-flex text-xs md:text-base">
-                                <div>
-                                    <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
+                            <div class="flex items-center mt-2">
+                                <div class="text-sm text-slate-500 line-through">
+                                    {{ number_format($product->price) }}
+                                    VND
                                 </div>
-                                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                    -25%
+                                <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                                    {{ $product->discount_percentage }}%
                                 </div>
                             </div>
-                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($product->price) }}
-                                VND</div>
+                            <div class="text-red-700 font-bold text-lg mt-2">
+                                {{ number_format($product->price_sale) }} VND
+                            </div>
                             @if ($product->reviews->isNotEmpty())
                                 @php
                                     $averageRating = $product->reviews->avg('rating');

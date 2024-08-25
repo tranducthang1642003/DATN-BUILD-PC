@@ -59,6 +59,10 @@ class HomeController extends Controller
         $products = $this->applyFilters($products, $request);
         $products = $this->applySorting($products, $request);
 
+        if ($request->has('brand')) {
+            $products = $products->where('brand_id', $request->brand);
+        }
+        
         $topProducts = $category->products()
             ->where('featured', true)
             ->orderBy('view', 'desc')
@@ -146,16 +150,21 @@ class HomeController extends Controller
 
         $products = Product::where(function ($q) use ($query) {
             $q->where('product_name', 'like', '%' . $query . '%')
-                ->orWhereHas('brand', function ($brandQuery) use ($query) {
-                    $brandQuery->where('brand_name', 'like', '%' . $query . '%');
-                });
-        })->get();
+            ->orWhereHas('brand', function ($brandQuery) use ($query) {
+                $brandQuery->where('brand_name', 'like', '%' . $query . '%');
+            });
+        });
 
+        if ($request->has('brand')) {
+            $products = $products->where('brand_id', $request->brand);
+        }
+
+        $products = $products->paginate(12);
         $products = $this->applyFilters($products, $request);
         $products = $this->applySorting($products, $request);
         $products = $this->loadPrimaryImages($products);
-
         $brands = Brand::whereIn('id', $products->pluck('brand_id'))->get();
+
         $products->load('reviews');
         return view('public.product.search-product', compact('products', 'query', 'brands', 'request','likeItem'));
     }
