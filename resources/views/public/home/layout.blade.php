@@ -38,7 +38,7 @@
                 @foreach ($saleproduct as $product)
                 <div class="product__item">
                     <div class="bg-white rounded-lg mr-2 relative group">
-                        <span class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0">Hot</span>
+                        <!-- <span class="bg-red-400 text-white rounded-full ml-3 p-2 absolute top-0 left-0"></span> -->
                         <a href="{{ route('product.show', $product->slug) }}">
                             <div class="product-img overflow-hidden">
                                 <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-full h-auto object-cover">
@@ -59,6 +59,8 @@
                             </div>
                             <div class="text-red-700 font-bold text-lg mt-2">
                                 {{ number_format($product->price) }} VND
+                                <p>Giá giảm: {{ number_format($product->price_sale, 2) }} VNĐ</p>
+                                <p>Phần trăm giảm giá: {{ $product->discount_percentage }}%</p>
                             </div>
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">

@@ -219,17 +219,22 @@ class CartController extends Controller
 
     public function destroy($id)
     {
+        \Log::info("Attempting to delete cart item with ID: $id");
+        
         if (auth()->check()) {
+            \Log::info("User is authenticated.");
             $user = auth()->user();
             $cartItem = CartItem::find($id);
-
+    
             if (!$cartItem || $cartItem->user_id !== $user->id) {
+                \Log::error("Cart item not found or user does not own the item.");
                 return redirect()->route('cart')->with('error_message', 'Sản phẩm không tồn tại trong giỏ hàng hoặc bạn không có quyền xóa sản phẩm này.');
             }
-
+    
             $cartItem->delete();
             $totalQuantity = CartItem::where('user_id', $user->id)->sum('quantity');
         } else {
+            \Log::info("User is not authenticated.");
             $cart = session()->get('cart', []);
             if (isset($cart[$id])) {
                 unset($cart[$id]);
@@ -237,9 +242,10 @@ class CartController extends Controller
             session()->put('cart', $cart);
             $totalQuantity = array_sum(array_column($cart, 'quantity'));
         }
-
+    
         session()->put('cart_count', $totalQuantity);
-
+    
         return redirect()->route('cart')->with('success_message', 'Đã xóa sản phẩm khỏi giỏ hàng.');
     }
+    
 }

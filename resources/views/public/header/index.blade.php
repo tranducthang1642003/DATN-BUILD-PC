@@ -64,7 +64,7 @@
 
         <section class="site-nav bg-sky-500 shadow">
             <div class="nav__container  mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
-                <div class="nav__logo " style="width:8%">
+                <div class="nav__logo " style="width:6%;padding: 15px;">
                     @if($logos->isNotEmpty())
                     @foreach($logos as $logo)
                     <p>{{ $logo->url }}</p>
