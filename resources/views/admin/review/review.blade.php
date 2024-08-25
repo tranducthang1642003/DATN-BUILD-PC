@@ -124,8 +124,8 @@
           <form class="update-form" method="POST" action="{{ route('update-status', ['reviews' => $review->id]) }}">
               @csrf
               @method('POST')
-              <input type="hidden" name="user_id" value="{{ $review->id }}">
-              <input type="number" name="active_new" class="bg-white border border-gray-300 rounded-md p-1 outline-none hidden" value="">
+              <input type="text" name="user_id" value="{{ $review->id }}">
+              <input type="number" name="active_new" class="bg-white border border-gray-300 rounded-md p-1 outline-none" value="">
               <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-2 rounded-md update-btn">Update</button>
           </form>
       </td>
@@ -164,5 +164,39 @@
   function closeContent(element) {
     element.parentElement.style.display = "none";
   }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const statusSelects = document.querySelectorAll('.status-select');
+      statusSelects.forEach(select => {
+          select.addEventListener('change', function() {
+              const orderId = this.dataset.orderId;
+              const newStatus = this.value;
+
+              const parentRow = this.closest('tr');
+              const detailBtn = parentRow.querySelector('.detail-btn');
+              const updateForm = parentRow.querySelector('.update-form');
+
+              const statusInput = updateForm.querySelector('input[name="active_new"]');
+              statusInput.value = newStatus;
+
+              detailBtn.classList.add('hidden');
+              updateForm.classList.remove('hidden');
+
+              const statusCell = parentRow.querySelector('.status-cell');
+              const statusIndicator = statusCell.querySelector('.status-indicator');
+
+              statusIndicator.className = `status-indicator ${
+                  newStatus == '1' ? 'active' :
+                  'inactive'
+              }`;
+              statusIndicator.title = ucfirst(newStatus == "1" ? 'active' : 'inactive');
+          });
+      });
+
+      function ucfirst(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+  });
 </script>
 @include('admin.layout.fotter')<script>
