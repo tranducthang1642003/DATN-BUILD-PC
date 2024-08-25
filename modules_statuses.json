@@ -21,5 +21,6 @@
     "BuildPC": true,
     "Promotions": true,
     "Like": true,
-    "Contact": true
+    "Contact": true,
+    "About": true
 }
