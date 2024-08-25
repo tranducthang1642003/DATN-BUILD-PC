@@ -15,6 +15,7 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Đơn hàng';
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
@@ -26,12 +27,13 @@ class OrderController extends Controller
             $ordersQuery->where('name', 'like', '%' . $keyword . '%');
         }
         $orders = $ordersQuery->with('items')->paginate(13);
-        return view('admin.order.order', compact('orders'));
+        return view('admin.order.order', compact('orders', 'title'));
     }
     public function show($id)
     {
+        $title = 'Admin - Đơn hàng - Chi tiết';
         $order = Orders::with('items')->findOrFail($id);
-        return view('admin.order.show', compact('order'));
+        return view('admin.order.show', compact('order', 'title'));
     }
     public function updateStatus(Request $request, Orders $order)
     {

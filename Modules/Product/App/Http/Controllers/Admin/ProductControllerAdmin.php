@@ -16,6 +16,7 @@ class ProductControllerAdmin extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Sản phẩm';
         $statusCounts = [
             '1' => Product::where('status', 1)->count(),
             '2' => Product::where('status', 2)->count(),
@@ -55,18 +56,19 @@ class ProductControllerAdmin extends Controller
                 'secondary_images' => $secondary_images,
             ];
         }
-        return view('admin.product.product', compact('products', 'statusCounts', 'products_images'));
+        return view('admin.product.product', compact('products', 'statusCounts', 'products_images', 'title'));
     }
 
     public function edit($id)
     {
+        $title = 'Admin - Sản phẩm - Chỉnh sửa';
         $brands = Brand::all();
         $categories = Category::all();
         $product = Product::with('brand', 'category')->findOrFail($id);
         $productImages = $product->productImages()->orderBy('is_primary', 'desc')->get();
         $primaryImage = $productImages->where('is_primary', true)->first();
         $secondaryImages = $productImages->where('is_primary', false);
-        return view('admin.product.edit', compact('product', 'brands', 'categories', 'primaryImage', 'secondaryImages'));
+        return view('admin.product.edit', compact('product', 'brands', 'categories', 'primaryImage', 'secondaryImages', 'title'));
     }
 
 
@@ -79,6 +81,7 @@ class ProductControllerAdmin extends Controller
             'quantity' => 'required|numeric',
             'stock' => 'required|numeric',
             'sale' => 'required|in:0,1',
+            'price_sale' => 'required|numeric',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -101,6 +104,7 @@ class ProductControllerAdmin extends Controller
             $product->quantity = $request->input('quantity');
             $product->stock = $request->input('stock');
             $product->sale = $request->input('sale');
+            $product->price_sale = $request->input('price_sale');
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');
             $product->category_id = $request->input('category_id');
@@ -156,10 +160,11 @@ class ProductControllerAdmin extends Controller
     }
     public function add()
     {
+        $title = 'Admin - Sản phẩm - Thêm mới';
         $brands = Brand::All();
         $categories = Category::all();
         $product = Product::with('brand', 'category', 'image');
-        return view('admin.product.add', compact('product', 'brands', 'categories'));
+        return view('admin.product.add', compact('product', 'brands', 'categories', 'title'));
     }
     public function add_product(Request $request)
     {
@@ -170,6 +175,7 @@ class ProductControllerAdmin extends Controller
             'quantity' => 'required|numeric',
             'stock' => 'required|numeric',
             'sale' => 'required|in:0,1',
+            'price_sale' => 'required|numeric',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -205,6 +211,7 @@ class ProductControllerAdmin extends Controller
             $product->color = $request->input('color');
             $product->quantity = $request->input('quantity');
             $product->stock = $request->input('stock');
+            $product->price_sale = $request->input('price_sale');
             $product->sale = $request->input('sale');
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');

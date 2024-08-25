@@ -39,38 +39,51 @@
                         </div>
                         <div class="mb-4">
                             <label for="color" class="block text-sm font-medium leading-6  mb-2">Màu sắc</label>
-                            <input type="color" name="color" id="color" required>
+                            <input type="text" name="color" id="color" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mã màu" required>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
-                            <label for="price" class="block text-sm font-medium leading-6  mb-2">Đơn giá</label>
-                            <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập đơn giá" required>
+                            <label for="price" class="block text-sm font-medium leading-6 mb-2">Giá gốc</label>
+                            <input type="number" name="price" id="price" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập đơn giá" required>
+                            <span id="price-error" class="text-red-500 text-sm"></span>
                         </div>
                         <div class="mb-4">
-                            <label for="sale" class="block text-sm font-medium leading-6  mb-2">Giảm giá</label>
-                            <input type="number" name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập giá giảm" required>
+                            <label for="price_sale" class="block text-sm font-medium leading-6 mb-2">Giá giảm</label>
+                            <input type="number" name="price_sale" id="price_sale" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập giá giảm" required>
+                            <span id="price_sale-error" class="text-red-500 text-sm"></span>
                         </div>
-
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+                        <div class="pb-4 my-4">
+                            <label for="category_id" class="block text-sm font-medium leading-6  mb-2">Danh mục</label>
+                            <select name="category_id" id="category_id" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="pb-4 my-4">
+                            <label for="featured" class="block text-sm font-medium leading-6  mb-2">Sale</label>
+                            <select name="sale" id="sale" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                                <option value="yes">Có</option>
+                                <option value="no">Không</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="mb-4">
-                            <label for="quantity" class="block text-sm font-medium leading-6  mb-2">Số lượng</label>
-                            <input type="number" name="quantity" id="quantity" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập số lượng" required>
+                            <label for="quantity" class="block text-sm font-medium leading-6 mb-2">Số lượng</label>
+                            <input type="number" name="quantity" id="quantity" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập số lượng" required>
+                            <span id="quantity-error" class="text-red-500 text-sm"></span>
                         </div>
                         <div class="mb-4">
-                            <label for="stock" class="block text-sm font-medium leading-6  mb-2">Tồn kho</label>
-                            <input type="number" name="stock" id="stock" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tồn kho" required>
+                            <label for="stock" class="block text-sm font-medium leading-6 mb-2">Tồn kho</label>
+                            <input type="number" name="stock" id="stock" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập tồn kho" required>
+                            <span id="stock-error" class="text-red-500 text-sm"></span>
                         </div>
                     </div>
-                    <div class="pb-4 my-4">
-                        <label for="category_id" class="block text-sm font-medium leading-6  mb-2">Danh mục</label>
-                        <select name="category_id" id="category_id" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                            @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="pb-4 my-4">
                             <label for="product_code" class="block text-sm font-medium leading-6  mb-2">Mã Sản phẩm</label>
@@ -128,7 +141,8 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-6">
-                        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Lưu</button>
+                        <button type="submit" id="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Cập nhật Sản phẩm</button>
+                        <button id="valid_submit" type="button" class="bg-yellow-400 text-white px-6 py-2 rounded-md hover:bg-red-600 focus:outline-none">Cập nhật Sản phẩm</button>
                     </div>
                 </div>
             </div>
@@ -144,5 +158,64 @@
     </ul>
 </div>
 @endif
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const priceInput = document.getElementById('price');
+        const saleInput = document.getElementById('price_sale');
+        const quantityInput = document.getElementById('quantity');
+        const stockInput = document.getElementById('stock');
+        const priceError = document.getElementById('price-error');
+        const saleError = document.getElementById('price_sale-error');
+        const quantityError = document.getElementById('quantity-error');
+        const stockError = document.getElementById('stock-error');
+        const submitButton = document.getElementById('submit');
+        const validSubmitButton = document.getElementById('valid_submit');
+
+        function validateInput(input, errorElement, validationFn) {
+            if (!validationFn(input.value)) {
+                errorElement.textContent = 'Giá trị không hợp lệ.';
+                input.classList.add('border-red-500');
+                return false;
+            } else {
+                errorElement.textContent = '';
+                input.classList.remove('border-red-500');
+                return true;
+            }
+        }
+
+        function validateForm() {
+            let valid = true;
+            valid = validateInput(priceInput, priceError, value => value > 0);
+            valid = validateInput(saleInput, saleError, value => value >= 0) && valid;
+            valid = validateInput(quantityInput, quantityError, value => value >= 0) && valid;
+            valid = validateInput(stockInput, stockError, value => value >= 0) && valid;
+            return valid;
+        }
+
+        function updateButtons() {
+            if (validateForm()) {
+                submitButton.style.display = 'block';
+                validSubmitButton.style.display = 'none'; 
+            } else {
+                submitButton.style.display = 'none'; 
+                validSubmitButton.style.display = 'block'; 
+            }
+        }
+
+        priceInput.addEventListener('input', () => validateInput(priceInput, priceError, value => value > 0));
+        saleInput.addEventListener('input', () => validateInput(saleInput, saleError, value => value >= 0));
+        quantityInput.addEventListener('input', () => validateInput(quantityInput, quantityError, value => value >= 0));
+        stockInput.addEventListener('input', () => validateInput(stockInput, stockError, value => value >= 0));
+
+        form.addEventListener('submit', function(event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+        updateButtons();
+    });
+</script>
+
 
 @include('admin.layout.fotter')

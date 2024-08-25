@@ -35,12 +35,13 @@
                     <div class="p-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                             <div class="mb-4">
-                                <label for="product_name" class="block text-sm font-medium leading-6  mb-2">Mã giảm giá</label>
-                                <input type="text" name="promotion_code" id="promotion_code" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mã giảm" required>
+                                <label for="promotion_code" class="block text-sm font-medium leading-6 mb-2">Mã giảm giá</label>
+                                <input type="text" name="promotion_code" id="promotion_code" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập mã giảm" required>
                             </div>
                             <div class="mb-4">
-                                <label for="price" class="block text-sm font-medium leading-6  mb-2">Giá giảm</label>
-                                <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="nhập giá giảm" required>
+                                <label for="discount" class="block text-sm font-medium leading-6 mb-2">Giá giảm</label>
+                                <input type="number" name="discount" id="discount" class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nhập giá giảm" required>
+                                <span id="discount-error" class="text-red-500 text-sm"></span>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
@@ -78,5 +79,30 @@
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const discountInput = document.getElementById('discount');
+        const discountError = document.getElementById('discount-error');
+        function validateDiscount() {
+            const value = parseFloat(discountInput.value);
+            if (isNaN(value) || value < 0) {
+                discountError.textContent = 'Giá giảm phải là một số dương.';
+                discountInput.classList.add('border-red-500');
+                return false;
+            } else {
+                discountError.textContent = '';
+                discountInput.classList.remove('border-red-500');
+                return true;
+            }
+        }
+        discountInput.addEventListener('input', validateDiscount);
+        document.getElementById('voucher-form').addEventListener('submit', function(event) {
+            if (!validateDiscount()) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
 
 @include('admin.layout.fotter')

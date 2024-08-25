@@ -13,52 +13,57 @@ use Modules\Order\Entities\Orders;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Modules\Product\Entities\Product;
+use Modules\Review\Entities\Review;
 
 class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lastMonthEnd = Carbon::now()->subDays(30)->startOfDay();
-        $currentMonthStart = Carbon::now()->endOfDay();
-        $lastMonthStart = Carbon::now()->subDays(60)->startOfDay();
-        // dd($lastMonthStart,  $currentMonthStart, $lastMonthEnd);
-        $totalRevenueCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
-            ->sum('total_amount');
-        $totalRevenueLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])
-            ->sum('total_amount');
-        $rateRevenue = 0;
-        if ($totalRevenueLastMonth != 0) {
-            $rateRevenue = (($totalRevenueCurrentMonth - $totalRevenueLastMonth) / $totalRevenueLastMonth) * 100;
-        }
-        $totalOrdersCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
-            ->count();
-        $totalOrdersLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])
-            ->count();
-        $rateOrders = 0;
-        if ($totalOrdersLastMonth != 0) {
-            $rateOrders = (($totalOrdersCurrentMonth - $totalOrdersLastMonth) / $totalOrdersLastMonth) * 100;
-        }
+        $title = 'Admin - Dashboard';
+        // Lấy ngày bắt đầu và ngày kết thúc từ request, nếu không có thì sử dụng giá trị mặc định
+        $startDate = $request->input('start_date', Carbon::now()->subDays(30)->format('Y-m-d'));
+        $endDate = $request->input('end_date', Carbon::now()->format('Y-m-d'));
+
+        $lastMonthEnd = Carbon::parse($startDate)->startOfDay();
+        $currentMonthStart = Carbon::parse($endDate)->endOfDay();
+        $lastMonthStart = Carbon::parse($startDate)->subDays(30)->startOfDay();
+
+        // Tính tổng doanh thu trong khoảng thời gian được chọn
+        $totalRevenueCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])->sum('total_amount');
+        $totalRevenueLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])->sum('total_amount');
+
+        // Tính tỷ lệ thay đổi doanh thu
+        $rateRevenue = $totalRevenueLastMonth != 0 ? (($totalRevenueCurrentMonth - $totalRevenueLastMonth) / $totalRevenueLastMonth) * 100 : 0;
+
+        // Tính tổng số đơn hàng
+        $totalOrdersCurrentMonth = Orders::whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])->count();
+        $totalOrdersLastMonth = Orders::whereBetween('order_date', [$lastMonthStart, $lastMonthEnd])->count();
+
+        // Tính tỷ lệ thay đổi số đơn hàng
+        $rateOrders = $totalOrdersLastMonth != 0 ? (($totalOrdersCurrentMonth - $totalOrdersLastMonth) / $totalOrdersLastMonth) * 100 : 0;
+
+        // Tính tổng số sản phẩm đã bán
         $totalProductsSoldCurrentMonth = Order_items::join('orders', 'order_items.order_id', '=', 'orders.id')
             ->whereBetween('orders.order_date', [$lastMonthEnd, $currentMonthStart])
             ->sum('order_items.quantity');
         $totalProductsSoldLastMonth = Order_items::join('orders', 'order_items.order_id', '=', 'orders.id')
             ->whereBetween('orders.order_date', [$lastMonthStart, $lastMonthEnd])
             ->sum('order_items.quantity');
-        $rateProducts = 0;
-        if ($totalRevenueLastMonth != 0) {
-            $rateProducts = (($totalProductsSoldCurrentMonth - $totalProductsSoldLastMonth) / $totalProductsSoldLastMonth) * 100;
-        }
-        $newUsersCountCurrentMonth = User::whereBetween('created_at', [$lastMonthEnd, $currentMonthStart])
-            ->count();
-        $newUsersCountLastMonth = User::whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])
-            ->count();
-        $rateUsers = 0;
-        if ($newUsersCountLastMonth != 0) {
-            $rateUsers = (($newUsersCountCurrentMonth - $newUsersCountLastMonth) / $newUsersCountLastMonth) * 100;
-        }
+
+        // Tính tỷ lệ thay đổi số lượng sản phẩm đã bán
+        $rateProducts = $totalProductsSoldLastMonth != 0 ? (($totalProductsSoldCurrentMonth - $totalProductsSoldLastMonth) / $totalProductsSoldLastMonth) * 100 : 0;
+
+        // Tính số lượng người dùng mới
+        $newUsersCountCurrentMonth = User::whereBetween('created_at', [$lastMonthEnd, $currentMonthStart])->count();
+        $newUsersCountLastMonth = User::whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->count();
+
+        // Tính tỷ lệ thay đổi số lượng người dùng mới
+        $rateUsers = $newUsersCountLastMonth != 0 ? (($newUsersCountCurrentMonth - $newUsersCountLastMonth) / $newUsersCountLastMonth) * 100 : 0;
+
+        // Lấy dữ liệu cho biểu đồ
         $currentMonthRevenueData = $this->getChartData('revenue', $lastMonthEnd, $currentMonthStart);
         $currentMonthOrdersData = $this->getChartData('new_orders', $lastMonthEnd, $currentMonthStart);
         $currentMonthSoldProductsData = $this->getChartData('sold_products', $lastMonthEnd, $currentMonthStart);
@@ -68,12 +73,12 @@ class AdminController extends Controller
         $lastMonthSoldProductsData = $this->getChartData('sold_products', $lastMonthStart, $lastMonthEnd);
         $lastMonthNewCustomersData = $this->getChartData('new_customers', $lastMonthStart, $lastMonthEnd);
 
-        //================================================
+        // Các dữ liệu khác để hiển thị trên trang
+        $orders = Orders::with('items.product')
+            ->whereBetween('order_date', [$lastMonthEnd, $currentMonthStart])
+            ->get();
 
-        $orders = Orders::with('items.product')->get();
-        $order = Orders::All();
-
-        // Tạo mảng để tính tổng số lượng và tổng tiền bán được của từng sản phẩm
+        // Tính tổng số lượng và doanh thu của từng sản phẩm
         $productQuantities = [];
         $productRevenues = [];
 
@@ -98,13 +103,9 @@ class AdminController extends Controller
             }
         }
 
-        // Sắp xếp mảng theo số lượng bán và lấy top 5 sản phẩm bán chạy
+        // Sắp xếp sản phẩm theo số lượng bán và lấy top 5 sản phẩm bán chạy nhất
         arsort($productQuantities);
         $topProductsByQuantity = array_slice($productQuantities, 0, 5, true);
-
-        // Sắp xếp mảng theo doanh thu và lấy top 5 sản phẩm doanh thu cao nhất
-        arsort($productRevenues);
-        $topProductsByRevenue = array_slice($productRevenues, 0, 5, true);
 
         // Lấy thông tin chi tiết của các sản phẩm trong top 5 bán chạy nhất
         $topProductIdsByQuantity = array_keys($topProductsByQuantity);
@@ -113,42 +114,29 @@ class AdminController extends Controller
             ->select('id', 'product_name', 'product_code')
             ->get();
 
-        // Lấy thông tin chi tiết của các sản phẩm trong top 5 doanh thu cao nhất
-        $topProductIdsByRevenue = array_keys($topProductsByRevenue);
-        $topProductDetailsByRevenue = Product::with('primaryImage')
-            ->whereIn('id', $topProductIdsByRevenue)
-            ->select('id', 'product_name', 'product_code')
-            ->get();
-
-        // Lấy số lượng đã bán và tổng tiền bán được của từng sản phẩm trong top 5 bán chạy nhất
         foreach ($topProductDetailsByQuantity as $product) {
             $productId = $product->id;
             $product->sold_quantity = $topProductsByQuantity[$productId];
             $product->total_revenue = $product->sold_quantity * $productRevenues[$productId];
         }
 
-        // Sắp xếp lại mảng $topProductDetailsByQuantity theo số lượng đã bán giảm dần
+        // Sắp xếp lại theo số lượng đã bán giảm dần
         $topProductDetailsByQuantity = $topProductDetailsByQuantity->sortByDesc(function ($product) {
             return $product->sold_quantity;
         })->values()->all();
 
-        // Lấy số lượng đã bán và tổng tiền bán được của từng sản phẩm trong top 5 doanh thu cao nhất
-        foreach ($topProductDetailsByRevenue as $product) {
-            $productId = $product->id;
-            $product->sold_quantity = $productQuantities[$productId];
-            $product->total_revenue = $product->sold_quantity * $topProductsByRevenue[$productId];
-        }
+        // Lấy 5 bình luận mới nhất
+        $latestComments = Review::with('user', 'product')
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
 
-        // Sắp xếp lại mảng $topProductDetailsByRevenue theo tổng tiền bán giảm dần
-        $topProductDetailsByRevenue = $topProductDetailsByRevenue->sortByDesc(function ($product) {
-            return $product->total_revenue;
-        })->values()->all();
+        // Lấy các sản phẩm đã hết hàng
+        $outOfStockProducts = Product::where('quantity', 0)->get();
 
-        $statuses = Orders::selectRaw('status, count(*) as count')
-            ->groupBy('status')
-            ->pluck('count', 'status')
-            ->toArray();
-        // dd($statuses);
+        // Lấy các sản phẩm sắp hết hàng (dưới 10 sản phẩm)
+        $lowStockProducts = Product::where('quantity', '<=', 10)->where('quantity', '>', 0)->get();
+
         return view('admin.dashboard.dashboard', compact(
             'totalRevenueCurrentMonth',
             'totalOrdersCurrentMonth',
@@ -170,10 +158,13 @@ class AdminController extends Controller
             'lastMonthOrdersData',
             'lastMonthSoldProductsData',
             'topProductDetailsByQuantity',
-            'topProductDetailsByRevenue',
-            'statuses'
+            'latestComments',
+            'outOfStockProducts',
+            'lowStockProducts',
+            'title',
         ));
     }
+
 
     private function getChartData($type, $startDate, $endDate)
     {

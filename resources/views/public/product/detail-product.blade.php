@@ -72,6 +72,10 @@
                         <span class="ml-3 text-teal-400">Còn hàng</span>
                     </div>
                 </div>
+                <div class="item-basic">
+                    Mã màu:
+                    <span class="ml-3 text-red-400">{{ $product->color }}</span>
+                </div>
                 <div class="box-price-detail flex mt-3 border-2 rounded-2xl p-1 md:p-3">
                     <p class="price-detail text-xs lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
                         {{ number_format($product->price) }} VND
@@ -108,16 +112,6 @@
                             <span>Giao hàng tận nơi nhanh chóng</span>
                         </a>
                     </div>
-                    <div class="detail-add-cart grid grid-cols-2 divide-x mt-2 md:mt-5">
-                        <a href="" class="mr-1 md:mr-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
-                            <p>TRẢ GÓP QUA HỒ SƠ</p>
-                            <span>Chỉ từ 2.665.000₫/ tháng</span>
-                        </a>
-                        <a href="" class="ml-1 md:ml-2 border p-2 md:p-3 rounded-xl pr-2 pl-2 md:pr-5 md:pl-5 bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-center">
-                            <p>TRẢ GÓP QUA THẺ</p>
-                            <span>Chỉ từ 1.332.500₫/ tháng</span>
-                        </a>
-                    </div>
                 </div>
                 <div class="box-product-policy-detal mt-3 md:mt-5">
                     <h1 class="font-semibold">YÊN TÂM MUA HÀNG</h1>
@@ -140,7 +134,6 @@
                 </div>
             </div>
         </div>
-
         <div class="box-read-product-detail mt-3 md:mt-5 grid gap-1 grid-cols-1 md:grid-cols-2">
             <div class="box-left">
                 <div class="mx-auto rounded-xl border shadow p-3 md:p-5">
@@ -234,13 +227,13 @@
                 </div>
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+        <div class="product__container">
             <div class="product__list">
                 <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm tương tự</h2>
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($similarProducts as $product)
                     <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
+                        <div class="bg-white rounded-lg border shadow-md p-4 h-full relative group">
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img">
                                     <img src="{{ $product->primary_image_path }}" alt="Primary Image">
@@ -315,13 +308,13 @@
                 </div>
             </div>
         </div>
-        <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
+        <div class="product__container">
             <div class="product__list">
                 <h2 class="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold mt-8 mb-4">Sản phẩm đã xem</h2>
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($recentlyViewedProducts as $product)
                     <div class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 p-2">
-                        <div class="bg-white rounded-lg shadow-md p-4 h-96 relative group">
+                        <div class="bg-white rounded-lg border shadow-md p-4 h-full relative group">
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product-img">
                                     <img class="w-full h-48 object-cover" src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}">

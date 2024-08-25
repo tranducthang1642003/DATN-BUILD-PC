@@ -14,8 +14,18 @@ class AdminReviewController extends Controller
 {
     public function index(Request $request)
     {
+        $title = 'Admin - Bình luận';
         $reviews= review::all();
-        return view('admin.review.review',compact('reviews'));
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        if ($startDate && $endDate) {
+            $reviews->whereBetween('created_at', [$startDate, $endDate]);
+        }
+        $keyword = $request->input('keyword');
+        if ($keyword) {
+            $reviews->where('comment', 'like', '%' . $keyword . '%');
+        }
+        return view('admin.review.review',compact('reviews', 'title'));
     }
     public function deletereview(string $id)
 {

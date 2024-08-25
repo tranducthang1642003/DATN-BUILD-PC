@@ -25,7 +25,7 @@ class HomeController extends Controller
         $this->homeRepository = $homeRepository;
     }
 
-    
+
     public function index()
     {
         $categories = $this->homeRepository->getAllProducts();
@@ -126,16 +126,16 @@ class HomeController extends Controller
         $minPrice = Product::min('price');
         $maxPrice = Product::max('price');
         $brands = Brand::all();
-
+        $blogs = Blogs::latest()->take(4)->get();
         $products->load('reviews');
         $products = $this->loadPrimaryImages($products);
         $featuredBlogs = Blogs::where('featured', 1)->get();
         if ($request->ajax()) {
             return response()->json([
-                'products' => view('public.product.product-list', compact('products',))->render()
+                'products' => view('public.product.product-list', compact('products', 'likeItem'))->render(),
+                'pagination' => (string) $products->links()
             ]);
         }
-
         return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems','likeItem'));
     }
     public function showSearch(Request $request)

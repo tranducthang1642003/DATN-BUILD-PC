@@ -1,5 +1,5 @@
 <style>
-  .product_active {
+  .review_active {
     background: linear-gradient(to right, goldenrod, rgb(219, 183, 94));
     color: white;
   }
@@ -45,7 +45,7 @@
     @endif
   <div class="flex justify-between text-sm">
     <div class="flex text-white">
-      <form action="{{ route('product') }}" method="GET" class="flex">
+      <form action="{{ route('adminreview') }}" method="GET" class="flex">
         <div class="ml-2 sm:ml-4 flex">
           <label for="startDate" class="block text-gray-500 mt-1">Từ ngày</label>
           <input class="p-1.5 sm:p-2 rounded-lg ml-2 bg-main text-gray-500 text-sm" type="date" id="startDate" name="start_date">

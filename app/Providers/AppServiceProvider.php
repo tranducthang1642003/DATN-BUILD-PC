@@ -14,8 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-      View::composer(
-            ['public.home.layout', 'public.*'], // List of views you want to apply this composer to
+        View::composer(
+            '*', // Apply to all views
             LogoComposer::class
         );
     }
