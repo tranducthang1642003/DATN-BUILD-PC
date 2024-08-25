@@ -8,7 +8,7 @@ use Modules\Auth\Entities\User;
 
 class Review extends Model
 {
-    protected $fillable = ['product_id', 'user_id', 'rating', 'comment', 'created_at', 'updated_at'];
+    protected $fillable = ['product_id', 'user_id', 'rating', 'comment', 'created_at', 'updated_at','active'];
 
     public function product()
     {
