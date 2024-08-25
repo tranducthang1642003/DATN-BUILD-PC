@@ -46,22 +46,22 @@
                                 <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-full h-auto object-cover">
                             </div>
                         </a>
-                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 italic">
-                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 p-1 italic">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
                         </div>
                         <div class="product-info p-3">
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg hover:no-underline font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                             <div class="flex items-center mt-2">
                                 <div class="text-sm text-slate-500 line-through">
-                                    {{ number_format($product->price) }}
+                                    {{ number_format($product->price) }} VND
                                 </div>
                                 <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                    {{ $product->stock }}%
+                                    {{ $product->discount_percentage }}%
                                 </div>
                             </div>
                             <div class="text-red-700 font-bold text-lg mt-2">
-                                {{ number_format($product->price) }} VND
-                                <p>Giá giảm: {{ number_format($product->price_sale, 2) }} VNĐ</p>
+                                {{ number_format($product->price_sale) }} VND
+                                <p>Giá giảm: {{ number_format($product->price_sale) }} VNĐ</p>
                                 <p>Phần trăm giảm giá: {{ $product->discount_percentage }}%</p>
                             </div>
                         </div>
@@ -85,9 +85,6 @@
                                             </button>
                                         </form>
                                     @endif
-                                
-                                    
-                             
                             </div>
                             <p>
                                 <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
@@ -106,7 +103,6 @@
         </div>
     </div>
 </section>
-
 
 {{-- SẢN PHẨM BÁN CHẠY --}}
 
@@ -136,22 +132,21 @@
                                 <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}" class="w-full h-52 object-cover">
                             </div>
                         </a>
-                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 italic">
-                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
+                        <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 p-1 italic">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
                         </div>
                         <div class="product-info p-4">
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg font-semibold leading-tight line-clamp-2">{{ $product->product_name }}</a>
                             <div class="flex items-center mt-2">
-                                <div class="text-sm text-slate-500 line-through">
-                                    {{ number_format($product->price) }}
-                                    VND
+                            <div class="text-sm text-slate-500 line-through">
+                                    {{ number_format($product->price) }} VND
                                 </div>
                                 <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                    {{ $product->discount }}
+                                    {{ $product->discount_percentage }}%
                                 </div>
                             </div>
                             <div class="text-red-700 font-bold text-lg mt-2">
-                                {{ number_format($product->price) }} VND
+                                {{ number_format($product->price_sale) }} VND
                             </div>
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -244,9 +239,9 @@
                                     <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}" class="w-full h-auto object-cover">
                                 </div>
                             </a>
-                            <div class="bg-red-900 text-white rounded-full w-24 text-center ml-3 mt-2 italic">
-                                <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu SALE
-                            </div>
+                            <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
+                        </div>
                             <div class="product-info p-3">
                                 <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                                 <div class="flex items-center mt-2">
@@ -254,11 +249,11 @@
                                         {{ number_format($product->price) }} VND
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                        {{ $product->discount }}%
+                                        {{ $product->discount_percentage }}%
                                     </div>
                                 </div>
                                 <div class="text-red-700 font-bold text-lg mt-2">
-                                    {{ number_format($product->price) }} VND
+                                    {{ number_format($product->price_sale) }} VND
                                 </div>
                             </div>
                             <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">

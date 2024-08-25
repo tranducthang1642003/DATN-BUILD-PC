@@ -8,7 +8,7 @@
         </ol>
     </nav>
     <div class="one-time mt-3 w-full max-w-max ">
-    @foreach($banners_top as $banner)
+        @foreach($banners_top as $banner)
                 <img src="{{ asset($banner->images_url) }}" alt="{{ $banner->alt_text }}" class="-64 w-full object-cover">
         @endforeach
     </div>
@@ -35,7 +35,7 @@
     </section>
     <div class="flex flex-col lg:flex-row">
     <!-- Bộ lọc sản phẩm -->
-    <div class="w-full lg:w-1/3 mb-4 lg:mb-0">
+    <div class="w-full lg:w-1/3 mb-4 lg:mb-0 mr-2">
         <form action="{{ route('productShow') }}" method="GET" id="filterForm">
             <div class="border rounded-lg shadow-lg p-3 my-3">
                 <h5 class="font-semibold uppercase">Thương hiệu</h5>

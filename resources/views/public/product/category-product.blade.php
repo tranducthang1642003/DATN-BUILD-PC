@@ -41,15 +41,18 @@
                                         display: -webkit-box;
                                         -webkit-box-orient: vertical;">{{ $top->product_name }}</a>
                                     <p class="text-gray-400 truncate-2-lines">{{ $top->short_description }}</p>
-                                    <div class="mt-1 inline-flex text-xs md:text-base">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">{{ $top->discount }}</p>
+                                    <div class="flex items-center mt-2">
+                                        <div class="text-sm text-slate-500 line-through">
+                                            {{ number_format($top->price) }}
+                                            VND
                                         </div>
-                                        <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
+                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                                            {{ $top->discount_percentage }}%
                                         </div>
                                     </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($top->price) }} VND</div>
+                                    <div class="text-red-700 font-bold text-lg mt-2">
+                                        {{ number_format($top->price_sale) }} VND
+                                    </div>
                                     @if ($top->reviews->isNotEmpty())
                                     @php
                                     $averageRating = $top->reviews->avg('rating');
@@ -180,15 +183,18 @@
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-2-lines" style="overflow: hidden;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
                             <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                            <div class="mt-1 inline-flex text-xs md:text-base">
-                                <div>
-                                    <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
-                                </div>
-                                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                    -25%
-                                </div>
-                            </div>
-                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($product->price) }} VND</div>
+                            <div class="flex items-center mt-2">
+                                        <div class="text-sm text-slate-500 line-through">
+                                            {{ number_format($product->price) }}
+                                            VND
+                                        </div>
+                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                                            {{ $product->discount_percentage }}%
+                                        </div>
+                                    </div>
+                                    <div class="text-red-700 font-bold text-lg mt-2">
+                                        {{ number_format($product->price_sale) }} VND
+                                    </div>
                             @if ($product->reviews->isNotEmpty())
                             @php
                             $averageRating = $product->reviews->avg('rating');

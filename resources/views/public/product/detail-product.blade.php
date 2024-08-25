@@ -87,7 +87,7 @@
                         Tiết kiệm 810.000đ
                     </div>
                     <div class="bg-red-700 text-red-700 font-bold rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
-                        -25%
+                    {{ $product->discount_percentage }}%
                     </div>
                 </div>
                 <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
