@@ -61,26 +61,12 @@
             });
         </script>
 
-<div class="text-left">
-<form id="saveConfigurationForm" action="{{ route('save-configuration') }}" method="POST">
-            @csrf
-            <input type="text" name="configuration_name" required placeholder="Tên cấu hình">
-            <button type="submit" class="bg-blue-500 text-white rounded px-4 py-2">Lưu cấu hình</button>
-        </form>
-
-        <div id="successMessage" class="hidden bg-green-500 text-white rounded px-4 py-2 mt-4"></div>
-        <a id="viewConfigurationButton" href="#" class="hidden bg-blue-500 text-white rounded px-4 py-2 mt-4">Xem cấu
-            hình</a>
-</div>
 
 
 
 
-            <div class="flex justify-end">
-            <h3 class="mr-1 py-2 px-5 mb-5 bg-red-500 text-white text-end font-medium">chi phí dự tính:</h3>
-            <span class="py-2 px-5 mb-5 bg-red-500 text-white text-end font-medium ">{{ number_format($totalPrice) }}
-                VND</span>
-        </div>
+
+            
     <section>
         <div class="shadow-md rounded mb-4 border">
             <table class="min-w-full divide-y divide-gray-200 border-collapse border border-slate-500">
@@ -211,7 +197,17 @@
                 </div>
             </div>
         @endforeach
+        <div class="text-left">
+<form id="saveConfigurationForm" action="{{ route('save-configuration') }}" method="POST">
+            @csrf
+            <input type="text" name="configuration_name" required placeholder="Tên cấu hình">
+            <button type="submit" class="bg-blue-500 text-white rounded px-4 py-2">Lưu cấu hình</button>
+        </form>
 
+        <div id="successMessage" class="hidden bg-green-500 text-white rounded px-4 py-2 mt-4"></div>
+        <a id="viewConfigurationButton" href="#" class="hidden bg-blue-500 text-white rounded px-4 py-2 mt-4">Xem cấu
+            hình</a>
+</div>
     </section>
     <div class="container">
         <div class="flex justify-end">
@@ -227,6 +223,8 @@
                     vào giỏ hàng</button>
             </form>
         </div>
+
+
         <section>
         <div class="container mx-auto py-6 p-10">
             <div class="flex justify-between items-center mb-4">

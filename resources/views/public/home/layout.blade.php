@@ -61,6 +61,8 @@
                             </div>
                             <div class="text-red-700 font-bold text-lg mt-2">
                                 {{ number_format($product->price) }} VND
+                                <p>Giá giảm: {{ number_format($product->price_sale, 2) }} VNĐ</p>
+                                <p>Phần trăm giảm giá: {{ $product->discount_percentage }}%</p>
                             </div>
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">

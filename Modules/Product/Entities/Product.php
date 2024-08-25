@@ -24,12 +24,14 @@ class Product extends Model
         'view',
         'product_code',
         'sale',
+        'price_sale',
         'color',
         'featured',
         'status',
         'category_id',
         'brand_id',
         'stock',
+        'price_sale',
         'created_at',
         'updated_at',
     ];
@@ -87,5 +89,17 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function getDiscountPercentageAttribute()
+    {
+        if ($this->price <= 0) {
+            return 0;
+        }
+
+        $discountAmount = $this->price - $this->price_sale;
+        $discountPercentage = ($discountAmount / $this->price) * 100;
+
+        return round($discountPercentage, 2); // Round to 2 decimal places
     }
 }
