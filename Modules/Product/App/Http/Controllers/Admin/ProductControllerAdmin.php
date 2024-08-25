@@ -81,6 +81,7 @@ class ProductControllerAdmin extends Controller
             'quantity' => 'required|numeric',
             'stock' => 'required|numeric',
             'sale' => 'required|in:0,1',
+            'price_sale' => 'required|numeric',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -103,6 +104,7 @@ class ProductControllerAdmin extends Controller
             $product->quantity = $request->input('quantity');
             $product->stock = $request->input('stock');
             $product->sale = $request->input('sale');
+            $product->price_sale = $request->input('price_sale');
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');
             $product->category_id = $request->input('category_id');
@@ -173,6 +175,7 @@ class ProductControllerAdmin extends Controller
             'quantity' => 'required|numeric',
             'stock' => 'required|numeric',
             'sale' => 'required|in:0,1',
+            'price_sale' => 'required|numeric',
             'featured' => 'required|in:yes,no',
             'status' => 'required|in:1,2,3',
             'category_id' => 'required|exists:categories,id',
@@ -208,6 +211,7 @@ class ProductControllerAdmin extends Controller
             $product->color = $request->input('color');
             $product->quantity = $request->input('quantity');
             $product->stock = $request->input('stock');
+            $product->price_sale = $request->input('price_sale');
             $product->sale = $request->input('sale');
             $product->featured = $request->input('featured') === 'yes';
             $product->status = $request->input('status');

@@ -94,6 +94,7 @@
                 <th class="px-4 py-2">Thương hiệu</th>
                 <th class="px-4 py-2 hidden sm:table-cell">Danh mục</th>
                 <th class="px-4 py-2">Đơn giá</th>
+                <th class="px-4 py-2">Giá giảm</th>
                 <th class="px-4 py-2 hidden sm:table-cell">Số lượng</th>
                 <th class="px-4 py-2">Trạng thái</th>
                 <th class="px-4 py-2"></th>
@@ -117,6 +118,7 @@
                 <td class="px-4 pt-2">{{ $product->brand->brand_name }}</td>
                 <td class="px-4 pt-2 hidden sm:table-cell">{{ $product->category->category_name }}</td>
                 <td class="px-4 pt-2">{{ number_format($product->price) }} VND</td>
+                <td class="px-4 pt-2">{{ number_format($product->price_sale) }} VND</td>
                 <td class="px-4 pt-2 hidden sm:table-cell">{{ $product->quantity }}</td>
                 <td class="pr-4 pt-4 status-cell flex items-center justify-center">
                     <span class="status-indicator
