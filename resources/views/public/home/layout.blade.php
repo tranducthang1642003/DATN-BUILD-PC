@@ -51,16 +51,14 @@
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg hover:no-underline font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                             <div class="flex items-center mt-2">
                                 <div class="text-sm text-slate-500 line-through">
-                                    {{ number_format($product->price) }}
+                                {{ number_format($product->price_sale, 2) }}
                                 </div>
                                 <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                    {{ $product->stock }}%
+                                {{ $product->discount_percentage }}%
                                 </div>
                             </div>
                             <div class="text-red-700 font-bold text-lg mt-2">
                                 {{ number_format($product->price) }} VND
-                                <p>Giá giảm: {{ number_format($product->price_sale, 2) }} VNĐ</p>
-                                <p>Phần trăm giảm giá: {{ $product->discount_percentage }}%</p>
                             </div>
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -117,9 +115,13 @@
         <div class="flex flex-wrap">
             <div class="banner-product w-full md:w-1/3">
                 <div class="banner pt-5 p-3">
-                    @foreach($poster_product->take(1) as $poster)
-                    <img src="{{ asset($poster->images_url) }}" alt="{{ $poster->alt_text }}" class="rounded-lg h-auto md:h-96 w-full">
-                    @endforeach
+                <div class="post-ter px-4 md:px-8 pt-6 flex flex-wrap justify-between">
+        @foreach($banners_top->take(1) as $banner)
+        
+            <img src="{{ $banner->images_url }}" alt="{{ $banner->alt_text }}" class="rounded-lg h-auto md:h-96 w-full">
+        
+        @endforeach
+    </div>
                 </div>
             </div>
             <div class="autoplay-sanpham p-5 w-full md:w-2/3">
