@@ -21,5 +21,6 @@ Route::group([], function ()
 Route::group(['middleware' => 'admin'], function ()
 {
     Route::get('admin/review', [AdminReviewController::class, 'index'])->name('adminreview');
+    Route::post('admin/review/edit/{reviews}', [AdminReviewController::class, 'update_status'])->name('update-status');
     Route::delete('admin/review/delete/{id}', [AdminReviewController::class, 'deletereview'])->name('review.destroy');
 });

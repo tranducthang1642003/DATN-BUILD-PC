@@ -113,7 +113,22 @@
           <?php } ?>
         </td>
         <td class="px-4 py-2 hidden sm:table-cell">{{ $review->created_at}}</td>
-        <td class="px-4 py-2"><button type="submit" class="bg-red-800 text-white font-bold py-2 px-3 rounded"></i></button></td>
+        <td class="px-4 py-2 status-cell flex items-center mt-2">
+          <div class="relative">
+              <select  class="status-select bg-primary border-0 text-sm rounded-md p-1 pr-10 outline-none" data-order-id="{{ $review->id }}">
+                  <option value="0" {{ $review->active == '0' ? 'selected' : '' }}>Đã chặn</option>
+                  <option value="1" {{ $review->active == '1' ? 'selected' : '' }}>Đã hiện</option>
+              </select>
+              <input type="hidden" name="review_id" value="{{ $review->id }}">
+          </div>
+          <form class="update-form" method="POST" action="{{ route('update-status', ['reviews' => $review->id]) }}">
+              @csrf
+              @method('POST')
+              <input type="hidden" name="user_id" value="{{ $review->id }}">
+              <input type="number" name="active_new" class="bg-white border border-gray-300 rounded-md p-1 outline-none hidden" value="">
+              <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-2 rounded-md update-btn">Update</button>
+          </form>
+      </td>
         <td class="px-4 py-2">
           <form action="{{ route('review.destroy', $review->id) }}" method="POST">
             @csrf
@@ -123,6 +138,8 @@
             </button>
           </form>
         </td>
+       
+        
       </tr>
       @endforeach
     </tbody>
@@ -148,4 +165,4 @@
     element.parentElement.style.display = "none";
   }
 </script>
-@include('admin.layout.fotter')
+@include('admin.layout.fotter')<script>

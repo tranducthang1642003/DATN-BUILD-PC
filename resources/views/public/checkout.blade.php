@@ -103,13 +103,13 @@ document.querySelector('#order-form').addEventListener('submit', function(event)
     var paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
     var form = event.target;
     
-    if (paymentMethod === 'momo') {
+    if (paymentMethod === 'cash') {
         event.preventDefault(); 
         
        
         console.log("Form Data:", new FormData(form));
         
-        var paymentUrl = "{{ route('momo') }}"; 
+        var paymentUrl = "{{ route('orders.placeOrder') }}"; 
         form.action = paymentUrl;
         form.submit();
     }
