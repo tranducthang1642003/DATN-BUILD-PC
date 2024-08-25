@@ -227,155 +227,161 @@
                     </svg>
                 </button>
             </div>
-
-            <!-- Mobile menu -->
-            <section id="mobile-menu" class="hidden md:hidden">
+            </div>
+        </section>
+        {{-- Mobile menu --}}
+        <section>
+            <div id="mobile-menu" class="hidden md:hidden">
                 <ul class="flex flex-col space-y-2 text-gray-700 px-6">
-                    <li class="hover:text-blue-500"><a href="{{ route('buildpc') }}">Xây dựng cấu hình</a></li>
-                    <li class="hover:text-blue-500"><a href="{{ route('contact.index') }}">Khách hàng liên hệ</a></li>
-                    <li class="hover:text-blue-500"><a href="{{ route('blog.index') }}">Tin tức công nghệ</a></li>
-                    <li class="hover:text-blue-500"><a href="{{ route('orders.lookup.form') }}">Theo dõi đơn hàng</a>
-                    </li>
-                    <li class="hover:text-blue-500"><a href="{{ route('cart') }}">Giỏ hàng</a></li>
-                    <li class="hover:text-blue-500">
-                        @if(Auth::check())
-                            <a href="{{ route('dashboard') }}">Tài khoản</a>
-                        @else
-                            <a href="{{ route('login') }}">Tài khoản</a>
-                        @endif
-                    </li>
+                    <li class="hover:text-blue-500"><img src="" alt=""><a href="#">Xây dựng
+                            cấu hình</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Khách hàng liên hệ</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Tin tức công nghệ</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Theo dõi đơn hàng</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Giỏ hàng</a></li>
+                    <li class="hover:text-blue-500"><a href="#">Tài khoản</a></li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
 
-            {{-- Desktop menu --}}
+        {{-- Desktop menu --}}
 
 
-            <section class="bg-sky-600">
-                <div
-                    class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
-                    <div class="nav__menu md:flex space-x-6 text-gray-700">
-                        <ul class="flex space-x-6 text-white items-center">
-                            <li
-                                class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer">
-                                <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
-                                <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
+        <section class="bg-sky-600">
+            <div
+                class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
+                <div class="nav__menu md:flex space-x-6 text-gray-700">
+                    <ul class="flex space-x-6 text-white items-center">
+                        <li
+                            class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer">
+                            <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+                            <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
 
-                                <!-- Dropdown Menu -->
-                                <ul class="dropdown-menu">
-                                    @foreach ($featuredCategories as $category)
-                                        <li class="category-item">
-                                            <a href="{{ route('category.show', $category->slug) }}"
-                                                class="flex items-center justify-between">
-                                                <div class="flex items-center space-x-2">
-                                                    <img src="{{ $category->image }}" alt="{{ $category->category_name }}"
-                                                        class="w-10 h-10 object-cover rounded-full">
-                                                    <span class="truncate">{{ $category->category_name }}</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            <li class="flex items-center">
-                                <ul class="navbar-menu flex">
-                                    @foreach ($menuItems as $menuItem)
-                                        <li class="list-menu mr-8 text-lg font-bold items-center">
-                                            <a href="{{ $menuItem->url }}"
-                                                class="flex uppercase text-base font-normal link p-3">
-                                                <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
-                                                    style="filter: invert(1);">
-                                                <span>{{ $menuItem->name }}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                            <!-- Dropdown Menu -->
+                            <ul class="dropdown-menu">
+                                @foreach ($featuredCategories as $category)
+                                    <li class="category-item">
+                                        <a href="{{ route('category.show', $category->slug) }}"
+                                            class="flex items-center justify-between">
+                                            <div class="flex items-center space-x-2">
+                                                <img src="{{ $category->image }}" alt="{{ $category->category_name }}"
+                                                    class="w-10 h-10 object-cover rounded-full">
+                                                <span class="truncate">{{ $category->category_name }}</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li class="flex items-center">
+                            <ul class="navbar-menu flex">
+                                @foreach ($menuItems as $menuItem)
+                                    <li class="list-menu mr-8 text-lg font-bold items-center">
+                                        <a href="{{ $menuItem->url }}"
+                                            class="flex uppercase text-base font-normal link p-3">
+                                            <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
+                                                style="filter: invert(1);">
+                                            <span>{{ $menuItem->name }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-            </section>
+            </div>
+        </section>
 
 
 
 
-            <style>
-                .relative {
-                    position: relative;
-                }
+        <style>
+            .relative {
+                position: relative;
+            }
 
-                .dropdown-menu {
-                    display: none;
-                    /* Ẩn menu mặc định */
-                    position: absolute;
-                    /* Định vị menu theo phần tử cha */
-                    top: 100%;
-                    /* Đưa menu xuống dưới nút */
-                    left: 0;
-                    /* Canh menu về bên trái của phần tử cha */
-                    width: max-content;
-                    /* Menu rộng toàn màn hình */
-                    height: 60vh;
-                    /* Menu cao toàn màn hình */
-                    background-color: #ffffff;
-                    /* Màu nền của menu */
-                    overflow-y: auto;
-                    /* Cho phép cuộn nếu menu quá dài */
-                    opacity: 0;
-                    /* Menu ban đầu ẩn */
-                    transition: opacity 0.3s ease, transform 0.3s ease;
-                    /* Hiệu ứng mờ và chuyển động */
-                    transform: translateY(10px);
-                    /* Đưa menu xuống dưới một chút */
-                    display: grid;
-                    /* Sử dụng grid để chia đều các mục */
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    /* Chia đều các mục */
-                    gap: 1rem;
-                    /* Khoảng cách giữa các mục */
-                    padding: 1rem;
-                    /* Padding cho menu */
-                    z-index: 50;
-                }
+            .dropdown-menu {
+                display: none;
+                /* Ẩn menu mặc định */
+                position: absolute;
+                /* Định vị menu theo phần tử cha */
+                top: 100%;
+                /* Đưa menu xuống dưới nút */
+                left: 0;
+                /* Canh menu về bên trái của phần tử cha */
+                width: max-content;
+                /* Menu rộng toàn màn hình */
+                height: 60vh;
+                /* Menu cao toàn màn hình */
+                background-color: #ffffff;
+                /* Màu nền của menu */
+                overflow-y: auto;
+                /* Cho phép cuộn nếu menu quá dài */
+                opacity: 0;
+                /* Menu ban đầu ẩn */
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                /* Hiệu ứng mờ và chuyển động */
+                transform: translateY(10px);
+                /* Đưa menu xuống dưới một chút */
+                display: grid;
+                /* Sử dụng grid để chia đều các mục */
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                /* Chia đều các mục */
+                gap: 1rem;
+                /* Khoảng cách giữa các mục */
+                padding: 1rem;
+                /* Padding cho menu */
+                z-index: 50;
+            }
 
-                /* Hiển thị menu khi hover trên phần tử cha */
-                .relative:hover .dropdown-menu {
-                    display: grid;
-                    /* Hiển thị menu khi hover */
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            /* Hiển thị menu khi hover trên phần tử cha */
+            .relative:hover .dropdown-menu {
+                display: grid;
+                /* Hiển thị menu khi hover */
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-                /* Tùy chỉnh kiểu menu */
-                .category-item {
-                    list-style: none;
-                    /* Xóa dấu chấm trong danh sách */
-                }
+            /* Tùy chỉnh kiểu menu */
+            .category-item {
+                list-style: none;
+                /* Xóa dấu chấm trong danh sách */
+            }
 
-                .category-item a {
-                    text-decoration: none;
-                    /* Xóa gạch chân khỏi liên kết */
-                    color: inherit;
-                    /* Kế thừa màu chữ từ phần tử cha */
-                    display: block;
-                    /* Đảm bảo liên kết chiếm toàn bộ chiều rộng */
-                    padding: 0.5rem;
-                    /* Padding cho các mục menu */
-                    border-radius: 0.375rem;
-                    /* Bo tròn góc cho các mục menu */
-                    transition: background-color 0.3s ease;
-                    /* Hiệu ứng chuyển màu nền */
-                }
+            .category-item a {
+                text-decoration: none;
+                /* Xóa gạch chân khỏi liên kết */
+                color: inherit;
+                /* Kế thừa màu chữ từ phần tử cha */
+                display: block;
+                /* Đảm bảo liên kết chiếm toàn bộ chiều rộng */
+                padding: 0.5rem;
+                /* Padding cho các mục menu */
+                border-radius: 0.375rem;
+                /* Bo tròn góc cho các mục menu */
+                transition: background-color 0.3s ease;
+                /* Hiệu ứng chuyển màu nền */
+            }
 
-                /* Tùy chỉnh cho các phần tử trong menu */
-                .category-item a:hover {
-                    background-color: #f3f4f6;
-                    /* Màu nền khi hover trên các mục menu */
-                }
-            </style>
+            /* Tùy chỉnh cho các phần tử trong menu */
+            .category-item a:hover {
+                background-color: #f3f4f6;
+                /* Màu nền khi hover trên các mục menu */
+            }
+        </style>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -395,6 +401,7 @@
 <script>
     $(document).ready(function () {
         $('#cart-dropdown-toggle').hover(function () {
+            // Gửi yêu cầu AJAX để lấy danh sách sản phẩm trong giỏ hàng
             $.ajax({
                 url: '{{ route("cart.getCartItems") }}',
                 method: 'GET',
