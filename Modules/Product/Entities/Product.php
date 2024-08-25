@@ -24,6 +24,7 @@ class Product extends Model
         'view',
         'product_code',
         'sale',
+        'price_sale',
         'color',
         'featured',
         'status',
