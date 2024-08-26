@@ -71,7 +71,7 @@ class HomeRepository implements HomeRepositoryInterface
                 'products.price',         // Add price to the group by clause
                 'products.stock',         // Add stock to the group by clause
                 'products.description', 
-                'products.specifications', // Add specifications to the group by clause
+                'products.specifications', 
                 'products.created_at', 
                 'products.updated_at'
             )            ->orderBy('total_quantity_sold', 'desc')
