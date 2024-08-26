@@ -933,6 +933,18 @@ select {
 .-top-3 {
   top: -0.75rem;
 }
+.-left-4 {
+  left: -1rem;
+}
+.-left-20 {
+  left: -5rem;
+}
+.-left-10 {
+  left: -2.5rem;
+}
+.-left-16 {
+  left: -4rem;
+}
 .z-0 {
   z-index: 0;
 }
