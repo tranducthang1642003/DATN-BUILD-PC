@@ -12,6 +12,8 @@ use Modules\Category\Entities\Category;
 use Modules\Blog\Entities\Blogs;
 use Modules\Like\Entities\wishlists;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Modules\Order\Entities\Orders;
 use Modules\Settings\Entities\Menu;
 use Modules\Review\Entities\Review; // Import Review
 
@@ -33,13 +35,13 @@ class HomeController extends Controller
         $saleproduct = $this->homeRepository->getSaleProducts();
         $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
         $menuItems = Menu::all();
-        $blogs = Blogs::latest()->take(4)->get(); 
+        $blogs = Blogs::latest()->take(4)->get();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         // Lấy tất cả bình luận cho các sản phẩm
         $productIds = $bestsellingProducts->pluck('id'); // Lấy danh sách ID sản phẩm
         $reviews = Review::whereIn('product_id', $productIds)->with('user')->get(); // Eager load user
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews','likeItem'));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews', 'likeItem'));
     }
     public function showByCategory($slug)
     {
@@ -62,7 +64,7 @@ class HomeController extends Controller
         if ($request->has('brand')) {
             $products = $products->where('brand_id', $request->brand);
         }
-        
+
         $topProducts = $category->products()
             ->where('featured', true)
             ->orderBy('view', 'desc')
@@ -74,12 +76,12 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request','menuItems','likeItem'));
+        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request', 'menuItems', 'likeItem'));
     }
 
     public function show($slug)
     {
-        $user=Auth::User();
+        $user = Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $product = Product::where('slug', $slug)->firstOrFail();
         $primary_image = ProductImage::where('product_id', $product->id)
@@ -91,11 +93,11 @@ class HomeController extends Controller
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
         $menuItems = Menu::all();
-        return view('public.product.detail-product', compact('product','menuItems','likeItem'));
+        return view('public.product.detail-product', compact('product', 'menuItems', 'likeItem'));
     }
     public function productShow(Request $request)
     {
-        $user=Auth::User();
+        $user = Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $categories = Category::all();
         $productsQuery = Product::query();
@@ -140,19 +142,19 @@ class HomeController extends Controller
                 'pagination' => (string) $products->links()
             ]);
         }
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems','likeItem'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem'));
     }
     public function showSearch(Request $request)
     {
-        $user=Auth::User();
+        $user = Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $query = $request->input('query');
 
         $products = Product::where(function ($q) use ($query) {
             $q->where('product_name', 'like', '%' . $query . '%')
-            ->orWhereHas('brand', function ($brandQuery) use ($query) {
-                $brandQuery->where('brand_name', 'like', '%' . $query . '%');
-            });
+                ->orWhereHas('brand', function ($brandQuery) use ($query) {
+                    $brandQuery->where('brand_name', 'like', '%' . $query . '%');
+                });
         });
 
         if ($request->has('brand')) {
@@ -166,7 +168,7 @@ class HomeController extends Controller
         $brands = Brand::whereIn('id', $products->pluck('brand_id'))->get();
 
         $products->load('reviews');
-        return view('public.product.search-product', compact('products', 'query', 'brands', 'request','likeItem'));
+        return view('public.product.search-product', compact('products', 'query', 'brands', 'request', 'likeItem'));
     }
     public function suggestions(Request $request)
     {
@@ -233,20 +235,28 @@ class HomeController extends Controller
     }
     public function productShow_sale(Request $request)
     {
-        $user=Auth::User();
+        $user = Auth::user();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $categories = Category::all();
-        $productsQuery = Product::all()->where('featured', true);
-        dd($productsQuery);
         $menuItems = Menu::all();
-
+        $productsQuery = Product::where('featured', true);
         $productsQuery = $this->applyFilters($productsQuery, $request);
-
         if ($request->filled('sort')) {
             switch ($request->sort) {
+                case 'hot':
+                    $sales = DB::table('order_items')
+                        ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+                        ->groupBy('product_id')
+                        ->orderBy('total_quantity', 'desc')
+                        ->get();
+                    $productIds = $sales->pluck('product_id');
+                    $productsQuery->whereIn('id', $productIds);
+                    $productsQuery->orderByRaw('FIELD(id, ' . implode(',', $productIds->toArray()) . ')');
+                    break;
                 case 'price_asc':
                     $productsQuery->orderBy('price', 'asc');
                     break;
+
                 case 'price_desc':
                     $productsQuery->orderBy('price', 'desc');
                     break;
@@ -256,29 +266,29 @@ class HomeController extends Controller
                 case 'alphabetical':
                     $productsQuery->orderBy('product_name', 'asc');
                     break;
+                case 'sale':
+                    $productsQuery->where('featured', true);
+                    break;
                 default:
                     $productsQuery->orderBy('created_at', 'desc');
             }
         } else {
             $productsQuery->orderBy('created_at', 'desc');
         }
-
-        // Phân trang
         $products = $productsQuery->paginate(20);
-
         $minPrice = Product::min('price');
         $maxPrice = Product::max('price');
         $brands = Brand::all();
         $blogs = Blogs::latest()->take(4)->get();
+        $featuredBlogs = Blogs::where('featured', 1)->get();
         $products->load('reviews');
         $products = $this->loadPrimaryImages($products);
-        $featuredBlogs = Blogs::where('featured', 1)->get();
         if ($request->ajax()) {
             return response()->json([
                 'products' => view('public.product.product-list', compact('products', 'likeItem'))->render(),
                 'pagination' => (string) $products->links()
             ]);
         }
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems','likeItem'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem'));
     }
 }

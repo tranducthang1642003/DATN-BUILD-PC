@@ -2809,6 +2809,12 @@ select {
 }
 
 
+.hover\:text-blue-300:hover {
+  --tw-text-opacity: 1;
+  color: rgb(147 197 253 / var(--tw-text-opacity));
+}
+
+
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
