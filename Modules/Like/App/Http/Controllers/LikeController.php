@@ -15,6 +15,8 @@ class LikeController extends Controller
      */
     public function index()
     {
+        $title ='Sản phẩm yêu thích';
+
         $user=Auth::User();
         $menuItems = Menu::all();
         $likeItem = wishlists::where('user_id', $user->id)->with('product')->get();
@@ -22,7 +24,7 @@ class LikeController extends Controller
             $primary_image = $likeItem->product->images->firstWhere('is_primary', 1);
             $likeItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
         });
-        return view('public.dashboard.like',compact('likeItem','menuItems'));
+        return view('public.dashboard.like',compact('likeItem','menuItems','title'));
     }
     public function addlike(Product $product, Request $request)
 {
