@@ -64,9 +64,6 @@
     </div>
     <section class="site-section w-full">
         <div class="header__banner-news w-full max-w-max one-time">
-
-
-
             @if($banners_top_header->isNotEmpty())
                 @foreach($banners_top_header as $banner)
                     <img src="{{ asset($banner->images_url)}}" alt="{{ $banner->alt_text }}">
@@ -76,9 +73,8 @@
         </div>
 
         <section class="site-nav bg-sky-500 shadow">
-            <div
-                class="nav__container  mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
-                <div class="nav__logo " style="width:6%;padding: 15px;">
+            <div class="nav__container mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
+                <div class="nav__logo w-24 mx-auto md:w-36" style="padding: 5px;">
                     @if($logos->isNotEmpty())
                         @foreach($logos as $logo)
                             <p>{{ $logo->url }}</p>
@@ -103,8 +99,6 @@
 
                     </ul>
                 </div>
-
-
 
                 <div class="nav__menu hidden md:flex space-x-4 lg:space-x-6 text-gray-700">
                     <ul class="flex space-x-4 lg:space-x-6 text-white items-center text-xs font-bold">
@@ -207,99 +201,98 @@
                         <style>
 
                         </style>
-
-
-
-
-
-
                     </ul>
                 </div>
-            </div>
-
-
-            <div class="md:hidden">
-                <button id="menu-toggle" class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </section>
-        {{-- Mobile menu --}}
-        <section>
-            <div id="mobile-menu" class="hidden md:hidden">
-                <ul class="flex flex-col space-y-2 text-gray-700 px-6">
-                    <li class="hover:text-blue-500"><img src="" alt=""><a href="#">Xây dựng
-                            cấu hình</a></li>
-                    <li class="hover:text-blue-500"><a href="#">Khách hàng liên hệ</a></li>
-                    <li class="hover:text-blue-500"><a href="#">Tin tức công nghệ</a></li>
-                    <li class="hover:text-blue-500"><a href="#">Theo dõi đơn hàng</a></li>
-                    <li class="hover:text-blue-500"><a href="#">Giỏ hàng</a></li>
-                    <li class="hover:text-blue-500"><a href="#">Tài khoản</a></li>
+            <!-- Mobile menu -->
+            <section id="mobile-menu" class="hidden fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+                <div class="md:hidden p-4 border-b">
+                </div>
+                <div class="p-4 border-b">
+                <ul class="navbar-menu">
+                                    @foreach ($menuItems as $menuItem)
+                                        <li class="list-menu text-lg font-bold items-center">
+                                            <a href="{{ $menuItem->url }}"
+                                                class="flex text-base font-normal link p-3">
+                                                <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
+                                                    style="filter: invert(0);">
+                                                <span>{{ $menuItem->name }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                </div>
+                <ul class="flex flex-col space-y-2 text-gray-700 my-3">
+                    <li class="hover:text-blue-500 p-4 border-b font-bold uppercase"><a href="{{ route('orders.lookup.form') }}">Theo dõi đơn hàng</a>
+                    </li>
+                    <li class="hover:text-blue-500 p-4 border-b font-bold uppercase"><a href="{{ route('cart') }}">Giỏ hàng</a></li>
+                    <li class="hover:text-blue-500 p-4 font-bold uppercase">
+                        @if(Auth::check())
+                            <a href="{{ route('dashboard') }}">Tài khoản</a>
+                        @else
+                            <a href="{{ route('login') }}">Tài khoản</a>
+                        @endif
+                    </li>
                 </ul>
-            </div>
-        </section>
+            </section>
+            {{-- Desktop menu --}}
 
+            <section class="bg-sky-600">
+                <div class="nav__container hidden md:flex max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
+                    <div class="nav__menu space-x-6 text-gray-700">
+                        <ul class="flex space-x-6 text-white items-center">
+                            <li
+                                class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer">
+                                <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+                                <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
 
-        {{-- Desktop menu --}}
-
-
-        <section class="bg-sky-600">
-            <div
-                class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
-                <div class="nav__menu md:flex space-x-6 text-gray-700">
-                    <ul class="flex space-x-6 text-white items-center">
-                        <li
-                            class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer">
-                            <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
-                            <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
-
-                            <!-- Dropdown Menu -->
-                            <ul class="dropdown-menu">
-                                @foreach ($featuredCategories as $category)
-                                    <li class="category-item">
-                                        <a href="{{ route('category.show', $category->slug) }}"
-                                            class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-2">
-                                                <img src="{{ $category->image }}" alt="{{ $category->category_name }}"
-                                                    class="w-10 h-10 object-cover rounded-full">
-                                                <span class="truncate">{{ $category->category_name }}</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                        <li class="flex items-center">
-                            <ul class="navbar-menu flex">
-                                @foreach ($menuItems as $menuItem)
-                                    <li class="list-menu mr-8 text-lg font-bold items-center">
-                                        <a href="{{ $menuItem->url }}"
-                                            class="flex uppercase text-base font-normal link p-3">
-                                            <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
-                                                style="filter: invert(1);">
-                                            <span>{{ $menuItem->name }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    </ul>
+                                <!-- Dropdown Menu -->
+                                <ul class="dropdown-menu">
+                                    @foreach ($featuredCategories as $category)
+                                        <li class="category-item">
+                                            <a href="{{ route('category.show', $category->slug) }}"
+                                                class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-2">
+                                                    <img src="{{ $category->image }}" alt="{{ $category->category_name }}"
+                                                        class="w-10 h-10 object-cover rounded-full">
+                                                    <span class="truncate">{{ $category->category_name }}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li class="flex items-center">
+                                <ul class="navbar-menu flex">
+                                    @foreach ($menuItems as $menuItem)
+                                        <li class="list-menu mr-8 text-lg font-bold items-center">
+                                            <a href="{{ $menuItem->url }}"
+                                                class="flex uppercase text-base font-normal link p-3">
+                                                <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
+                                                    style="filter: invert(1);">
+                                                <span>{{ $menuItem->name }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-
-
-
-        <style>
-            .relative {
-                position: relative;
-            }
+            </section>
+            <style>
+                .relative {
+                    position: relative;
+                }
 
             .dropdown-menu {
                 display: none;

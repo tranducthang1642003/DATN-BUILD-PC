@@ -35,14 +35,14 @@
     <a class="hover:text-slate-50" href="{{ route('adminreview') }}"><span>Bình luận</span></a>
   </div>
   @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @elseif (session('error'))
-    <div class="alert alert-error">
-        {{ session('error') }}
-    </div>
-    @endif
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+  @elseif (session('error'))
+  <div class="alert alert-error">
+    {{ session('error') }}
+  </div>
+  @endif
   <div class="flex justify-between text-sm">
     <div class="flex text-white">
       <form action="{{ route('adminreview') }}" method="GET" class="flex">
@@ -115,40 +115,40 @@
         <td class="px-4 py-2 hidden sm:table-cell">{{ $review->created_at}}</td>
         <td class="px-4 py-2 status-cell flex items-center mt-2">
           <div class="relative">
-              <select  class="status-select bg-primary border-0 text-sm rounded-md p-1 pr-10 outline-none" data-order-id="{{ $review->id }}">
-                  <option value="0" {{ $review->active == '0' ? 'selected' : '' }}>Đã chặn</option>
-                  <option value="1" {{ $review->active == '1' ? 'selected' : '' }}>Đã hiện</option>
-              </select>
-              <input type="hidden" name="review_id" value="{{ $review->id }}">
+            <select class="status-select bg-primary border-0 text-sm rounded-md p-1 pr-10 outline-none" data-order-id="{{ $review->id }}">
+              <option value="0" {{ $review->active == '0' ? 'selected' : '' }}>Đã chặn</option>
+              <option value="1" {{ $review->active == '1' ? 'selected' : '' }}>Đã hiện</option>
+            </select>
+            <input type="hidden" name="review_id" value="{{ $review->id }}">
           </div>
-          <form class="update-form" method="POST" action="{{ route('update-status', ['reviews' => $review->id]) }}">
-              @csrf
-              @method('POST')
-              <input type="text" name="user_id" value="{{ $review->id }}">
-              <input type="number" name="active_new" class="bg-white border border-gray-300 rounded-md p-1 outline-none" value="">
-              <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-2 rounded-md update-btn">Update</button>
-          </form>
-      </td>
+        </td>
         <td class="px-4 py-2">
+          <form class="update-form hidden" method="POST" action="{{ route('update-status', ['reviews' => $review->id]) }}">
+            @csrf
+            @method('POST')
+            <input type="hidden" name="user_id" value="{{ $review->id }}">
+            <input type="number" name="active_new" class="bg-white border border-gray-300 rounded-md p-1 outline-none hidden" value="">
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-2 rounded-md update-btn">Update</button>
+          </form>
           <form action="{{ route('review.destroy', $review->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="bg-red-400 hover:bg-red-500 text-white font-bold py-1 px-3 rounded">
+            <button type="submit" class=" detail-btn bg-red-400 hover:bg-red-500 text-white font-bold py-1 px-3 rounded">
               X
             </button>
           </form>
         </td>
-       
-        
+
+
       </tr>
       @endforeach
     </tbody>
   </table>
   <div class="flex justify-end mr-8">
-    {{-- <div>
-            {{ $products->links() }}
-  </div> --}}
-</div>
+    <div>
+      {{ $reviews->links() }}
+    </div>
+  </div>
 </div>
 
 <script>
@@ -167,36 +167,36 @@
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-      const statusSelects = document.querySelectorAll('.status-select');
-      statusSelects.forEach(select => {
-          select.addEventListener('change', function() {
-              const orderId = this.dataset.orderId;
-              const newStatus = this.value;
+    const statusSelects = document.querySelectorAll('.status-select');
+    statusSelects.forEach(select => {
+      select.addEventListener('change', function() {
+        const orderId = this.dataset.orderId;
+        const newStatus = this.value;
 
-              const parentRow = this.closest('tr');
-              const detailBtn = parentRow.querySelector('.detail-btn');
-              const updateForm = parentRow.querySelector('.update-form');
+        const parentRow = this.closest('tr');
+        const detailBtn = parentRow.querySelector('.detail-btn');
+        const updateForm = parentRow.querySelector('.update-form');
 
-              const statusInput = updateForm.querySelector('input[name="active_new"]');
-              statusInput.value = newStatus;
+        const statusInput = updateForm.querySelector('input[name="active_new"]');
+        statusInput.value = newStatus;
 
-              detailBtn.classList.add('hidden');
-              updateForm.classList.remove('hidden');
+        detailBtn.classList.add('hidden');
+        updateForm.classList.remove('hidden');
 
-              const statusCell = parentRow.querySelector('.status-cell');
-              const statusIndicator = statusCell.querySelector('.status-indicator');
+        const statusCell = parentRow.querySelector('.status-cell');
+        const statusIndicator = statusCell.querySelector('.status-indicator');
 
-              statusIndicator.className = `status-indicator ${
+        statusIndicator.className = `status-indicator ${
                   newStatus == '1' ? 'active' :
                   'inactive'
               }`;
-              statusIndicator.title = ucfirst(newStatus == "1" ? 'active' : 'inactive');
-          });
+        statusIndicator.title = ucfirst(newStatus == "1" ? 'active' : 'inactive');
       });
+    });
 
-      function ucfirst(str) {
-          return str.charAt(0).toUpperCase() + str.slice(1);
-      }
+    function ucfirst(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
   });
 </script>
 @include('admin.layout.fotter')<script>

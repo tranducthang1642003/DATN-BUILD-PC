@@ -29,7 +29,7 @@
         <div class="text grid grid-cols-1 md:grid-cols-2 justify-between items-center pt-2 px-6">
             <div class="text-sale text-xl md:text-2xl font-black text-amber-400">GIÁ TỐT SIÊU SALE MỖI NGÀY</div>
            
-            <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
+            <a href="{{ route('productShow_sale', ['sort' => 'sale']) }}"><div class="text-see-more text-sm font-bold text-end text-white hover:text-blue-300">Xem thêm khuyến mãi</div></a>
         </div>
 
         <div class="product-slide" style="    padding-bottom: 0px;">
@@ -117,7 +117,7 @@
     <div class="rounded-lg shadow shadow-white" style="background: linear-gradient(180deg, #0967E9 0%, #DCF6FD 100%);">
         <div class="text grid grid-cols-1 md:grid-cols-2 justify-between items-center pt-2 px-6">
             <div class="text-sale text-xl md:text-2xl font-black text-red-500">SẢN PHẨM BÁN CHẠY</div>
-            <div class="text-see-more text-sm font-bold md:text-right">Xem thêm khuyến mãi</div>
+            <a href="{{ route('productShow_sale', ['sort' => 'hot']) }}"><div class="text-see-more text-sm font-bold md:text-right text-white hover:text-blue-300">Xem thêm khuyến mãi</div></a>
         </div>
         <div class="flex flex-wrap">
             <div class="banner-product w-full md:w-1/3">
@@ -244,46 +244,46 @@
 <section class="px-8 pt-6">
     <div class="bg-slate-100 rounded-lg shadow-2xl shadow-white">
         @foreach ($categories as $category)
-            <div class="px-6 pt-2">
-                <div class="text grid grid-cols-1 md:grid-cols-2 justify-between items-center">
-                    <div class="text-sale text-xl md:text-2xl font-black text-red-500 py-2">
-                        <a href="{{ route('category.show', $category->slug) }}">{{ $category->category_name }}</a>
-                    </div>
-                    <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
+        <div class="px-6 pt-2">
+            <div class="text grid grid-cols-1 md:grid-cols-2 justify-between items-center">
+                <div class="text-sale text-xl md:text-2xl font-black text-red-500 py-2">
+                    <a href="{{ route('category.show', $category->slug) }}">{{ $category->category_name }}</a>
                 </div>
-                <div class="product-slide">
-                    <div class="autoplay-slider p-3">
-                        @foreach ($category->products as $product)
-                            <div class="product__item">
-                                <div class="bg-white rounded-lg mr-2 md:mr-4 mb-4 md:mb-0 h-auto relative group">
-                                    <!-- Hot tag -->
-                                  
-                                    <a href="{{ route('product.show', $product->slug) }}">
-                                        <div class="product-img overflow-hidden">
-                                            <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}"
-                                                class="w-full h-auto object-cover">
-                                        </div>
-                                    </a>
-                                    <!-- <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
-                                        <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
-                                    </div> -->
-                                    <div class="product-info p-3">
-                                        <a href="{{ route('product.show', $product->slug) }}"
-                                            class="hover:text-blue-600 text-lg font-semibold leading-tight text_css">{{ $product->product_name }}</a>
-                                        <div class="flex items-center mt-2">
-                                            <div class="text-sm text-slate-500 line-through">
-                                                {{ number_format($product->price) }} VND
-                                            </div>
-                                            <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
-                                                {{ $product->discount_percentage }}%
-                                            </div>
-                                        </div>
-                                        <div class="text-red-700 font-bold text-lg mt-2">
-                                            {{ number_format($product->price_sale) }} VND
-                                        </div>
+                <a href="{{ route('category.show', $category->slug) }}"><div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div></a>
+            </div>
+            <div class="product-slide">
+                <div class="autoplay-slider p-3">
+                    @foreach ($category->products as $product)
+                    <div class="product__item">
+                        <div class="bg-white rounded-lg mr-2 md:mr-4 mb-4 md:mb-0 h-auto relative group">
+                            <!-- Hot tag -->
+                            @if($product->created_at->diffInDays(now()) <= 30)
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
+                            <a href="{{ route('product.show', $product->slug) }}">
+                                <div class="product-img overflow-hidden">
+                                    <img src="{{ $product->primary_image_path }}" alt="{{ $product->name }}" class="w-full h-auto object-cover">
+                                </div>
+                            </a>
+                            <div class="bg-red-900 text-white rounded-full w-20 md:w-24 text-center ml-3 italic p-1">
+                            <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Siêu Sale
+                        </div>
+                            <div class="product-info p-3">
+                                <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 text-lg font-semibold leading-tight text_css">{{ $product->product_name }}</a>
+                                <div class="flex items-center mt-2">
+                                    <div class="text-sm text-slate-500 line-through">
+                                        {{ number_format($product->price) }} VND
                                     </div>
-                                    <div
-                                class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                                        {{ $product->discount_percentage }}%
+                                    </div>
+                                </div>
+                                <div class="text-red-700 font-bold text-lg mt-2">
+                                    {{ number_format($product->price_sale) }} VND
+                                </div>
+                            </div>
+                            <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                {{-- Like button --}}
                                 <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                     @if ($likeItem && $likeItem->contains('product_id', $product->id))
                                         <form
