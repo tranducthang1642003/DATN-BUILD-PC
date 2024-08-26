@@ -48,6 +48,7 @@ class HomeRepository implements HomeRepositoryInterface
 
     public function getMostPurchasedProducts($limit = 5)
     {
+        
         $products = Product::select('products.*')
             ->with(['images' => function($query) {
                 $query->where('is_primary', 1);

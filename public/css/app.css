@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.3 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.7 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -854,6 +854,9 @@ select {
 .pointer-events-none {
   pointer-events: none;
 }
+.visible {
+  visibility: visible;
+}
 .fixed {
   position: fixed;
 }
@@ -862,9 +865,6 @@ select {
 }
 .relative {
   position: relative;
-}
-.-inset-1 {
-  inset: -0.25rem;
 }
 .-inset-1\.5 {
   inset: -0.375rem;
@@ -917,9 +917,6 @@ select {
 }
 .top-4 {
   top: 1rem;
-}
-.top-full {
-  top: 100%;
 }
 .z-0 {
   z-index: 0;
@@ -1017,19 +1014,14 @@ select {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-.my-5 {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-.my-28 {
-  margin-top: 7rem;
-  margin-bottom: 7rem;
-}
 .-ml-px {
   margin-left: -1px;
 }
 .-mt-px {
   margin-top: -1px;
+}
+.mb-0 {
+  margin-bottom: 0px;
 }
 .mb-1 {
   margin-bottom: 0.25rem;
@@ -1042,6 +1034,9 @@ select {
 }
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
 }
 .mb-4 {
   margin-bottom: 1rem;
@@ -1066,9 +1061,6 @@ select {
 }
 .ml-12 {
   margin-left: 3rem;
-}
-.ml-16 {
-  margin-left: 4rem;
 }
 .ml-2 {
   margin-left: 0.5rem;
@@ -1145,12 +1137,6 @@ select {
 .mt-8 {
   margin-top: 2rem;
 }
-.mb-0 {
-  margin-bottom: 0px;
-}
-.mb-3 {
-  margin-bottom: 0.75rem;
-}
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -1214,9 +1200,6 @@ select {
 .h-5 {
   height: 1.25rem;
 }
-.h-5\/6 {
-  height: 83.333333%;
-}
 .h-52 {
   height: 13rem;
 }
@@ -1257,11 +1240,8 @@ select {
 .h-screen {
   height: 100vh;
 }
-.h-60 {
-  height: 15rem;
-}
-.h-40 {
-  height: 10rem;
+.h-5\/6 {
+  height: 83.333333%;
 }
 .max-h-20 {
   max-height: 5rem;
@@ -1316,12 +1296,6 @@ select {
 }
 .w-3 {
   width: 0.75rem;
-}
-.w-3\/4 {
-  width: 75%;
-}
-.w-3\/5 {
-  width: 60%;
 }
 .w-32 {
   width: 8rem;
@@ -1390,6 +1364,9 @@ select {
 }
 .w-screen {
   width: 100vw;
+}
+.w-3\/4 {
+  width: 75%;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1471,6 +1448,10 @@ select {
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.-translate-x-full {
+  --tw-translate-x: -100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .-translate-y-1\/2 {
   --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1517,6 +1498,9 @@ select {
 }
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;
@@ -2047,6 +2031,10 @@ select {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -2058,18 +2046,6 @@ select {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-.py-14 {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
-}
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
-.px-7 {
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
 }
 .pb-12 {
   padding-bottom: 3rem;
@@ -2142,9 +2118,6 @@ select {
 }
 .pt-14 {
   padding-top: 3.5rem;
-}
-.pt-16 {
-  padding-top: 4rem;
 }
 .pt-2 {
   padding-top: 0.5rem;
@@ -2685,6 +2658,12 @@ select {
 }
 
 
+.hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+
 .hover\:bg-gray-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -2757,15 +2736,15 @@ select {
 }
 
 
-.hover\:bg-gray-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+
+.hover\:text-blue-300:hover {
+  --tw-text-opacity: 1;
+  color: rgb(147 197 253 / var(--tw-text-opacity));
 }
 
 
@@ -2844,12 +2823,6 @@ select {
 .hover\:text-yellow-500:hover {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
-}
-
-
-.hover\:text-blue-300:hover {
-  --tw-text-opacity: 1;
-  color: rgb(147 197 253 / var(--tw-text-opacity));
 }
 
 
@@ -3015,11 +2988,6 @@ select {
 .active\:text-gray-700:active {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
-
-.group:hover .group-hover\:block {
-  display: block;
 }
 
 
@@ -3312,6 +3280,10 @@ select {
     width: 6rem;
   }
 
+  .md\:w-36 {
+    width: 9rem;
+  }
+
   .md\:w-48 {
     width: 12rem;
   }
@@ -3326,6 +3298,10 @@ select {
 
   .md\:max-w-xl {
     max-width: 36rem;
+  }
+
+  .md\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .md\:grid-cols-2 {
@@ -3597,11 +3573,6 @@ select {
     line-height: 1;
   }
 
-  .lg\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
   .lg\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -3625,16 +3596,16 @@ select {
     width: 25%;
   }
 
-  .xl\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .xl\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .xl\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .xl\:px-12 {
@@ -3655,16 +3626,6 @@ select {
   .xl\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .xl\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .xl\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .xl\:text-xl {

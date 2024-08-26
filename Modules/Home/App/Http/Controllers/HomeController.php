@@ -151,6 +151,7 @@ class HomeController extends Controller
     }
     public function showSearch(Request $request)
     {
+        $title ='Tìm kiếm';
         $user = Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $query = $request->input('query');
@@ -173,7 +174,7 @@ class HomeController extends Controller
         $brands = Brand::whereIn('id', $products->pluck('brand_id'))->get();
 
         $products->load('reviews');
-        return view('public.product.search-product', compact('products', 'query', 'brands', 'request', 'likeItem'));
+        return view('public.product.search-product', compact('products', 'query', 'brands', 'request', 'likeItem','title'));
     }
     public function suggestions(Request $request)
     {
@@ -240,6 +241,7 @@ class HomeController extends Controller
     }
     public function productShow_sale(Request $request)
     {
+        $title ='Sản phẩm';
         $user = Auth::user();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $categories = Category::all();
@@ -294,6 +296,6 @@ class HomeController extends Controller
                 'pagination' => (string) $products->links()
             ]);
         }
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem'));
+        return view('public.product.products', compact('categories', 'brands', 'products','title', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem'));
     }
 }
