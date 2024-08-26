@@ -204,9 +204,8 @@
             <input type="text" name="configuration_name" required placeholder="Tên cấu hình">
             <button type="submit" class="bg-blue-500 text-white rounded px-4 py-2">Lưu cấu hình</button>
         </form>
-
         <div id="successMessage" class="hidden bg-green-500 text-white rounded px-4 py-2 mt-4"></div>
-        <a id="viewConfigurationButton" href="#" class="hidden bg-blue-500 text-white rounded px-4 py-2 mt-4">Xem cấu
+        <a id="" href="{{route('buildpc.view')}}" class=" bg-blue-500 text-white rounded px-4 py-2 mt-4">Xem cấu
             hình</a>
 </div>
     </section>

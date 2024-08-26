@@ -214,10 +214,12 @@ class BuildPCController extends Controller
     }
     
 
-    public function viewConfiguration($id)
-    {
-        $configuration = Configuration::with('items.product')->findOrFail($id);
-        $menuItems = Menu::all();
+    public function viewConfiguration()
+{
+    $configurations = Configuration::with('items.product')->get();
+    $menuItems = Menu::all();
+
+    foreach ($configurations as $configuration) {
         $configurationItems = $configuration->items;
         $totalPrice = $configuration->total_price;
 
@@ -230,9 +232,10 @@ class BuildPCController extends Controller
                 $item->image_path = asset('images/default-product-image.jpg');
             }
         }
-
-        return view('public.buildPC.showbuildpc', compact('configurationItems', 'totalPrice', 'menuItems', 'configuration'));
     }
+
+    return view('public.buildPC.showbuildpc', compact('configurations', 'menuItems', 'configurationItems', 'totalPrice'));
+}
 
 
 

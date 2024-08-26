@@ -14,18 +14,20 @@
                         <th class="w-1/4 px-4 py-2 text-left">Giá</th>
                     </tr>
                 </thead>
-                <tbody class="text-gray-700">
-                    @foreach($configurationItems as $item)
-                    <tr class="border-b hover:bg-gray-100">
-                        <td class="w-1/3 px-4 py-2">{{ $item->product->product_name }}</td>
-                        <td class="w-1/4 px-4 py-2">
-                            <img src="{{ $item->image_path }}" alt="{{ $item->product->product_name }}" class="w-24 h-24 object-cover rounded">
-                        </td>
-                        <td class="w-1/4 px-4 py-2">{{ $item->quantity }}</td>
-                        <td class="w-1/4 px-4 py-2">{{ number_format($item->product->price, 0, ',', '.') }} đ</td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                <table class="text-gray-700">
+                    <tbody>
+                        @foreach($configurationItems as $item)
+                        <tr class="border-b hover:bg-gray-100">
+                            <td class="w-1/3 px-4 py-2">{{ $item->product->product_name }}</td>
+                            <td class="w-1/4 px-4 py-2">
+                                <img src="{{ $item->image_path }}" alt="{{ $item->product->product_name }}" class="w-24 h-24 object-cover rounded">
+                            </td>
+                            <td class="w-1/4 px-4 py-2">{{ $item->quantity }}</td>
+                            <td class="w-1/4 px-4 py-2">{{ number_format($item->product->price, 0, ',', '.') }} đ</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </table>
         </div>
 
