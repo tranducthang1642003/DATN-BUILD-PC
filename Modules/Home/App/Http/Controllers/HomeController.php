@@ -28,6 +28,8 @@ class HomeController extends Controller
 
     public function index()
     {
+        $title = "Trang chủ ";
+
         $categories = $this->homeRepository->getAllProducts();
         $featuredCategories = $this->homeRepository->getFeaturedCategories();
         $saleproduct = $this->homeRepository->getSaleProducts();
@@ -53,7 +55,7 @@ class HomeController extends Controller
             ->get();
 
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews', 'likeItem'));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews', 'likeItem','title'));
     }
     public function showByCategory($slug)
     {
@@ -65,6 +67,7 @@ class HomeController extends Controller
 
     public function showCategory($slug, Request $request)
     {
+        $title = 'Danh mục';
 
         $category = $this->homeRepository->getCategoryBySlug($slug);
         $products = $this->homeRepository->getProductByProduct($slug);
@@ -88,7 +91,7 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request', 'menuItems', 'likeItem'));
+        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request', 'menuItems', 'likeItem','title'));
     }
 
     public function show($slug)
@@ -109,6 +112,8 @@ class HomeController extends Controller
     }
     public function productShow(Request $request)
     {
+        $title = 'Sản Phẩm';
+
         $user = Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $categories = Category::all();
@@ -154,8 +159,9 @@ class HomeController extends Controller
                 'pagination' => (string) $products->links()
             ]);
         }
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem','title'));
     }
+
     public function showSearch(Request $request)
     {
         $user = Auth::User();
@@ -180,7 +186,7 @@ class HomeController extends Controller
         $brands = Brand::whereIn('id', $products->pluck('brand_id'))->get();
 
         $products->load('reviews');
-        return view('public.product.search-product', compact('products', 'query', 'brands', 'request', 'likeItem'));
+        return view('public.product.search-product', compact('products', 'query', 'brands', 'request', 'likeItem','title'));
     }
     public function suggestions(Request $request)
     {

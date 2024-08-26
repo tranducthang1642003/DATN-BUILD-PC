@@ -11,6 +11,7 @@ class HomeRepository implements HomeRepositoryInterface
 {
     public function getAllProducts()
     {
+        $title = 'Admin - Dashboard';
         $categories = Category::where('is_featured_home', true)
             ->with('products')
             ->get();

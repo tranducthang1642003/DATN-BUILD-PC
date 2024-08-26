@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> TRANG </title>
+    <title>{{ $title }}</title>
 
     <!-- Check if logos are available and set the favicon -->
     @if($logos->isNotEmpty())

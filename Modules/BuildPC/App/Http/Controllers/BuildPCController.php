@@ -27,6 +27,7 @@ class BuildPCController extends Controller
 
     public function index(Request $request)
     {
+        $title = 'Xây Dựng Cấu Hình';
         $userId = Auth::id();
         $configurationItems = session()->get('configuration_items', []);
         $menuItems = Menu::all();
@@ -75,8 +76,7 @@ class BuildPCController extends Controller
             return view('public.buildPC.partials.products', compact('products'))->render();
         }
     
-        // Pass data to the view
-        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice', 'menuItems', 'brands', 'blogs', 'products'));
+        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice', 'menuItems', 'brands', 'blogs', 'products','title'));
     }
     
 

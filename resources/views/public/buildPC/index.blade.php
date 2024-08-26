@@ -145,25 +145,7 @@
                     <div class="p-6 pt-0 text-center">
                         <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">{{ $category->category_name }}</h3>
                         <div class="flex">
-                            <!-- <div class="w-1/4 p-4 border-r border-gray-300">
-                                <h4 class="text-lg font-medium mb-4">Chọn linh kiện</h4>
-                                <form id="filterForm" method="GET" action="{{ route('buildpc') }}"
-                                    class="text-left space-y-4">
-                                    <div>
-                                        <h5 class="text-md font-medium mb-2">Thương hiệu</h5>
-                                        <div class="space-y-2">
-                                            @foreach($brands as $brand)
-                                                <label class="block">
-                                                    <input type="checkbox" name="brand[]" value="{{ $brand->brand_name }}"
-                                                        class="mr-2">{{ $brand->brand_name }}
-                                                </label>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </form>
-
-                                
-                            </div> -->
+                            
                             <div class="w-auto p-4 overflow-y-auto">
                                 @if ($category->products->isEmpty())
                                     <p>Không có sản phẩm nào.</p>

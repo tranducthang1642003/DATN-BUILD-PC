@@ -1,3 +1,4 @@
+
 @include('public.header.index')
 
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">

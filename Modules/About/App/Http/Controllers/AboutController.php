@@ -14,8 +14,9 @@ class AboutController extends Controller
      */
     public function index()
     {
+        $title = "Giới thiệu ";
         $menuItems = Menu::all();
-        return view('public.about.index');
+        return view('public.about.index' ,compact('title'));
     }
 
     /**

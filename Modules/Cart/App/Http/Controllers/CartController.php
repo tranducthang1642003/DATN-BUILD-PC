@@ -18,6 +18,7 @@ class CartController extends Controller
     {
         $user = auth()->user();
         $menuItems = Menu::all();
+        $title ='Giỏ hàng';
 
         if ($user) {
             $cartItems = CartItem::where('user_id', $user->id)
@@ -43,7 +44,7 @@ class CartController extends Controller
             $cartItem->primary_image_path = $primaryImage ? $primaryImage->image_path : null;
         });
 
-        return view('public.cart', compact('cartItems', 'totalPrice', 'totalDiscount','menuItems'));
+        return view('public.cart', compact('cartItems', 'totalPrice', 'totalDiscount','menuItems','title'));
     }
 
     // public function applyCoupon(Request $request)
