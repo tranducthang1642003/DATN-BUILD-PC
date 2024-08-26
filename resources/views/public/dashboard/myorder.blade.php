@@ -18,7 +18,7 @@
     </div>
     @endif
 <div class="bg-white p-4 col-span-7 rounded-md shadow-lg">
-    <h1 class="text-2xl font-bold mb-4 bg-blue-200 flex justify-center items-center p-3 rounded-lg shadow-lg">Trang Sản Phẩm Yêu Thích</h1> 
+    <h1 class="text-2xl font-bold mb-4 bg-blue-200 flex justify-center items-center p-3 rounded-lg shadow-lg">Trang Đơn Hàng Của Tôi</h1> 
     <div class="w-full table-responsive mb-5">
 
         <table
