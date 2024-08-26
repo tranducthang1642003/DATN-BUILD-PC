@@ -35,9 +35,20 @@ class HomeController extends Controller
         $menuItems = Menu::all();
         $blogs = Blogs::latest()->take(4)->get(); 
         $likeItem = wishlists::where('user_id', auth()->id())->get();
-        // Lấy tất cả bình luận cho các sản phẩm
-        $productIds = $bestsellingProducts->pluck('id'); // Lấy danh sách ID sản phẩm
-        $reviews = Review::whereIn('product_id', $productIds)->with('user')->get(); // Eager load user
+        $productIds = $bestsellingProducts->pluck('id');
+
+        // Lấy các đánh giá 5 sao của sản phẩm bán chạy
+        $reviews = Review::whereIn('product_id', $productIds)
+            ->where('rating', 5)
+            ->with(['user', 'product' => function($query) {
+                // Eager load hình ảnh chính của sản phẩm
+                $query->with(['images' => function($query) {
+                    $query->where('is_primary', 1);
+                }]);
+            }])
+            ->take(5)
+            ->get();
+        
 
         return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews','likeItem'));
     }

@@ -201,9 +201,9 @@ class OrderController1 extends Controller
     $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
     $orderInfo = "Thanh toán qua MoMo";
     $amount = $totalAmount;
-    $orderId = $order->order_code;  // Use order code or any unique identifier
-    $redirectUrl = url('/orders/checkout/success');  // Adjust redirect URL
-    $ipnUrl = url('/orders/checkout/ipn');  // IPN (Instant Payment Notification) URL
+    $orderId = $order->order_code;  
+    $redirectUrl = route('orders.paymentsuccess');  
+    $ipnUrl = url('/orders/checkout/ipn');  
 
     $requestId = time() . "";
     $requestType = "payWithATM";
