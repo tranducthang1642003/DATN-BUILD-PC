@@ -30,7 +30,7 @@
             <div class="text-end-sale text-lg md:text-xl font-bold text-white flex">
                 kết thúc sau: @include('public.home.demgio')
             </div>
-            <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
+            <a href="{{ route('productShow_sale', ['sort' => 'sale']) }}"><div class="text-see-more text-sm font-bold text-end text-white hover:text-blue-300">Xem thêm khuyến mãi</div></a>
         </div>
 
         <div class="product-slide">
@@ -108,7 +108,7 @@
     <div class="rounded-lg shadow shadow-white" style="background: linear-gradient(180deg, #0967E9 0%, #DCF6FD 100%);">
         <div class="text grid grid-cols-1 md:grid-cols-2 justify-between items-center pt-2 px-6">
             <div class="text-sale text-xl md:text-2xl font-black text-red-500">SẢN PHẨM BÁN CHẠY</div>
-            <div class="text-see-more text-sm font-bold md:text-right">Xem thêm khuyến mãi</div>
+            <a href="{{ route('productShow_sale', ['sort' => 'hot']) }}"><div class="text-see-more text-sm font-bold md:text-right text-white hover:text-blue-300">Xem thêm khuyến mãi</div></a>
         </div>
         <div class="flex flex-wrap">
             <div class="banner-product w-full md:w-1/3">
@@ -225,7 +225,7 @@
                 <div class="text-sale text-xl md:text-2xl font-black text-red-500 py-2">
                     <a href="{{ route('category.show', $category->slug) }}">{{ $category->category_name }}</a>
                 </div>
-                <div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div>
+                <a href="{{ route('category.show', $category->slug) }}"><div class="text-see-more text-sm font-bold text-end">Xem thêm khuyến mãi</div></a>
             </div>
             <div class="product-slide">
                 <div class="autoplay-slider p-3">
