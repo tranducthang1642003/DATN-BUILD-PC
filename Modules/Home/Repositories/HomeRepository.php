@@ -54,8 +54,27 @@ class HomeRepository implements HomeRepositoryInterface
             }])
             ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
             ->selectRaw('products.*, COALESCE(SUM(order_items.quantity), 0) as total_quantity_sold')
-            ->groupBy('products.id', 'products.product_name', 'products.price', 'products.slug', 'products.description', 'products.created_at', 'products.updated_at') // Add all other necessary columns here
-            ->orderBy('total_quantity_sold', 'desc')
+            ->groupBy(
+                'products.id', 
+                'products.product_name', 
+                'products.price', 
+                'products.slug', 
+                'products.product_code',  // Add product_code to the group by clause
+                'products.color',         // Add color to the group by clause
+                'products.quantity',      // Add quantity to the group by clause
+                'products.sale',          // Add sale to the group by clause
+                'products.featured',      // Add featured to the group by clause
+                'products.status',        // Add status to the group by clause
+                'products.view',          // Add view to the group by clause
+                'products.category_id',   // Add category_id to the group by clause
+                'products.brand_id',      // Add brand_id to the group by clause
+                'products.price',         // Add price to the group by clause
+                'products.stock',         // Add stock to the group by clause
+                'products.description', 
+                'products.specifications', // Add specifications to the group by clause
+                'products.created_at', 
+                'products.updated_at'
+            )            ->orderBy('total_quantity_sold', 'desc')
             ->limit($limit)
             ->get();
         
