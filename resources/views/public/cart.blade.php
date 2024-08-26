@@ -140,9 +140,7 @@
                             đặt hàng</button>
                     </form>
 
-                    <button
-                        class="col-span-2 md:col-span-1 bg-blue-500 text-white px-4 py-2 rounded w-70% hover:bg-blue-600">Trả
-                        góp</button>
+                   
                 </div>
             </div>
         </div>

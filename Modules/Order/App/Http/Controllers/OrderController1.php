@@ -12,6 +12,7 @@ use Modules\Order\App\Emails\CheckoutEmail;
 use Modules\Settings\Entities\Menu;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 
 class OrderController1 extends Controller
@@ -241,5 +242,13 @@ class OrderController1 extends Controller
         return redirect()->route('orders.checkout')->with('error', 'Lỗi khi xử lý thanh toán MoMo.');
     }
 }
+public function myorder()
+{
+    $user=Auth::User();
+    $menuItems = Menu::all();
+    $title = 'Đơn hàng của bạn';
 
+    $OrderItem = Orders::where('user_id', $user->id)->with('product')->paginate(7);
+    return view('public.dashboard.myorder',compact('OrderItem','menuItems','title'));
+}
 }

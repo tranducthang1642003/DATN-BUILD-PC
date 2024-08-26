@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order-lookup', [OrderController1::class, 'showLookupForm'])->name('orders.lookup.form');
     Route::post('/order-lookup', [OrderController1::class, 'lookup'])->name('orders.lookup');
     Route::post('/orders/momopay', [OrderController1::class, 'handleMomoPayment'])->name('orders.handleMomoPayment');
-
+    Route::get('/dashboard/myorders', [OrderController1::class, 'myorder'])->name('myorder');
 });
 
 // MoMo Payment Route

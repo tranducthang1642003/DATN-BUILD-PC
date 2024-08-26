@@ -16,11 +16,13 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+
     {
+        $title ='Thông tin';
         $menuItems = Menu::all();
 
         $users=Auth::User();
-        return view('public.dashboard.dashboard',compact('users','menuItems'));
+        return view('public.dashboard.dashboard',compact('users','menuItems','title'));
     }
 
     /**
@@ -52,8 +54,10 @@ class DashboardController extends Controller
      */
     public function update()
     {
+        $title ='Thông tin';
+
         $user = Auth::user();
-        return view('public.dashboard.updateaccount', compact('user'));
+        return view('public.dashboard.updateaccount', compact('user','title'));
     }
 
     public function update_auth(Request $request)

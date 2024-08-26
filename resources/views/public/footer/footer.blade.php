@@ -17,7 +17,7 @@
 
     <div class="flex items-center justify-between w-full max-w-xl mx-auto flex-col  2xl:flex-col 2xl:items-start">
       <p class="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">Được tin cậy ở hơn 100 quốc gia & 5 triệu khách hàng. Có bất kỳ câu hỏi nào không ?</p>
-      <a href="javascript:;" class="py-2.5 px-5 h-9 block w-fit bg-indigo-600 rounded-full shadow-sm text-xs text-white mx-auto transition-all  duration-500 hover:bg-indigo-700 lg:mx-0"> Contact us </a>
+      <a href="{{ route('about.index') }}" class="py-2.5 px-5 h-9 block w-fit bg-indigo-600 rounded-full shadow-sm text-xs text-white mx-auto transition-all  duration-500 hover:bg-indigo-700 lg:mx-0"> Contact us </a>
     </div>
     </div>
     <!--End Col-->
@@ -64,7 +64,6 @@
     <!--Grid-->
     <div class="py-7 border-t border-gray-200">
     <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-    <span class="text-sm text-gray-500 ">©<a href="https://pagedone.io/">pagedone</a> 2024, All rights reserved.</span>
     <div class="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
       <a href="javascript:;" class="w-9 h-9 rounded-full bg-gray-700 flex justify-center items-center hover:bg-indigo-600">
         <svg class=" text-white" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
