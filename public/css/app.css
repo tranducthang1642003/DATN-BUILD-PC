@@ -921,6 +921,18 @@ select {
 .top-4 {
   top: 1rem;
 }
+.left-2 {
+  left: 0.5rem;
+}
+.left-4 {
+  left: 1rem;
+}
+.-top-2 {
+  top: -0.5rem;
+}
+.-top-3 {
+  top: -0.75rem;
+}
 .z-0 {
   z-index: 0;
 }

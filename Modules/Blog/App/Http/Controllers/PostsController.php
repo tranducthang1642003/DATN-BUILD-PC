@@ -23,12 +23,13 @@ class PostsController extends Controller
     }
     public function show($slug)
     {
+        $title = 'Chi tiết tin tức';
         $blog = Blogs::where('slug', $slug)->firstOrFail();
 
         $menuItems = Menu::all();
 
 
-        return view('public.blog.show', compact('menuItems'),[
+        return view('public.blog.show', compact('menuItems', 'title'),[
             'blog' => $blog,
         ]);
     }

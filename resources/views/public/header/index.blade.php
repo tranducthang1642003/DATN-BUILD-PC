@@ -125,7 +125,7 @@
                             @php
                                 $cartCount = session('cart_count', 0);
                             @endphp
-                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2 icon"
+                            <span id="cart-count" class="text-white bg-red-500 rounded-full px-2 icon absolute -top-3 left-4"
                                 style="display: {{ $cartCount > 0 ? 'inline-block' : 'none' }}">{{ $cartCount }}</span>
                             <div id="cart-dropdown"
                                 class="absolute bg-white border border-gray-200 shadow-md rounded p-2 mt-2 w-64 hidden overflow-auto max-h-64">

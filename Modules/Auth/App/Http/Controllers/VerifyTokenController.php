@@ -38,7 +38,8 @@ class VerifyTokenController extends Controller
 
     public function show()
     {
+        $title = 'OTP';
         $menuItems = Menu::all();
-        return view('auth\verify-token',compact('menuItems'));
+        return view('auth\verify-token',compact('menuItems', 'title'));
     }
 }
