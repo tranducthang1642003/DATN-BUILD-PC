@@ -28,81 +28,49 @@
       </svg>
     </a>
     <div class="flex items-center justify-between w-full max-w-xl mx-auto flex-col  2xl:flex-col 2xl:items-start">
-      <p class="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">Trusted in more than 100 countries & 5 million customers. Have any query ?</p>
+      <p class="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">Được tin cậy ở hơn 100 quốc gia & 5 triệu khách hàng. Có bất kỳ câu hỏi nào không ?</p>
       <a href="javascript:;" class="py-2.5 px-5 h-9 block w-fit bg-indigo-600 rounded-full shadow-sm text-xs text-white mx-auto transition-all  duration-500 hover:bg-indigo-700 lg:mx-0"> Contact us </a>
     </div>
     </div>
     <!--End Col-->
     <div class="lg:mx-auto text-left">
-    <h4 class="text-lg text-gray-900 font-medium mb-7">Pagedone</h4>
+    <h4 class="text-lg text-gray-900 font-medium mb-7">Về chúng tôi</h4>
     <ul class="text-sm  transition-all duration-500 ">
       <li class="mb-6">
-        <a href="javascript:;" class="text-gray-600 hover:text-gray-900">Home</a>
+        <a href="{{ route('home') }}" class="text-gray-600 hover:text-gray-900">Trang chính</a>
       </li>
       <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">About</a>
+        <a href="{{ route('about.index') }}" class=" text-gray-600 hover:text-gray-900">Giới Thiệu</a>
       </li>
       <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Pricing</a>
+        <a href="{{route('blog.index')}}" class=" text-gray-600 hover:text-gray-900">Blog</a>
       </li>
-      <li>
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Features</a>
+
+    </ul>
+    </div>
+    <!--End Col-->
+    <div class="lg:mx-auto text-left">
+    <a href=""><h4 class="text-lg text-gray-900 font-medium mb-7">Sản Phẩm</h4></a>
+    <ul class="text-sm transition-all duration-500">
+      <li class="mb-6">
+        <a href="{{route('productShow')}}" class="text-gray-600 hover:text-gray-900">Tất cả sản phẩm</a>
+      </li>
+      <li class="mb-6">
+        <a href="{{route('buildpc')}}" class=" text-gray-600 hover:text-gray-900">Buildpc</a>
       </li>
     </ul>
     </div>
     <!--End Col-->
     <div class="lg:mx-auto text-left">
-    <h4 class="text-lg text-gray-900 font-medium mb-7">Products</h4>
+    <h4 class="text-lg text-gray-900 font-medium mb-7">liên hệ và hỗ trợ</h4>
     <ul class="text-sm  transition-all duration-500">
-      <li class="mb-6">
-        <a href="javascript:;" class="text-gray-600 hover:text-gray-900">Figma UI System</a>
-      </li>
-      <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Icons Assets</a>
-      </li>
-      <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Responsive Blocks</a>
-      </li>
       <li>
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Components Library</a>
+        <a href="{{route('contact.index')}}" class=" text-gray-600 hover:text-gray-900">Liên hệ</a>
       </li>
     </ul>
     </div>
     <!--End Col-->
     <div class="lg:mx-auto text-left">
-    <h4 class="text-lg text-gray-900 font-medium mb-7">Resources</h4>
-    <ul class="text-sm  transition-all duration-500">
-      <li class="mb-6">
-        <a href="javascript:;" class="text-gray-600 hover:text-gray-900">FAQs</a>
-      </li>
-      <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Quick Start</a>
-      </li>
-      <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Documentation</a>
-      </li>
-      <li>
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">User Guide</a>
-      </li>
-    </ul>
-    </div>
-    <!--End Col-->
-    <div class="lg:mx-auto text-left">
-    <h4 class="text-lg text-gray-900 font-medium mb-7">Blogs</h4>
-    <ul class="text-sm  transition-all duration-500">
-      <li class="mb-6">
-        <a href="javascript:;" class="text-gray-600 hover:text-gray-900">News</a>
-      </li>
-      <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Tips & Tricks</a>
-      </li>
-      <li class="mb-6">
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">New Updates</a>
-      </li>
-      <li>
-        <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">Events</a>
-      </li>
-    </ul>
     </div>
     </div>
     <!--Grid-->
