@@ -20,15 +20,19 @@
         <div class="mt-4">
             <h3 class="text-xl font-bold mb-2">Sản phẩm trong đơn hàng</h3>
             @foreach ($order->items as $item)
-                <div class="flex items-center mb-4 justify-between">
-                    <img src="{{ $item->primary_image_path }}" alt="{{ $item->product->product_name }}" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex items-center mb-4">
+                <img src="{{ $item->primary_image_path }}" alt="{{ $item->product->product_name }}" class="w-20 h-20 object-cover rounded-lg">
+                <div class="ml-10 flex justify-between w-full">
                     <div>
                         <p class="text-lg font-medium text-gray-700">{{ $item->product->product_name }}</p>
                         <p class="text-lg font-medium text-gray-700">{{ number_format($item->price) }} VNĐ</p>
                     </div>
-                    <p class="text-lg font-medium text-gray-700">{{ $item->quantity }} x</p>
-                    <p class="text-lg font-medium text-gray-700">{{ number_format($item->price * $item->quantity) }} VNĐ</p>
+                    <div class=" flex">
+                        <p class="text-lg font-medium text-gray-700">{{ $item->quantity }} x </p>
+                        <p class="text-lg font-medium text-gray-700">{{ number_format($item->price * $item->quantity) }} VNĐ</p>
+                    </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>
