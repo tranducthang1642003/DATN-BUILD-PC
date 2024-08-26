@@ -8,11 +8,10 @@
             <li><a href="#" class="text-black hover:text-blue-800">Tìm kiếm: {{ request('query') }}</a></li>
         </ol>
     </nav>
-    <div class="product__banner">
-        <div class="mt-3 slider autoplay w-full max-w-max">
-            <div><a href="" class=""> <img class="rounded-lg" src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg" alt=""> </a></div>
-            <div><a href="" class=""> <img class="rounded-lg" src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg" alt=""> </a></div>
-        </div>
+    <div class="one-time mt-3 w-full max-w-max ">
+    @foreach($banners_top as $banner)
+                <img src="{{ asset($banner->images_url) }}" alt="{{ $banner->alt_text }}" class="-64 w-full object-cover">
+        @endforeach
     </div>
     <div class="product__box-filter border mt-3 rounded-lg ">
         <div class="info-filter-product p-2">
@@ -43,7 +42,7 @@
                         <a href="{{ route('product.search', ['query' => $query]) }}">{{ $range['range'] }}(Xóa)</a>
                     </span>
                     @else
-                    <a href="{{ route('product.search', ['slug' => $query, 'min_price' => $range['min'], 'max_price' => $range['max']]) }}" class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    <a href="{{ route('product.search', ['query' => $query, 'min_price' => $range['min'], 'max_price' => $range['max']]) }}" class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
                         {{ $range['range'] }}
                         ({{ $countFilterProducts }})
                     </a>
@@ -65,11 +64,12 @@
                 @if ($countFilterProducts > 0)
                 @if ($isActive)
                 <span class="item-active border bg-blue-500 text-white mt-2 p-1 pr-2 pl-2 rounded-lg mr-3">
-                    <a href="{{ route('product.search', ['slug' => $query]) }}">{{ $brand->brand_name }} (Xóa)</a>
+                    <a href="{{ route('product.search', ['query' => $query]) }}">{{ $brand->brand_name }}(Xóa)</a>
                 </span>
                 @else
-                <a href="{{ route('product.search', ['slug' => $query, 'brand' => $brand->id]) }}" class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                    {{ $brand->brand_name }} ({{ $countFilterProducts }})
+                <a href="{{ route('product.search', ['query' => $query, 'brand' => $brand->id]) }}" class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    {{ $brand->brand_name }}
+                    ({{ $countFilterProducts }})
                 </a>
                 @endif
                 @endif
@@ -107,7 +107,7 @@
                             <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
                         </div>
                         <div class="product-info p-3">
-                            <a href="{{ route('product_category.show', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
+                            <a href="{{ route('products.by.category', $product->slug) }}" class="hover:text-blue-600 truncate-responsive" style="overflow: hidden;
                                 text-overflow: ellipsis;
                                 line-height: 25px;
                                 -webkit-line-clamp: 2;
@@ -124,7 +124,7 @@
                                     -25%
                                 </div>
                             </div>
-                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ $product->price }}</div>
+                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($product->price) }} VND</div>
                             @if ($product->reviews->isNotEmpty())
                             @php
                             $averageRating = $product->reviews->avg('rating');
@@ -155,7 +155,7 @@
         </div>
         <div class="flex justify-center">
             <div class="pagination">
-                {{-- {{ $product->links() }} --}}
+                
             </div>
         </div>
     </div>

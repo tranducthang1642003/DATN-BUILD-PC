@@ -1,6 +1,6 @@
 @include('public.header.index')
 <div class="product__container max-w-screen-2xl mx-auto px-4 md:px-6 text-xs sm:text-base lg:px-8 xl:px-12">
-    <nav class="bg-white mt-3 rounded-md w-full hidden md:block">
+    <nav class="bg-white mt-3 rounded-md w-full hidden sm:block">
         <ol class="list-reset flex">
             <li><a href="#" class="text-black hover:text-blue-800">Trang chủ</a></li>
             <li><span class="mx-2 text-black"> > </span></li>
@@ -8,8 +8,8 @@
         </ol>
     </nav>
     <div class="one-time mt-3 w-full max-w-max ">
-    @foreach($banners_top as $banner)
-                <img src="{{ asset($banner->images_url) }}" alt="{{ $banner->alt_text }}" class="h-64">
+        @foreach($banners_top as $banner)
+                <img src="{{ asset($banner->images_url) }}" alt="{{ $banner->alt_text }}" class="-64 w-full object-cover">
         @endforeach
     </div>
     <section class="product pt-6">
@@ -33,37 +33,41 @@
             </div>
         </div>
     </section>
-    <div class="flex">
-        <div class="bg-white mr-2 relative w-1/4">
-            <form action="{{ route('productShow') }}" method="GET" id="filterForm">
-                <div class="border rounded-lg shadow-md p-3 my-3">
-                    <h5 class="font-semibold uppercase">Thương hiệu</h5>
-                    @foreach($brands as $brand)
-                    <div class="form-check">
-                        <input class="form-check-input brand-checkbox rounded mx-2" type="checkbox" name="brands[]" value="{{ $brand->id }}" id="brand{{ $brand->id }}" {{ in_array($brand->id, request()->brands ?? []) ? 'checked' : '' }}>
-                        <label class="form-check-label" for="brand{{ $brand->id }}">
-                            {{ $brand->brand_name }}
-                        </label>
-                    </div>
-                    @endforeach
+    <div class="flex flex-col lg:flex-row">
+    <!-- Bộ lọc sản phẩm -->
+    <div class="w-full lg:w-1/3 mb-4 lg:mb-0 mr-2">
+        <form action="{{ route('productShow') }}" method="GET" id="filterForm">
+            <div class="border rounded-lg shadow-lg p-3 my-3">
+                <h5 class="font-semibold uppercase">Thương hiệu</h5>
+                @foreach($brands as $brand)
+                <div class="form-check">
+                    <input class="form-check-input brand-checkbox rounded mx-2" type="checkbox" name="brands[]" value="{{ $brand->id }}" id="brand{{ $brand->id }}" {{ in_array($brand->id, request()->brands ?? []) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="brand{{ $brand->id }}">
+                        {{ $brand->brand_name }}
+                    </label>
                 </div>
-                <div class="border rounded-lg py-3 shadow-md p-3">
-                    <h5 class="font-semibold uppercase"> Giá </h5>
+                @endforeach
+            </div>
+            <div class="border rounded-lg py-3 shadow-lg p-3">
+                <h5 class="font-semibold uppercase">Giá</h5>
                 <div class="range-slider" id="price-slider"></div>
                 <input class="range-slider__range" type="hidden" id="min-price" name="min_price" value="{{ request()->min_price ?? $minPrice }}">
                 <input class="range-slider__range" type="hidden" id="max-price" name="max_price" value="{{ request()->max_price ?? $maxPrice }}">
                 <div class="mt-2">
                     <span id="price-range"></span>
                 </div>
-                </div>
-            </form>
-        </div>
-        <div class="w-3/4">
-            <div id="product-list">
-                @include('public.product.product-list', ['products' => $products])
             </div>
+        </form>
+    </div>
+
+    <!-- Hiển thị danh sách sản phẩm -->
+    <div class="w-full lg:w-2/3">
+        <div id="product-list">
+            @include('public.product.product-list', ['products' => $products])
         </div>
     </div>
+    </div>
+
     <!-- Hiển thị liên kết phân trang -->
     <div class="pagination">
         {{ $products->links() }}

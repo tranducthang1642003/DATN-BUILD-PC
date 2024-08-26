@@ -19,8 +19,9 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-2">
             @foreach ($products as $product)
                 <div class="product__item mb-2">
-                    <div class="bg-white rounded-lg mr-2 relative border shadow-lg h-full relative group">
+                    <div class="bg-white rounded-lg mr-2  border shadow-lg h-full relative group">
                         <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                         <div class="product-img">
                             <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
                         </div>
@@ -28,51 +29,53 @@
                             <i class="fa-solid fa-bolt" style="color: #FFD43B;"></i> Bán chạy
                         </div>
                         <div class="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                            {{-- Like button --}}
-                            <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
-                                @if ($likeItem && $likeItem->contains('product_id', $product->id))
-                                    <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-dark btn-square">
-                                            <i class="fa fa-heart" style="color:#ff0000"></i>
-                                        </button>
-                                    </form>
-                                @else
-                                    <form id="like-form" action="{{ route('addlike') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <button type="submit">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </form>
-                                @endif
+                                {{-- Like button --}}
+                                <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
+                                    @if ($likeItem && $likeItem->contains('product_id', $product->id))
+                                        <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-dark btn-square">
+                                                <i class="fa fa-heart" style="color:#ff0000"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit">
+                                                <i class="fa-solid fa-heart"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                                {{-- Cart button --}}
+                                <div class="cart">
+                                    <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
+                                        <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white">
+                                            <i class="fa-solid fa-shopping-cart"></i>
+                                            <!-- Lớp phủ tải -->
+                                            <div class="loading-overlay" style="display: none;"></div>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
-                            {{-- Cart button --}}
-                            <div class="cart">
-                                <button class="add-to-cart-btn relative" data-product-id="{{ $product->id }}">
-                                    <div class="flex items-center justify-center h-10 w-10 bg-blue-500 rounded-full text-white">
-                                        <i class="fa-solid fa-shopping-cart"></i>
-                                        <!-- Lớp phủ tải -->
-                                        <div class="loading-overlay" style="display: none;"></div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
                         <div class="product-info p-3">
                             <a href="{{ route('product.show', $product->slug) }}" class="truncate-2-lines hover:text-blue-600" style="overflow: hidden;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
                             <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                            <div class="mt-1 inline-flex text-xs md:text-base">
-                                <div>
-                                    <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
+                            <div class="flex items-center mt-2">
+                                <div class="text-sm text-slate-500 line-through">
+                                    {{ number_format($product->price) }}
+                                    VND
                                 </div>
-                                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                    -25%
+                                <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                                    {{ $product->discount_percentage }}%
                                 </div>
                             </div>
-                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($product->price) }}
-                                VND</div>
+                            <div class="text-red-700 font-bold text-lg mt-2">
+                                {{ number_format($product->price_sale) }} VND
+                            </div>
                             @if ($product->reviews->isNotEmpty())
                                 @php
                                     $averageRating = $product->reviews->avg('rating');
@@ -107,3 +110,49 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart-btn').click(function (event) {
+            event.preventDefault();
+            var button = $(this);
+            var overlay = button.find('.loading-overlay');
+            var productId = button.data('product-id');
+            overlay.show();
+            $.ajax({
+                url: '{{ route('cart.add') }}',
+                method: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'product_id': productId,
+                    'quantity': 1
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#cart-count').text(response.totalQuantity);
+
+
+                        Toastify({
+                            text: 'Đã thêm sản phẩm vào giỏ hàng.',
+                            duration: 3000, // Duration in milliseconds
+                            close: true,
+                            gravity: 'bottom', // Position: 'top', 'bottom', 'left', 'right'
+                            backgroundColor: '#4CAF50', // Background color
+                            stopOnFocus: true // Stop timeout when the toast is hovered
+                        }).showToast();
+                    } else {
+                        alert('Thêm sản phẩm vào giỏ hàng không thành công: ' + response
+                            .message);
+                    }
+
+                    overlay.hide();
+                },
+            });
+        });
+
+
+
+
+        var cartCount = {{ session('cart_count', 0) }};
+        $('#cart-count').text(cartCount);
+    });
+</script>

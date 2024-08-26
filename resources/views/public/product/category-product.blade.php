@@ -10,12 +10,9 @@
     </nav>
     <div class="product__banner">
         <div class="mt-3 slider one-time w-full max-w-max">
-            <div><a href="" class=""> <img class="rounded-lg"
-                        src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg"
-                        alt=""> </a></div>
-            <div><a href="" class=""> <img class="rounded-lg"
-                        src="https://nguyencongpc.vn/media/banner/08_Sepba378ee53ba48fd87016f13cb7cb5a74.jpg"
-                        alt=""> </a></div>
+            @foreach($banners_top as $banner)
+                <img src="{{ asset($banner->images_url) }}" alt="{{ $banner->alt_text }}" class="-64 w-full object-cover">
+        @endforeach
         </div>
         <h1 class="text-base md:text-xl lg:text-2xl xl:text-3xl text-center pt-3 text-sky-600 font-bold pb-3 uppercase">{{ $category->category_name }}</h1>
         <div class="box-top-product bg-red-700 rounded-lg">
@@ -26,7 +23,9 @@
                         @foreach ($topProducts as $top)
                         <div class="product__item h-full">
                             <div class="bg-white rounded-lg mr-2 relative">
-                                <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                            @if($top->created_at->diffInDays(now()) <= 30)
+                        <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                                 <div class="product-img">
                                     <a href="{{ route('product.show', $top->slug) }}"><img class="w-32 mx-auto md:w-48" src="{{ $top->primary_image_path }}"></a>
                                 </div>
@@ -42,15 +41,18 @@
                                         display: -webkit-box;
                                         -webkit-box-orient: vertical;">{{ $top->product_name }}</a>
                                     <p class="text-gray-400 truncate-2-lines">{{ $top->short_description }}</p>
-                                    <div class="mt-1 inline-flex text-xs md:text-base">
-                                        <div>
-                                            <p class="product-price line-through text-slate-500">{{ $top->discount }}</p>
+                                    <div class="flex items-center mt-2">
+                                        <div class="text-sm text-slate-500 line-through">
+                                            {{ number_format($top->price) }}
+                                            VND
                                         </div>
-                                        <div class="bg-red-700 text-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                            -25%
+                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                                            {{ $top->discount_percentage }}%
                                         </div>
                                     </div>
-                                    <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($top->price) }} VND</div>
+                                    <div class="text-red-700 font-bold text-lg mt-2">
+                                        {{ number_format($top->price_sale) }} VND
+                                    </div>
                                     @if ($top->reviews->isNotEmpty())
                                     @php
                                     $averageRating = $top->reviews->avg('rating');
@@ -104,21 +106,20 @@
                 $isActive = ($request->filled('min_price') && $request->filled('max_price') &&
                 $request->min_price == $range['min'] && $request->max_price == $range['max']);
                 $filterProducts = $products->where('price', '>=', $range['min'])->where('price', '<=', $range['max']); $countFilterProducts=$filterProducts->count();
-                    @endphp
-
-                    @if ($countFilterProducts > 0)
-                    @if ($isActive)
-                    <span class="item-active border bg-blue-500 text-white mt-2 p-1 pr-2 pl-2 rounded-lg mr-3">
-                        <a href="{{ route('category.show', ['slug' => $category->slug]) }}">{{ $range['range'] }}(Xóa)</a>
-                    </span>
-                    @else
-                    <a href="{{ route('category.show', ['slug' => $category->slug, 'min_price' => $range['min'], 'max_price' => $range['max']]) }}" class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
-                        {{ $range['range'] }}
-                        ({{ $countFilterProducts }})
-                    </a>
-                    @endif
-                    @endif
-                    @endforeach
+                @endphp
+                @if ($countFilterProducts > 0)
+                @if ($isActive)
+                <span class="item-active border bg-blue-500 text-white mt-2 p-1 pr-2 pl-2 rounded-lg mr-3">
+                    <a href="{{ route('category.show', ['slug' => $category->slug]) }}">{{ $range['range'] }}(Xóa)</a>
+                </span>
+                @else
+                <a href="{{ route('category.show', ['slug' => $category->slug, 'min_price' => $range['min'], 'max_price' => $range['max']]) }}" class="item border bg-slate-100 mt-2 p-1 pr-2 pl-2 rounded-lg mr-3 hover:text-blue-500 hover:border-blue-500">
+                    {{ $range['range'] }}
+                    ({{ $countFilterProducts }})
+                </a>
+                @endif
+                @endif
+                @endforeach
             </div>
         </div>
         <div class="product__info-filter p-2">
@@ -169,7 +170,9 @@
                 @foreach ($products as $product)
                 <div class="product__item mb-2">
                     <div class="bg-white rounded-lg mr-2 relative border shadow-lg h-full relative group">
+                    @if($product->created_at->diffInDays(now()) <= 30)
                         <span class="bg-red-400 text-white rounded-full ml-3 p-3 absolute mt-2">Hot</span>
+                    @endif
                         <div class="product-img">
                             <a href=""><img class="w-32 mx-auto md:w-48" src="{{ $product->primary_image_path }}"></a>
                         </div>
@@ -180,15 +183,18 @@
                             <a href="{{ route('product.show', $product->slug) }}" class="hover:text-blue-600 truncate-2-lines" style="overflow: hidden;
                                         -webkit-box-orient: vertical;">{{ $product->product_name }}</a>
                             <p class="text-gray-400 truncate-2-lines">{{ $product->short_description }}</p>
-                            <div class="mt-1 inline-flex text-xs md:text-base">
-                                <div>
-                                    <p class="product-price line-through text-slate-500">{{ $product->discount }}</p>
-                                </div>
-                                <div class="bg-red-700 font-bold text-white rounded-full ml-3 pl-3 pr-3">
-                                    -25%
-                                </div>
-                            </div>
-                            <div class="text-red-700 font-bold text-base md:text-lg xl:text-xl lg:text-2xl mt-1">{{ number_format($product->price) }} VND</div>
+                            <div class="flex items-center mt-2">
+                                        <div class="text-sm text-slate-500 line-through">
+                                            {{ number_format($product->price) }}
+                                            VND
+                                        </div>
+                                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                                            {{ $product->discount_percentage }}%
+                                        </div>
+                                    </div>
+                                    <div class="text-red-700 font-bold text-lg mt-2">
+                                        {{ number_format($product->price_sale) }} VND
+                                    </div>
                             @if ($product->reviews->isNotEmpty())
                             @php
                             $averageRating = $product->reviews->avg('rating');
