@@ -174,15 +174,17 @@
             <a href="{{ route('login') }}" class="login-link">Tài khoản</a>
         @endif
     </button>
-    <ul id="user-dropdown-menu-1" class="dropdown-menu-1 mt-2">
-        @if (!Auth::check())
+    @if (!Auth::check())
+        <ul id="user-dropdown-menu-1" class="dropdown-menu-1 mt-2 -left-20">
             <li class="menu-option">
                 <a href="{{ route('login') }}">Login</a>
             </li>
             <li class="menu-option">
                 <a href="{{ route('register') }}">Register</a>
             </li>
-        @else
+        </ul>
+    @else
+        <ul id="user-dropdown-menu-1" class="dropdown-menu-1 mt-2 left-0">
             <li class="menu-option">
                 <a href="{{ route('dashboard') }}">Tài khoản</a>
             </li>
@@ -192,8 +194,8 @@
                     <button type="submit" class="logout-button">Logout</button>
                 </form>
             </li>
-        @endif
-    </ul>
+        </ul>
+    @endif
 </div>
 
 <style>
@@ -214,7 +216,6 @@
         opacity: 0;
         position: absolute;
         top: 100%;
-        left: 0;
         width: max-content;
         background-color: #ffffff;
         transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;

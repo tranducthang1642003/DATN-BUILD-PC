@@ -4,7 +4,7 @@ namespace Modules\Settings\App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\Settings\Entities\menu;
+use Modules\Settings\Entities\Menu;
 use Modules\settings\Entities\ImageType;
 
 class MenuController extends Controller
@@ -15,7 +15,7 @@ class MenuController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $keyword = $request->input('keyword');
-        $menusQuery = menu::query();
+        $menusQuery = Menu::query();
         if ($startDate && $endDate) {
             $menusQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
@@ -33,7 +33,7 @@ class MenuController extends Controller
             'url' => 'required|string',
             'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
         ]);
-        $menus = new menu();
+        $menus = new Menu();
         if ($image = $request->file('image')) {
             $fileName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('image_menu'), $fileName);
@@ -53,7 +53,7 @@ class MenuController extends Controller
             'url' => 'required|string',
             'image' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
         ]);
-        $menu = menu::findOrFail($id);
+        $menu = Menu::findOrFail($id);
         if ($image = $request->file('image')) {
             $fileName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('image_menu'), $fileName);
@@ -68,7 +68,7 @@ class MenuController extends Controller
 
     public function destroy($id)
     {
-        $menu = menu::findOrFail($id);
+        $menu = Menu::findOrFail($id);
         $menu->delete();
         return redirect()->route('menu.index')
             ->with('success', 'menu đã được xóa thành công!');
