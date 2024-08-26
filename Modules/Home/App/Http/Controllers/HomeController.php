@@ -296,6 +296,6 @@ class HomeController extends Controller
                 'pagination' => (string) $products->links()
             ]);
         }
-        return view('public.product.products', compact('categories', 'brands', 'products','title', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem'));
+        return view('public.product.products', compact('categories', 'brands', 'products','title', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem' ));
     }
 }
