@@ -53,8 +53,8 @@ class HomeRepository implements HomeRepositoryInterface
                 $query->where('is_primary', 1);
             }])
             ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
-            ->selectRaw('products.id, products.product_name, products.price, COALESCE(SUM(order_items.quantity), 0) as total_quantity_sold')
-            ->groupBy('products.id', 'products.product_name', 'products.price')
+            ->selectRaw('products.*, COALESCE(SUM(order_items.quantity), 0) as total_quantity_sold')
+            ->groupBy('products.id', 'products.product_name', 'products.price', 'products.slug', 'products.description', 'products.created_at', 'products.updated_at') // Add all other necessary columns here
             ->orderBy('total_quantity_sold', 'desc')
             ->limit($limit)
             ->get();
@@ -65,6 +65,7 @@ class HomeRepository implements HomeRepositoryInterface
         
         return $products;
     }
+    
     
     
 
