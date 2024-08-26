@@ -247,8 +247,8 @@
             {{-- Desktop menu --}}
 
             <section class="bg-sky-600">
-                <div class="nav__container hidden max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
-                    <div class="nav__menu hidden md:flex space-x-6 text-gray-700">
+                <div class="nav__container hidden md:flex max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
+                    <div class="nav__menu space-x-6 text-gray-700">
                         <ul class="flex space-x-6 text-white items-center">
                             <li
                                 class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer">
