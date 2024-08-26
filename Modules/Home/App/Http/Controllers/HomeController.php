@@ -231,4 +231,54 @@ class HomeController extends Controller
 
         return $products;
     }
+    public function productShow_sale(Request $request)
+    {
+        $user=Auth::User();
+        $likeItem = wishlists::where('user_id', auth()->id())->get();
+        $categories = Category::all();
+        $productsQuery = Product::all()->where('featured', true);
+        dd($productsQuery);
+        $menuItems = Menu::all();
+
+        $productsQuery = $this->applyFilters($productsQuery, $request);
+
+        if ($request->filled('sort')) {
+            switch ($request->sort) {
+                case 'price_asc':
+                    $productsQuery->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $productsQuery->orderBy('price', 'desc');
+                    break;
+                case 'view':
+                    $productsQuery->orderBy('view', 'desc');
+                    break;
+                case 'alphabetical':
+                    $productsQuery->orderBy('product_name', 'asc');
+                    break;
+                default:
+                    $productsQuery->orderBy('created_at', 'desc');
+            }
+        } else {
+            $productsQuery->orderBy('created_at', 'desc');
+        }
+
+        // Phân trang
+        $products = $productsQuery->paginate(20);
+
+        $minPrice = Product::min('price');
+        $maxPrice = Product::max('price');
+        $brands = Brand::all();
+        $blogs = Blogs::latest()->take(4)->get();
+        $products->load('reviews');
+        $products = $this->loadPrimaryImages($products);
+        $featuredBlogs = Blogs::where('featured', 1)->get();
+        if ($request->ajax()) {
+            return response()->json([
+                'products' => view('public.product.product-list', compact('products', 'likeItem'))->render(),
+                'pagination' => (string) $products->links()
+            ]);
+        }
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs','menuItems','likeItem'));
+    }
 }
