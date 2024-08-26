@@ -39,7 +39,7 @@
         <form action="{{ route('productShow') }}" method="GET" id="filterForm">
             <div class="border rounded-lg shadow-lg p-3 my-3">
             <h5 class="font-semibold uppercase mb-3">Thương hiệu</h5>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                <div class="grid grid-cols-4 md:grid-cols-1 gap-2">
                     @foreach($brands as $brand)
                     <div class="form-check flex items-center">
                         <input class="form-check-input brand-checkbox rounded mx-2" type="checkbox" name="brands[]" value="{{ $brand->id }}" id="brand{{ $brand->id }}" {{ in_array($brand->id, request()->brands ?? []) ? 'checked' : '' }}>
