@@ -72,12 +72,13 @@
             <table class="min-w-full divide-y divide-gray-200 border-collapse border border-slate-500">
                 <tbody>
                     @foreach ($Productandcategory  as $category)
-                                        <tr class="border-b">
-                                            <td class="py-3 px-6 border border-slate-600 uppercase font-medium" style="width: 20%;">
-                                                <ol>
-                                                    <li>{{ $category->category_name }}</li>
-                                                </ol>
-                                            </td>
+                    <td class="py-3 px-6 border border-slate-600 uppercase font-medium text-center" style="width: 20%;">
+    <div class="flex flex-col items-center justify-center space-y-2">
+        <img src="{{ $category->image }}" alt="{{ $category->category_name }}" class="object-contain w-20 h-20">
+        <span>{{ $category->category_name }}</span>
+    </div>
+</td>
+
                                             <td class="py-3 px-6 text-right flex justify-between " style="align-items: center;">
                                                 @php
                                                     $hasProduct = false;
@@ -144,39 +145,21 @@
                     <div class="p-6 pt-0 text-center">
                         <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">{{ $category->category_name }}</h3>
                         <div class="flex">
-                            <div class="w-1/4 p-4 border-r border-gray-300">
-                                <h4 class="text-lg font-medium mb-4">Chọn linh kiện</h4>
-                                <form id="filterForm" method="GET" action="{{ route('buildpc') }}"
-                                    class="text-left space-y-4">
-                                    <div>
-                                        <h5 class="text-md font-medium mb-2">Thương hiệu</h5>
-                                        <div class="space-y-2">
-                                            @foreach($brands as $brand)
-                                                <label class="block">
-                                                    <input type="checkbox" name="brand[]" value="{{ $brand->brand_name }}"
-                                                        class="mr-2">{{ $brand->brand_name }}
-                                                </label>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </form>
-
-                                
-                            </div>
-                            <div class="w-3/4 p-4 overflow-y-auto">
+                            
+                            <div class="w-auto p-4 overflow-y-auto">
                                 @if ($category->products->isEmpty())
                                     <p>Không có sản phẩm nào.</p>
                                 @else
-                                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
                                         @foreach ($category->products as $product)
                                             <form action="{{ route('add-component') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                 <input type="hidden" name="category_id" value="{{ $category->id }}">
-                                                <div class="border border-gray-300 rounded p-4 h-5/6">
+                                                <div class="border border-gray-300 rounded p-4 " style="height: 500px;">
                                                     <img src="{{ $product->primary_image_path }}" alt="{{ $product->product_name }}"
                                                         class="w-full h-48 object-cover mb-2">
-                                                    <h3 class="text-lg font-medium">{{ $product->product_name }}</h3>
+                                                    <h3 class="text-lg font-medium">{{ Str::limit($product->product_name ,350)}}</h3>
                                                     <p class="text-gray-600">{{ number_format($product->price) }} VND</p>
                                                     <div class="mt-2 flex items-center space-x-4">
                                                         <label for="quantity" class="text-sm font-medium">Số lượng:</label>

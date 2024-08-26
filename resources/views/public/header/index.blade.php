@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> TRANG </title>
+    <title>{{ $title }}</title>
 
     <!-- Check if logos are available and set the favicon -->
     @if($logos->isNotEmpty())
@@ -211,7 +211,7 @@
                     </button>
                 </div>
             </div>
-
+        </section>
             <!-- Mobile menu -->
             <section id="mobile-menu" class="hidden fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
                 <div class="md:hidden p-4 border-b">
@@ -294,78 +294,87 @@
                     position: relative;
                 }
 
-                .dropdown-menu {
-                    display: none;
-                    /* Ẩn menu mặc định */
-                    position: absolute;
-                    /* Định vị menu theo phần tử cha */
-                    top: 100%;
-                    /* Đưa menu xuống dưới nút */
-                    left: 0;
-                    /* Canh menu về bên trái của phần tử cha */
-                    width: max-content;
-                    /* Menu rộng toàn màn hình */
-                    height: 60vh;
-                    /* Menu cao toàn màn hình */
-                    background-color: #ffffff;
-                    /* Màu nền của menu */
-                    overflow-y: auto;
-                    /* Cho phép cuộn nếu menu quá dài */
-                    opacity: 0;
-                    /* Menu ban đầu ẩn */
-                    transition: opacity 0.3s ease, transform 0.3s ease;
-                    /* Hiệu ứng mờ và chuyển động */
-                    transform: translateY(10px);
-                    /* Đưa menu xuống dưới một chút */
-                    display: grid;
-                    /* Sử dụng grid để chia đều các mục */
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    /* Chia đều các mục */
-                    gap: 1rem;
-                    /* Khoảng cách giữa các mục */
-                    padding: 1rem;
-                    /* Padding cho menu */
-                    z-index: 50;
-                }
+            .dropdown-menu {
+                display: none;
+                /* Ẩn menu mặc định */
+                position: absolute;
+                /* Định vị menu theo phần tử cha */
+                top: 100%;
+                /* Đưa menu xuống dưới nút */
+                left: 0;
+                /* Canh menu về bên trái của phần tử cha */
+                width: max-content;
+                /* Menu rộng toàn màn hình */
+                height: 60vh;
+                /* Menu cao toàn màn hình */
+                background-color: #ffffff;
+                /* Màu nền của menu */
+                overflow-y: auto;
+                /* Cho phép cuộn nếu menu quá dài */
+                opacity: 0;
+                /* Menu ban đầu ẩn */
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                /* Hiệu ứng mờ và chuyển động */
+                transform: translateY(10px);
+                /* Đưa menu xuống dưới một chút */
+                display: grid;
+                /* Sử dụng grid để chia đều các mục */
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                /* Chia đều các mục */
+                gap: 1rem;
+                /* Khoảng cách giữa các mục */
+                padding: 1rem;
+                /* Padding cho menu */
+                z-index: 50;
+            }
 
-                /* Hiển thị menu khi hover trên phần tử cha */
-                .relative:hover .dropdown-menu {
-                    display: grid;
-                    /* Hiển thị menu khi hover */
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            /* Hiển thị menu khi hover trên phần tử cha */
+            .relative:hover .dropdown-menu {
+                display: grid;
+                /* Hiển thị menu khi hover */
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-                /* Tùy chỉnh kiểu menu */
-                .category-item {
-                    list-style: none;
-                    /* Xóa dấu chấm trong danh sách */
-                }
+            /* Tùy chỉnh kiểu menu */
+            .category-item {
+                list-style: none;
+                /* Xóa dấu chấm trong danh sách */
+            }
 
-                .category-item a {
-                    text-decoration: none;
-                    /* Xóa gạch chân khỏi liên kết */
-                    color: inherit;
-                    /* Kế thừa màu chữ từ phần tử cha */
-                    display: block;
-                    /* Đảm bảo liên kết chiếm toàn bộ chiều rộng */
-                    padding: 0.5rem;
-                    /* Padding cho các mục menu */
-                    border-radius: 0.375rem;
-                    /* Bo tròn góc cho các mục menu */
-                    transition: background-color 0.3s ease;
-                    /* Hiệu ứng chuyển màu nền */
-                }
+            .category-item a {
+                text-decoration: none;
+                /* Xóa gạch chân khỏi liên kết */
+                color: inherit;
+                /* Kế thừa màu chữ từ phần tử cha */
+                display: block;
+                /* Đảm bảo liên kết chiếm toàn bộ chiều rộng */
+                padding: 0.5rem;
+                /* Padding cho các mục menu */
+                border-radius: 0.375rem;
+                /* Bo tròn góc cho các mục menu */
+                transition: background-color 0.3s ease;
+                /* Hiệu ứng chuyển màu nền */
+            }
 
-                /* Tùy chỉnh cho các phần tử trong menu */
-                .category-item a:hover {
-                    background-color: #f3f4f6;
-                    /* Màu nền khi hover trên các mục menu */
-                }
-            </style>
+            /* Tùy chỉnh cho các phần tử trong menu */
+            .category-item a:hover {
+                background-color: #f3f4f6;
+                /* Màu nền khi hover trên các mục menu */
+            }
+        </style>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -385,6 +394,7 @@
 <script>
     $(document).ready(function () {
         $('#cart-dropdown-toggle').hover(function () {
+            // Gửi yêu cầu AJAX để lấy danh sách sản phẩm trong giỏ hàng
             $.ajax({
                 url: '{{ route("cart.getCartItems") }}',
                 method: 'GET',

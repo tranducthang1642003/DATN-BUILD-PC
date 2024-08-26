@@ -30,10 +30,11 @@ class HomeController extends Controller
 
     public function index()
     {
+        $title ='Trang chủ';
         $categories = $this->homeRepository->getAllProducts();
         $featuredCategories = $this->homeRepository->getFeaturedCategories();
         $saleproduct = $this->homeRepository->getSaleProducts();
-        $bestsellingProducts = $this->homeRepository->getBestsellingProducts();
+        $bestsellingProducts = $this->homeRepository->getMostPurchasedProducts();
         $menuItems = Menu::all();
         $blogs = Blogs::latest()->take(4)->get();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
@@ -41,7 +42,7 @@ class HomeController extends Controller
         $productIds = $bestsellingProducts->pluck('id'); // Lấy danh sách ID sản phẩm
         $reviews = Review::whereIn('product_id', $productIds)->with('user')->get(); // Eager load user
 
-        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews', 'likeItem'));
+        return view('public.home.layout', compact('categories', 'featuredCategories', 'saleproduct', 'bestsellingProducts', 'menuItems', 'blogs', 'reviews', 'likeItem','title'));
     }
     public function showByCategory($slug)
     {
@@ -53,6 +54,7 @@ class HomeController extends Controller
 
     public function showCategory($slug, Request $request)
     {
+        $title ='Danh mục ';
 
         $category = $this->homeRepository->getCategoryBySlug($slug);
         $products = $this->homeRepository->getProductByProduct($slug);
@@ -76,11 +78,12 @@ class HomeController extends Controller
         $products->load('reviews');
         $topProducts->load('reviews');
 
-        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request', 'menuItems', 'likeItem'));
+        return view('public.product.category-product', compact('category', 'brands', 'products', 'topProducts', 'request', 'menuItems', 'likeItem','title'));
     }
 
     public function show($slug)
     {
+        $title = 'Sản phẩm';
         $user = Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $product = Product::where('slug', $slug)->firstOrFail();
@@ -93,10 +96,12 @@ class HomeController extends Controller
         $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
         $product->secondary_images = $secondary_images;
         $menuItems = Menu::all();
-        return view('public.product.detail-product', compact('product', 'menuItems', 'likeItem'));
+        return view('public.product.detail-product', compact('product', 'menuItems', 'likeItem','title'));
     }
     public function productShow(Request $request)
     {
+        $title ='Sản phẩm';
+
         $user = Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $categories = Category::all();
@@ -142,7 +147,7 @@ class HomeController extends Controller
                 'pagination' => (string) $products->links()
             ]);
         }
-        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem'));
+        return view('public.product.products', compact('categories', 'brands', 'products', 'minPrice', 'maxPrice', 'featuredBlogs', 'menuItems', 'likeItem','title'));
     }
     public function showSearch(Request $request)
     {

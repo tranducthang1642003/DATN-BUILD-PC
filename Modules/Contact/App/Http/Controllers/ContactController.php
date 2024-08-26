@@ -16,9 +16,11 @@ class ContactController extends Controller
      */
     public function index()
     {
+        $title = "Liên Hệ ";
+
         $menuItems = Menu::all();
 
-       return view('public.contact.index',compact('menuItems'));
+       return view('public.contact.index',compact('menuItems','title'));
     }
 
     public function submit(Request $request)

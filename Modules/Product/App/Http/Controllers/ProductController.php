@@ -41,6 +41,8 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
+        $title = 'Sản phẩm';
+
         $user=Auth::User();
         $likeItem = wishlists::where('user_id', auth()->id())->get();
         $product = Product::with(['images' => function ($query) {
@@ -90,7 +92,7 @@ class ProductController extends Controller
 
         $reviews = Review::where('product_id', $product->id)->orderBy('created_at', 'desc')->get();
     
-        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews','secondary_images','menuItems','likeItem'));
+        return view('public.product.detail-product', compact('product', 'recentlyViewedProducts', 'similarProducts', 'reviews','secondary_images','menuItems','likeItem','title'));
     }
     
     /**

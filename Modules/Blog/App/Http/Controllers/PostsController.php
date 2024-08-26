@@ -12,10 +12,12 @@ class PostsController extends Controller
 {
     public function index()
     {
+        $title = 'Tin tức';
+
         $projects = Blogs::latest()->paginate(10);
         $menuItems = Menu::all();
 
-        return view('public.blog.index',compact('menuItems'), [
+        return view('public.blog.index',compact('menuItems','title'), [
             'projects' => $projects,
         ]);
     }
