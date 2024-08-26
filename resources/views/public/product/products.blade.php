@@ -38,15 +38,17 @@
     <div class="w-full lg:w-1/3 mb-4 lg:mb-0 mr-2">
         <form action="{{ route('productShow') }}" method="GET" id="filterForm">
             <div class="border rounded-lg shadow-lg p-3 my-3">
-                <h5 class="font-semibold uppercase">Thương hiệu</h5>
-                @foreach($brands as $brand)
-                <div class="form-check">
-                    <input class="form-check-input brand-checkbox rounded mx-2" type="checkbox" name="brands[]" value="{{ $brand->id }}" id="brand{{ $brand->id }}" {{ in_array($brand->id, request()->brands ?? []) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="brand{{ $brand->id }}">
-                        {{ $brand->brand_name }}
-                    </label>
+            <h5 class="font-semibold uppercase mb-3">Thương hiệu</h5>
+                <div class="grid grid-cols-4 md:grid-cols-1 gap-2">
+                    @foreach($brands as $brand)
+                    <div class="form-check flex items-center">
+                        <input class="form-check-input brand-checkbox rounded mx-2" type="checkbox" name="brands[]" value="{{ $brand->id }}" id="brand{{ $brand->id }}" {{ in_array($brand->id, request()->brands ?? []) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="brand{{ $brand->id }}">
+                            {{ $brand->brand_name }}
+                        </label>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
             <div class="border rounded-lg py-3 shadow-lg p-3">
                 <h5 class="font-semibold uppercase">Giá</h5>

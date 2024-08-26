@@ -17,9 +17,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        $title ='Đăng Nhập ';
         $menuItems = Menu::all();
 
-        return view('public.auth.login',compact('menuItems'));
+        return view('public.auth.login',compact('menuItems','title'));
     }
 
     public function store(LoginRequest $request): RedirectResponse

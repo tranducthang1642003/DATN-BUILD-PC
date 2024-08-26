@@ -15,9 +15,8 @@ class LogoComposer
     protected $banners;
     protected $banners_top;
     protected $poster_product;
-    protected $categories; // Add this line to hold categories
-    protected $menuItems; // Add this line to hold menu items
-
+    protected $categories; 
+    protected $menuItems; 
     public function __construct()
     {
         $logoImageType = ImageType::where('name', 'Logo')->first();

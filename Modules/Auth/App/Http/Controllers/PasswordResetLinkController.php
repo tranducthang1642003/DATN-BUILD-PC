@@ -14,7 +14,9 @@ class PasswordResetLinkController extends Controller
 {
     public function create(): View
     {
-        return view('public.auth.ForgotPassword');
+        $title ='Quên Mật Khẩu ';
+
+        return view('public.auth.ForgotPassword',compact('title'));
     }
 
     public function store(Request $request): RedirectResponse

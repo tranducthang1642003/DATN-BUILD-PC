@@ -21,8 +21,9 @@ class RegisterController extends Controller
      */
     public function create(): View
     {
+        $title ='Đăng ký ';
         $menuItems = Menu::all();
-        return view('public.auth.register',compact('menuItems'));
+        return view('public.auth.register',compact('menuItems','title'));
     }
 
     /**

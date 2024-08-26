@@ -21,7 +21,9 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request): View
     {
-        return view('public.auth.reset-password', ['request' => $request]);
+        $title ='Đăng Nhập ';
+
+        return view('public.auth.reset-password', ['request' => $request],compact('title'));
     }
 
     /**

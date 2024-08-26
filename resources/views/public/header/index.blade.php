@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> TRANG </title>
+    <title>{{ $title }}</title>
 
     <!-- Check if logos are available and set the favicon -->
     @if($logos->isNotEmpty())
@@ -64,9 +64,6 @@
     </div>
     <section class="site-section w-full">
         <div class="header__banner-news w-full max-w-max one-time">
-
-
-
             @if($banners_top_header->isNotEmpty())
                 @foreach($banners_top_header as $banner)
                     <img src="{{ asset($banner->images_url)}}" alt="{{ $banner->alt_text }}">
@@ -76,9 +73,8 @@
         </div>
 
         <section class="site-nav bg-sky-500 shadow">
-            <div
-                class="nav__container  mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
-                <div class="nav__logo " style="width:6%;padding: 15px;">
+            <div class="nav__container mx-auto h-20 flex items-center justify-between px-4 md:px-6 md:text-sm md:text-center lg:px-8 lg:text-sm xl:px-12">
+                <div class="nav__logo w-24 mx-auto md:w-36" style="padding: 5px;">
                     @if($logos->isNotEmpty())
                         @foreach($logos as $logo)
                             <p>{{ $logo->url }}</p>
@@ -103,8 +99,6 @@
 
                     </ul>
                 </div>
-
-
 
                 <div class="nav__menu hidden md:flex space-x-4 lg:space-x-6 text-gray-700">
                     <ul class="flex space-x-4 lg:space-x-6 text-white items-center text-xs font-bold">
@@ -167,77 +161,133 @@
 
                         </script>
 
-                        <div class="dropdown-container relative">
-                            <button class="dropdown-button flex items-center flex-col" onclick="toggleDropdown()">
-                                <i class="fa-solid fa-user text-xl icon" style="color: #ffffff;"></i>
-                                @if(Auth::check())
-                                                                @php
-                                                                    $email = Auth::user()->email;
-                                                                    $username = substr($email, 0, strpos($email, '@'));
-                                                                @endphp
-                                                                <span class="user-greeting mt-2"><i class="fa-solid fa-hand-wave"></i> Chào,
-                                                                    {{ $username }}</span>
-                                @else
-                                    <a href="{{ route('login') }}" class="login-link">Tài khoản</a>
-                                @endif
-                            </button>
-                            <ul id="user-dropdown-menu" class="dropdown-menu mt-2"
-                                style="width: auto;margin-left: -145px;height: auto;font-size: 20px;color: burlywood;">
-                                @if (!Auth::check())
-                                    <li class="menu-option">
-                                        <a href="{{ route('login') }}">Login</a>
-                                    </li>
-                                    <li class="menu-option">
-                                        <a href="{{ route('register') }}">Register</a>
-                                    </li>
-                                @else
-                                    <li class="menu-option">
-                                        <a href="{{ route('dashboard') }}">Tài khoản</a>
-                                    </li>
-                                    <li class="menu-option">
-                                        <form method="POST" action="/logout">
-                                            @csrf
-                                            <button type="submit" class="logout-button">Logout</button>
-                                        </form>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
+<div class="dropdown-container relative">
+    <button class="dropdown-button flex items-center flex-col" onclick="toggleDropdown()">
+        <i class="fa-solid fa-user text-xl icon" style="color: #ffffff;"></i>
+        @if(Auth::check())
+            @php
+                $email = Auth::user()->email;
+                $username = substr($email, 0, strpos($email, '@'));
+            @endphp
+            <span class="user-greeting mt-2"><i class="fa-solid fa-hand-wave"></i> Chào, {{ $username }}</span>
+        @else
+            <a href="{{ route('login') }}" class="login-link">Tài khoản</a>
+        @endif
+    </button>
+    <ul id="user-dropdown-menu-1" class="dropdown-menu-1 mt-2">
+        @if (!Auth::check())
+            <li class="menu-option">
+                <a href="{{ route('login') }}">Login</a>
+            </li>
+            <li class="menu-option">
+                <a href="{{ route('register') }}">Register</a>
+            </li>
+        @else
+            <li class="menu-option">
+                <a href="{{ route('dashboard') }}">Tài khoản</a>
+            </li>
+            <li class="menu-option">
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </li>
+        @endif
+    </ul>
+</div>
 
-                        <style>
+<style>
+    .menu-option{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    font-size: 17px;
+}
+    
+    .relative {
+        position: relative;
+    }
 
-                        </style>
+    .dropdown-menu-1 {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: max-content;
+        background-color: #ffffff;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        transform: translateY(10px);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+        z-index: 50;
+        width: 180px;
+       color: #000;
+       border-radius:15px;
+    }
+
+    .dropdown-container:hover .dropdown-menu-1,
+    .dropdown-menu-1:hover {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .menu-option a:hover {
+        background-color: #f3f4f6;
+    }
+</style>
+
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('user-dropdown-menu-1');
+        const isHidden = window.getComputedStyle(dropdown).visibility === 'hidden';
+        dropdown.style.visibility = isHidden ? 'visible' : 'hidden';
+        dropdown.style.opacity = isHidden ? '1' : '0';
+        dropdown.style.transform = isHidden ? 'translateY(0)' : 'translateY(10px)';
+    }
+</script>
 
 
 
 
 
-
-                    </ul>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
-
-
-            <div class="md:hidden">
-                <button id="menu-toggle" class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-
+        </section>
             <!-- Mobile menu -->
-            <section id="mobile-menu" class="hidden md:hidden">
-                <ul class="flex flex-col space-y-2 text-gray-700 px-6">
-                    <li class="hover:text-blue-500"><a href="{{ route('buildpc') }}">Xây dựng cấu hình</a></li>
-                    <li class="hover:text-blue-500"><a href="{{ route('contact.index') }}">Khách hàng liên hệ</a></li>
-                    <li class="hover:text-blue-500"><a href="{{ route('blog.index') }}">Tin tức công nghệ</a></li>
-                    <li class="hover:text-blue-500"><a href="{{ route('orders.lookup.form') }}">Theo dõi đơn hàng</a>
+            <section id="mobile-menu" class="hidden fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+                <div class="md:hidden p-4 border-b">
+                </div>
+                <div class="p-4 border-b">
+                <ul class="navbar-menu">
+                                    @foreach ($menuItems as $menuItem)
+                                        <li class="list-menu text-lg font-bold items-center">
+                                            <a href="{{ $menuItem->url }}"
+                                                class="flex text-base font-normal link p-3">
+                                                <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
+                                                    style="filter: invert(0);">
+                                                <span>{{ $menuItem->name }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                </div>
+                <ul class="flex flex-col space-y-2 text-gray-700 my-3">
+                    <li class="hover:text-blue-500 p-4 border-b font-bold uppercase"><a href="{{ route('orders.lookup.form') }}">Theo dõi đơn hàng</a>
                     </li>
-                    <li class="hover:text-blue-500"><a href="{{ route('cart') }}">Giỏ hàng</a></li>
-                    <li class="hover:text-blue-500">
+                    <li class="hover:text-blue-500 p-4 border-b font-bold uppercase"><a href="{{ route('cart') }}">Giỏ hàng</a></li>
+                    <li class="hover:text-blue-500 p-4 font-bold uppercase">
                         @if(Auth::check())
                             <a href="{{ route('dashboard') }}">Tài khoản</a>
                         @else
@@ -246,136 +296,130 @@
                     </li>
                 </ul>
             </section>
-
-
             {{-- Desktop menu --}}
 
-
             <section class="bg-sky-600">
-                <div
-                    class="nav__container max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
-                    <div class="nav__menu md:flex space-x-6 text-gray-700">
-                        <ul class="flex space-x-6 text-white items-center">
-                            <li
-                                class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer">
-                                <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
-                                <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
+    <div class="nav__container md:flex max-w-screen-2xl h-14 mx-auto flex items-center justify-between px-4 md:px-6 lg:px-8 xl:px-12">
+        <div class="nav__menu space-x-6 text-gray-700">
+            <ul class="flex space-x-6 text-white items-center">
+                <li id="dropdown-toggle"
+                    class="relative border-solid divide-x w-60 h-10 rounded-md flex items-center justify-center bg-white text-black cursor-pointer">
+                    <i class="fa-solid fa-bars mr-2" style="color: #000000;"></i>
+                    <a href="#" class="mr-2">DANH MỤC SẢN PHẨM</a>
 
-                                <!-- Dropdown Menu -->
-                                <ul class="dropdown-menu">
-                                    @foreach ($featuredCategories as $category)
-                                        <li class="category-item">
-                                            <a href="{{ route('category.show', $category->slug) }}"
-                                                class="flex items-center justify-between">
-                                                <div class="flex items-center space-x-2">
-                                                    <img src="{{ $category->image }}" alt="{{ $category->category_name }}"
-                                                        class="w-10 h-10 object-cover rounded-full">
-                                                    <span class="truncate">{{ $category->category_name }}</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                    <!-- Dropdown Menu -->
+                    <ul id="dropdown-menu" class="dropdown-menu">
+                        @foreach ($featuredCategories as $category)
+                            <li class="category-item">
+                                <a href="{{ route('category.show', $category->slug) }}"
+                                    class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <img src="{{ $category->image }}" alt="{{ $category->category_name }}"
+                                            class="w-10 h-10 object-cover rounded-full">
+                                        <span class="truncate">{{ $category->category_name }}</span>
+                                    </div>
+                                </a>
                             </li>
-                            <li class="flex items-center">
-                                <ul class="navbar-menu flex">
-                                    @foreach ($menuItems as $menuItem)
-                                        <li class="list-menu mr-8 text-lg font-bold items-center">
-                                            <a href="{{ $menuItem->url }}"
-                                                class="flex uppercase text-base font-normal link p-3">
-                                                <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
-                                                    style="filter: invert(1);">
-                                                <span>{{ $menuItem->name }}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                        @endforeach
+                    </ul>
+                </li>
+                <li class="flex items-center">
+                    <ul class="navbar-menu flex">
+                        @foreach ($menuItems as $menuItem)
+                            <li class="list-menu mr-8 text-lg font-bold items-center">
+                                <a href="{{ $menuItem->url }}"
+                                    class="flex uppercase text-base font-normal link p-3">
+                                    <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
+                                        style="filter: invert(1);">
+                                    <span>{{ $menuItem->name }}</span>
+                                </a>
                             </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+                        @endforeach
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<style>
+.relative {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: max-content;
+    height: 60vh;
+    background-color: #ffffff;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    z-index: 50;
+}
+
+.category-item {
+    list-style: none;
+}
+
+.category-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.3s ease;
+}
+
+.category-item a:hover {
+    background-color: #f3f4f6;
+}
 
 
 
+</style>
 
-            <style>
-                .relative {
-                    position: relative;
-                }
+<script>
+    document.getElementById('dropdown-toggle').addEventListener('click', function() {
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        if (dropdownMenu.style.display === 'grid') {
+            dropdownMenu.style.opacity = '0';
+            dropdownMenu.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                dropdownMenu.style.display = 'none';
+            }, 300); // Match this duration with the transition time
+        } else {
+            dropdownMenu.style.display = 'grid';
+            setTimeout(() => {
+                dropdownMenu.style.opacity = '1';
+                dropdownMenu.style.transform = 'translateY(0)';
+            }, 0); // Ensure it starts the transition immediately
+        }
+    });
+</script>
 
-                .dropdown-menu {
-                    display: none;
-                    /* Ẩn menu mặc định */
-                    position: absolute;
-                    /* Định vị menu theo phần tử cha */
-                    top: 100%;
-                    /* Đưa menu xuống dưới nút */
-                    left: 0;
-                    /* Canh menu về bên trái của phần tử cha */
-                    width: max-content;
-                    /* Menu rộng toàn màn hình */
-                    height: 60vh;
-                    /* Menu cao toàn màn hình */
-                    background-color: #ffffff;
-                    /* Màu nền của menu */
-                    overflow-y: auto;
-                    /* Cho phép cuộn nếu menu quá dài */
-                    opacity: 0;
-                    /* Menu ban đầu ẩn */
-                    transition: opacity 0.3s ease, transform 0.3s ease;
-                    /* Hiệu ứng mờ và chuyển động */
-                    transform: translateY(10px);
-                    /* Đưa menu xuống dưới một chút */
-                    display: grid;
-                    /* Sử dụng grid để chia đều các mục */
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    /* Chia đều các mục */
-                    gap: 1rem;
-                    /* Khoảng cách giữa các mục */
-                    padding: 1rem;
-                    /* Padding cho menu */
-                    z-index: 50;
-                }
 
-                /* Hiển thị menu khi hover trên phần tử cha */
-                .relative:hover .dropdown-menu {
-                    display: grid;
-                    /* Hiển thị menu khi hover */
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                /* Tùy chỉnh kiểu menu */
-                .category-item {
-                    list-style: none;
-                    /* Xóa dấu chấm trong danh sách */
-                }
-
-                .category-item a {
-                    text-decoration: none;
-                    /* Xóa gạch chân khỏi liên kết */
-                    color: inherit;
-                    /* Kế thừa màu chữ từ phần tử cha */
-                    display: block;
-                    /* Đảm bảo liên kết chiếm toàn bộ chiều rộng */
-                    padding: 0.5rem;
-                    /* Padding cho các mục menu */
-                    border-radius: 0.375rem;
-                    /* Bo tròn góc cho các mục menu */
-                    transition: background-color 0.3s ease;
-                    /* Hiệu ứng chuyển màu nền */
-                }
-
-                /* Tùy chỉnh cho các phần tử trong menu */
-                .category-item a:hover {
-                    background-color: #f3f4f6;
-                    /* Màu nền khi hover trên các mục menu */
-                }
-            </style>
+        </style>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -395,6 +439,7 @@
 <script>
     $(document).ready(function () {
         $('#cart-dropdown-toggle').hover(function () {
+            // Gửi yêu cầu AJAX để lấy danh sách sản phẩm trong giỏ hàng
             $.ajax({
                 url: '{{ route("cart.getCartItems") }}',
                 method: 'GET',

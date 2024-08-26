@@ -19,6 +19,7 @@ class OrderController1 extends Controller
 {
     public function checkout()
     {
+        $title = "đơn hàng";
         $user = auth()->user();
         $menuItems = Menu::all();
 
@@ -34,7 +35,7 @@ class OrderController1 extends Controller
             return $cartItem->product->price * $cartItem->quantity;
         });
 
-        return view('public.checkout', compact('cartItems', 'total','menuItems'));
+        return view('public.checkout', compact('cartItems', 'total','menuItems','title'));
     }
 
 
@@ -165,13 +166,17 @@ class OrderController1 extends Controller
 
     public function showLookupForm()
     {
+        $title = "Liên Hệ ";
+
         $menuItems = Menu::all();
 
-        return view('public.orders.lookup',compact('menuItems'));
+        return view('public.orders.lookup',compact('menuItems','title'));
     }
 
     public function lookup(Request $request)
     {
+        $title = "Tra cứu đơn hàng ";
+
         $request->validate([
             'order_code' => 'required|string|size:6',
         ]);
@@ -190,7 +195,7 @@ class OrderController1 extends Controller
             $orderItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
         });
     
-        return view('public.orders.detail', compact('order', 'menuItems'));
+        return view('public.orders.detail', compact('order', 'menuItems','title'));
     }
     
    
@@ -202,9 +207,9 @@ class OrderController1 extends Controller
     $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
     $orderInfo = "Thanh toán qua MoMo";
     $amount = $totalAmount;
-    $orderId = $order->order_code;  // Use order code or any unique identifier
-    $redirectUrl = url('/orders/checkout/success');  // Adjust redirect URL
-    $ipnUrl = url('/orders/checkout/ipn');  // IPN (Instant Payment Notification) URL
+    $orderId = $order->order_code;  
+    $redirectUrl = route('orders.paymentsuccess');  
+    $ipnUrl = url('/orders/checkout/ipn');  
 
     $requestId = time() . "";
     $requestType = "payWithATM";
