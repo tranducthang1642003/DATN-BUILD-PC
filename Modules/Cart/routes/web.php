@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cart/get-cart-count', 'CartController@getCartCount')->name('cart.get-count');
     Route::get('/cart-items', [CartController::class, 'getCartItems'])->name('cart.getCartItems');
     Route::post('/cart/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
+    Route::post('/cart/un-coupon', [CartController::class, 'unCoupon'])->name('cart.unCoupon');
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 
 });
