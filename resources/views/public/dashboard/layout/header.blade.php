@@ -19,7 +19,7 @@
                     <a href="{{route('like')}}"><li class="px-4 py-2 rounded-md hover:bg-blue-100 border-b border-yellow-500" onclick="changeTab(this, 'like')">
                         <i class="fa-solid fa-heart mr-2"></i> Like
                     </li></a>
-                    <a href=""><li class="px-4 py-2 rounded-md hover:bg-blue-100 border-b border-yellow-500" onclick="changeTab(this, 'orders')">
+                    <a href="{{route('myorder')}}"><li class="px-4 py-2 rounded-md hover:bg-blue-100 border-b border-yellow-500" onclick="changeTab(this, 'orders')">
                         <i class="fa-solid fa-cart-arrow-down mr-2"></i> My Orders
                     </li></a>
                     <li class="px-4 py-2 rounded-md hover:bg-blue-100 border-b border-yellow-500" onclick="changeTab(this, 'logout')">
