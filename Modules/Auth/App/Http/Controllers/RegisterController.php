@@ -63,10 +63,10 @@ class RegisterController extends Controller
 
     public function showVerifyTokenForm()
     {
-        
+        $title ='Quên mật khẩu ';
         $menuItems = Menu::all();
 
-        return view('public.auth.verify-token',compact('menuItems'));
+        return view('public.auth.verify-token',compact('menuItems', 'title'));
     }
 
     public function verifyToken(Request $request)
