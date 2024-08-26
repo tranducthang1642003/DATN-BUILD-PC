@@ -854,9 +854,6 @@ select {
 .pointer-events-none {
   pointer-events: none;
 }
-.collapse {
-  visibility: collapse;
-}
 .fixed {
   position: fixed;
 }
@@ -917,6 +914,9 @@ select {
 }
 .top-4 {
   top: 1rem;
+}
+.top-full {
+  top: 100%;
 }
 .z-0 {
   z-index: 0;
@@ -1013,6 +1013,14 @@ select {
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.my-28 {
+  margin-top: 7rem;
+  margin-bottom: 7rem;
 }
 .-ml-px {
   margin-left: -1px;
@@ -1161,6 +1169,9 @@ select {
 .grid {
   display: grid;
 }
+.contents {
+  display: contents;
+}
 .hidden {
   display: none;
 }
@@ -1239,6 +1250,12 @@ select {
 }
 .h-screen {
   height: 100vh;
+}
+.h-60 {
+  height: 15rem;
+}
+.h-40 {
+  height: 10rem;
 }
 .max-h-20 {
   max-height: 5rem;
@@ -1607,9 +1624,6 @@ select {
 .overflow-hidden {
   overflow: hidden;
 }
-.overflow-x-auto {
-  overflow-x: auto;
-}
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -1662,10 +1676,6 @@ select {
 .rounded-t-xl {
   border-top-left-radius: 0.75rem;
   border-top-right-radius: 0.75rem;
-}
-.rounded-t-lg {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
 }
 .border {
   border-width: 1px;
@@ -2051,6 +2061,10 @@ select {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
 }
 .pb-12 {
   padding-bottom: 3rem;
@@ -2735,6 +2749,12 @@ select {
 }
 
 
+.hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2981,6 +3001,11 @@ select {
 .active\:text-gray-700:active {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+
+.group:hover .group-hover\:block {
+  display: block;
 }
 
 
@@ -3587,6 +3612,10 @@ select {
 
   .xl\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .xl\:px-12 {

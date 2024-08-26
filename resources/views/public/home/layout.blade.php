@@ -354,17 +354,14 @@
 </section>
 
 
-<section class="product container py-5">
-    <div class="reviews ">
+<section class="product container py-5"style="display: contents;">
+    <div class="reviews">
         <div class="row justify-content-center one-time">
-            @foreach($reviews as $review)
+            @forelse($reviews as $review)
                 <div class="col-md-8 mb-4">
                     <div class="review-item card shadow-sm">
-                       
-
                         <div class="card-body text-center">
                             <div class="d-flex justify-content-center align-items-center mb-3">
-                                
                                 @if($review->user->profile_image)
                                     <img src="{{ $review->user->profile_image }}" alt="Avatar" class="rounded-circle mr-3" style="width: 50px; height: 50px;">
                                 @else
@@ -376,7 +373,7 @@
                                 </div>
                             </div>
                             <p class="card-text">{{ $review->comment }}</p>
-                            <div class="text-warning mb-2">
+                            <div class="text-warning mb-2 text-yellow-500">
                                 @for ($i = 0; $i < $review->rating; $i++)
                                     <i class="fas fa-star"></i>
                                 @endfor
@@ -385,25 +382,29 @@
                                 @endfor
                             </div>
                             <div class="card-header text-center">
-                            <h2 class="text-sm font-bold">{{ $review->product->product_name }}</h2>
-                            @if($review->product->images->isNotEmpty())
-                            <div class="product-img overflow-hidden text-center">
-                                <img src="{{ $review->product->images->first()->image_path }}" alt="{{ $review->product->product_name }}"
-                                    class="card-img-top img-fluid" style="max-height:50px; object-fit: cover; margin: 0 auto;">
+                                <h2 class="text-sm font-bold">{{ $review->product->product_name }}</h2>
+                                @if($review->product->images->isNotEmpty())
+                                    <div class="product-img overflow-hidden text-center">
+                                        <img src="{{ $review->product->images->first()->image_path }}" alt="{{ $review->product->product_name }}"
+                                             class="card-img-top img-fluid" style="max-height: 50px; object-fit: cover; margin: 0 auto;">
+                                    </div>
+                                @endif
                             </div>
-                        @endif
-                        </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-12 text-center">
+                    <p class="text-muted">No reviews available.</p>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>
 
 
 <section>
-    <div class="pt-3 mb-5 text-xs sm:text-base container p-8">
+    <div class="pt-3 mb-5 text-xs sm:text-base container p-8 " style="display: contents;">
         <div class="grid gap-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-base">
             <div class="item border rounded-lg">
                 <p class="text-center p-5 ">

@@ -45,18 +45,27 @@ class HomeRepository implements HomeRepositoryInterface
         return $products;
     }
 
-    public function getBestsellingProducts($limit = 5)
+    public function getMostPurchasedProducts($limit = 5)
     {
-
-        $products = Product::orderByDesc('sale', true)->get();
+        $products = Product::select('products.*')
+            ->with(['images' => function($query) {
+                $query->where('is_primary', 1);
+            }])
+            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
+            ->selectRaw('products.id, products.product_name, products.price, COALESCE(SUM(order_items.quantity), 0) as total_quantity_sold')
+            ->groupBy('products.id', 'products.product_name', 'products.price')
+            ->orderBy('total_quantity_sold', 'desc')
+            ->limit($limit)
+            ->get();
+        
         foreach ($products as $product) {
-            $primary_image = ProductImage::where('product_id', $product->id)
-                ->where('is_primary', 1)
-                ->first();
-            $product->primary_image_path = $primary_image ? $primary_image->image_path : null;
+            $product->primary_image_path = $product->images->first()->image_path ?? null;
         }
+        
         return $products;
     }
+    
+    
 
     public function getProductByProduct($slug)
     {
