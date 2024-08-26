@@ -17,7 +17,7 @@ class LikeController extends Controller
     {
         $user=Auth::User();
         $menuItems = Menu::all();
-        $likeItem = wishlists::where('user_id', $user->id)->with('product')->get();
+        $likeItem = wishlists::where('user_id', $user->id)->with('product')->paginate(4);
         $likeItem->each(function ($likeItem) {
             $primary_image = $likeItem->product->images->firstWhere('is_primary', 1);
             $likeItem->primary_image_path = $primary_image ? $primary_image->image_path : null;
@@ -34,15 +34,12 @@ class LikeController extends Controller
     $user = auth()->user();
     $productId = $request->input('product_id');
     $product = Product::find($productId);
-
     if (!$product) {
         return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
     }
-
     $existingFavorite = Wishlists::where('user_id', $user->id)
         ->where('product_id', $productId)
         ->first();
-
     if ($existingFavorite) {
         // Nếu sản phẩm đã tồn tại trong danh sách yêu thích, xóa nó
         $existingFavorite->delete();

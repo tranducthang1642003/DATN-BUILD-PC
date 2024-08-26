@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Order\Entities\Order_items;
 use Modules\Auth\Entities\User;
-
+use Modules\Product\Entities\Product;
 class Orders extends Model
 {
     protected $table = 'orders';
@@ -26,5 +26,9 @@ class Orders extends Model
     public function user()
     {
         return $this->hasMany(User::class);
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }
