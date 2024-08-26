@@ -41,6 +41,8 @@ class CartController extends Controller
             $text_price_sale = number_format($totalDiscount);
             $name_discount = $coupon['code'] ?? '';
             $totalPrice = $totalPrices - $totalDiscount;
+        }else {
+            $totalPrice = $totalPrices;
         }
         $cartItems->each(function ($cartItem) {
             $primaryImage = $cartItem->product->images->firstWhere('is_primary', 1);

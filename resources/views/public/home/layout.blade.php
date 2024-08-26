@@ -52,14 +52,14 @@
                                     class="hover:text-blue-600 text-lg hover:no-underline font-semibold leading-tight text_css">{{ $product->product_name }}</a>
                                 <div class="flex items-center mt-2">
                                     <div class="text-sm text-slate-500 line-through">
-                                        {{ number_format($product->price_sale, 2) }}
+                                        {{ number_format($product->price, 2) }}
                                     </div>
                                     <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
                                         {{ $product->discount_percentage }}%
                                     </div>
                                 </div>
                                 <div class="text-red-700 font-bold text-lg mt-2">
-                                    {{ number_format($product->price) }} VND
+                                    {{ number_format($product->price_sale) }} VND
                                 </div>
                             </div>
                             <div

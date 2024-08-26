@@ -76,18 +76,20 @@
                     Mã màu:
                     <span class="ml-3 text-red-400">{{ $product->color }}</span>
                 </div>
-                <div class="box-price-detail flex mt-3 border-2 rounded-2xl p-1 md:p-3">
-                    <p class="price-detail text-xs lg:text-xl xl:text-4xl font-semibold text-red-700 ml-3 mr-5">
-                        {{ number_format($product->price) }} VND
-                    </p>
-                    <span class="market-price-detail text-base md:text-lg lg:text-xl line-through text-slate-400 place-self-center mr-5">
-                        4.000.000₫
-                    </span>
-                    <div class="save-price-detail text-base md:text-lg lg:text-xl text-red-700 place-self-center hidden lg:block">
-                        Tiết kiệm 810.000đ
+                <div class="box-price-detail mt-3 border-2 rounded-2xl p-1 md:p-3">
+                    <div class="flex items-center mt-2">
+                        <div class="text-sm text-slate-500 line-through">
+                            {{ number_format($product->price, 2) }}
+                        </div>
+                        <div class="bg-red-700 text-white rounded-full ml-3 pl-3 pr-3 text-sm">
+                            {{ $product->discount_percentage }}%
+                        </div>
+                    </div>
+                    <div class="text-red-700 font-bold text-2xl mt-2">
+                        <p>{{ number_format($product->price_sale) }} VND</p>
                     </div>
                     <div class="bg-red-700 text-red-700 font-bold rounded-full ml-3 pl-3 pr-3 place-self-center block lg:hidden">
-                    {{ $product->discount_percentage }}%
+                        {{ $product->discount_percentage }}%
                     </div>
                 </div>
                 <div class="detail__buy-quantity flex mt-2 md:mt-5 justify-start">
@@ -253,22 +255,22 @@
                                         {{-- like --}}
                                         <div class="flex items-center justify-center h-10 w-10 bg-red-300 rounded-full text-white">
                                             @if ($likeItem && $likeItem->contains('product_id', $product->id))
-                                        <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-dark btn-square">
-                                                <i class="fa fa-heart" style="color:#ff0000"></i>
-                                            </button>
-                                        </form>
-                                    @else
-                                        <form id="like-form" action="{{ route('addlike') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <button type="submit">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </button>
-                                        </form>
-                                    @endif
+                                            <form action="{{ route('deletelike', $likeItem->where('product_id', $product->id)->first()->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-outline-dark btn-square">
+                                                    <i class="fa fa-heart" style="color:#ff0000"></i>
+                                                </button>
+                                            </form>
+                                            @else
+                                            <form id="like-form" action="{{ route('addlike') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit">
+                                                    <i class="fa-solid fa-heart"></i>
+                                                </button>
+                                            </form>
+                                            @endif
                                         </div>
                                         {{-- end like --}}
                                         {{-- cart --}}
@@ -341,7 +343,7 @@
                                                     <i class="fa fa-heart" style="color:#ff0000"></i>
                                                 </button>
                                             </form>
-                                        @else
+                                            @else
                                             <form id="like-form" action="{{ route('addlike') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -349,7 +351,7 @@
                                                     <i class="fa-solid fa-heart"></i>
                                                 </button>
                                             </form>
-                                        @endif
+                                            @endif
                                         </div>
                                         {{-- end like --}}
                                         {{-- cart --}}
