@@ -18,83 +18,69 @@ class CartController extends Controller
     {
         $user = auth()->user();
         $menuItems = Menu::all();
-        $title ='Giỏ hàng';
-
+        $title = 'Giỏ hàng';
         if ($user) {
             $cartItems = CartItem::where('user_id', $user->id)
                 ->with('product.images')
                 ->get();
         } else {
-            $cartItems = collect(session()->get('cart', []));
+            $cartItems = collect(session()->get('cart', []))->map(function ($item) {
+                return (object) $item;
+            });
         }
-
-        $totalPrice = $cartItems->sum(function ($cartItem) {
-            return $cartItem->product->price * $cartItem->quantity;
+        $totalPrices = $cartItems->sum(function ($cartItem) {
+            return isset($cartItem->product->price) ? $cartItem->product->price * $cartItem->quantity : 0;
         });
-
         $totalDiscount = 0;
+        $text_price_sale = '0';
+        $name_discount = '';
+        $totalPrice = 0;
         if (session()->has('coupon')) {
             $coupon = session()->get('coupon');
-            $totalDiscount = $coupon['discount'];
-            $totalPrice -= $totalDiscount;
+            $totalDiscount = $coupon['discount'] ?? 0;
+            $text_price_sale = number_format($totalDiscount);
+            $name_discount = $coupon['code'] ?? '';
+            $totalPrice = $totalPrices - $totalDiscount;
         }
-
         $cartItems->each(function ($cartItem) {
             $primaryImage = $cartItem->product->images->firstWhere('is_primary', 1);
             $cartItem->primary_image_path = $primaryImage ? $primaryImage->image_path : null;
         });
-
-        return view('public.cart', compact('cartItems', 'totalPrice', 'totalDiscount','menuItems','title'));
+        return view('public.cart', compact('cartItems', 'totalPrice', 'totalDiscount', 'menuItems', 'title', 'text_price_sale', 'name_discount', 'totalPrices'));
     }
-
-    // public function applyCoupon(Request $request)
-    // {
-    //     $request->validate([
-    //         'coupon_code' => 'required|string',
-    //     ]);
-
-    //     $coupon = Promotion::where('promotion_code', $request->coupon_code)
-    //         ->where('start_date', '<=', now())
-    //         ->where('end_date', '>=', now())
-    //         ->first();
-
-    //     if (!$coupon) {
-    //         return redirect()->back()->withErrors('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
-    //     }
-
-    //     session()->put('coupon', [
-    //         'code' => $coupon->promotion_code,
-    //         'discount' => $coupon->discount,
-    //     ]);
-
-    //     return redirect()->route('cart')->with('success_message', 'Đã áp dụng mã giảm giá thành công.');
-    // }
-
 
     public function applyCoupon(Request $request)
-{
-    $request->validate([
-        'coupon_code' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'coupon_code' => 'required|string',
+        ]);
+        $coupon = Promotion::where('promotion_code', $request->coupon_code)
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
 
-    $coupon = Promotion::where('promotion_code', $request->coupon_code)
-        ->where('start_date', '<=', now())
-        ->where('end_date', '>=', now())
-        ->first();
+        if (!$coupon) {
+            return redirect()->back()->withErrors('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+        }
+        $existingCoupon = session()->get('coupon');
 
-    if (!$coupon) {
-        return redirect()->back()->withErrors('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+        if ($existingCoupon && $existingCoupon['code'] === $coupon->promotion_code) {
+            return redirect()->route('cart')->with('info_message', 'Mã giảm giá này đã được áp dụng.');
+        }
+        session()->put('coupon', [
+            'code' => $coupon->promotion_code,
+            'discount' => $coupon->discount,
+        ]);
+        return redirect()->route('cart')->with('success_message', 'Đã áp dụng mã giảm giá thành công.');
     }
 
-    // Ensure the coupon discount is correctly applied
-    $discount = $coupon->discount;
-    session()->put('coupon', [
-        'code' => $coupon->promotion_code,
-        'discount' => $discount,
-    ]);
 
-    return redirect()->route('cart')->with('success_message', 'Đã áp dụng mã giảm giá thành công.');
-}
+    public function unCoupon()
+    {
+        session()->forget('coupon');
+        return redirect()->route('cart')->with('success_message', 'Mã giảm giá đã được gỡ bỏ.');
+    }
+
 
     public function addToCart(Request $request)
     {
@@ -221,17 +207,17 @@ class CartController extends Controller
     public function destroy($id)
     {
         \Log::info("Attempting to delete cart item with ID: $id");
-        
+
         if (auth()->check()) {
             \Log::info("User is authenticated.");
             $user = auth()->user();
             $cartItem = CartItem::find($id);
-    
+
             if (!$cartItem || $cartItem->user_id !== $user->id) {
                 \Log::error("Cart item not found or user does not own the item.");
                 return redirect()->route('cart')->with('error_message', 'Sản phẩm không tồn tại trong giỏ hàng hoặc bạn không có quyền xóa sản phẩm này.');
             }
-    
+
             $cartItem->delete();
             $totalQuantity = CartItem::where('user_id', $user->id)->sum('quantity');
         } else {
@@ -243,10 +229,9 @@ class CartController extends Controller
             session()->put('cart', $cart);
             $totalQuantity = array_sum(array_column($cart, 'quantity'));
         }
-    
+
         session()->put('cart_count', $totalQuantity);
-    
+
         return redirect()->route('cart')->with('success_message', 'Đã xóa sản phẩm khỏi giỏ hàng.');
     }
-    
 }

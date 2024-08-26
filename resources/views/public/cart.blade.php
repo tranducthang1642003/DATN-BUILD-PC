@@ -90,6 +90,15 @@
                     <a href="#" class="text-yellow-500 hover:underline">Xem thêm <i
                             class="fa-solid fa-arrow-right"></i></a>
                 </div>
+                @if ($text_price_sale)
+                <form action="{{ route('cart.unCoupon') }}" method="POST" class="mt-2">
+                    @csrf
+                    <div class="flex justify-between items-center p-4">
+                        <p>Đã áp dụng mã giảm: {{ $name_discount }}</p>
+                        <button type="submit" class="btn btn-danger rounded-md px-4 py-2 bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:bg-red-600">Xóa</button>
+                    </div>
+                </form>
+                @else
                 <form action="{{ route('cart.applyCoupon') }}" method="POST" class="px-4 py-3">
                     @csrf
                     <div class="flex items-center">
@@ -101,12 +110,18 @@
                         </button>
                     </div>
                 </form>
+                @endif
             </div>
-
             <div class="border p-4 mt-5">
                 <div class="flex justify-between p-2 border-b-2">
                     <span>Tổng giá tiền:</span>
-                    <span>{{ number_format($totalPrice) }} VND</span>
+                    <span>{{ number_format($totalPrices) }} VND</span>
+                </div>
+                <div class="flex justify-between p-2 border-b-2">
+                    <span>Đã giảm:</span>
+                    <span class="text-red-600 decoration-slice">
+                        -{{ $text_price_sale ?? 0 }} VND
+                    </span>
                 </div>
                 <div class="flex justify-between p-2 border-b-2">
                     <span>tổng:</span>

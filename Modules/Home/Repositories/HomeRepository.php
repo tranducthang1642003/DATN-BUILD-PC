@@ -69,6 +69,7 @@ class HomeRepository implements HomeRepositoryInterface
                 'products.category_id',   // Add category_id to the group by clause
                 'products.brand_id',      // Add brand_id to the group by clause
                 'products.price',         // Add price to the group by clause
+                'products.price_sale',         // Add price to the group by clause
                 'products.stock',         // Add stock to the group by clause
                 'products.description', 
                 'products.specifications', 
