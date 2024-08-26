@@ -272,7 +272,7 @@
                 <ul class="navbar-menu">
                                     @foreach ($menuItems as $menuItem)
                                         <li class="list-menu text-lg font-bold items-center">
-                                            <a href="{{ $menuItem->url }}"
+                                            <a href="../../../{{ $menuItem->url }}"
                                                 class="flex text-base font-normal link p-3">
                                                 <img src="{{ asset($menuItem->image) }}" alt="" class="w-5 h-5 mr-2 icon"
                                                     style="filter: invert(0);">

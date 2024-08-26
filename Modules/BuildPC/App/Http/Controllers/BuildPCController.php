@@ -31,27 +31,27 @@ class BuildPCController extends Controller
         $userId = Auth::id();
         $configurationItems = session()->get('configuration_items', []);
         $menuItems = Menu::all();
-    
+
         // Calculate total price
         $totalPrice = collect($configurationItems)->sum(function ($item) {
             return $item['product']->price * $item['quantity'];
         });
-    
+
         // Fetch primary images for each product in configurationItems
         foreach ($configurationItems as &$item) {
             $product = Product::findOrFail($item['product_id']);
             $primaryImage = $product->images()->where('is_primary', true)->first();
-    
+
             if ($primaryImage) {
                 $item['image_path'] = $primaryImage->image_path;
             } else {
                 $item['image_path'] = asset('images/default-product-image.jpg');
             }
         }
-    
+
         // Fetch featured categories from repository
         $Productandcategory = $this->BuildPCRepository->getFeaturedCategories();
-    
+
         // Fetch brands
         $brands = DB::table('products')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
@@ -59,26 +59,26 @@ class BuildPCController extends Controller
             ->distinct()
             ->get();
         $blogs = Blogs::latest()->take(8)->get();
-    
+
         // Filter products by selected brands
         $selectedBrands = $request->input('brand', []);
         if (!empty($selectedBrands)) {
             $products = Product::whereIn('brand_id', function ($query) use ($selectedBrands) {
                 $query->select('id')
-                      ->from('brands')
-                      ->whereIn('brand_name', $selectedBrands);
+                    ->from('brands')
+                    ->whereIn('brand_name', $selectedBrands);
             })->get();
         } else {
             $products = Product::all();
         }
-    
+
         if ($request->ajax()) {
             return view('public.buildPC.partials.products', compact('products'))->render();
         }
-    
-        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice', 'menuItems', 'brands', 'blogs', 'products','title'));
+
+        return view('public.buildPC.index', compact('Productandcategory', 'configurationItems', 'totalPrice', 'menuItems', 'brands', 'blogs', 'products', 'title'));
     }
-    
+
 
     public function create()
     {
@@ -178,19 +178,19 @@ class BuildPCController extends Controller
         if (!auth()->check()) {
             return redirect()->route('buildpc')->with('error', 'Bạn phải đăng nhập để thêm sản phẩm vào giỏ hàng.');
         }
-    
+
         $configurationItems = session()->get('configuration_items', []);
-    
+
         // Kiểm tra nếu có các mục cấu hình để thêm vào giỏ hàng
         if (empty($configurationItems)) {
             return redirect()->route('cart')->with('error', 'Không có sản phẩm nào để thêm vào giỏ hàng.');
         }
-    
+
         try {
             foreach ($configurationItems as $item) {
                 // Tìm sản phẩm và xử lý lỗi nếu không tìm thấy
                 $product = Product::findOrFail($item['product_id']);
-    
+
                 // Tạo mục giỏ hàng
                 CartItem::create([
                     'user_id' => auth()->id(),
@@ -199,44 +199,41 @@ class BuildPCController extends Controller
                     'price' => $product->price,
                 ]);
             }
-    
+
             // Xóa các mục cấu hình đã thêm vào giỏ hàng
             session()->forget('configuration_items');
-    
+
             // Redirect với thông báo thành công
             return redirect()->route('cart')->with('success', 'Đã thêm các linh kiện vào giỏ hàng thành công.');
-    
         } catch (\Exception $e) {
             // Ghi lại lỗi và redirect với thông báo lỗi
             \Log::error($e->getMessage());
             return redirect()->route('cart')->with('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
         }
     }
-    
+
 
     public function viewConfiguration()
-{
-    $configurations = Configuration::with('items.product')->get();
-    $menuItems = Menu::all();
+    {
+        $title = 'Xem Cấu Hình';
+        $configurations = Configuration::with('items.product')->get();
+        $menuItems = Menu::all();
 
-    foreach ($configurations as $configuration) {
-        $configurationItems = $configuration->items;
-        $totalPrice = $configuration->total_price;
+        foreach ($configurations as $configuration) {
+            $configurationItems = $configuration->items;
+            $totalPrice = $configuration->total_price;
 
-        foreach ($configurationItems as $item) {
-            $primaryImage = $item->product->images()->where('is_primary', true)->first();
+            foreach ($configurationItems as $item) {
+                $primaryImage = $item->product->images()->where('is_primary', true)->first();
 
-            if ($primaryImage) {
-                $item->image_path = $primaryImage->image_path;
-            } else {
-                $item->image_path = asset('images/default-product-image.jpg');
+                if ($primaryImage) {
+                    $item->image_path = $primaryImage->image_path;
+                } else {
+                    $item->image_path = asset('images/default-product-image.jpg');
+                }
             }
         }
+
+        return view('public.buildPC.showbuildpc', compact('configurations', 'menuItems', 'configurationItems', 'totalPrice', 'title'));
     }
-
-    return view('public.buildPC.showbuildpc', compact('configurations', 'menuItems', 'configurationItems', 'totalPrice'));
-}
-
-
-
 }
